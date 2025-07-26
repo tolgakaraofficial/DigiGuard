@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "DigiGuard",
+    "slug": "digiguard-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f172a"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f172a"
+      },
+      "package": "com.digiguard.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Fotoğraf çekmek ve seçmek için kamera erişimi gereklidir.",
+          "cameraPermission": "Fotoğraf çekmek için kamera erişimi gereklidir."
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Ses kaydı için mikrofon erişimi gereklidir."
+        }
+      ]
+    ]
+  }
+}
