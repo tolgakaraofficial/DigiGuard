@@ -4,6 +4,7 @@ import { LoginForm } from './components/LoginForm';
 import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
+import { HashDemo } from './components/HashDemo';
 
 type AppState = 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -50,7 +51,14 @@ function App() {
   const renderContent = () => {
     switch (state) {
       case 'login':
-        return <LoginForm onLogin={handleLogin} />;
+        return (
+          <div>
+            <LoginForm onLogin={handleLogin} />
+            <div className="mt-8">
+              <HashDemo />
+            </div>
+          </div>
+        );
       case 'verification':
         return user ? (
           <VerificationForm
