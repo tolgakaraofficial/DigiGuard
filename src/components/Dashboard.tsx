@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle } from 'lucide-react';
+import { PaymentButtons } from './PaymentButtons';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -33,6 +34,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
     },
   ];
 
+  const handlePayment = (type: 'certificate' | 'report', amount: number) => {
+    console.log(`Payment completed: ${type} - $${amount}`);
+    // Here you can add logic to update user's premium features
+  };
   return (
     <div>
       {/* Header */}
@@ -94,6 +99,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Premium Services Section */}
+      <div className="mt-12">
+        <PaymentButtons onPayment={handlePayment} />
       </div>
     </div>
   );
