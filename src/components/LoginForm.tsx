@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Fingerprint } from 'lucide-react';
+import { BiometricLogin } from './BiometricLogin';
+import { BiometricData } from '../services/BiometricService';
 
 interface LoginFormProps {
   onLogin: (email: string, phone: string) => void;
@@ -9,6 +11,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showBiometric, setShowBiometric] = useState(false);
+  const [biometricError, setBiometricError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +24,41 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     onLogin(email, phone);
     setIsLoading(false);
   };
+
+  const handleBiometricSuccess = (biometricData: BiometricData) => {
+    console.log('Biyometrik doğrulama başarılı:', biometricData);
+    // Biyometrik verilerle otomatik giriş
+    onLogin('biometric@digiguard.com', 'biometric-auth');
+  };
+
+  const handleBiometricError = (error: string) => {
+    setBiometricError(error);
+    setTimeout(() => setBiometricError(null), 5000);
+  };
+
+  if (showBiometric) {
+    return (
+      <div>
+        <BiometricLogin 
+          onSuccess={handleBiometricSuccess}
+          onError={handleBiometricError}
+        />
+        {biometricError && (
+          <div className="mt-4 p-4 bg-red-600/20 border border-red-500/30 rounded-lg">
+            <p className="text-red-400 text-sm">{biometricError}</p>
+          </div>
+        )}
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setShowBiometric(false)}
+            className="text-blue-400 hover:text-blue-300 text-sm"
+          >
+            ← Geleneksel girişe dön
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto">
@@ -86,6 +125,26 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             )}
           </button>
         </form>
+
+        {/* Biometric Login Option */}
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-600" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-slate-800 text-slate-400">veya</span>
+            </div>
+          </div>
+          
+          <button
+            onClick={() => setShowBiometric(true)}
+            className="mt-4 w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 transform hover:scale-105"
+          >
+            <Fingerprint className="h-5 w-5" />
+            <span>Biyometrik Giriş (Web3/Web4/Web5)</span>
+          </button>
+        </div>
 
         <div className="mt-6 text-center">
           <p className="text-xs text-slate-400">
