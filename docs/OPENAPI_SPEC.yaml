@@ -1,0 +1,1054 @@
+openapi: 3.0.3
+info:
+  title: DigiGuard API
+  description: |
+    DigiGuard API provides secure digital identity verification and protection services.
+    
+    ## Features
+    - Multi-factor authentication
+    - Biometric verification (face, voice)
+    - AI-powered fake content detection
+    - Blockchain certificate generation
+    - Real-time security monitoring
+    
+    ## Authentication
+    Most endpoints require a valid JWT token in the Authorization header:
+    ```
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+    ```
+  version: 1.0.0
+  contact:
+    name: DigiGuard API Support
+    email: api-support@digiguard.com
+    url: https://docs.digiguard.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: https://digiguard.com/terms
+
+servers:
+  - url: https://api.digiguard.com/v1
+    description: Production server
+  - url: https://api-staging.digiguard.com/v1
+    description: Staging server
+  - url: https://api-dev.digiguard.com/v1
+    description: Development server
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register new user
+      description: Register a new user account with email and phone verification
+      operationId: registerUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            example:
+              email: "user@example.com"
+              phone: "+1234567890"
+              password: "SecurePassword123!"
+              terms_accepted: true
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          $ref: '#/components/responses/Conflict'
+
+  /auth/verify:
+    post:
+      tags:
+        - Authentication
+      summary: Verify user account
+      description: Verify user account using OTP codes sent via email and SMS
+      operationId: verifyUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyRequest'
+      responses:
+        '200':
+          description: User verified successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User login
+      description: Authenticate user and receive access tokens
+      operationId: loginUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/refresh:
+    post:
+      tags:
+        - Authentication
+      summary: Refresh access token
+      description: Get new access token using refresh token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+      responses:
+        '200':
+          description: Token refreshed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/logout:
+    post:
+      tags:
+        - Authentication
+      summary: User logout
+      description: Logout user and invalidate tokens
+      operationId: logoutUser
+      responses:
+        '204':
+          description: Logout successful
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /user/profile:
+    get:
+      tags:
+        - User Management
+      summary: Get user profile
+      description: Retrieve current user's profile information
+      operationId: getUserProfile
+      responses:
+        '200':
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      tags:
+        - User Management
+      summary: Update user profile
+      description: Update user profile information
+      operationId: updateUserProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /biometric/enroll:
+    post:
+      tags:
+        - Biometric
+      summary: Enroll biometric data
+      description: Enroll user's biometric data (face, voice) for verification
+      operationId: enrollBiometric
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BiometricEnrollRequest'
+      responses:
+        '201':
+          description: Biometric data enrolled successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BiometricEnrollResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /biometric/verify:
+    post:
+      tags:
+        - Biometric
+      summary: Verify biometric identity
+      description: Verify user identity using biometric data
+      operationId: verifyBiometric
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BiometricVerifyRequest'
+      responses:
+        '200':
+          description: Biometric verification completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BiometricVerifyResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /media/upload:
+    post:
+      tags:
+        - Media Analysis
+      summary: Upload media for analysis
+      description: Upload media files for AI-powered analysis
+      operationId: uploadMedia
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MediaUploadRequest'
+      responses:
+        '201':
+          description: Media uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaUploadResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /media/analysis/{analysis_id}:
+    get:
+      tags:
+        - Media Analysis
+      summary: Get analysis results
+      description: Retrieve analysis results for uploaded media
+      operationId: getAnalysisResults
+      parameters:
+        - name: analysis_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "ana_1234567890"
+      responses:
+        '200':
+          description: Analysis results retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalysisResultsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /certificates/generate:
+    post:
+      tags:
+        - Certificates
+      summary: Generate certificate
+      description: Generate digital identity certificate
+      operationId: generateCertificate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateCertificateRequest'
+      responses:
+        '201':
+          description: Certificate generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /certificates/{certificate_id}/verify:
+    get:
+      tags:
+        - Certificates
+      summary: Verify certificate
+      description: Verify certificate authenticity and validity
+      operationId: verifyCertificate
+      security: []
+      parameters:
+        - name: certificate_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "cert_1234567890"
+      responses:
+        '200':
+          description: Certificate verification completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateVerifyResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from login endpoint
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: API key for server-to-server authentication
+
+  schemas:
+    # Request Schemas
+    RegisterRequest:
+      type: object
+      required:
+        - email
+        - phone
+        - password
+        - terms_accepted
+      properties:
+        email:
+          type: string
+          format: email
+          example: "user@example.com"
+        phone:
+          type: string
+          pattern: '^\+[1-9]\d{1,14}$'
+          example: "+1234567890"
+        password:
+          type: string
+          minLength: 8
+          example: "SecurePassword123!"
+        terms_accepted:
+          type: boolean
+          example: true
+
+    VerifyRequest:
+      type: object
+      required:
+        - user_id
+        - email_code
+        - sms_code
+      properties:
+        user_id:
+          type: string
+          example: "usr_1234567890"
+        email_code:
+          type: string
+          pattern: '^\d{6}$'
+          example: "123456"
+        sms_code:
+          type: string
+          pattern: '^\d{6}$'
+          example: "654321"
+
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: "user@example.com"
+        password:
+          type: string
+          example: "SecurePassword123!"
+
+    RefreshRequest:
+      type: object
+      required:
+        - refresh_token
+      properties:
+        refresh_token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+    UpdateProfileRequest:
+      type: object
+      properties:
+        personal_info:
+          $ref: '#/components/schemas/PersonalInfo'
+
+    BiometricEnrollRequest:
+      type: object
+      required:
+        - biometric_type
+      properties:
+        face_image:
+          type: string
+          format: binary
+        voice_sample:
+          type: string
+          format: binary
+        biometric_type:
+          type: string
+          enum: [face, voice, face_voice]
+          example: "face_voice"
+
+    BiometricVerifyRequest:
+      type: object
+      properties:
+        face_image:
+          type: string
+          format: binary
+        voice_sample:
+          type: string
+          format: binary
+        challenge_response:
+          type: string
+          example: "user_spoke_phrase"
+
+    MediaUploadRequest:
+      type: object
+      required:
+        - files
+        - analysis_type
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            format: binary
+        analysis_type:
+          type: string
+          enum: [deepfake_detection, authenticity_check, metadata_analysis]
+          example: "deepfake_detection"
+        priority:
+          type: string
+          enum: [low, normal, high]
+          default: normal
+
+    GenerateCertificateRequest:
+      type: object
+      required:
+        - certificate_type
+      properties:
+        certificate_type:
+          type: string
+          enum: [identity_verification, biometric_certification]
+          example: "identity_verification"
+        validity_period:
+          type: string
+          enum: [1_month, 6_months, 1_year, 2_years]
+          default: "1_year"
+        include_biometric_hash:
+          type: boolean
+          default: true
+
+    # Response Schemas
+    RegisterResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            user_id:
+              type: string
+              example: "usr_1234567890"
+            email:
+              type: string
+              example: "user@example.com"
+            phone:
+              type: string
+              example: "+1234567890"
+            status:
+              type: string
+              example: "pending_verification"
+            created_at:
+              type: string
+              format: date-time
+        meta:
+          type: object
+          properties:
+            verification_required:
+              type: boolean
+            verification_methods:
+              type: array
+              items:
+                type: string
+
+    VerifyResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            user_id:
+              type: string
+              example: "usr_1234567890"
+            status:
+              type: string
+              example: "verified"
+            verified_at:
+              type: string
+              format: date-time
+
+    LoginResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            access_token:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            refresh_token:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            token_type:
+              type: string
+              example: "Bearer"
+            expires_in:
+              type: integer
+              example: 900
+            user:
+              $ref: '#/components/schemas/User'
+
+    RefreshResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            access_token:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            token_type:
+              type: string
+              example: "Bearer"
+            expires_in:
+              type: integer
+              example: 900
+
+    UserProfileResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/UserProfile'
+
+    BiometricEnrollResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            enrollment_id:
+              type: string
+              example: "bio_1234567890"
+            biometric_type:
+              type: string
+              example: "face_voice"
+            quality_score:
+              type: number
+              format: float
+              example: 0.95
+            enrolled_at:
+              type: string
+              format: date-time
+            status:
+              type: string
+              example: "active"
+
+    BiometricVerifyResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            verification_id:
+              type: string
+              example: "ver_1234567890"
+            result:
+              type: string
+              enum: [verified, failed, suspicious]
+              example: "verified"
+            confidence_score:
+              type: number
+              format: float
+              example: 0.98
+            liveness_detected:
+              type: boolean
+              example: true
+            biometric_match:
+              type: boolean
+              example: true
+            verified_at:
+              type: string
+              format: date-time
+
+    MediaUploadResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            upload_id:
+              type: string
+              example: "upl_1234567890"
+            files:
+              type: array
+              items:
+                $ref: '#/components/schemas/UploadedFile'
+            analysis_queued:
+              type: boolean
+              example: true
+            estimated_completion:
+              type: string
+              format: date-time
+
+    AnalysisResultsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            analysis_id:
+              type: string
+              example: "ana_1234567890"
+            upload_id:
+              type: string
+              example: "upl_1234567890"
+            status:
+              type: string
+              enum: [queued, processing, completed, failed]
+              example: "completed"
+            results:
+              $ref: '#/components/schemas/AnalysisResults'
+            processed_at:
+              type: string
+              format: date-time
+
+    CertificateResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            certificate_id:
+              type: string
+              example: "cert_1234567890"
+            certificate_data:
+              type: string
+              example: "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"
+            blockchain_hash:
+              type: string
+              example: "0x1234567890abcdef..."
+            qr_code:
+              type: string
+              example: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..."
+            issued_at:
+              type: string
+              format: date-time
+            expires_at:
+              type: string
+              format: date-time
+            status:
+              type: string
+              example: "active"
+
+    CertificateVerifyResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            certificate_id:
+              type: string
+              example: "cert_1234567890"
+            is_valid:
+              type: boolean
+              example: true
+            issued_to:
+              type: string
+              example: "John Doe"
+            issued_by:
+              type: string
+              example: "DigiGuard CA"
+            issued_at:
+              type: string
+              format: date-time
+            expires_at:
+              type: string
+              format: date-time
+            blockchain_verified:
+              type: boolean
+              example: true
+            revocation_status:
+              type: string
+              enum: [not_revoked, revoked, suspended]
+              example: "not_revoked"
+
+    # Common Schemas
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "usr_1234567890"
+        email:
+          type: string
+          example: "user@example.com"
+        status:
+          type: string
+          enum: [pending_verification, verified, active, suspended]
+          example: "active"
+        security_level:
+          type: string
+          enum: [low, medium, high]
+          example: "high"
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "usr_1234567890"
+        email:
+          type: string
+          example: "user@example.com"
+        phone:
+          type: string
+          example: "+1234567890"
+        personal_info:
+          $ref: '#/components/schemas/PersonalInfo'
+        identity_info:
+          $ref: '#/components/schemas/IdentityInfo'
+        security:
+          $ref: '#/components/schemas/SecurityInfo'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    PersonalInfo:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: "John"
+        last_name:
+          type: string
+          example: "Doe"
+        birth_date:
+          type: string
+          format: date
+          example: "1990-01-01"
+        nationality:
+          type: string
+          example: "US"
+        address:
+          type: string
+          example: "123 Main St, City, State 12345"
+
+    IdentityInfo:
+      type: object
+      properties:
+        id_type:
+          type: string
+          enum: [passport, drivers_license, national_id]
+          example: "passport"
+        id_number:
+          type: string
+          example: "****1234"
+        verified:
+          type: boolean
+          example: true
+
+    SecurityInfo:
+      type: object
+      properties:
+        level:
+          type: string
+          enum: [low, medium, high]
+          example: "high"
+        biometric_enabled:
+          type: boolean
+          example: true
+        last_verification:
+          type: string
+          format: date-time
+
+    UploadedFile:
+      type: object
+      properties:
+        file_id:
+          type: string
+          example: "file_1234567890"
+        filename:
+          type: string
+          example: "video.mp4"
+        size:
+          type: integer
+          example: 1048576
+        type:
+          type: string
+          example: "video/mp4"
+        status:
+          type: string
+          example: "uploaded"
+
+    AnalysisResults:
+      type: object
+      properties:
+        authenticity_score:
+          type: number
+          format: float
+          example: 0.92
+        is_authentic:
+          type: boolean
+          example: true
+        confidence:
+          type: string
+          enum: [low, medium, high]
+          example: "high"
+        analysis_details:
+          type: object
+          properties:
+            face_analysis:
+              type: object
+              properties:
+                deepfake_probability:
+                  type: number
+                  format: float
+                  example: 0.05
+                facial_inconsistencies:
+                  type: array
+                  items:
+                    type: string
+            voice_analysis:
+              type: object
+              properties:
+                synthetic_probability:
+                  type: number
+                  format: float
+                  example: 0.03
+                voice_cloning_detected:
+                  type: boolean
+                  example: false
+            metadata_analysis:
+              type: object
+              properties:
+                tampering_detected:
+                  type: boolean
+                  example: false
+                creation_timestamp:
+                  type: string
+                  format: date-time
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: "VALIDATION_ERROR"
+            message:
+              type: string
+              example: "Invalid input parameters"
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                    example: "email"
+                  message:
+                    type: string
+                    example: "Invalid email format"
+            request_id:
+              type: string
+              example: "req_1234567890"
+            timestamp:
+              type: string
+              format: date-time
+
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "VALIDATION_ERROR"
+              message: "Invalid input parameters"
+              request_id: "req_1234567890"
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "AUTHENTICATION_FAILED"
+              message: "Invalid or expired token"
+              request_id: "req_1234567890"
+
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "AUTHORIZATION_FAILED"
+              message: "Insufficient permissions"
+              request_id: "req_1234567890"
+
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "RESOURCE_NOT_FOUND"
+              message: "Requested resource not found"
+              request_id: "req_1234567890"
+
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "RESOURCE_CONFLICT"
+              message: "Resource already exists"
+              request_id: "req_1234567890"
+
+    UnprocessableEntity:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "VALIDATION_ERROR"
+              message: "Validation failed"
+              details:
+                - field: "email_code"
+                  message: "Invalid OTP code"
+              request_id: "req_1234567890"
+
+    TooManyRequests:
+      description: Too Many Requests
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Request limit per hour
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current window
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Time when rate limit resets (Unix timestamp)
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "RATE_LIMIT_EXCEEDED"
+              message: "Rate limit exceeded. Try again in 3600 seconds."
+              retry_after: 3600
+              request_id: "req_1234567890"
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error:
+              code: "INTERNAL_ERROR"
+              message: "An internal server error occurred"
+              request_id: "req_1234567890"

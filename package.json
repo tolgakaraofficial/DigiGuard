@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs:serve": "redoc-cli serve docs/OPENAPI_SPEC.yaml --watch",
+    "docs:build": "redoc-cli build docs/OPENAPI_SPEC.yaml --output docs/api-docs.html",
+    "docs:validate": "swagger-parser validate docs/OPENAPI_SPEC.yaml",
+    "sdk:generate": "openapi-generator-cli generate -i docs/OPENAPI_SPEC.yaml -g typescript-axios -o sdks/typescript/"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
