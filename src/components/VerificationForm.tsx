@@ -101,7 +101,10 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
             {timeLeft === 0 && (
               <button
                 type="button"
-                onClick={() => setTimeLeft(300)}
+                onClick={() => {
+                  setTimeLeft(300);
+                  // Here you would normally call an API to resend codes
+                }}
                 className="text-blue-400 hover:text-blue-300 text-sm mt-2"
               >
                 <RotateCcw className="h-4 w-4 inline mr-1" />
