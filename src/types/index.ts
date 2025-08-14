@@ -25,9 +25,9 @@ export interface IdentityInfo {
 }
 
 export interface MediaFiles {
-  photos: (File | string)[];
-  videos: (File | string)[];
-  audioRecordings: (File | string)[];
+  photos: File[];
+  videos: File[];
+  audioRecordings: File[];
 }
 
 export interface RegistrationData {
