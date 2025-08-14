@@ -95,7 +95,7 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
               Kodların süresi: {formatTime(timeLeft)}
             </Text>
             {timeLeft === 0 && (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => setTimeLeft(300)}>
                 <Text style={styles.resendText}>Yeni kod gönder</Text>
               </TouchableOpacity>
             )}

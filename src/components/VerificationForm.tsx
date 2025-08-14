@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, CheckCircle } from 'lucide-react';
+import { Shield, CheckCircle, RotateCcw } from 'lucide-react';
 
 interface VerificationFormProps {
   email: string;
@@ -101,8 +101,10 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
             {timeLeft === 0 && (
               <button
                 type="button"
+                onClick={() => setTimeLeft(300)}
                 className="text-blue-400 hover:text-blue-300 text-sm mt-2"
               >
+                <RotateCcw className="h-4 w-4 inline mr-1" />
                 Yeni kod gönder
               </button>
             )}
