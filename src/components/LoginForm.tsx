@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff } from 'lucide-react';
 
 interface LoginFormProps {
   onLogin: (email: string, phone: string) => void;
@@ -8,13 +8,44 @@ interface LoginFormProps {
 export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{email?: string, phone?: string, password?: string}>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Form doğrulama
+    const newErrors: {email?: string, phone?: string, password?: string} = {};
+    
+    if (!email) {
+      newErrors.email = 'E-posta adresi gereklidir';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Geçerli bir e-posta adresi girin';
+    }
+    
+    if (!phone) {
+      newErrors.phone = 'Telefon numarası gereklidir';
+    } else if (!/^(\+90|0)?[5][0-9]{9}$/.test(phone.replace(/\s/g, ''))) {
+      newErrors.phone = 'Geçerli bir Türkiye telefon numarası girin';
+    }
+    
+    if (!password) {
+      newErrors.password = 'Şifre gereklidir';
+    } else if (password.length < 6) {
+      newErrors.password = 'Şifre en az 6 karakter olmalıdır';
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setErrors({});
     setIsLoading(true);
     
-    // Simulate API call
+    // API çağrısı simülasyonu
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     onLogin(email, phone);
@@ -48,10 +79,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400"
+                className={`w-full pl-10 pr-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                  errors.email ? 'border-red-500' : 'border-slate-600'
+                }`}
                 placeholder="ornek@email.com"
               />
             </div>
+            {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div>
@@ -65,10 +99,40 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400"
+                className={`w-full pl-10 pr-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                  errors.phone ? 'border-red-500' : 'border-slate-600'
+                }`}
                 placeholder="+90 5XX XXX XX XX"
               />
             </div>
+            {errors.phone && <p className="text-red-400 text-sm mt-1">{errors.phone}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Şifre
+            </label>
+            <div className="relative">
+              <Shield className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
+              <input
+                type={showPassword ? 'text' : 'password'}
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={`w-full pl-10 pr-12 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                  errors.password ? 'border-red-500' : 'border-slate-600'
+                }`}
+                placeholder="Şifrenizi girin"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-300"
+              >
+                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              </button>
+            </div>
+            {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password}</p>}
           </div>
 
           <button

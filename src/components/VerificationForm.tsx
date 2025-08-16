@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, CheckCircle, RotateCcw } from 'lucide-react';
+import { Shield, CheckCircle, RotateCcw, AlertCircle } from 'lucide-react';
 
 interface VerificationFormProps {
   email: string;
@@ -16,6 +16,8 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
   const [phoneCode, setPhoneCode] = useState('');
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{emailCode?: string, phoneCode?: string}>({});
+  const [resendCount, setResendCount] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -31,11 +33,48 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const handleResendCode = () => {
+    if (resendCount >= 3) {
+      alert('Çok fazla kod gönderme isteği. Lütfen daha sonra tekrar deneyin.');
+      return;
+    }
+    
+    setTimeLeft(300);
+    setResendCount(prev => prev + 1);
+    // Burada gerçek API çağrısı yapılacak
+    console.log('Yeni doğrulama kodları gönderiliyor...');
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Form doğrulama
+    const newErrors: {emailCode?: string, phoneCode?: string} = {};
+    
+    if (!emailCode) {
+      newErrors.emailCode = 'E-posta doğrulama kodu gereklidir';
+    } else if (emailCode.length !== 6) {
+      newErrors.emailCode = 'Doğrulama kodu 6 haneli olmalıdır';
+    } else if (!/^\d{6}$/.test(emailCode)) {
+      newErrors.emailCode = 'Doğrulama kodu sadece rakamlardan oluşmalıdır';
+    }
+    
+    if (!phoneCode) {
+      newErrors.phoneCode = 'SMS doğrulama kodu gereklidir';
+    } else if (phoneCode.length !== 6) {
+      newErrors.phoneCode = 'Doğrulama kodu 6 haneli olmalıdır';
+    } else if (!/^\d{6}$/.test(phoneCode)) {
+      newErrors.phoneCode = 'Doğrulama kodu sadece rakamlardan oluşmalıdır';
+    }
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setErrors({});
     setIsLoading(true);
 
-    // Simulate API call
+    // API çağrısı simülasyonu
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     onVerify();
@@ -69,11 +108,17 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
               type="text"
               required
               value={emailCode}
-              onChange={(e) => setEmailCode(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white text-center text-lg tracking-widest"
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+                setEmailCode(value);
+              }}
+              className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white text-center text-lg tracking-widest ${
+                errors.emailCode ? 'border-red-500' : 'border-slate-600'
+              }`}
               placeholder="000000"
               maxLength={6}
             />
+            {errors.emailCode && <p className="text-red-400 text-sm mt-1">{errors.emailCode}</p>}
           </div>
 
           <div>
@@ -87,11 +132,17 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
               type="text"
               required
               value={phoneCode}
-              onChange={(e) => setPhoneCode(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white text-center text-lg tracking-widest"
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, '').slice(0, 6);
+                setPhoneCode(value);
+              }}
+              className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white text-center text-lg tracking-widest ${
+                errors.phoneCode ? 'border-red-500' : 'border-slate-600'
+              }`}
               placeholder="000000"
               maxLength={6}
             />
+            {errors.phoneCode && <p className="text-red-400 text-sm mt-1">{errors.phoneCode}</p>}
           </div>
 
           <div className="text-center">
@@ -101,18 +152,33 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
             {timeLeft === 0 && (
               <button
                 type="button"
-                onClick={() => {
-                  setTimeLeft(300);
-                  // Here you would normally call an API to resend codes
-                }}
-                className="text-blue-400 hover:text-blue-300 text-sm mt-2"
+                onClick={handleResendCode}
+                disabled={resendCount >= 3}
+                className={`text-sm mt-2 ${
+                  resendCount >= 3 
+                    ? 'text-slate-500 cursor-not-allowed' 
+                    : 'text-blue-400 hover:text-blue-300 cursor-pointer'
+                }`}
               >
                 <RotateCcw className="h-4 w-4 inline mr-1" />
-                Yeni kod gönder
+                {resendCount >= 3 ? 'Kod gönderme limiti aşıldı' : 'Yeni kod gönder'}
               </button>
+            )}
+            {resendCount > 0 && resendCount < 3 && (
+              <p className="text-xs text-amber-400 mt-1">
+                Kalan deneme hakkı: {3 - resendCount}
+              </p>
             )}
           </div>
 
+          {timeLeft > 0 && timeLeft < 60 && (
+            <div className="bg-amber-600/20 border border-amber-500/30 rounded-lg p-3 flex items-center space-x-2">
+              <AlertCircle className="h-5 w-5 text-amber-400" />
+              <p className="text-amber-300 text-sm">
+                Kodlarınızın süresi dolmak üzere! Lütfen acele edin.
+              </p>
+            </div>
+          )}
           <button
             type="submit"
             disabled={isLoading || !emailCode || !phoneCode}
