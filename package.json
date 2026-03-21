@@ -17,9 +17,6 @@
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@web5/api": "^0.8.0",
-    "@web5/dids": "^0.8.0",
-    "@web5/credentials": "^0.8.0",
     "ethers": "^5.7.2",
     "face-api.js": "^0.22.2"
   },

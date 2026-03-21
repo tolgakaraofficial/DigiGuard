@@ -3,7 +3,6 @@ import { Camera, Mic, Shield, Eye, Fingerprint, Zap, Globe, Brain } from 'lucide
 import { biometricService, BiometricData } from '../services/BiometricService';
 import { web3Service } from '../services/Web3Service';
 import { web4Service } from '../services/Web4Service';
-import { web5Service } from '../services/Web5Service';
 
 interface BiometricLoginProps {
   onSuccess: (biometricData: BiometricData) => void;
