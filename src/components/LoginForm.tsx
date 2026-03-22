@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, CheckCircle, Building2, User, Briefcase } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, CheckCircle, Building2, User, Briefcase, Shield, Fingerprint, UserCheck, Scan, Wallet, Globe, Smartphone, Camera, Zap } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
@@ -21,12 +21,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [showSecurityModal, setShowSecurityModal] = useState(false);
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showTeamModal, setShowTeamModal] = useState(false);
-
-  useEffect(() => {
-    fetchUserStatistics();
-    const interval = setInterval(fetchUserStatistics, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const [showKYCPanel, setShowKYCPanel] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
