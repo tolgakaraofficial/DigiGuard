@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan, Wallet, Smartphone, Globe, Zap } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
@@ -197,17 +197,66 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               <div className="w-full border-t border-slate-600"></div>
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="px-2 bg-slate-800 text-slate-400">veya</span>
+              <span className="px-2 bg-slate-800 text-slate-400">Gelecek Nesil Giriş Yöntemleri</span>
             </div>
           </div>
 
-          <button
-            type="button"
-            className="w-full bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white font-medium py-2.5 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-matrix-500/30 hover:shadow-matrix-500/50 animate-cyber-glow"
-          >
-            <Fingerprint className="h-4 w-4" />
-            <span>Biyometrik Doğrulama</span>
-          </button>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 text-white font-medium py-2.5 px-3 text-xs rounded-lg transition-all flex items-center justify-center space-x-1.5 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 group"
+            >
+              <Wallet className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <div className="text-left">
+                <div className="font-semibold">Web3 Wallet</div>
+                <div className="text-[10px] opacity-90">MetaMask</div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-2.5 px-3 text-xs rounded-lg transition-all flex items-center justify-center space-x-1.5 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 group"
+            >
+              <Fingerprint className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <div className="text-left">
+                <div className="font-semibold">Web4 DID</div>
+                <div className="text-[10px] opacity-90">Kimlik Protokolü</div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-2.5 px-3 text-xs rounded-lg transition-all flex items-center justify-center space-x-1.5 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 group"
+            >
+              <Smartphone className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <div className="text-left">
+                <div className="font-semibold">Web5 DWN</div>
+                <div className="text-[10px] opacity-90">Veri Kontrolü</div>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium py-2.5 px-3 text-xs rounded-lg transition-all flex items-center justify-center space-x-1.5 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 group"
+            >
+              <Scan className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <div className="text-left">
+                <div className="font-semibold">Biyometrik</div>
+                <div className="text-[10px] opacity-90">Face ID / Touch</div>
+              </div>
+            </button>
+          </div>
+
+          <div className="p-3 bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 rounded-lg">
+            <div className="flex items-start space-x-2">
+              <Zap className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5 animate-pulse" />
+              <div className="flex-1">
+                <p className="text-blue-200 text-xs leading-relaxed">
+                  <span className="font-semibold">Web3/Web4/Web5 Ready:</span> Merkeziyetsiz kimlik doğrulama, blockchain tabanlı güvenlik ve kullanıcı kontrolünde veri yönetimi ile geleceğe hazır altyapı.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="mt-4 text-center relative z-10">

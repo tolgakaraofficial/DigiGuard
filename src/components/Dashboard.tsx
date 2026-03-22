@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Award, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Download, CreditCard } from 'lucide-react';
+import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Award, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Download, CreditCard, BarChart3, TrendingDown, AlertCircle } from 'lucide-react';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
 import { IntegrationsModal } from './IntegrationsModal';
@@ -161,6 +161,55 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
     { action: 'Profil bilgileri güncellendi', time: '1 gün önce', type: 'warning' },
     { action: 'Yeni cihaz girişi tespit edildi', time: '2 gün önce', type: 'alert' },
   ];
+
+  const securityMetrics = [
+    {
+      label: 'Kimlik Güvenliği',
+      score: 98,
+      color: 'text-green-400',
+      bgColor: 'bg-green-500',
+      icon: Shield,
+      trend: '+2%',
+      status: 'Mükemmel'
+    },
+    {
+      label: 'Veri Şifreleme',
+      score: 95,
+      color: 'text-cyan-400',
+      bgColor: 'bg-cyan-500',
+      icon: Lock,
+      trend: '+1%',
+      status: 'Çok İyi'
+    },
+    {
+      label: 'Tehdit Seviyesi',
+      score: 12,
+      color: 'text-amber-400',
+      bgColor: 'bg-amber-500',
+      icon: AlertCircle,
+      trend: '-8%',
+      status: 'Düşük Risk',
+      inverse: true
+    },
+    {
+      label: 'Biyometrik Doğruluk',
+      score: 99,
+      color: 'text-matrix-400',
+      bgColor: 'bg-matrix-500',
+      icon: Fingerprint,
+      trend: '+3%',
+      status: 'Optimal'
+    },
+    {
+      label: 'Blockchain Entegrasyon',
+      score: 100,
+      color: 'text-purple-400',
+      bgColor: 'bg-purple-500',
+      icon: Database,
+      trend: '0%',
+      status: 'Aktif'
+    },
+  ];
   return (
     <div className="flex min-h-screen bg-slate-900">
       <Sidebar
@@ -259,6 +308,94 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
                 <Database className="h-3 w-3 mr-1" />
                 Blockchain Kayıtlı
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Security Metrics Panel */}
+      <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 mb-8 border border-cyber-500/20">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold text-white flex items-center">
+            <BarChart3 className="h-5 w-5 text-cyber-400 mr-2" />
+            Güvenlik ve Risk Metrikleri
+          </h3>
+          <span className="text-xs text-slate-400 bg-slate-700/50 px-3 py-1 rounded-full">
+            Son Güncelleme: Az önce
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          {securityMetrics.map((metric, index) => (
+            <div key={index} className="bg-slate-700/50 rounded-lg p-4 border border-slate-600/50 hover:border-cyber-500/50 transition-all group">
+              <div className="flex items-center justify-between mb-3">
+                <div className={`p-2 rounded-lg ${metric.inverse ? 'bg-gradient-to-br from-amber-600/20 to-orange-600/20' : 'bg-gradient-to-br from-cyber-600/20 to-matrix-600/20'}`}>
+                  <metric.icon className={`h-4 w-4 ${metric.color}`} />
+                </div>
+                <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                  metric.inverse
+                    ? 'bg-amber-600/20 text-amber-300'
+                    : 'bg-green-600/20 text-green-300'
+                }`}>
+                  {metric.trend}
+                </span>
+              </div>
+
+              <div className="mb-3">
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="text-xs text-slate-400">{metric.label}</span>
+                  <span className={`text-2xl font-bold ${metric.color}`}>{metric.score}</span>
+                </div>
+                <div className="w-full bg-slate-600/50 rounded-full h-2 overflow-hidden">
+                  <div
+                    className={`h-full ${metric.bgColor} rounded-full transition-all duration-1000 ease-out group-hover:opacity-80`}
+                    style={{ width: `${metric.score}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-slate-500">Durum:</span>
+                <span className={`text-xs font-medium ${metric.color}`}>{metric.status}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 border border-green-500/30 rounded-lg p-4">
+            <div className="flex items-center space-x-3">
+              <div className="bg-green-500/20 p-2 rounded-lg">
+                <TrendingUp className="h-5 w-5 text-green-400" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs text-green-300/80">Genel Güvenlik Skoru</p>
+                <p className="text-2xl font-bold text-green-400">96.4/100</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-amber-900/30 to-orange-900/30 border border-amber-500/30 rounded-lg p-4">
+            <div className="flex items-center space-x-3">
+              <div className="bg-amber-500/20 p-2 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-amber-400" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs text-amber-300/80">Tespit Edilen Tehdit</p>
+                <p className="text-2xl font-bold text-amber-400">3 Engellendi</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-cyber-900/30 to-matrix-900/30 border border-cyber-500/30 rounded-lg p-4">
+            <div className="flex items-center space-x-3">
+              <div className="bg-cyber-500/20 p-2 rounded-lg">
+                <Shield className="h-5 w-5 text-cyber-400 animate-pulse" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs text-cyber-300/80">Aktif Koruma</p>
+                <p className="text-2xl font-bold text-cyber-400">7/24</p>
+              </div>
             </div>
           </div>
         </div>
