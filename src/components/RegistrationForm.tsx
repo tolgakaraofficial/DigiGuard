@@ -12,6 +12,7 @@ interface RegistrationFormProps {
 
 export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [userType, setUserType] = useState<'individual' | 'corporate'>('individual');
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     firstName: '',
     lastName: '',
@@ -48,6 +49,8 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
           <PersonalInfoStep
             data={personalInfo}
             onChange={setPersonalInfo}
+            userType={userType}
+            onUserTypeChange={setUserType}
             onNext={() => setCurrentStep(2)}
           />
         );

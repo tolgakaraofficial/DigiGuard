@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, CheckCircle, Building2, User, Briefcase, Shield, Fingerprint, UserCheck, Scan, Wallet, Globe, Smartphone, Camera, Zap } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, Shield, Fingerprint, UserCheck, Scan, Camera, Zap } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
 
 interface LoginFormProps {
-  onLogin: (email: string, phone: string, userType: string) => void;
+  onLogin: (email: string, phone: string) => void;
 }
 
-type UserType = 'corporate' | 'individual' | 'personnel';
-
 export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
-  const [userType, setUserType] = useState<UserType>('individual');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -54,43 +51,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     
     setErrors({});
     setIsLoading(true);
-    
+
     // API çağrısı simülasyonu
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    onLogin(email, phone, userType);
+    onLogin(email, phone);
     setIsLoading(false);
   };
-
-  const userTypes = [
-    {
-      id: 'individual' as UserType,
-      label: 'Bireysel',
-      icon: User,
-      color: 'from-blue-600 to-cyan-600',
-      hoverColor: 'from-blue-700 to-cyan-700',
-      borderColor: 'border-blue-500',
-      description: 'Kişisel kullanım için'
-    },
-    {
-      id: 'corporate' as UserType,
-      label: 'Kurumsal',
-      icon: Building2,
-      color: 'from-purple-600 to-pink-600',
-      hoverColor: 'from-purple-700 to-pink-700',
-      borderColor: 'border-purple-500',
-      description: 'Şirket ve kuruluşlar için'
-    },
-    {
-      id: 'personnel' as UserType,
-      label: 'Personel',
-      icon: Briefcase,
-      color: 'from-orange-600 to-red-600',
-      hoverColor: 'from-orange-700 to-red-700',
-      borderColor: 'border-orange-500',
-      description: 'Çalışanlar için'
-    },
-  ];
 
   return (
     <div className="w-full max-w-lg mx-auto px-4">
@@ -116,41 +83,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           <Users className="h-4 w-4 flex-shrink-0" />
           <span className="text-sm">DigiGuard</span>
         </button>
-      </div>
-
-      <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30 mb-4">
-        <h3 className="text-lg font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-4 text-center">
-          Kullanıcı Tipi Seçin
-        </h3>
-        <div className="flex gap-2 justify-center">
-        {userTypes.map((type) => {
-          const Icon = type.icon;
-          const isSelected = userType === type.id;
-          return (
-            <button
-              key={type.id}
-              onClick={() => setUserType(type.id)}
-              className={`relative flex-1 max-w-[140px] p-2 rounded-lg transition-all border-2 ${
-                isSelected
-                  ? `bg-gradient-to-br ${type.color} ${type.borderColor} shadow-lg scale-105`
-                  : 'bg-slate-700/30 border-slate-600 hover:border-slate-500 hover:bg-slate-700/50'
-              }`}
-            >
-              <div className="flex flex-col items-center">
-                <Icon className={`h-5 w-5 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
-                <div className={`text-[10px] font-semibold mt-1 ${isSelected ? 'text-white' : 'text-slate-300'}`}>
-                  {type.label}
-                </div>
-              </div>
-              {isSelected && (
-                <div className="absolute -top-1 -right-1">
-                  <CheckCircle className="h-3 w-3 text-white" />
-                </div>
-              )}
-            </button>
-          );
-        })}
-        </div>
       </div>
 
       <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-2xl border border-cyber-500/30 relative overflow-hidden">

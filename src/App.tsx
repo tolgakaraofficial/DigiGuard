@@ -15,7 +15,7 @@ type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboar
 interface User {
   email: string;
   phone: string;
-  userType: string;
+  userType?: string;
   isVerified: boolean;
   isRegistered: boolean;
 }
@@ -35,11 +35,10 @@ function App() {
     setState('login');
   };
 
-  const handleLogin = (email: string, phone: string, userType: string) => {
+  const handleLogin = (email: string, phone: string) => {
     setUser({
       email,
       phone,
-      userType,
       isVerified: false,
       isRegistered: false,
     });

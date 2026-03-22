@@ -1,18 +1,22 @@
 import React from 'react';
 import { useState } from 'react';
-import { ArrowRight, User, Calendar, MapPin, Globe } from 'lucide-react';
+import { ArrowRight, User, Calendar, MapPin, Globe, Building2 } from 'lucide-react';
 import { PersonalInfo } from '../types';
 
 interface PersonalInfoStepProps {
   data: PersonalInfo;
   onChange: (data: PersonalInfo) => void;
   onNext: () => void;
+  userType?: 'individual' | 'corporate';
+  onUserTypeChange?: (type: 'individual' | 'corporate') => void;
 }
 
 export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
   data,
   onChange,
   onNext,
+  userType = 'individual',
+  onUserTypeChange,
 }) => {
   const [errors, setErrors] = useState<Partial<PersonalInfo>>({});
 
@@ -100,6 +104,38 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
       <div className="flex items-center space-x-3 mb-6">
         <User className="h-6 w-6 text-blue-400" />
         <h2 className="text-2xl font-bold text-white">Kişisel Bilgiler</h2>
+      </div>
+
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-slate-300 mb-3">
+          Kullanıcı Tipi
+        </label>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => onUserTypeChange?.('individual')}
+            className={`p-4 rounded-lg border-2 transition-all flex items-center justify-center space-x-2 ${
+              userType === 'individual'
+                ? 'bg-gradient-to-br from-blue-600 to-cyan-600 border-blue-500 text-white shadow-lg'
+                : 'bg-slate-700/30 border-slate-600 text-slate-300 hover:border-slate-500'
+            }`}
+          >
+            <User className="h-5 w-5" />
+            <span className="font-semibold">Bireysel</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => onUserTypeChange?.('corporate')}
+            className={`p-4 rounded-lg border-2 transition-all flex items-center justify-center space-x-2 ${
+              userType === 'corporate'
+                ? 'bg-gradient-to-br from-purple-600 to-pink-600 border-purple-500 text-white shadow-lg'
+                : 'bg-slate-700/30 border-slate-600 text-slate-300 hover:border-slate-500'
+            }`}
+          >
+            <Building2 className="h-5 w-5" />
+            <span className="font-semibold">Kurumsal</span>
+          </button>
+        </div>
       </div>
 
       <p className="text-slate-300 mb-6">
