@@ -276,6 +276,41 @@ npm run web
 - ✅ Expo Go ile test desteği
 - ✅ Native build desteği
 
+## 🌐 Hızlı Deploy (Reklamsız Geçici Link)
+
+DigiGuard'ı hemen Netlify'da yayınlayın (Ücretsiz & Reklamsız):
+
+### Yöntem 1: Otomatik Script (Önerilen)
+```bash
+# Tek komutla deploy
+bash .netlify-deploy.sh
+```
+
+### Yöntem 2: Manuel Deploy
+```bash
+# Netlify CLI yükleyin
+npm install -g netlify-cli
+
+# Build oluşturun
+npm run build
+
+# Deploy edin
+netlify deploy --prod
+# dist klasörünü seçin
+```
+
+### Yöntem 3: Sürükle-Bırak (En Hızlı)
+1. Build oluşturun: `npm run build`
+2. https://app.netlify.com/drop adresine gidin
+3. `dist` klasörünü sürükleyip bırakın
+4. Anında link alın!
+
+**Sonuç:** `https://digiguard.netlify.app` (veya benzeri)
+
+Detaylı talimatlar: [TEMPORARY_LINK_SETUP.md](./TEMPORARY_LINK_SETUP.md)
+
+---
+
 ## 🔧 Geliştirme
 
 ### Proje Yapısı
