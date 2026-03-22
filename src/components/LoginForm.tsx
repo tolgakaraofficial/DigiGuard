@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Fingerprint, Info, Lock, ShieldCheck } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Fingerprint, Info, Lock, ShieldCheck, Users } from 'lucide-react';
 import { BiometricLogin } from './BiometricLogin';
 import { BiometricData } from '../services/BiometricService';
 
@@ -7,9 +7,10 @@ interface LoginFormProps {
   onLogin: (email: string, phone: string) => void;
   onShowHashDemo: () => void;
   onShowAbout: () => void;
+  onShowTeam: () => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo, onShowAbout }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo, onShowAbout, onShowTeam }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -63,8 +64,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo, o
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      <div className="flex justify-center gap-4 mb-6">
+    <div className="max-w-4xl mx-auto">
+      <div className="flex justify-center gap-3 mb-6 flex-wrap">
         <button
           onClick={onShowHashDemo}
           className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2 shadow-lg"
@@ -78,6 +79,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo, o
         >
           <Info className="h-5 w-5" />
           <span>Hakkında</span>
+        </button>
+        <button
+          onClick={onShowTeam}
+          className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2 shadow-lg"
+        >
+          <Users className="h-5 w-5" />
+          <span>DigiGuard Ekibi</span>
         </button>
       </div>
 

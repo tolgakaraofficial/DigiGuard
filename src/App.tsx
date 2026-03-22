@@ -14,7 +14,7 @@ import { CertificatePage } from './components/CertificatePage';
 import { TeamPage } from './components/TeamPage';
 import { LogOut, Shield } from 'lucide-react';
 
-type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard' | 'hashDemo' | 'about';
+type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard' | 'hashDemo' | 'about' | 'team';
 
 interface User {
   email: string;
@@ -96,6 +96,7 @@ function App() {
               onLogin={handleLogin}
               onShowHashDemo={() => setState('hashDemo')}
               onShowAbout={() => setState('about')}
+              onShowTeam={() => setState('team')}
             />
           </div>
         );
@@ -121,6 +122,18 @@ function App() {
               ← Geri Dön
             </button>
             <AboutPage />
+          </div>
+        );
+      case 'team':
+        return (
+          <div>
+            <button
+              onClick={() => setState('login')}
+              className="mb-6 bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            >
+              ← Geri Dön
+            </button>
+            <TeamPage />
           </div>
         );
       case 'verification':
