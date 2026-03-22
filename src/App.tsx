@@ -11,7 +11,7 @@ import { AboutPage } from './components/AboutPage';
 import { VisionPage } from './components/VisionPage';
 import { UseCasesPage } from './components/UseCasesPage';
 import { CertificatePage } from './components/CertificatePage';
-import { LogOut } from 'lucide-react';
+import { LogOut, Shield } from 'lucide-react';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -85,12 +85,24 @@ function App() {
   const renderContent = () => {
     switch (state) {
       case 'splash':
-        return <SplashScreen onComplete={handleSplashComplete} duration={4000} />;
+        return <SplashScreen onComplete={handleSplashComplete} duration={7000} />;
       case 'login':
         return (
           <div>
+            <div className="flex justify-center mb-6">
+              <button
+                onClick={() => {
+                  const demoSection = document.getElementById('hash-demo-section');
+                  demoSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2 shadow-lg"
+              >
+                <Shield className="h-5 w-5" />
+                <span>SHA-256 Güvenlik Alanı</span>
+              </button>
+            </div>
             <LoginForm onLogin={handleLogin} />
-            <div className="mt-8">
+            <div id="hash-demo-section" className="mt-8">
               <HashDemo />
             </div>
           </div>
