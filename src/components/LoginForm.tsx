@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan, Wallet, Smartphone, Globe, Zap, Camera, UserCheck, CheckCircle, MapPin, Activity } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan, Wallet, Smartphone, Globe, Zap, Camera, UserCheck, CheckCircle, MapPin, Activity, Building2, User, Briefcase } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
@@ -7,10 +7,13 @@ import { TurkeyMapModal } from './TurkeyMapModal';
 import { supabase } from '../services/supabaseClient';
 
 interface LoginFormProps {
-  onLogin: (email: string, phone: string) => void;
+  onLogin: (email: string, phone: string, userType: string) => void;
 }
 
+type UserType = 'corporate' | 'individual' | 'personnel';
+
 export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
+  const [userType, setUserType] = useState<UserType>('individual');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -80,13 +83,81 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     
     // API çağrısı simülasyonu
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    onLogin(email, phone);
+
+    onLogin(email, phone, userType);
     setIsLoading(false);
   };
 
+  const userTypes = [
+    {
+      id: 'individual' as UserType,
+      label: 'Bireysel',
+      icon: User,
+      color: 'from-blue-600 to-cyan-600',
+      hoverColor: 'from-blue-700 to-cyan-700',
+      borderColor: 'border-blue-500',
+      description: 'Kişisel kullanım için'
+    },
+    {
+      id: 'corporate' as UserType,
+      label: 'Kurumsal',
+      icon: Building2,
+      color: 'from-purple-600 to-pink-600',
+      hoverColor: 'from-purple-700 to-pink-700',
+      borderColor: 'border-purple-500',
+      description: 'Şirket ve kuruluşlar için'
+    },
+    {
+      id: 'personnel' as UserType,
+      label: 'Personel',
+      icon: Briefcase,
+      color: 'from-orange-600 to-red-600',
+      hoverColor: 'from-orange-700 to-red-700',
+      borderColor: 'border-orange-500',
+      description: 'Çalışanlar için'
+    },
+  ];
+
   return (
     <div className="w-full max-w-lg mx-auto px-4">
+      <div className="mb-6 bg-slate-800/50 border border-slate-700 rounded-xl p-4">
+        <h3 className="text-sm font-semibold text-white mb-3 text-center">Giriş Türü Seçin</h3>
+        <div className="grid grid-cols-3 gap-3">
+          {userTypes.map((type) => {
+            const Icon = type.icon;
+            const isSelected = userType === type.id;
+            return (
+              <button
+                key={type.id}
+                onClick={() => setUserType(type.id)}
+                className={`relative p-4 rounded-xl transition-all border-2 ${
+                  isSelected
+                    ? `bg-gradient-to-br ${type.color} ${type.borderColor} border-2 shadow-lg scale-105`
+                    : 'bg-slate-700/30 border-slate-600 hover:border-slate-500 hover:bg-slate-700/50'
+                }`}
+              >
+                <div className="flex flex-col items-center space-y-2">
+                  <Icon className={`h-8 w-8 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
+                  <div className="text-center">
+                    <div className={`text-sm font-semibold ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                      {type.label}
+                    </div>
+                    <div className={`text-[10px] ${isSelected ? 'text-white/80' : 'text-slate-500'}`}>
+                      {type.description}
+                    </div>
+                  </div>
+                </div>
+                {isSelected && (
+                  <div className="absolute top-2 right-2">
+                    <CheckCircle className="h-4 w-4 text-white" />
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="mb-4 flex gap-3">
         <button
           onClick={() => setShowSecurityModal(true)}

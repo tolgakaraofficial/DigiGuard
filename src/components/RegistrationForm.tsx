@@ -7,9 +7,10 @@ import { PersonalInfo, IdentityInfo, MediaFiles } from '../types';
 
 interface RegistrationFormProps {
   onComplete: () => void;
+  userType?: string;
 }
 
-export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }) => {
+export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete, userType = 'individual' }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     firstName: '',

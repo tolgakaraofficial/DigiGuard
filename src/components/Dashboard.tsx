@@ -11,9 +11,10 @@ import { detectLanguage, translations, type Language } from '../utils/i18n';
 
 interface DashboardProps {
   onLogout: () => void;
+  userType?: string;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'individual' }) => {
   const [userScenariosOpen, setUserScenariosOpen] = useState(false);
   const [globalReachOpen, setGlobalReachOpen] = useState(false);
   const [integrationsOpen, setIntegrationsOpen] = useState(false);
@@ -28,6 +29,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   }, []);
 
   const t = translations[language];
+
+  const getUserTypeLabel = () => {
+    if (userType === 'corporate') return language === 'tr' ? 'Kurumsal' : 'Corporate';
+    if (userType === 'personnel') return language === 'tr' ? 'Personel' : 'Personnel';
+    return language === 'tr' ? 'Bireysel' : 'Individual';
+  };
+
+  const getUserTypeColor = () => {
+    if (userType === 'corporate') return 'from-purple-400 to-pink-400';
+    if (userType === 'personnel') return 'from-orange-400 to-red-400';
+    return 'from-blue-400 to-cyan-400';
+  };
+
   const stats = [
     { label: t.biometricStatus, value: t.verified, color: 'text-matrix-400', icon: Fingerprint, trend: '+100%' },
     { label: t.securityScore, value: '98/100', color: 'text-cyber-400', icon: Shield, trend: '+5%' },
@@ -234,6 +248,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             {t.subtitle}
             <span className="ml-2 px-2 py-1 bg-matrix-600/30 text-matrix-300 text-xs rounded-full border border-matrix-500/50 animate-pulse">
               {t.live}
+            </span>
+            <span className={`px-2 py-1 bg-gradient-to-r ${getUserTypeColor()} bg-opacity-20 text-white text-xs rounded-full border border-white/30 font-semibold`}>
+              {getUserTypeLabel()}
             </span>
             <span className="px-2 py-1 bg-cyber-600/30 text-cyber-300 text-xs rounded-full border border-cyber-500/50">
               AES-256

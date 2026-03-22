@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, Users, MapPin, TrendingUp, Sparkles, Activity } from 'lucide-react';
+import { X, Users, MapPin, TrendingUp, Sparkles, Activity, Building2, User, Briefcase } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 
 interface CityStatistics {
@@ -12,6 +12,14 @@ interface CityStatistics {
   last_updated: string;
 }
 
+interface UserTypeStats {
+  user_type: string;
+  total_users: number;
+  verified_users: number;
+  pending_users: number;
+  active_users: number;
+}
+
 interface TurkeyMapModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -21,25 +29,31 @@ interface TurkeyMapModalProps {
 export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose, totalUsers }) => {
   const [cityStats, setCityStats] = useState<CityStatistics[]>([]);
   const [selectedCity, setSelectedCity] = useState<CityStatistics | null>(null);
+  const [userTypeStats, setUserTypeStats] = useState<UserTypeStats[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (isOpen) {
-      fetchCityStatistics();
-      const interval = setInterval(fetchCityStatistics, 5000);
+      fetchStatistics();
+      const interval = setInterval(fetchStatistics, 5000);
       return () => clearInterval(interval);
     }
   }, [isOpen]);
 
-  const fetchCityStatistics = async () => {
-    const { data, error } = await supabase
-      .from('city_statistics')
-      .select('*')
-      .order('certified_users', { ascending: false });
+  const fetchStatistics = async () => {
+    const [cityResult, typeResult] = await Promise.all([
+      supabase.from('city_statistics').select('*').order('certified_users', { ascending: false }),
+      supabase.from('user_type_statistics').select('*')
+    ]);
 
-    if (!error && data) {
-      setCityStats(data);
+    if (!cityResult.error && cityResult.data) {
+      setCityStats(cityResult.data);
     }
+
+    if (!typeResult.error && typeResult.data) {
+      setUserTypeStats(typeResult.data);
+    }
+
     setLoading(false);
   };
 
@@ -85,38 +99,61 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
           </div>
 
           <div className="p-6 overflow-y-auto max-h-[calc(90vh-100px)]">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-              <div className="bg-gradient-to-br from-cyber-900/50 to-cyber-800/30 border border-cyber-500/30 rounded-xl p-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+              <div className="bg-gradient-to-br from-blue-900/50 to-cyan-800/30 border border-blue-500/30 rounded-xl p-5">
                 <div className="flex items-center justify-between mb-2">
-                  <Users className="h-8 w-8 text-cyber-400" />
-                  <Sparkles className="h-5 w-5 text-yellow-400 animate-pulse" />
+                  <User className="h-7 w-7 text-blue-400" />
+                  <Activity className="h-4 w-4 text-green-400 animate-pulse" />
                 </div>
-                <div className="text-3xl font-bold text-white mb-1 tabular-nums">
+                <div className="text-2xl font-bold text-white mb-1 tabular-nums">
+                  {userTypeStats.find(s => s.user_type === 'individual')?.total_users.toLocaleString('tr-TR') || '0'}
+                </div>
+                <div className="text-xs text-slate-400">Bireysel Kullanıcı</div>
+                <div className="mt-2 text-[10px] text-blue-300">
+                  {userTypeStats.find(s => s.user_type === 'individual')?.verified_users.toLocaleString('tr-TR') || '0'} Doğrulanmış
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-purple-900/50 to-pink-800/30 border border-purple-500/30 rounded-xl p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <Building2 className="h-7 w-7 text-purple-400" />
+                  <Activity className="h-4 w-4 text-green-400 animate-pulse" />
+                </div>
+                <div className="text-2xl font-bold text-white mb-1 tabular-nums">
+                  {userTypeStats.find(s => s.user_type === 'corporate')?.total_users.toLocaleString('tr-TR') || '0'}
+                </div>
+                <div className="text-xs text-slate-400">Kurumsal Kullanıcı</div>
+                <div className="mt-2 text-[10px] text-purple-300">
+                  {userTypeStats.find(s => s.user_type === 'corporate')?.verified_users.toLocaleString('tr-TR') || '0'} Doğrulanmış
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-orange-900/50 to-red-800/30 border border-orange-500/30 rounded-xl p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <Briefcase className="h-7 w-7 text-orange-400" />
+                  <Activity className="h-4 w-4 text-green-400 animate-pulse" />
+                </div>
+                <div className="text-2xl font-bold text-white mb-1 tabular-nums">
+                  {userTypeStats.find(s => s.user_type === 'personnel')?.total_users.toLocaleString('tr-TR') || '0'}
+                </div>
+                <div className="text-xs text-slate-400">Personel Kullanıcı</div>
+                <div className="mt-2 text-[10px] text-orange-300">
+                  {userTypeStats.find(s => s.user_type === 'personnel')?.verified_users.toLocaleString('tr-TR') || '0'} Doğrulanmış
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-cyber-900/50 to-matrix-800/30 border border-cyber-500/30 rounded-xl p-5">
+                <div className="flex items-center justify-between mb-2">
+                  <Users className="h-7 w-7 text-cyber-400" />
+                  <Sparkles className="h-4 w-4 text-yellow-400 animate-pulse" />
+                </div>
+                <div className="text-2xl font-bold text-white mb-1 tabular-nums">
                   {totalUsers.toLocaleString('tr-TR')}
                 </div>
-                <div className="text-sm text-slate-400">Toplam Sertifikalı Kullanıcı</div>
-              </div>
-
-              <div className="bg-gradient-to-br from-matrix-900/50 to-matrix-800/30 border border-matrix-500/30 rounded-xl p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <MapPin className="h-8 w-8 text-matrix-400" />
-                  <TrendingUp className="h-5 w-5 text-green-400" />
+                <div className="text-xs text-slate-400">Toplam Sertifikalı</div>
+                <div className="mt-2 text-[10px] text-green-300">
+                  {cityStats.length} Şehir • {regions.length} Bölge
                 </div>
-                <div className="text-3xl font-bold text-white mb-1 tabular-nums">
-                  {cityStats.length}
-                </div>
-                <div className="text-sm text-slate-400">Aktif Şehir</div>
-              </div>
-
-              <div className="bg-gradient-to-br from-purple-900/50 to-purple-800/30 border border-purple-500/30 rounded-xl p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <Activity className="h-8 w-8 text-purple-400 animate-pulse" />
-                  <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse"></div>
-                </div>
-                <div className="text-3xl font-bold text-white mb-1 tabular-nums">
-                  {regions.length}
-                </div>
-                <div className="text-sm text-slate-400">Coğrafi Bölge</div>
               </div>
             </div>
 

@@ -13,6 +13,7 @@ type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboar
 interface User {
   email: string;
   phone: string;
+  userType: string;
   isVerified: boolean;
   isRegistered: boolean;
 }
@@ -31,10 +32,11 @@ function App() {
     setState('login');
   };
 
-  const handleLogin = (email: string, phone: string) => {
+  const handleLogin = (email: string, phone: string, userType: string) => {
     setUser({
       email,
       phone,
+      userType,
       isVerified: false,
       isRegistered: false,
     });
@@ -191,9 +193,9 @@ function App() {
           />
         ) : null;
       case 'registration':
-        return <RegistrationForm onComplete={handleRegistrationComplete} />;
+        return <RegistrationForm onComplete={handleRegistrationComplete} userType={user?.userType} />;
       case 'dashboard':
-        return <Dashboard onLogout={handleLogout} />;
+        return <Dashboard onLogout={handleLogout} userType={user?.userType} />;
       default:
         return null;
     }
