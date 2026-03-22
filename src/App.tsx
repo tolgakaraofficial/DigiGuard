@@ -80,40 +80,8 @@ function App() {
               </div>
 
               <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30">
-                <h3 className="text-lg font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-4">
-                  Vizyon ve Misyon
-                </h3>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="text-sm font-semibold text-matrix-400 mb-2 flex items-center">
-                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
-                      </svg>
-                      Vizyon
-                    </h4>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Dijital kimlik güvenliğinde dünya lideri olmak ve blockchain teknolojisi ile her bireyin kimliğini güvence altına almak.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-cyber-400 mb-2 flex items-center">
-                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd"/>
-                        <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
-                      </svg>
-                      Misyon
-                    </h4>
-                    <p className="text-slate-300 text-sm leading-relaxed">
-                      Biyometrik doğrulama ve yapay zeka teknolojileriyle kimlik hırsızlığına karşı en güvenli çözümleri sunmak.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30">
-                <h4 className="text-sm font-semibold text-slate-300 mb-4">Bizi Takip Edin</h4>
-                <div className="flex gap-4 justify-center">
+                <h4 className="text-sm font-semibold text-slate-300 mb-4 text-center">Bizi Takip Edin</h4>
+                <div className="flex gap-3 justify-center">
                   <a
                     href="https://www.youtube.com/@digiguard"
                     target="_blank"
@@ -173,6 +141,34 @@ function App() {
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     </svg>
                   </a>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
+                  <h4 className="text-sm font-semibold text-matrix-400 mb-2 flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                      <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
+                    </svg>
+                    Vizyon
+                  </h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    Dijital kimlik güvenliğinde dünya lideri olmak ve blockchain teknolojisi ile her bireyin kimliğini güvence altına almak.
+                  </p>
+                </div>
+
+                <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
+                  <h4 className="text-sm font-semibold text-cyber-400 mb-2 flex items-center">
+                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd"/>
+                      <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+                    </svg>
+                    Misyon
+                  </h4>
+                  <p className="text-slate-300 text-sm leading-relaxed">
+                    Biyometrik doğrulama ve yapay zeka teknolojileriyle kimlik hırsızlığına karşı en güvenli çözümleri sunmak.
+                  </p>
                 </div>
               </div>
             </div>

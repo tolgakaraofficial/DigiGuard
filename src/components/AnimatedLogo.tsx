@@ -21,7 +21,7 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete 
 
   return (
     <div
-      className={`fixed inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center z-50 transition-opacity duration-500 relative overflow-hidden ${
+      className={`min-h-screen w-full bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center transition-opacity duration-500 relative overflow-hidden ${
         fadeOut ? 'opacity-0' : 'opacity-100'
       }`}
     >
