@@ -35,11 +35,28 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
     'Technical support',
   ];
 
+  const containsProfanity = (text: string): boolean => {
+    const profanityWords = ['aptal', 'salak', 'gerizekalı', 'ahmak', 'mal', 'sersem', 'budala'];
+    return profanityWords.some(word => text.toLowerCase().includes(word));
+  };
+
   const getAIResponse = (message: string): string => {
     const msgLower = message.toLowerCase();
 
+    if (containsProfanity(msgLower)) {
+      return language === 'tr'
+        ? '⚠️ Lütfen saygılı bir dil kullanın. Size profesyonel bir şekilde yardımcı olmak için buradayım.'
+        : '⚠️ Please use respectful language. I am here to help you professionally.';
+    }
+
     if (language === 'tr') {
-      if (msgLower.includes('başla') || msgLower.includes('kayıt')) {
+      if (msgLower.includes('nasılsın') || msgLower.includes('nasıl gidiyor') || msgLower.includes('ne haber')) {
+        return '😊 İyiyim, teşekkür ederim! Size yardımcı olmak için buradayım. DigiGuard platformu hakkında bilgi almak ister misiniz?';
+      } else if (msgLower.includes('adın ne') || msgLower.includes('kimsin')) {
+        return '🤖 Ben ALBIS, DigiGuard yapay zeka asistanıyım. Dijital kimlik güvenliği ve KYC doğrulama konularında size yardımcı oluyorum.';
+      } else if (msgLower.includes('teşekkür') || msgLower.includes('sağol')) {
+        return '🙏 Rica ederim! Başka bir konuda yardıma ihtiyacınız olursa buradayım.';
+      } else if (msgLower.includes('başla') || msgLower.includes('kayıt')) {
         return '🚀 DigiGuard ile başlamak çok kolay!\n\n1. Kayıt formunu doldurun\n2. Kimlik belgelerinizi yükleyin\n3. Biyometrik doğrulama yapın\n4. KYC sertifikanızı alın\n\nHemen şimdi başlamak ister misiniz?';
       } else if (msgLower.includes('birey') || msgLower.includes('kişisel')) {
         return '👤 Bireysel Kullanım Özellikleri:\n\n• Biyometrik kimlik doğrulama\n• Blockchain KYC sertifikası\n• 5 cihaz desteği\n• Mobil uygulama erişimi\n• 7/24 teknik destek\n• Temel AI güvenlik analizi\n\nAyda sadece ₺99! İlk 14 gün ücretsiz deneyin.';
@@ -61,7 +78,9 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
         return '🤖 Size yardımcı olabilmem için daha spesifik bir soru sorabilir misiniz?\n\nPopüler konular:\n• Nasıl başlarım?\n• Fiyatlandırma\n• Güvenlik\n• Kurumsal çözümler\n\nYa da aşağıdaki hızlı yanıt butonlarını kullanabilirsiniz.';
       }
     } else {
-      if (msgLower.includes('start') || msgLower.includes('begin') || msgLower.includes('register')) {
+      if (msgLower.includes('how are you') || msgLower.includes('how is it going')) {
+        return '😊 I am doing well, thank you! I am here to help you. Would you like to learn about DigiGuard?';
+      } else if (msgLower.includes('start') || msgLower.includes('begin') || msgLower.includes('register')) {
         return '🚀 Getting started with DigiGuard is easy!\n\n1. Fill out the registration form\n2. Upload your identity documents\n3. Complete biometric verification\n4. Receive your KYC certificate\n\nWould you like to start now?';
       } else if (msgLower.includes('individual') || msgLower.includes('personal')) {
         return '👤 Individual Plan Features:\n\n• Biometric identity verification\n• Blockchain KYC certificate\n• 5 device support\n• Mobile app access\n• 24/7 technical support\n• Basic AI security analysis\n\nOnly ₺99/month! Free 14-day trial.';
@@ -79,6 +98,8 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
         return '🔌 Integrations:\n\n• RESTful API\n• GraphQL support\n• Webhook notifications\n• SDK: JavaScript, Python, Go\n• OAuth 2.0 authentication\n• Documentation and examples\n\nWould you like to see developer docs?';
       } else if (msgLower.includes('hello') || msgLower.includes('hi')) {
         return '👋 Hello! I am ALBIS, your DigiGuard AI assistant.\n\nI can help you with:\n\n• Platform usage\n• Features and pricing\n• Security information\n• Enterprise solutions\n• Technical support\n\nWhat would you like to know?';
+      } else if (msgLower.includes('thank')) {
+        return '🙏 You are welcome! If you need any other assistance, I am here.';
       } else {
         return '🤖 Could you please ask a more specific question so I can help you better?\n\nPopular topics:\n• How to get started?\n• Pricing\n• Security\n• Enterprise solutions\n\nOr use the quick reply buttons below.';
       }
@@ -131,69 +152,50 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-50 bg-gradient-to-br from-cyan-600 via-blue-600 to-blue-700 hover:from-cyan-700 hover:via-blue-700 hover:to-blue-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 group animate-pulse-slow"
+        className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-cyan-600 via-blue-600 to-blue-700 hover:from-cyan-700 hover:via-blue-700 hover:to-blue-800 text-white p-4 rounded-full shadow-2xl transition-all hover:scale-110 group animate-pulse-slow"
       >
         <div className="relative">
-          <svg
-            viewBox="0 0 24 24"
-            className="w-6 h-6 text-white"
-            fill="currentColor"
-          >
-            <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 2.18l8 3.6v8.55c0 4.45-3.07 8.63-7 9.67-3.93-1.04-7-5.22-7-9.67V7.78l6-2.7v8.92h2V4.18z" />
-            <circle cx="12" cy="12" r="2" />
-          </svg>
+          <MessageCircle className="w-7 h-7 text-white" />
         </div>
         <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-bounce font-bold">
           ?
         </span>
-        <div className="absolute bottom-full left-0 mb-3 bg-slate-900 text-white text-sm px-4 py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-cyan-500/50 shadow-2xl backdrop-blur-sm">
-          <div className="font-bold mb-1">🤖 ALBIS</div>
-          <div className="text-xs text-cyan-300">
+        <div className="absolute bottom-full right-0 mb-3 bg-slate-900 text-white text-sm px-4 py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-cyan-500/50 shadow-2xl backdrop-blur-sm">
+          <div className="font-bold text-cyan-300 mb-1">ALBIS Asistan</div>
+          <div className="text-xs text-slate-300">
             {language === 'tr' ? 'Size nasıl yardımcı olabilirim?' : 'How can I help you?'}
           </div>
+          <div className="absolute bottom-0 right-4 transform translate-y-1/2 rotate-45 w-2 h-2 bg-slate-900 border-r border-b border-cyan-500/50"></div>
         </div>
       </button>
     );
   }
 
   return (
-    <div
-      className={`fixed bottom-6 left-6 z-50 bg-slate-800 rounded-2xl shadow-2xl border border-cyan-500/30 transition-all ${
-        isMinimized ? 'w-80 h-16' : 'w-96 h-[600px]'
-      }`}
-    >
-      <div className="bg-gradient-to-r from-cyan-600 to-blue-600 p-4 rounded-t-2xl flex items-center justify-between">
+    <div className={`fixed bottom-6 right-6 z-50 bg-slate-900 border-2 border-cyan-500/50 rounded-2xl shadow-2xl transition-all duration-300 ${isMinimized ? 'h-16 w-80' : 'h-[600px] w-96'} flex flex-col`}>
+      <div className="bg-gradient-to-r from-cyan-600 via-blue-600 to-blue-700 p-4 rounded-t-xl flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <div className="relative">
-            <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center border-2 border-cyan-400 shadow-lg">
-              <svg
-                viewBox="0 0 24 24"
-                className="w-6 h-6 text-cyan-400"
-                fill="currentColor"
-              >
-                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 2.18l8 3.6v8.55c0 4.45-3.07 8.63-7 9.67-3.93-1.04-7-5.22-7-9.67V7.78l6-2.7v8.92h2V4.18z" />
-                <circle cx="12" cy="12" r="2" />
-              </svg>
+            <div className="bg-white/20 p-2 rounded-full">
+              <MessageCircle className="h-5 w-5 text-white" />
             </div>
-            <span className="absolute -bottom-1 -right-1 bg-green-500 w-3 h-3 rounded-full border-2 border-slate-800"></span>
+            <div className="absolute bottom-0 right-0 h-3 w-3 bg-green-400 rounded-full border-2 border-blue-700"></div>
           </div>
           <div>
-            <h3 className="text-white font-bold">ALBIS</h3>
-            <p className="text-cyan-100 text-xs">
-              {language === 'tr' ? 'Çevrimiçi' : 'Online'}
-            </p>
+            <h3 className="font-bold text-white text-lg">ALBIS</h3>
+            <p className="text-xs text-cyan-100">{language === 'tr' ? 'DigiGuard Asistan' : 'DigiGuard Assistant'}</p>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex space-x-2">
           <button
             onClick={() => setIsMinimized(!isMinimized)}
-            className="text-white hover:bg-cyan-700 p-1.5 rounded transition-colors"
+            className="text-white hover:bg-white/20 p-2 rounded-lg transition-colors"
           >
             <Minimize2 className="h-4 w-4" />
           </button>
           <button
             onClick={() => setIsOpen(false)}
-            className="text-white hover:bg-cyan-700 p-1.5 rounded transition-colors"
+            className="text-white hover:bg-white/20 p-2 rounded-lg transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -202,33 +204,24 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
 
       {!isMinimized && (
         <>
-          <div className="h-[420px] overflow-y-auto p-4 space-y-4 bg-slate-900">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-2xl p-3 ${
-                    message.type === 'user'
-                      ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-br-sm'
-                      : 'bg-slate-700 text-slate-200 rounded-bl-sm'
-                  }`}
-                >
-                  <p className="text-sm">{message.text}</p>
-                  <p className="text-xs opacity-70 mt-1">{message.time}</p>
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-800/50 backdrop-blur-sm">
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[80%] ${msg.type === 'user' ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white' : 'bg-slate-700/80 text-slate-100'} rounded-2xl px-4 py-3 shadow-lg`}>
+                  <p className="text-sm whitespace-pre-line leading-relaxed">{msg.text}</p>
+                  <span className="text-[10px] opacity-70 mt-1 block">{msg.time}</span>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="p-4 space-y-3 bg-slate-800">
-            <div className="flex flex-wrap gap-2">
-              {quickReplies.map((reply, index) => (
+          <div className="p-3 bg-slate-800/80 backdrop-blur-sm border-t border-slate-700">
+            <div className="flex flex-wrap gap-2 mb-3">
+              {quickReplies.map((reply, idx) => (
                 <button
-                  key={index}
+                  key={idx}
                   onClick={() => handleQuickReply(reply)}
-                  className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs rounded-full transition-colors border border-slate-600"
+                  className="text-xs bg-slate-700/50 hover:bg-cyan-600/80 text-slate-300 hover:text-white px-3 py-1.5 rounded-full transition-all border border-slate-600 hover:border-cyan-500"
                 >
                   {reply}
                 </button>
@@ -242,11 +235,11 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder={language === 'tr' ? 'Mesajınızı yazın...' : 'Type your message...'}
-                className="flex-1 bg-slate-700 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm border border-slate-600"
+                className="flex-1 bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm"
               />
               <button
                 onClick={handleSendMessage}
-                className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white p-2 rounded-lg transition-all"
+                className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white p-2.5 rounded-xl transition-all hover:scale-105 shadow-lg"
               >
                 <Send className="h-5 w-5" />
               </button>

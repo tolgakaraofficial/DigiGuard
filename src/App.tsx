@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MapPin } from 'lucide-react';
 import { Layout } from './components/Layout';
 import { AnimatedLogo } from './components/AnimatedLogo';
 import { LoginForm } from './components/LoginForm';
@@ -6,7 +7,9 @@ import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import { AlbisChatBot } from './components/AlbisChatBot';
+import { TurkeyMapModal } from './components/TurkeyMapModal';
 import { detectLanguage } from './utils/i18n';
+import { supabase } from './services/supabaseClient';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -22,11 +25,25 @@ function App() {
   const [state, setState] = useState<AppState>('splash');
   const [user, setUser] = useState<User | null>(null);
   const [language, setLanguage] = useState('tr');
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [totalCertifiedUsers, setTotalCertifiedUsers] = useState(0);
 
   useEffect(() => {
     const detectedLang = detectLanguage();
     setLanguage(detectedLang);
+    fetchUserStatistics();
   }, []);
+
+  const fetchUserStatistics = async () => {
+    const { data, error } = await supabase
+      .from('user_statistics')
+      .select('total_certified_users')
+      .single();
+
+    if (!error && data) {
+      setTotalCertifiedUsers(data.total_certified_users);
+    }
+  };
 
   const handleAnimationComplete = () => {
     setState('login');
@@ -155,30 +172,53 @@ function App() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
-                  <h4 className="text-sm font-semibold text-matrix-400 mb-2 flex items-center">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                      <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
-                    </svg>
-                    Vizyon
-                  </h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    Dijital kimlik güvenliğinde dünya lideri olmak ve blockchain teknolojisi ile her bireyin kimliğini güvence altına almak.
-                  </p>
+                <div className="space-y-4">
+                  <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
+                    <h4 className="text-sm font-semibold text-matrix-400 mb-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
+                      </svg>
+                      Vizyon
+                    </h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      Dijital kimlik güvenliğinde dünya lideri olmak ve blockchain teknolojisi ile her bireyin kimliğini güvence altına almak.
+                    </p>
+                  </div>
+
+                  <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
+                    <h4 className="text-sm font-semibold text-cyber-400 mb-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd"/>
+                        <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+                      </svg>
+                      Misyon
+                    </h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      Biyometrik doğrulama ve yapay zeka teknolojileriyle kimlik hırsızlığına karşı en güvenli çözümleri sunmak.
+                    </p>
+                  </div>
                 </div>
 
                 <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
-                  <h4 className="text-sm font-semibold text-cyber-400 mb-2 flex items-center">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd"/>
-                      <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
-                    </svg>
-                    Misyon
+                  <h4 className="text-sm font-semibold text-emerald-400 mb-3 flex items-center">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    Türkiye Sertifika Haritası
                   </h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    Biyometrik doğrulama ve yapay zeka teknolojileriyle kimlik hırsızlığına karşı en güvenli çözümleri sunmak.
-                  </p>
+                  <button
+                    onClick={() => setShowMapModal(true)}
+                    className="w-full h-48 bg-gradient-to-br from-blue-900/30 to-green-900/30 rounded-xl border-2 border-emerald-500/40 hover:border-emerald-500/70 transition-all group relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDIwIDAgTCAwIDAgMCAyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDIwNSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-50"></div>
+                    <div className="relative z-10 flex flex-col items-center justify-center h-full">
+                      <MapPin className="h-12 w-12 text-emerald-400 mb-2 group-hover:scale-110 transition-transform" />
+                      <div className="text-white font-semibold mb-1">Haritayı Görüntüle</div>
+                      <div className="text-slate-300 text-xs">81 İl • {totalCertifiedUsers.toLocaleString('tr-TR')} Kullanıcı</div>
+                    </div>
+                    <div className="absolute top-2 right-2 bg-green-500/20 border border-green-500/50 rounded-full px-2 py-1 text-[10px] text-green-300 font-semibold">
+                      CANLI
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -210,7 +250,14 @@ function App() {
       <Layout>
         {renderContent()}
       </Layout>
-      {state !== 'dashboard' && <AlbisChatBot language={language} />}
+      <AlbisChatBot language={language} />
+      {state === 'login' && (
+        <TurkeyMapModal
+          isOpen={showMapModal}
+          onClose={() => setShowMapModal(false)}
+          totalUsers={totalCertifiedUsers}
+        />
+      )}
     </>
   );
 }
