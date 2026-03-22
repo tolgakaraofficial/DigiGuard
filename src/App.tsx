@@ -13,7 +13,7 @@ import { UseCasesPage } from './components/UseCasesPage';
 import { CertificatePage } from './components/CertificatePage';
 import { LogOut, Shield } from 'lucide-react';
 
-type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
+type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard' | 'hashDemo';
 
 interface User {
   email: string;
@@ -89,22 +89,19 @@ function App() {
       case 'login':
         return (
           <div>
-            <div className="flex justify-center mb-6">
-              <button
-                onClick={() => {
-                  const demoSection = document.getElementById('hash-demo-section');
-                  demoSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2 shadow-lg"
-              >
-                <Shield className="h-5 w-5" />
-                <span>SHA-256 Güvenlik Alanı</span>
-              </button>
-            </div>
-            <LoginForm onLogin={handleLogin} />
-            <div id="hash-demo-section" className="mt-8">
-              <HashDemo />
-            </div>
+            <LoginForm onLogin={handleLogin} onShowHashDemo={() => setState('hashDemo')} />
+          </div>
+        );
+      case 'hashDemo':
+        return (
+          <div>
+            <button
+              onClick={() => setState('login')}
+              className="mb-6 bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            >
+              ← Geri Dön
+            </button>
+            <HashDemo />
           </div>
         );
       case 'verification':
