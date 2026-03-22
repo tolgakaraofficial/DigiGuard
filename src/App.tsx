@@ -5,7 +5,6 @@ import { LoginForm } from './components/LoginForm';
 import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
-import { BetaBanner } from './components/BetaBanner';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -82,7 +81,6 @@ function App() {
 
   return (
     <Layout>
-      {state === 'login' && <BetaBanner />}
       {renderContent()}
     </Layout>
   );
