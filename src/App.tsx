@@ -6,6 +6,12 @@ import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import { HashDemo } from './components/HashDemo';
 import { SplashScreen } from './components/SplashScreen';
+import { Navigation, PageType } from './components/Navigation';
+import { AboutPage } from './components/AboutPage';
+import { VisionPage } from './components/VisionPage';
+import { UseCasesPage } from './components/UseCasesPage';
+import { CertificatePage } from './components/CertificatePage';
+import { LogOut } from 'lucide-react';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -19,6 +25,7 @@ interface User {
 function App() {
   const [state, setState] = useState<AppState>('splash');
   const [user, setUser] = useState<User | null>(null);
+  const [currentPage, setCurrentPage] = useState<PageType>('dashboard');
 
   const handleSplashComplete = () => {
     setState('login');
@@ -51,6 +58,28 @@ function App() {
   const handleLogout = () => {
     setUser(null);
     setState('login');
+    setCurrentPage('dashboard');
+  };
+
+  const handleNavigate = (page: PageType) => {
+    setCurrentPage(page);
+  };
+
+  const renderDashboardContent = () => {
+    switch (currentPage) {
+      case 'dashboard':
+        return <Dashboard onLogout={handleLogout} />;
+      case 'about':
+        return <AboutPage />;
+      case 'vision':
+        return <VisionPage />;
+      case 'usecases':
+        return <UseCasesPage />;
+      case 'certificate':
+        return <CertificatePage />;
+      default:
+        return <Dashboard onLogout={handleLogout} />;
+    }
   };
 
   const renderContent = () => {
@@ -77,7 +106,22 @@ function App() {
       case 'registration':
         return <RegistrationForm onComplete={handleRegistrationComplete} />;
       case 'dashboard':
-        return <Dashboard onLogout={handleLogout} />;
+        return (
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <h1 className="text-3xl font-bold text-white">DigiGuard</h1>
+              <button
+                onClick={handleLogout}
+                className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Çıkış Yap</span>
+              </button>
+            </div>
+            <Navigation currentPage={currentPage} onNavigate={handleNavigate} />
+            {renderDashboardContent()}
+          </div>
+        );
       default:
         return null;
     }

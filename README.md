@@ -166,6 +166,13 @@ npm run build
 npm run preview
 ```
 
+### Animasyonlu Açılış Ekranı
+Uygulama 4 saniye süren profesyonel bir açılış ekranı ile başlar:
+- Karprime Technology INC. branding
+- DigiGuard logo animasyonu
+- Fade-in/fade-out geçiş efektleri
+- Mavi gradient arka plan tasarımı
+
 ### Mobil Uygulama
 ```bash
 # DigiGuardApp dizinine git
@@ -186,6 +193,34 @@ npm run ios
 # Web'de çalıştır
 npm run web
 ```
+
+## 🎯 Ana Sayfalar ve Özellikler
+
+### Dashboard (Ana Sayfa)
+- Kullanıcı profil durumu ve güvenlik metrikleri
+- Gerçek zamanlı tehdit bildirimleri
+- Premium servis erişimi (ödeme entegrasyonu)
+
+### Hakkında
+- DigiGuard platformunun misyonu ve vizyonu
+- Temel özellikler ve teknoloji altyapısı
+- 6 ana özellik kategorisi ile detaylı bilgilendirme
+
+### Vizyon
+- 2026-2029+ yol haritası
+- Vizyon pillarımız: Küresel Koruma, AI Liderliği, Güvenlik Ekosistemi
+- Değerlerimiz: Güvenlik, Şeffaflık, İnovasyon
+
+### Kullanım Senaryoları
+- 8 farklı sektörde kullanım örnekleri
+- Kurumsal, Medya, Hukuk, Eğitim, Sağlık, Bankacılık, Gazetecilik, Kamu
+- Her sektör için özel senaryolar ve çözümler
+
+### Dijital Sertifika
+- Blockchain tabanlı kimlik sertifikası
+- SVG formatında indirilebilir sertifika
+- Zaman damgalı ve doğrulanabilir sertifika sistemi
+- Blockchain hash ile kalıcı kayıt
 
 ## 📱 Platform Desteği
 

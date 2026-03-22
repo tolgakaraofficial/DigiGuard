@@ -1,0 +1,111 @@
+import React from 'react';
+import { Shield, Users, Lock, Globe, Award, Zap } from 'lucide-react';
+
+export const AboutPage: React.FC = () => {
+  const features = [
+    {
+      icon: Shield,
+      title: 'Gelişmiş Güvenlik',
+      description: 'SHA-256 şifreleme ve blockchain teknolojisi ile verileriniz tamamen güvende.'
+    },
+    {
+      icon: Lock,
+      title: 'Biyometrik Doğrulama',
+      description: 'Yüz ve ses tanıma ile benzersiz kimlik doğrulama sistemi.'
+    },
+    {
+      icon: Globe,
+      title: 'Merkezi Olmayan Yapı',
+      description: 'Web3 ve Web4 teknolojileri ile dağıtık ve şeffaf bir sistem.'
+    },
+    {
+      icon: Award,
+      title: 'Sertifikalandırma',
+      description: 'Dijital kimliğiniz için blockchain tabanlı doğrulanabilir sertifika.'
+    },
+    {
+      icon: Users,
+      title: 'Kullanıcı Odaklı',
+      description: 'Kolay kullanım ve anlaşılır arayüz ile herkes için erişilebilir.'
+    },
+    {
+      icon: Zap,
+      title: 'Hızlı ve Güvenilir',
+      description: 'Anlık doğrulama ve yüksek performans garantisi.'
+    }
+  ];
+
+  return (
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-600 rounded-2xl mb-6">
+          <Shield className="h-10 w-10 text-white" />
+        </div>
+        <h1 className="text-4xl font-bold text-white mb-4">DigiGuard Hakkında</h1>
+        <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+          Dijital kimliğinizi deepfake ve sahte içeriklerden koruyan yeni nesil güvenlik platformu
+        </p>
+      </div>
+
+      <div className="bg-slate-800 rounded-2xl p-8 mb-12 border border-slate-700">
+        <h2 className="text-2xl font-bold text-white mb-6">Misyonumuz</h2>
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          DigiGuard, yapay zeka destekli sahte içerik (deepfake) tehdidine karşı bireylerin ve kurumların
+          dijital kimliklerini korumak için geliştirilmiş kapsamlı bir güvenlik çözümüdür.
+        </p>
+        <p className="text-slate-300 text-lg leading-relaxed mb-6">
+          Modern teknolojilerin getirdiği tehditler karşısında, kullanıcılarımıza biyometrik doğrulama,
+          blockchain tabanlı kimlik kaydı ve yapay zeka destekli tehdit tespit sistemleri sunuyoruz.
+        </p>
+        <p className="text-slate-300 text-lg leading-relaxed">
+          Karprime Technology INC. olarak, dijital güvenliğin geleceğini inşa ediyoruz.
+        </p>
+      </div>
+
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-white mb-8 text-center">Temel Özellikler</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <div
+                key={index}
+                className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-blue-500/50 transition-all group"
+              >
+                <div className="bg-blue-600/20 w-14 h-14 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-600/30 transition-colors">
+                  <Icon className="h-7 w-7 text-blue-400" />
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="bg-gradient-to-br from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/30">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Teknoloji Yığınımız</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-400 mb-2">SHA-256</div>
+              <div className="text-slate-300 text-sm">Şifreleme</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-400 mb-2">Web3</div>
+              <div className="text-slate-300 text-sm">Blockchain</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-emerald-400 mb-2">AI/ML</div>
+              <div className="text-slate-300 text-sm">Yapay Zeka</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-orange-400 mb-2">Biometric</div>
+              <div className="text-slate-300 text-sm">Biyometrik</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
