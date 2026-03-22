@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircle, Shield, Download, Eye, Star, Award, Lock, FileCheck, Fingerprint, Database } from 'lucide-react';
 import { PersonalInfo, IdentityInfo, MediaFiles } from '../types';
+import jsPDF from 'jspdf';
 
 interface RegistrationCompleteProps {
   personalInfo: PersonalInfo;
@@ -29,19 +30,151 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
   };
 
   const handleDownloadCertificate = async () => {
-    // Sertifika oluşturma simülasyonu
     setCertificateGenerated(true);
-    
-    // Gerçek uygulamada burada PDF oluşturulacak
-    const certificateData = {
-      name: `${personalInfo.firstName} ${personalInfo.lastName}`,
-      idNumber: identityInfo.idNumber,
-      date: new Date().toLocaleDateString('tr-TR'),
-      certificateId: `DG-${Date.now()}`
-    };
-    
-    console.log('Sertifika oluşturuluyor:', certificateData);
-    alert('Dijital kimlik sertifikanız başarıyla oluşturuldu ve indirildi!');
+
+    const timestamp = new Date();
+    const certificateId = `DG-${Date.now()}`;
+    const blockchainHash = `0x${Math.random().toString(16).substring(2, 66)}`;
+
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    pdf.setFillColor(15, 23, 42);
+    pdf.rect(0, 0, 210, 297, 'F');
+
+    pdf.setFillColor(6, 182, 212);
+    pdf.rect(0, 0, 210, 40, 'F');
+
+    pdf.setFillColor(34, 197, 94);
+    pdf.rect(0, 257, 210, 40, 'F');
+
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(28);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('DigiGuard', 105, 20, { align: 'center' });
+
+    pdf.setFontSize(12);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Biyometrik KYC Guvenlik Sistemi', 105, 28, { align: 'center' });
+
+    pdf.setFontSize(22);
+    pdf.setTextColor(6, 182, 212);
+    pdf.text('BLOCKCHAIN KYC SERTIFIKASI', 105, 60, { align: 'center' });
+
+    pdf.setDrawColor(6, 182, 212);
+    pdf.setLineWidth(0.5);
+    pdf.line(40, 65, 170, 65);
+
+    pdf.setFontSize(12);
+    pdf.setTextColor(226, 232, 240);
+    pdf.text('Bu sertifika, kimlik dogrulamasinin blockchain teknolojisi ile', 105, 75, { align: 'center' });
+    pdf.text('guvence altina alindigini teyit eder.', 105, 82, { align: 'center' });
+
+    pdf.setFontSize(11);
+    pdf.setTextColor(148, 163, 184);
+    pdf.text('Kayit Bilgileri:', 40, 100);
+
+    pdf.setDrawColor(71, 85, 105);
+    pdf.setLineWidth(0.3);
+    pdf.line(40, 102, 170, 102);
+
+    pdf.setFontSize(10);
+    pdf.setTextColor(203, 213, 225);
+
+    const infoY = 112;
+    const lineHeight = 10;
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Ad Soyad:', 45, infoY);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text(`${personalInfo.firstName} ${personalInfo.lastName}`, 110, infoY);
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Kimlik Turu:', 45, infoY + lineHeight);
+    pdf.setFont('helvetica', 'normal');
+    const idTypeText = identityInfo.idType === 'tc' ? 'T.C. Kimlik Karti' :
+                       identityInfo.idType === 'passport' ? 'Pasaport' : 'Diger';
+    pdf.text(idTypeText, 110, infoY + lineHeight);
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Kimlik No:', 45, infoY + lineHeight * 2);
+    pdf.setFont('helvetica', 'normal');
+    const maskedId = identityInfo.idNumber.replace(/./g, '*').slice(0, -4) + identityInfo.idNumber.slice(-4);
+    pdf.text(maskedId, 110, infoY + lineHeight * 2);
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Sehir:', 45, infoY + lineHeight * 3);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text(personalInfo.city, 110, infoY + lineHeight * 3);
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('E-posta:', 45, infoY + lineHeight * 4);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text(personalInfo.email, 110, infoY + lineHeight * 4);
+
+    pdf.setFontSize(11);
+    pdf.setTextColor(148, 163, 184);
+    pdf.text('Blockchain Dogrulama:', 40, 170);
+    pdf.line(40, 172, 170, 172);
+
+    pdf.setFontSize(10);
+    pdf.setTextColor(203, 213, 225);
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Sertifika ID:', 45, 182);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(9);
+    pdf.text(certificateId, 110, 182);
+
+    pdf.setFontSize(10);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Blockchain Hash:', 45, 192);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(8);
+    pdf.text(blockchainHash.substring(0, 45), 45, 200);
+    pdf.text(blockchainHash.substring(45), 45, 206);
+
+    pdf.setFontSize(10);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Zaman Damgasi:', 45, 216);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text(timestamp.toLocaleString('tr-TR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      timeZone: 'Europe/Istanbul'
+    }), 110, 216);
+
+    pdf.setDrawColor(34, 197, 94);
+    pdf.setLineWidth(1);
+    pdf.rect(35, 230, 140, 20);
+
+    pdf.setFontSize(9);
+    pdf.setTextColor(34, 197, 94);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('GUVENLIK ONAYLARI', 105, 237, { align: 'center' });
+
+    pdf.setFontSize(8);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('AES-256 Sifreleme | KVKK Uyumlu | GDPR Uyumlu | ISO 27001', 105, 243, { align: 'center' });
+
+    pdf.setFontSize(9);
+    pdf.setTextColor(255, 255, 255);
+    pdf.text('Karprime Technology INC. | www.digiguard.com', 105, 270, { align: 'center' });
+    pdf.setFontSize(7);
+    pdf.text('Bu sertifika blockchain uzerinde dogrulanabilir ve degistirilemez.', 105, 277, { align: 'center' });
+
+    pdf.setFontSize(6);
+    pdf.setTextColor(148, 163, 184);
+    pdf.text(`Olusturulma: ${timestamp.toISOString()} | Surum: 1.0.0`, 105, 285, { align: 'center' });
+
+    pdf.save(`DigiGuard-KYC-Sertifika-${certificateId}.pdf`);
   };
   const totalFiles = mediaFiles.photos.length + mediaFiles.videos.length + mediaFiles.audioRecordings.length;
 

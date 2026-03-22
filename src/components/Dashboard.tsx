@@ -1,11 +1,19 @@
-import React from 'react';
-import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Award, Lock, Eye, Fingerprint, Scan, Database } from 'lucide-react';
+import React, { useState } from 'react';
+import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Award, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Download } from 'lucide-react';
+import { UserScenariosModal } from './UserScenariosModal';
+import { GlobalReachModal } from './GlobalReachModal';
+import { IntegrationsModal } from './IntegrationsModal';
+import { PublicBenefitModal } from './PublicBenefitModal';
 
 interface DashboardProps {
   onLogout: () => void;
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
+  const [userScenariosOpen, setUserScenariosOpen] = useState(false);
+  const [globalReachOpen, setGlobalReachOpen] = useState(false);
+  const [integrationsOpen, setIntegrationsOpen] = useState(false);
+  const [publicBenefitOpen, setPublicBenefitOpen] = useState(false);
   const stats = [
     { label: 'Biyometrik Durum', value: 'Doğrulandı', color: 'text-matrix-400', icon: Fingerprint, trend: '+100%' },
     { label: 'Güvenlik Skoru', value: '98/100', color: 'text-cyber-400', icon: Shield, trend: '+5%' },
@@ -15,52 +23,112 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
 
   const features = [
     {
-      title: 'Biyometrik Kimlik Doğrulama',
-      description: 'AI destekli yüz tanıma, parmak izi ve ses analizi ile kimliğinizi doğrulayın',
+      title: 'Biyometrik Kimlik Dogrulama',
+      description: 'AI destekli yuz tanima, parmak izi ve ses analizi ile kimliginizi dogrulayin',
       icon: Fingerprint,
       color: 'bg-gradient-to-br from-cyber-600 to-cyber-700',
       status: 'Aktif',
-      lastUsed: '1 saat önce'
+      lastUsed: '1 saat once',
+      action: () => alert('Biyometrik dogrulama sistemi aktif!')
     },
     {
-      title: 'Blockchain Güvenlik Sertifikası',
-      description: 'Blockchain tabanlı KYC sertifikanızı görüntüleyin, paylaşın ve indirin',
+      title: 'Blockchain Guvenlik Sertifikasi',
+      description: 'Blockchain tabanli KYC sertifikanizi goruntuyleyin, paylasin ve indirin',
       icon: Database,
       color: 'bg-gradient-to-br from-matrix-600 to-matrix-700',
-      status: 'Güncel',
-      lastUsed: 'Dün'
+      status: 'Guncel',
+      lastUsed: 'Dun',
+      action: () => alert('Sertifika indirme yakinda aktif olacak!')
     },
     {
-      title: 'KYC Profil Yönetimi',
-      description: 'Kişisel bilgilerinizi, güvenlik ayarlarınızı ve gizlilik tercihlerinizi yönetin',
+      title: 'KYC Profil Yonetimi',
+      description: 'Kisisel bilgilerinizi, guvenlik ayarlarinizi ve gizlilik tercihlerinizi yonetin',
       icon: Settings,
       color: 'bg-gradient-to-br from-slate-600 to-slate-700',
-      status: 'Yapılandırıldı',
-      lastUsed: '3 gün önce'
+      status: 'Yapilandirildi',
+      lastUsed: '3 gun once',
+      action: () => alert('Profil yonetimi paneli yakinda aktif olacak!')
     },
     {
-      title: 'Siber Tehdit İzleme',
-      description: 'Dark web ve internette kimliğinizle ilgili sahte içerikleri tespit edin',
+      title: 'Siber Tehdit Izleme',
+      description: 'Dark web ve internette kimliginizle ilgili sahte icerikleri tespit edin',
       icon: Eye,
       color: 'bg-gradient-to-br from-red-600 to-red-700',
-      status: 'İzleniyor',
-      lastUsed: 'Sürekli'
+      status: 'Izleniyor',
+      lastUsed: 'Surekli',
+      action: () => alert('Tehdit izleme sistemi 7/24 aktif!')
     },
     {
-      title: 'Güvenlik Analiz Raporları',
-      description: 'Detaylı siber güvenlik analizleri ve kimlik koruma raporlarını inceleyin',
+      title: 'Guvenlik Analiz Raporlari',
+      description: 'Detayli siber guvenlik analizleri ve kimlik koruma raporlarini inceleyin',
       icon: TrendingUp,
       color: 'bg-gradient-to-br from-secure-600 to-secure-700',
-      status: 'Hazır',
-      lastUsed: '1 hafta önce'
+      status: 'Hazir',
+      lastUsed: '1 hafta once',
+      action: () => alert('Raporlar hazirlaniyor!')
     },
     {
-      title: 'Acil Durum Müdahale',
-      description: 'Kimlik hırsızlığı ve siber saldırı durumunda anında müdahale sistemi',
+      title: 'Acil Durum Mudahale',
+      description: 'Kimlik hirsizligi ve siber saldiri durumunda aninda mudahale sistemi',
       icon: AlertTriangle,
       color: 'bg-gradient-to-br from-amber-600 to-orange-600',
       status: 'Standby',
-      lastUsed: 'Hiç kullanılmadı'
+      lastUsed: 'Hic kullanilmadi',
+      action: () => alert('Acil durum sistemi standby modunda!')
+    },
+    {
+      title: 'Kullanici Senaryolari',
+      description: 'Bireysel, kurumsal ve kamu kullanim senaryolarini inceleyin',
+      icon: Users,
+      color: 'bg-gradient-to-br from-blue-600 to-cyan-600',
+      status: 'Bilgilendirme',
+      lastUsed: 'Yeni',
+      action: () => setUserScenariosOpen(true)
+    },
+    {
+      title: 'Kuresel Erisim (7 Kita)',
+      description: 'DigiGuard\'in dunya capindaki etkisini ve vizyonunu kesfedin',
+      icon: Globe2,
+      color: 'bg-gradient-to-br from-green-600 to-emerald-600',
+      status: 'Global',
+      lastUsed: 'Yeni',
+      action: () => setGlobalReachOpen(true)
+    },
+    {
+      title: 'Entegrasyonlar ve API',
+      description: 'Sistemlerinize DigiGuard\'i kolayca entegre edin',
+      icon: Workflow,
+      color: 'bg-gradient-to-br from-purple-600 to-pink-600',
+      status: 'Gelistirici',
+      lastUsed: 'Yeni',
+      action: () => setIntegrationsOpen(true)
+    },
+    {
+      title: 'Kamu Yarari ve Sosyal Etki',
+      description: 'Toplumsal fayda projeleri ve sosyal sorumluluk calismalari',
+      icon: Heart,
+      color: 'bg-gradient-to-br from-pink-600 to-rose-600',
+      status: 'Sosyal',
+      lastUsed: 'Yeni',
+      action: () => setPublicBenefitOpen(true)
+    },
+    {
+      title: 'Ekip Isbirligi Senaryolari',
+      description: 'Kurumsal ekiplerde DigiGuard kullanimi ve yonetimi',
+      icon: Network,
+      color: 'bg-gradient-to-br from-indigo-600 to-blue-600',
+      status: 'Kurumsal',
+      lastUsed: 'Yeni',
+      action: () => alert('Takimlar arası KYC yonetimi, rol tabanli erisim kontrolleri ve kurumsal dashboard ozellikleri yakinda!')
+    },
+    {
+      title: 'Egitim ve Dokumantasyon',
+      description: 'Video egitimler, kullanim kilavuzlari ve en iyi uygulamalar',
+      icon: BookOpen,
+      color: 'bg-gradient-to-br from-yellow-600 to-orange-600',
+      status: 'Egitim',
+      lastUsed: 'Yeni',
+      action: () => alert('Video egitim kutuphanesi, interaktif rehberler ve sertifika programlari hazirlaniyor!')
     },
   ];
 
@@ -187,7 +255,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
       {/* Features */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map((feature, index) => (
-          <div key={index} className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 hover:border-cyber-500/50 transition-all duration-300 cursor-pointer group hover:shadow-xl hover:shadow-cyber-500/20 relative overflow-hidden">
+          <div
+            key={index}
+            onClick={feature.action}
+            className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 hover:border-cyber-500/50 transition-all duration-300 cursor-pointer group hover:shadow-xl hover:shadow-cyber-500/20 relative overflow-hidden"
+          >
             <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-cyber-500/10 to-matrix-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div className={`${feature.color} p-3 rounded-lg w-fit mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg relative z-10`}>
               <feature.icon className="h-6 w-6 text-white" />
@@ -196,8 +268,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
               <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
               <span className={`px-2 py-1 text-xs rounded-full border ${
                 feature.status === 'Aktif' ? 'bg-matrix-600/30 text-matrix-300 border-matrix-500/50' :
-                feature.status === 'Güncel' ? 'bg-cyber-600/30 text-cyber-300 border-cyber-500/50' :
-                feature.status === 'İzleniyor' ? 'bg-red-600/30 text-red-300 border-red-500/50' :
+                feature.status === 'Guncel' ? 'bg-cyber-600/30 text-cyber-300 border-cyber-500/50' :
+                feature.status === 'Izleniyor' ? 'bg-red-600/30 text-red-300 border-red-500/50' :
+                feature.status === 'Bilgilendirme' ? 'bg-blue-600/30 text-blue-300 border-blue-500/50' :
+                feature.status === 'Global' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
+                feature.status === 'Gelistirici' ? 'bg-purple-600/30 text-purple-300 border-purple-500/50' :
+                feature.status === 'Sosyal' ? 'bg-pink-600/30 text-pink-300 border-pink-500/50' :
+                feature.status === 'Kurumsal' ? 'bg-indigo-600/30 text-indigo-300 border-indigo-500/50' :
+                feature.status === 'Egitim' ? 'bg-yellow-600/30 text-yellow-300 border-yellow-500/50' :
                 'bg-slate-600/30 text-slate-300 border-slate-500/50'
               }`}>
                 {feature.status}
@@ -207,12 +285,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             <div className="flex items-center justify-between relative z-10">
               <span className="text-xs text-slate-500">Son: {feature.lastUsed}</span>
               <span className="text-cyber-400 text-sm font-medium group-hover:text-cyber-300 transition-colors">
-                Aç →
+                Ac →
               </span>
             </div>
           </div>
         ))}
       </div>
+
+      <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
+      <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />
+      <IntegrationsModal isOpen={integrationsOpen} onClose={() => setIntegrationsOpen(false)} />
+      <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
     </div>
   );
 };
