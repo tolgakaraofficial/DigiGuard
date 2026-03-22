@@ -1,4 +1,5 @@
 import { supabase } from './supabaseClient';
+import { securityService } from './securityService';
 
 export interface NotificationData {
   userId: string;
@@ -89,14 +90,17 @@ export const notificationService = {
   },
 
   async createNotification(data: NotificationData) {
+    const sanitizedSubject = securityService.validateInput(data.subject, 'subject');
+    const sanitizedMessage = securityService.validateInput(data.message, 'message');
+
     const { data: notification, error } = await supabase
       .from('notifications')
       .insert({
         user_id: data.userId,
         type: data.type,
         category: data.category,
-        subject: data.subject,
-        message: data.message,
+        subject: sanitizedSubject,
+        message: sanitizedMessage,
         metadata: data.metadata || {}
       })
       .select()

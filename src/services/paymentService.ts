@@ -1,5 +1,6 @@
 import { supabase } from './supabaseClient';
 import { notificationService } from './notificationService';
+import { securityService } from './securityService';
 
 declare global {
   interface Window {
@@ -72,6 +73,11 @@ export const paymentService = {
       throw new Error('MetaMask not installed');
     }
 
+    const rateLimitOk = await securityService.checkRateLimit('payment', 10);
+    if (!rateLimitOk) {
+      throw new Error('Çok fazla ödeme denemesi. Lütfen daha sonra tekrar deneyin.');
+    }
+
     try {
       const accounts = await this.connectMetaMask();
       const fromAddress = accounts;
@@ -124,8 +130,19 @@ export const paymentService = {
     cardData: CardPaymentData
   ): Promise<any> {
     try {
+      const rateLimitOk = await securityService.checkRateLimit('payment', 10);
+      if (!rateLimitOk) {
+        throw new Error('Çok fazla ödeme denemesi. Lütfen daha sonra tekrar deneyin.');
+      }
+
       const isValid = this.validateCard(cardData);
       if (!isValid) {
+        await securityService.logSecurityEvent({
+          eventType: 'suspicious_activity',
+          severity: 'medium',
+          description: 'Invalid card data submitted',
+          metadata: { cardBrand: this.detectCardBrand(cardData.cardNumber) }
+        });
         throw new Error('Geçersiz kart bilgileri');
       }
 
