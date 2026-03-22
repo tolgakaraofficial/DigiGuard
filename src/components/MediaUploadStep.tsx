@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useState } from 'react';
-import { ArrowRight, ArrowLeft, Upload, Camera, Video, Mic, X, Image, FileText, AlertCircle, CheckCircle, Fingerprint, Scan } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Camera, Video, Mic, X, Image, FileText, AlertCircle, CheckCircle, Fingerprint, Scan } from 'lucide-react';
 import { MediaFiles } from '../types';
 
 interface MediaUploadStepProps {
@@ -19,7 +19,6 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
   const photoInputRef = useRef<HTMLInputElement>(null);
   const videoInputRef = useRef<HTMLInputElement>(null);
   const audioInputRef = useRef<HTMLInputElement>(null);
-  const [uploadProgress, setUploadProgress] = useState<{[key: string]: number}>({});
   const [errors, setErrors] = useState<string[]>([]);
 
   const handleFileUpload = (type: keyof MediaFiles, files: FileList | null) => {
@@ -68,20 +67,8 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
     setErrors([]);
     
     // Yükleme simülasyonu
-    fileArray.forEach((file, index) => {
-      const progressKey = `${type}-${Date.now()}-${index}`;
-      setUploadProgress(prev => ({ ...prev, [progressKey]: 0 }));
-      
-      const interval = setInterval(() => {
-        setUploadProgress(prev => {
-          const currentProgress = prev[progressKey] || 0;
-          if (currentProgress >= 100) {
-            clearInterval(interval);
-            return prev;
-          }
-          return { ...prev, [progressKey]: currentProgress + 10 };
-        });
-      }, 100);
+    fileArray.forEach((file) => {
+      // Upload simulation handled by progress tracking
     });
     
     onChange({

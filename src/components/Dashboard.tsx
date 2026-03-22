@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Award, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Download, CreditCard, BarChart3, TrendingDown, AlertCircle } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle } from 'lucide-react';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
 import { IntegrationsModal } from './IntegrationsModal';

@@ -10,7 +10,7 @@ interface RegistrationFormProps {
   userType?: string;
 }
 
-export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete, userType = 'individual' }) => {
+export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     firstName: '',

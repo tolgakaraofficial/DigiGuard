@@ -30,7 +30,6 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
   const [cityStats, setCityStats] = useState<CityStatistics[]>([]);
   const [selectedCity, setSelectedCity] = useState<CityStatistics | null>(null);
   const [userTypeStats, setUserTypeStats] = useState<UserTypeStats[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (isOpen) {
@@ -53,8 +52,6 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
     if (!typeResult.error && typeResult.data) {
       setUserTypeStats(typeResult.data);
     }
-
-    setLoading(false);
   };
 
   if (!isOpen) return null;

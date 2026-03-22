@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Users, Building2, Globe as Globe2, Shield, Workflow, Network, CheckCircle } from 'lucide-react';
+import { X, Users, Building2, Globe as Globe2, CheckCircle } from 'lucide-react';
 
 interface UserScenariosModalProps {
   isOpen: boolean;

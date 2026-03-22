@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan, Wallet, Smartphone, Globe, Zap, Camera, UserCheck, CheckCircle, MapPin, Activity, Building2, User, Briefcase } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, CheckCircle, Building2, User, Briefcase } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
-import { TurkeyMapModal } from './TurkeyMapModal';
-import { supabase } from '../services/supabaseClient';
 
 interface LoginFormProps {
   onLogin: (email: string, phone: string, userType: string) => void;
@@ -23,31 +21,12 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [showSecurityModal, setShowSecurityModal] = useState(false);
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showTeamModal, setShowTeamModal] = useState(false);
-  const [showKYCPanel, setShowKYCPanel] = useState(false);
-  const [showMapModal, setShowMapModal] = useState(false);
-  const [totalCertifiedUsers, setTotalCertifiedUsers] = useState(0);
-  const [kycStatus, setKycStatus] = useState({
-    faceVerification: false,
-    documentVerification: false,
-    biometricScan: false,
-  });
 
   useEffect(() => {
     fetchUserStatistics();
     const interval = setInterval(fetchUserStatistics, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  const fetchUserStatistics = async () => {
-    const { data, error } = await supabase
-      .from('user_statistics')
-      .select('total_certified_users')
-      .single();
-
-    if (!error && data) {
-      setTotalCertifiedUsers(data.total_certified_users);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -205,93 +184,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </button>
         </div>
 
-        {showKYCPanel && (
-          <div className="mb-5 p-4 bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-xl border border-cyber-500/30 relative z-10">
-            <h3 className="text-sm font-semibold text-white mb-3 flex items-center">
-              <UserCheck className="h-4 w-4 text-cyber-400 mr-2" />
-              KYC Kimlik Doğrulama Süreci
-            </h3>
-
-            <div className="space-y-2">
-              <div className={`flex items-center justify-between p-3 rounded-lg ${kycStatus.faceVerification ? 'bg-green-900/30 border border-green-500/50' : 'bg-slate-700/50 border border-slate-600'}`}>
-                <div className="flex items-center space-x-3">
-                  <Camera className={`h-5 w-5 ${kycStatus.faceVerification ? 'text-green-400' : 'text-slate-400'}`} />
-                  <div>
-                    <p className={`text-sm font-medium ${kycStatus.faceVerification ? 'text-green-300' : 'text-slate-300'}`}>
-                      Yüz Tarama
-                    </p>
-                    <p className="text-xs text-slate-500">Canlılık tespiti ve yüz doğrulama</p>
-                  </div>
-                </div>
-                {kycStatus.faceVerification ? (
-                  <CheckCircle className="h-5 w-5 text-green-400" />
-                ) : (
-                  <button
-                    onClick={() => setKycStatus({...kycStatus, faceVerification: true})}
-                    className="text-xs bg-cyber-600 hover:bg-cyber-700 text-white px-3 py-1.5 rounded-md transition-all"
-                  >
-                    Başlat
-                  </button>
-                )}
-              </div>
-
-              <div className={`flex items-center justify-between p-3 rounded-lg ${kycStatus.documentVerification ? 'bg-green-900/30 border border-green-500/50' : 'bg-slate-700/50 border border-slate-600'}`}>
-                <div className="flex items-center space-x-3">
-                  <Scan className={`h-5 w-5 ${kycStatus.documentVerification ? 'text-green-400' : 'text-slate-400'}`} />
-                  <div>
-                    <p className={`text-sm font-medium ${kycStatus.documentVerification ? 'text-green-300' : 'text-slate-300'}`}>
-                      Kimlik Belgesi Tarama
-                    </p>
-                    <p className="text-xs text-slate-500">TC Kimlik, Pasaport veya Ehliyet</p>
-                  </div>
-                </div>
-                {kycStatus.documentVerification ? (
-                  <CheckCircle className="h-5 w-5 text-green-400" />
-                ) : (
-                  <button
-                    onClick={() => setKycStatus({...kycStatus, documentVerification: true})}
-                    className="text-xs bg-cyber-600 hover:bg-cyber-700 text-white px-3 py-1.5 rounded-md transition-all"
-                  >
-                    Tarayın
-                  </button>
-                )}
-              </div>
-
-              <div className={`flex items-center justify-between p-3 rounded-lg ${kycStatus.biometricScan ? 'bg-green-900/30 border border-green-500/50' : 'bg-slate-700/50 border border-slate-600'}`}>
-                <div className="flex items-center space-x-3">
-                  <Fingerprint className={`h-5 w-5 ${kycStatus.biometricScan ? 'text-green-400' : 'text-slate-400'}`} />
-                  <div>
-                    <p className={`text-sm font-medium ${kycStatus.biometricScan ? 'text-green-300' : 'text-slate-300'}`}>
-                      Biyometrik Veri Tarama
-                    </p>
-                    <p className="text-xs text-slate-500">Parmak izi veya retina taraması</p>
-                  </div>
-                </div>
-                {kycStatus.biometricScan ? (
-                  <CheckCircle className="h-5 w-5 text-green-400" />
-                ) : (
-                  <button
-                    onClick={() => setKycStatus({...kycStatus, biometricScan: true})}
-                    className="text-xs bg-cyber-600 hover:bg-cyber-700 text-white px-3 py-1.5 rounded-md transition-all"
-                  >
-                    Tarayın
-                  </button>
-                )}
-              </div>
-            </div>
-
-            {kycStatus.faceVerification && kycStatus.documentVerification && kycStatus.biometricScan && (
-              <div className="mt-3 p-3 bg-gradient-to-r from-green-900/40 to-emerald-900/40 border border-green-500/50 rounded-lg">
-                <div className="flex items-center space-x-2">
-                  <CheckCircle className="h-5 w-5 text-green-400" />
-                  <p className="text-sm text-green-300 font-medium">
-                    KYC Doğrulama Tamamlandı
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
           <div>
@@ -460,40 +352,23 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </div>
 
         {/* Security indicators */}
-        <div className="mt-3 grid grid-cols-4 gap-1.5 relative z-10">
+        <div className="mt-3 grid grid-cols-3 gap-1.5 relative z-10">
           <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-cyber-500/30">
             <Lock className="h-3 w-3 text-cyber-400" />
             <span className="text-xs text-slate-300">AES-256</span>
           </div>
           <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-matrix-500/30">
-            <Fingerprint className="h-3 w-3 text-matrix-400" />
             <span className="text-xs text-slate-300">Biyometrik</span>
           </div>
           <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-secure-500/30">
-            <Shield className="h-3 w-3 text-secure-400" />
             <span className="text-xs text-slate-300">Blockchain</span>
           </div>
-          <button
-            onClick={() => setShowMapModal(true)}
-            className="flex items-center justify-center gap-1 px-1.5 py-1 bg-gradient-to-r from-green-700/50 to-emerald-700/50 hover:from-green-600/70 hover:to-emerald-600/70 rounded-md border border-green-500/50 hover:border-green-400/70 transition-all cursor-pointer group"
-          >
-            <Activity className="h-3 w-3 text-green-400 animate-pulse" />
-            <span className="text-xs text-green-300 font-semibold tabular-nums">
-              {totalCertifiedUsers.toLocaleString('tr-TR')}
-            </span>
-            <MapPin className="h-3 w-3 text-green-400 group-hover:scale-110 transition-transform" />
-          </button>
         </div>
       </div>
 
       <SecurityInfoModal isOpen={showSecurityModal} onClose={() => setShowSecurityModal(false)} />
       <AboutModal isOpen={showAboutModal} onClose={() => setShowAboutModal(false)} />
       <TeamModal isOpen={showTeamModal} onClose={() => setShowTeamModal(false)} />
-      <TurkeyMapModal
-        isOpen={showMapModal}
-        onClose={() => setShowMapModal(false)}
-        totalUsers={totalCertifiedUsers}
-      />
     </div>
   );
 };

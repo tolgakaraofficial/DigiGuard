@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Globe as Globe2, TrendingUp, Users, Building2, Shield, Zap } from 'lucide-react';
+import { X, Globe as Globe2, TrendingUp, Users, Shield, Zap } from 'lucide-react';
 
 interface GlobalReachModalProps {
   isOpen: boolean;

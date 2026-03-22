@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, CheckCircle, RotateCcw, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Shield, CheckCircle, RotateCcw, AlertCircle, Camera, Scan, Fingerprint, UserCheck } from 'lucide-react';
 
 interface VerificationFormProps {
   email: string;
@@ -12,187 +12,166 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
   phone,
   onVerify,
 }) => {
-  const [emailCode, setEmailCode] = useState('');
-  const [phoneCode, setPhoneCode] = useState('');
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<{emailCode?: string, phoneCode?: string}>({});
-  const [resendCount, setResendCount] = useState(0);
+  const [kycStatus, setKycStatus] = useState({
+    faceVerification: false,
+    documentVerification: false,
+    biometricScan: false,
+  });
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
+  const allVerified = kycStatus.faceVerification && kycStatus.documentVerification && kycStatus.biometricScan;
 
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const handleResendCode = () => {
-    if (resendCount >= 3) {
-      alert('Çok fazla kod gönderme isteği. Lütfen daha sonra tekrar deneyin.');
-      return;
-    }
-    
-    setTimeLeft(300);
-    setResendCount(prev => prev + 1);
-    // Burada gerçek API çağrısı yapılacak
-    console.log('Yeni doğrulama kodları gönderiliyor...');
-  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Form doğrulama
-    const newErrors: {emailCode?: string, phoneCode?: string} = {};
-    
-    if (!emailCode) {
-      newErrors.emailCode = 'E-posta doğrulama kodu gereklidir';
-    } else if (emailCode.length !== 6) {
-      newErrors.emailCode = 'Doğrulama kodu 6 haneli olmalıdır';
-    } else if (!/^\d{6}$/.test(emailCode)) {
-      newErrors.emailCode = 'Doğrulama kodu sadece rakamlardan oluşmalıdır';
-    }
-    
-    if (!phoneCode) {
-      newErrors.phoneCode = 'SMS doğrulama kodu gereklidir';
-    } else if (phoneCode.length !== 6) {
-      newErrors.phoneCode = 'Doğrulama kodu 6 haneli olmalıdır';
-    } else if (!/^\d{6}$/.test(phoneCode)) {
-      newErrors.phoneCode = 'Doğrulama kodu sadece rakamlardan oluşmalıdır';
-    }
-    
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+
+    if (!allVerified) {
+      alert('Lütfen tüm doğrulama adımlarını tamamlayın.');
       return;
     }
-    
-    setErrors({});
-    setIsLoading(true);
 
-    // API çağrısı simülasyonu
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1500));
     onVerify();
     setIsLoading(false);
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
-        <div className="text-center mb-8">
+    <div className="max-w-2xl mx-auto px-4">
+      <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-2xl border border-cyber-500/30">
+        <div className="text-center mb-6">
           <div className="flex justify-center mb-4">
-            <div className="bg-emerald-600 p-3 rounded-full">
-              <Shield className="h-8 w-8 text-white" />
+            <div className="bg-gradient-to-br from-cyber-600 to-matrix-600 p-3 rounded-full animate-pulse">
+              <UserCheck className="h-8 w-8 text-white" />
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Doğrulama</h2>
-          <p className="text-slate-300">
-            E-posta ve telefon numaranıza gönderilen kodları girin
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-2">
+            KYC Kimlik Doğrulama
+          </h2>
+          <p className="text-slate-300 text-sm">
+            Biyometrik doğrulama ve kimlik bilgileri kontrolü
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              E-posta Doğrulama Kodu
-            </label>
-            <p className="text-xs text-slate-400 mb-2">
-              {email} adresine gönderildi
-            </p>
-            <input
-              type="text"
-              required
-              value={emailCode}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, '').slice(0, 6);
-                setEmailCode(value);
-              }}
-              className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white text-center text-lg tracking-widest ${
-                errors.emailCode ? 'border-red-500' : 'border-slate-600'
-              }`}
-              placeholder="000000"
-              maxLength={6}
-            />
-            {errors.emailCode && <p className="text-red-400 text-sm mt-1">{errors.emailCode}</p>}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              SMS Doğrulama Kodu
-            </label>
-            <p className="text-xs text-slate-400 mb-2">
-              {phone} numarasına gönderildi
-            </p>
-            <input
-              type="text"
-              required
-              value={phoneCode}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, '').slice(0, 6);
-                setPhoneCode(value);
-              }}
-              className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-white text-center text-lg tracking-widest ${
-                errors.phoneCode ? 'border-red-500' : 'border-slate-600'
-              }`}
-              placeholder="000000"
-              maxLength={6}
-            />
-            {errors.phoneCode && <p className="text-red-400 text-sm mt-1">{errors.phoneCode}</p>}
-          </div>
-
-          <div className="text-center">
-            <p className="text-sm text-slate-400">
-              Kodların süresi: {formatTime(timeLeft)}
-            </p>
-            {timeLeft === 0 && (
-              <button
-                type="button"
-                onClick={handleResendCode}
-                disabled={resendCount >= 3}
-                className={`text-sm mt-2 ${
-                  resendCount >= 3 
-                    ? 'text-slate-500 cursor-not-allowed' 
-                    : 'text-blue-400 hover:text-blue-300 cursor-pointer'
-                }`}
-              >
-                <RotateCcw className="h-4 w-4 inline mr-1" />
-                {resendCount >= 3 ? 'Kod gönderme limiti aşıldı' : 'Yeni kod gönder'}
-              </button>
-            )}
-            {resendCount > 0 && resendCount < 3 && (
-              <p className="text-xs text-amber-400 mt-1">
-                Kalan deneme hakkı: {3 - resendCount}
+        <div className="mb-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+          <div className="flex items-start space-x-2">
+            <AlertCircle className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-blue-200 text-sm">
+                <span className="font-semibold">Kullanıcı Bilgileri:</span>
               </p>
-            )}
+              <p className="text-blue-300 text-xs mt-1">E-posta: {email}</p>
+              <p className="text-blue-300 text-xs">Telefon: {phone}</p>
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-3">
+            <div className={`flex items-center justify-between p-4 rounded-lg transition-all ${kycStatus.faceVerification ? 'bg-green-900/30 border-2 border-green-500/50' : 'bg-slate-700/50 border-2 border-slate-600 hover:border-slate-500'}`}>
+              <div className="flex items-center space-x-3">
+                <Camera className={`h-6 w-6 ${kycStatus.faceVerification ? 'text-green-400' : 'text-slate-400'}`} />
+                <div>
+                  <p className={`text-sm font-semibold ${kycStatus.faceVerification ? 'text-green-300' : 'text-slate-200'}`}>
+                    Yüz Tarama ve Canlılık Tespiti
+                  </p>
+                  <p className="text-xs text-slate-400">Kamera ile yüz doğrulama ve canlılık kontrolü</p>
+                </div>
+              </div>
+              {kycStatus.faceVerification ? (
+                <CheckCircle className="h-6 w-6 text-green-400" />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setKycStatus({...kycStatus, faceVerification: true})}
+                  className="text-sm bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white px-4 py-2 rounded-lg transition-all font-semibold"
+                >
+                  Başlat
+                </button>
+              )}
+            </div>
+
+            <div className={`flex items-center justify-between p-4 rounded-lg transition-all ${kycStatus.documentVerification ? 'bg-green-900/30 border-2 border-green-500/50' : 'bg-slate-700/50 border-2 border-slate-600 hover:border-slate-500'}`}>
+              <div className="flex items-center space-x-3">
+                <Scan className={`h-6 w-6 ${kycStatus.documentVerification ? 'text-green-400' : 'text-slate-400'}`} />
+                <div>
+                  <p className={`text-sm font-semibold ${kycStatus.documentVerification ? 'text-green-300' : 'text-slate-200'}`}>
+                    Kimlik Belgesi Tarama
+                  </p>
+                  <p className="text-xs text-slate-400">TC Kimlik, Pasaport veya Ehliyet doğrulama</p>
+                </div>
+              </div>
+              {kycStatus.documentVerification ? (
+                <CheckCircle className="h-6 w-6 text-green-400" />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setKycStatus({...kycStatus, documentVerification: true})}
+                  className="text-sm bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white px-4 py-2 rounded-lg transition-all font-semibold"
+                >
+                  Tarayın
+                </button>
+              )}
+            </div>
+
+            <div className={`flex items-center justify-between p-4 rounded-lg transition-all ${kycStatus.biometricScan ? 'bg-green-900/30 border-2 border-green-500/50' : 'bg-slate-700/50 border-2 border-slate-600 hover:border-slate-500'}`}>
+              <div className="flex items-center space-x-3">
+                <Fingerprint className={`h-6 w-6 ${kycStatus.biometricScan ? 'text-green-400' : 'text-slate-400'}`} />
+                <div>
+                  <p className={`text-sm font-semibold ${kycStatus.biometricScan ? 'text-green-300' : 'text-slate-200'}`}>
+                    Biyometrik Veri Tarama
+                  </p>
+                  <p className="text-xs text-slate-400">Parmak izi veya retina taraması</p>
+                </div>
+              </div>
+              {kycStatus.biometricScan ? (
+                <CheckCircle className="h-6 w-6 text-green-400" />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setKycStatus({...kycStatus, biometricScan: true})}
+                  className="text-sm bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white px-4 py-2 rounded-lg transition-all font-semibold"
+                >
+                  Tarayın
+                </button>
+              )}
+            </div>
           </div>
 
-          {timeLeft > 0 && timeLeft < 60 && (
-            <div className="bg-amber-600/20 border border-amber-500/30 rounded-lg p-3 flex items-center space-x-2">
-              <AlertCircle className="h-5 w-5 text-amber-400" />
-              <p className="text-amber-300 text-sm">
-                Kodlarınızın süresi dolmak üzere! Lütfen acele edin.
-              </p>
+          {allVerified && (
+            <div className="mt-4 p-4 bg-gradient-to-r from-green-900/40 to-emerald-900/40 border-2 border-green-500/50 rounded-lg animate-pulse">
+              <div className="flex items-center space-x-3">
+                <CheckCircle className="h-6 w-6 text-green-400" />
+                <div>
+                  <p className="text-sm text-green-300 font-bold">
+                    KYC Doğrulama Tamamlandı!
+                  </p>
+                  <p className="text-xs text-green-400">Tüm biyometrik kontroller başarılı</p>
+                </div>
+              </div>
             </div>
           )}
+
           <button
             type="submit"
-            disabled={isLoading || !emailCode || !phoneCode}
-            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-600 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+            disabled={isLoading || !allVerified}
+            className="w-full bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 disabled:from-slate-600 disabled:to-slate-700 text-white font-bold py-3 px-6 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <>
+                <RotateCcw className="h-5 w-5 animate-spin" />
+                <span>Doğrulanıyor...</span>
+              </>
             ) : (
               <>
-                <CheckCircle className="h-5 w-5" />
-                <span>Doğrula</span>
+                <Shield className="h-5 w-5" />
+                <span>Doğrulamayı Tamamla</span>
               </>
             )}
           </button>
+
+          <div className="text-center text-xs text-slate-400 mt-4">
+            <p>KYC doğrulama tamamlandıktan sonra Dashboard'a yönlendirileceksiniz.</p>
+          </div>
         </form>
       </div>
     </div>

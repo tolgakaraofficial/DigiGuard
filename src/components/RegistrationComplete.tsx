@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, Shield, Download, Eye, Star, Award, Lock, FileCheck, Fingerprint, Database } from 'lucide-react';
+import { Shield, Download, Eye, Star, Award, Lock, FileCheck, Fingerprint, Database } from 'lucide-react';
 import { PersonalInfo, IdentityInfo, MediaFiles } from '../types';
 import jsPDF from 'jspdf';
 
