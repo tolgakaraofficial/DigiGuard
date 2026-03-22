@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users } from 'lucide-react';
+import { SecurityInfoModal } from './SecurityInfoModal';
+import { AboutModal } from './AboutModal';
+import { TeamModal } from './TeamModal';
 
 interface LoginFormProps {
   onLogin: (email: string, phone: string) => void;
@@ -12,6 +15,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{email?: string, phone?: string, password?: string}>({});
+  const [showSecurityModal, setShowSecurityModal] = useState(false);
+  const [showAboutModal, setShowAboutModal] = useState(false);
+  const [showTeamModal, setShowTeamModal] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +60,30 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   return (
     <div className="w-full max-w-sm mx-auto px-4">
+      <div className="mb-4 flex gap-2">
+        <button
+          onClick={() => setShowSecurityModal(true)}
+          className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-blue-500/50"
+        >
+          <Lock className="h-4 w-4" />
+          <span className="text-sm">SHA-256 Güvenlik</span>
+        </button>
+        <button
+          onClick={() => setShowAboutModal(true)}
+          className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-purple-500/50"
+        >
+          <Info className="h-4 w-4" />
+          <span className="text-sm">Hakkında</span>
+        </button>
+        <button
+          onClick={() => setShowTeamModal(true)}
+          className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-green-500/50"
+        >
+          <Users className="h-4 w-4" />
+          <span className="text-sm">Ekip</span>
+        </button>
+      </div>
+
       <div className="bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700">
         <div className="text-center mb-6">
           <div className="flex justify-center mb-3">
@@ -184,6 +214,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </p>
         </div>
       </div>
+
+      <SecurityInfoModal isOpen={showSecurityModal} onClose={() => setShowSecurityModal(false)} />
+      <AboutModal isOpen={showAboutModal} onClose={() => setShowAboutModal(false)} />
+      <TeamModal isOpen={showTeamModal} onClose={() => setShowTeamModal(false)} />
     </div>
   );
 };
