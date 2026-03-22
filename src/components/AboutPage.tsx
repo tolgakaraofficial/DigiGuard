@@ -48,17 +48,71 @@ export const AboutPage: React.FC = () => {
       </div>
 
       <div className="bg-slate-800 rounded-2xl p-8 mb-12 border border-slate-700">
-        <h2 className="text-2xl font-bold text-white mb-6">Misyonumuz</h2>
+        <h2 className="text-2xl font-bold text-white mb-6">DigiGuard Nedir?</h2>
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
           DigiGuard, yapay zeka destekli sahte içerik (deepfake) tehdidine karşı bireylerin ve kurumların
-          dijital kimliklerini korumak için geliştirilmiş kapsamlı bir güvenlik çözümüdür.
+          dijital kimliklerini korumak için geliştirilmiş yeni nesil güvenlik platformudur.
         </p>
         <p className="text-slate-300 text-lg leading-relaxed mb-6">
           Modern teknolojilerin getirdiği tehditler karşısında, kullanıcılarımıza biyometrik doğrulama,
           blockchain tabanlı kimlik kaydı ve yapay zeka destekli tehdit tespit sistemleri sunuyoruz.
         </p>
-        <p className="text-slate-300 text-lg leading-relaxed">
-          Karprime Technology INC. olarak, dijital güvenliğin geleceğini inşa ediyoruz.
+
+        <h3 className="text-xl font-bold text-white mb-4 mt-8">Kimler İçin?</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="bg-slate-700 rounded-lg p-4">
+            <h4 className="font-semibold text-blue-400 mb-2">Bireyler İçin</h4>
+            <ul className="text-slate-300 space-y-2 text-sm">
+              <li>• Dijital kimliğinizi deepfake saldırılarından koruyun</li>
+              <li>• Biyometrik verilerinizi güvenli şekilde saklayın</li>
+              <li>• Blockchain tabanlı kimlik sertifikası alın</li>
+              <li>• Sosyal medya ve online platformlarda güvenliğinizi artırın</li>
+            </ul>
+          </div>
+          <div className="bg-slate-700 rounded-lg p-4">
+            <h4 className="font-semibold text-emerald-400 mb-2">Kurumlar İçin</h4>
+            <ul className="text-slate-300 space-y-2 text-sm">
+              <li>• Çalışanlarınızın kimliklerini güvenli şekilde doğrulayın</li>
+              <li>• Deepfake saldırılarına karşı kurumsal koruma</li>
+              <li>• Blockchain ile şeffaf ve denetlenebilir sistem</li>
+              <li>• API entegrasyonu ile mevcut sistemlerinize kolayca ekleyin</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 className="text-xl font-bold text-white mb-4 mt-8">Nasıl Çalışır?</h3>
+        <div className="bg-slate-700 rounded-lg p-6">
+          <ol className="text-slate-300 space-y-4">
+            <li className="flex items-start space-x-3">
+              <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1">1</span>
+              <div>
+                <strong className="text-white">Kayıt:</strong> Yüz ve ses biyometrileriniz SHA-256 ile şifrelenerek güvenli bir şekilde kaydedilir.
+              </div>
+            </li>
+            <li className="flex items-start space-x-3">
+              <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1">2</span>
+              <div>
+                <strong className="text-white">Blockchain Kaydı:</strong> Kimliğiniz Web3/Web4 blockchain ağına kaydedilir ve değiştirilemez hale gelir.
+              </div>
+            </li>
+            <li className="flex items-start space-x-3">
+              <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1">3</span>
+              <div>
+                <strong className="text-white">Doğrulama:</strong> İhtiyaç duyulduğunda kimliğiniz blockchain üzerinden anında doğrulanabilir.
+              </div>
+            </li>
+            <li className="flex items-start space-x-3">
+              <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-1">4</span>
+              <div>
+                <strong className="text-white">Koruma:</strong> AI destekli sistem, sahte içerik girişimlerini otomatik olarak tespit eder ve engeller.
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <p className="text-slate-300 text-lg leading-relaxed mt-8">
+          <strong className="text-white">Karprime Technology INC.</strong> olarak, dijital güvenliğin geleceğini inşa ediyoruz.
+          DigiGuard ile dijital dünyanın tehditlerine karşı en güvenli kalkan sizinle birlikte.
         </p>
       </div>
 

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Fingerprint } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Fingerprint, Info } from 'lucide-react';
 import { BiometricLogin } from './BiometricLogin';
 import { BiometricData } from '../services/BiometricService';
 
 interface LoginFormProps {
   onLogin: (email: string, phone: string) => void;
   onShowHashDemo: () => void;
+  onShowAbout: () => void;
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo, onShowAbout }) => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -63,13 +64,20 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo })
 
   return (
     <div className="max-w-md mx-auto">
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center gap-4 mb-6">
         <button
           onClick={onShowHashDemo}
           className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2 shadow-lg"
         >
           <Shield className="h-5 w-5" />
           <span>SHA-256 Güvenlik Alanı</span>
+        </button>
+        <button
+          onClick={onShowAbout}
+          className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2 shadow-lg"
+        >
+          <Info className="h-5 w-5" />
+          <span>Hakkında</span>
         </button>
       </div>
 

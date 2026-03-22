@@ -13,7 +13,7 @@ import { UseCasesPage } from './components/UseCasesPage';
 import { CertificatePage } from './components/CertificatePage';
 import { LogOut, Shield } from 'lucide-react';
 
-type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard' | 'hashDemo';
+type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard' | 'hashDemo' | 'about';
 
 interface User {
   email: string;
@@ -89,7 +89,11 @@ function App() {
       case 'login':
         return (
           <div>
-            <LoginForm onLogin={handleLogin} onShowHashDemo={() => setState('hashDemo')} />
+            <LoginForm
+              onLogin={handleLogin}
+              onShowHashDemo={() => setState('hashDemo')}
+              onShowAbout={() => setState('about')}
+            />
           </div>
         );
       case 'hashDemo':
@@ -102,6 +106,18 @@ function App() {
               ← Geri Dön
             </button>
             <HashDemo />
+          </div>
+        );
+      case 'about':
+        return (
+          <div>
+            <button
+              onClick={() => setState('login')}
+              className="mb-6 bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            >
+              ← Geri Dön
+            </button>
+            <AboutPage />
           </div>
         );
       case 'verification':
