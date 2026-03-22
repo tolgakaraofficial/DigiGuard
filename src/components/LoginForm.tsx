@@ -84,30 +84,30 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </button>
       </div>
 
-      <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
+      <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
         {/* Cyber glow effect */}
         <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyber-500/20 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-matrix-500/20 rounded-full blur-3xl"></div>
 
-        <div className="text-center mb-6 relative z-10">
-          <div className="flex justify-center mb-3">
-            <div className="relative">
-              <div className="bg-gradient-to-br from-cyber-600 to-matrix-600 p-3 rounded-full animate-fingerprint-pulse">
-                <Fingerprint className="h-8 w-8 text-white" />
-              </div>
-              <div className="absolute inset-0 bg-cyber-400/30 rounded-full blur-xl animate-pulse"></div>
+        <div className="mb-5 relative z-10 flex items-center gap-3">
+          <div className="relative flex-shrink-0">
+            <div className="bg-gradient-to-br from-cyber-600 to-matrix-600 p-2.5 rounded-full animate-fingerprint-pulse">
+              <Fingerprint className="h-6 w-6 text-white" />
             </div>
+            <div className="absolute inset-0 bg-cyber-400/30 rounded-full blur-xl animate-pulse"></div>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-2">
-            Biyometrik Giriş
-          </h2>
-          <p className="text-sm sm:text-base text-slate-300 flex items-center justify-center gap-2">
-            <Scan className="h-4 w-4 text-cyber-400" />
-            KYC Kimlik Doğrulama Sistemi
-          </p>
+          <div className="flex-1 text-left">
+            <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent">
+              Biyometrik Giriş
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 flex items-center gap-1.5">
+              <Scan className="h-3.5 w-3.5 text-cyber-400" />
+              KYC Kimlik Doğrulama
+            </p>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               E-posta Adresi
@@ -119,7 +119,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
+                className={`w-full pl-10 pr-4 py-2 sm:py-2.5 text-sm bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
                   errors.email ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="ornek@email.com"
@@ -139,7 +139,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
+                className={`w-full pl-10 pr-4 py-2 sm:py-2.5 text-sm bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
                   errors.phone ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="+90 5XX XXX XX XX"
@@ -159,7 +159,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`w-full pl-10 pr-12 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
+                className={`w-full pl-10 pr-12 py-2 sm:py-2.5 text-sm bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
                   errors.password ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="Şifrenizi girin"
@@ -178,7 +178,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 disabled:from-cyber-800 disabled:to-cyber-900 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50 relative z-10"
+            className="w-full bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 disabled:from-cyber-800 disabled:to-cyber-900 text-white font-medium py-2.5 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50 relative z-10"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -191,26 +191,26 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </button>
         </form>
 
-        <div className="mt-6 space-y-3 relative z-10">
+        <div className="mt-5 space-y-2.5 relative z-10">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-slate-600"></div>
             </div>
-            <div className="relative flex justify-center text-xs sm:text-sm">
+            <div className="relative flex justify-center text-xs">
               <span className="px-2 bg-slate-800 text-slate-400">veya</span>
             </div>
           </div>
 
           <button
             type="button"
-            className="w-full bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-matrix-500/30 hover:shadow-matrix-500/50 animate-cyber-glow"
+            className="w-full bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white font-medium py-2.5 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-matrix-500/30 hover:shadow-matrix-500/50 animate-cyber-glow"
           >
-            <Fingerprint className="h-5 w-5" />
-            <span>Biyometrik Kimlik Doğrulama</span>
+            <Fingerprint className="h-4 w-4" />
+            <span>Biyometrik Doğrulama</span>
           </button>
         </div>
 
-        <div className="mt-6 text-center relative z-10">
+        <div className="mt-4 text-center relative z-10">
           <p className="text-xs text-slate-400">
             Giriş yaparak{' '}
             <a href="#" className="text-cyber-400 hover:text-cyber-300">
@@ -225,16 +225,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </div>
 
         {/* Security indicators */}
-        <div className="mt-4 grid grid-cols-3 gap-2 relative z-10">
-          <div className="flex items-center justify-center gap-1 px-2 py-1.5 bg-slate-700/50 rounded-md border border-cyber-500/30">
+        <div className="mt-3 grid grid-cols-3 gap-1.5 relative z-10">
+          <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-cyber-500/30">
             <Lock className="h-3 w-3 text-cyber-400" />
             <span className="text-xs text-slate-300">AES-256</span>
           </div>
-          <div className="flex items-center justify-center gap-1 px-2 py-1.5 bg-slate-700/50 rounded-md border border-matrix-500/30">
+          <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-matrix-500/30">
             <Fingerprint className="h-3 w-3 text-matrix-400" />
             <span className="text-xs text-slate-300">Biyometrik</span>
           </div>
-          <div className="flex items-center justify-center gap-1 px-2 py-1.5 bg-slate-700/50 rounded-md border border-secure-500/30">
+          <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-secure-500/30">
             <Shield className="h-3 w-3 text-secure-400" />
             <span className="text-xs text-slate-300">Blockchain</span>
           </div>
