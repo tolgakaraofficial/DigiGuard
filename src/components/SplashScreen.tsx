@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Shield } from 'lucide-react';
+import { CyberBackground } from './CyberBackground';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -28,11 +29,13 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
   }, [duration, onComplete]);
 
   return (
-    <div
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-950 transition-opacity duration-500 ${
-        fadeOut ? 'opacity-0' : 'opacity-100'
-      }`}
-    >
+    <>
+      <CyberBackground />
+      <div
+        className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-950 transition-opacity duration-500 ${
+          fadeOut ? 'opacity-0' : 'opacity-100'
+        }`}
+      >
       <div className="relative">
         <div className="absolute inset-0 animate-ping">
           <Shield className="w-32 h-32 text-blue-400 opacity-20" />
@@ -102,5 +105,6 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
         }
       `}</style>
     </div>
+    </>
   );
 };

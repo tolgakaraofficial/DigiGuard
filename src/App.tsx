@@ -12,6 +12,7 @@ import { VisionPage } from './components/VisionPage';
 import { UseCasesPage } from './components/UseCasesPage';
 import { CertificatePage } from './components/CertificatePage';
 import { TeamPage } from './components/TeamPage';
+import { CyberBackground } from './components/CyberBackground';
 import { LogOut, Shield } from 'lucide-react';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard' | 'hashDemo' | 'about' | 'team';
@@ -173,9 +174,12 @@ function App() {
   }
 
   return (
-    <Layout>
-      {renderContent()}
-    </Layout>
+    <>
+      <CyberBackground />
+      <Layout>
+        {renderContent()}
+      </Layout>
+    </>
   );
 }
 
