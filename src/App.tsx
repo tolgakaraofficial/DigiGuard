@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from './components/Layout';
 import { AnimatedLogo } from './components/AnimatedLogo';
 import { LoginForm } from './components/LoginForm';
 import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
+import { AlbisChatBot } from './components/AlbisChatBot';
+import { detectLanguage } from './utils/i18n';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -18,6 +20,12 @@ interface User {
 function App() {
   const [state, setState] = useState<AppState>('splash');
   const [user, setUser] = useState<User | null>(null);
+  const [language, setLanguage] = useState('tr');
+
+  useEffect(() => {
+    const detectedLang = detectLanguage();
+    setLanguage(detectedLang);
+  }, []);
 
   const handleAnimationComplete = () => {
     setState('login');
@@ -196,9 +204,12 @@ function App() {
   }
 
   return (
-    <Layout>
-      {renderContent()}
-    </Layout>
+    <>
+      <Layout>
+        {renderContent()}
+      </Layout>
+      {state !== 'dashboard' && <AlbisChatBot language={language} />}
+    </>
   );
 }
 
