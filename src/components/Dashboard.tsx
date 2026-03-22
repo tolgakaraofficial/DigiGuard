@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Award, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Download } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Award, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Download, CreditCard } from 'lucide-react';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
 import { IntegrationsModal } from './IntegrationsModal';
 import { PublicBenefitModal } from './PublicBenefitModal';
+import { PricingModal } from './PricingModal';
 import { Sidebar } from './Sidebar';
+import { AlbisChatBot } from './AlbisChatBot';
+import { detectLanguage, translations, type Language } from '../utils/i18n';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -15,12 +18,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   const [globalReachOpen, setGlobalReachOpen] = useState(false);
   const [integrationsOpen, setIntegrationsOpen] = useState(false);
   const [publicBenefitOpen, setPublicBenefitOpen] = useState(false);
+  const [pricingOpen, setPricingOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [language, setLanguage] = useState<Language>('tr');
+
+  useEffect(() => {
+    const detectedLang = detectLanguage();
+    setLanguage(detectedLang);
+  }, []);
+
+  const t = translations[language];
   const stats = [
-    { label: 'Biyometrik Durum', value: 'Doğrulandı', color: 'text-matrix-400', icon: Fingerprint, trend: '+100%' },
-    { label: 'Güvenlik Skoru', value: '98/100', color: 'text-cyber-400', icon: Shield, trend: '+5%' },
-    { label: 'Aktif Koruma', value: '24/7', color: 'text-secure-400', icon: Activity, trend: 'Sürekli' },
-    { label: 'KYC Kontrol', value: '2 saat önce', color: 'text-slate-400', icon: Scan, trend: 'Güncel' },
+    { label: t.biometricStatus, value: t.verified, color: 'text-matrix-400', icon: Fingerprint, trend: '+100%' },
+    { label: t.securityScore, value: '98/100', color: 'text-cyber-400', icon: Shield, trend: '+5%' },
+    { label: t.activeProtection, value: '24/7', color: 'text-secure-400', icon: Activity, trend: language === 'tr' ? 'Sürekli' : 'Continuous' },
+    { label: t.kycControl, value: language === 'tr' ? '2 saat önce' : '2 hours ago', color: 'text-slate-400', icon: Scan, trend: t.current },
   ];
 
   const features = [
@@ -132,6 +144,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
       lastUsed: 'Yeni',
       action: () => alert('Video egitim kutuphanesi, interaktif rehberler ve sertifika programlari hazirlaniyor!')
     },
+    {
+      title: 'Hizmetler ve Fiyatlandirma',
+      description: 'Paketler, odeme secenekleri ve abonelik yonetimi',
+      icon: CreditCard,
+      color: 'bg-gradient-to-br from-green-600 to-emerald-600',
+      status: 'Premium',
+      lastUsed: 'Yeni',
+      action: () => setPricingOpen(true)
+    },
   ];
 
   const recentActivities = [
@@ -157,13 +178,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-cyber-400 via-matrix-400 to-secure-400 bg-clip-text text-transparent mb-2">
-            DigiGuard Biyometrik Kontrol Merkezi
+            {t.welcome}
           </h1>
           <p className="text-slate-300 flex items-center flex-wrap gap-2">
             <Fingerprint className="h-4 w-4 text-matrix-400 animate-fingerprint-pulse" />
-            KYC kimliğiniz aktif olarak korunuyor
+            {t.subtitle}
             <span className="ml-2 px-2 py-1 bg-matrix-600/30 text-matrix-300 text-xs rounded-full border border-matrix-500/50 animate-pulse">
-              CANLI
+              {t.live}
             </span>
             <span className="px-2 py-1 bg-cyber-600/30 text-cyber-300 text-xs rounded-full border border-cyber-500/50">
               AES-256
@@ -182,7 +203,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
             className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-red-500/30"
           >
             <LogOut className="h-4 w-4" />
-            <span>Güvenli Çıkış</span>
+            <span>{t.logout}</span>
           </button>
         </div>
       </div>
@@ -289,6 +310,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
                 feature.status === 'Sosyal' ? 'bg-pink-600/30 text-pink-300 border-pink-500/50' :
                 feature.status === 'Kurumsal' ? 'bg-indigo-600/30 text-indigo-300 border-indigo-500/50' :
                 feature.status === 'Egitim' ? 'bg-yellow-600/30 text-yellow-300 border-yellow-500/50' :
+                feature.status === 'Premium' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
                 'bg-slate-600/30 text-slate-300 border-slate-500/50'
               }`}>
                 {feature.status}
@@ -309,8 +331,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
           <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />
           <IntegrationsModal isOpen={integrationsOpen} onClose={() => setIntegrationsOpen(false)} />
           <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
+          <PricingModal isOpen={pricingOpen} onClose={() => setPricingOpen(false)} />
         </div>
       </div>
+
+      <AlbisChatBot language={language} />
     </div>
   );
 };
