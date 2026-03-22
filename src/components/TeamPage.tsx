@@ -91,6 +91,118 @@ export const TeamPage: React.FC = () => {
       email: 'emre@digiguard.com',
       github: 'https://github.com/emreaydin',
       image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Deniz Koç',
+      role: 'Veri Bilimci',
+      description: 'Big data ve veri analitiği uzmanı. Hadoop ve Spark ekosisteminde 7 yıllık deneyim.',
+      expertise: ['Data Science', 'Big Data', 'Analytics'],
+      linkedin: 'https://linkedin.com/in/deniz-koc',
+      email: 'deniz@digiguard.com',
+      github: 'https://github.com/denizkoc',
+      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Aslı Eren',
+      role: 'Hukuk ve Uyumluluk Müdürü',
+      description: 'Siber güvenlik hukuku ve GDPR/KVKK uyumluluk uzmanı. Avrupa ve Türkiye\'de çalıştı.',
+      expertise: ['GDPR', 'KVKK', 'Siber Hukuk'],
+      linkedin: 'https://linkedin.com/in/asli-eren',
+      email: 'asli@digiguard.com',
+      image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Onur Çetin',
+      role: 'Mobil Uygulama Geliştirici',
+      description: 'iOS ve Android platformlarında native uygulama geliştirme. React Native uzmanı.',
+      expertise: ['iOS', 'Android', 'React Native'],
+      linkedin: 'https://linkedin.com/in/onur-cetin',
+      email: 'onur@digiguard.com',
+      github: 'https://github.com/onurcetin',
+      image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Merve Akın',
+      role: 'Müşteri Başarı Yöneticisi',
+      description: 'B2B SaaS deneyimi. Kurumsal müşteri ilişkileri ve onboarding süreçleri uzmanı.',
+      expertise: ['Customer Success', 'B2B Sales', 'Onboarding'],
+      linkedin: 'https://linkedin.com/in/merve-akin',
+      email: 'merve@digiguard.com',
+      image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Cem Yılmaz',
+      role: 'Backend Geliştirici',
+      description: 'Python ve Go dillerinde mikroservis mimarisi. Redis ve PostgreSQL optimizasyonu.',
+      expertise: ['Python', 'Go', 'Microservices'],
+      linkedin: 'https://linkedin.com/in/cem-yilmaz',
+      email: 'cem@digiguard.com',
+      github: 'https://github.com/cemyilmaz',
+      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Gizem Taş',
+      role: 'QA ve Test Mühendisi',
+      description: 'Otomatik test sistemleri ve kalite güvence süreçleri. Selenium ve Cypress uzmanı.',
+      expertise: ['Test Automation', 'QA', 'CI/CD Testing'],
+      linkedin: 'https://linkedin.com/in/gizem-tas',
+      email: 'gizem@digiguard.com',
+      github: 'https://github.com/gizemtas',
+      image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Barış Tekin',
+      role: 'Ağ Güvenliği Uzmanı',
+      description: 'Firewall, IDS/IPS ve ağ izleme sistemleri. Cisco ve Fortinet sertifikalı.',
+      expertise: ['Network Security', 'Firewall', 'IDS/IPS'],
+      linkedin: 'https://linkedin.com/in/baris-tekin',
+      email: 'baris@digiguard.com',
+      image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Esra Polat',
+      role: 'İçerik ve Pazarlama Yöneticisi',
+      description: 'Dijital pazarlama ve içerik stratejisi. SEO ve sosyal medya kampanyaları uzmanı.',
+      expertise: ['Digital Marketing', 'Content Strategy', 'SEO'],
+      linkedin: 'https://linkedin.com/in/esra-polat',
+      email: 'esra@digiguard.com',
+      image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Kaan Özkan',
+      role: 'Bilgi Güvenliği Analisti',
+      description: 'SOC operasyonları ve olay müdahale ekibi lideri. SIEM sistemleri uzmanı.',
+      expertise: ['SOC', 'SIEM', 'Incident Response'],
+      linkedin: 'https://linkedin.com/in/kaan-ozkan',
+      email: 'kaan@digiguard.com',
+      image: 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Nihan Şen',
+      role: 'UI/UX Tasarımcı',
+      description: 'Kullanıcı deneyimi ve arayüz tasarımı. Adobe Creative Suite ve Figma uzmanı.',
+      expertise: ['UI Design', 'UX Research', 'Figma'],
+      linkedin: 'https://linkedin.com/in/nihan-sen',
+      email: 'nihan@digiguard.com',
+      image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Serkan Kurt',
+      role: 'Finans Direktörü (CFO)',
+      description: 'Startup finansı ve yatırım stratejileri. Big 4 muhasebe firmalarında 12 yıl deneyim.',
+      expertise: ['Financial Planning', 'Investment', 'Fundraising'],
+      linkedin: 'https://linkedin.com/in/serkan-kurt',
+      email: 'serkan@digiguard.com',
+      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Pınar Güneş',
+      role: 'İnsan Kaynakları Müdürü',
+      description: 'Yetenek kazanımı ve organizasyonel gelişim. Tech startup HR deneyimi.',
+      expertise: ['Talent Acquisition', 'HR Strategy', 'Culture'],
+      linkedin: 'https://linkedin.com/in/pinar-gunes',
+      email: 'pinar@digiguard.com',
+      image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400'
     }
   ];
 
@@ -108,6 +220,20 @@ export const TeamPage: React.FC = () => {
       description: 'Eski Vodafone Türkiye CEO\'su. Telekom ve fintech sektöründe 25 yıllık deneyim.',
       linkedin: 'https://linkedin.com/in/fatma-celik',
       image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Dr. Ömer Acar',
+      role: 'Blockchain Danışmanı',
+      description: 'Ethereum Foundation eski üyesi. DeFi protokolleri ve Web3 altyapısı konusunda global danışman.',
+      linkedin: 'https://linkedin.com/in/dr-omer-acar',
+      image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400'
+    },
+    {
+      name: 'Aylin Karaca',
+      role: 'Siber Güvenlik Danışmanı',
+      description: 'NATO Siber Savunma Merkezi eski direktörü. Uluslararası güvenlik standartları uzmanı.',
+      linkedin: 'https://linkedin.com/in/aylin-karaca',
+      image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400'
     }
   ];
 
