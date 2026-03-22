@@ -174,15 +174,43 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               KYC Kimlik Doğrulama
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => setShowKYCPanel(!showKYCPanel)}
-            className="bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-medium py-2 px-4 text-xs rounded-lg transition-all flex items-center space-x-2 shadow-lg"
-          >
-            <Scan className="h-4 w-4" />
-            <span>KYC Doğrula</span>
-          </button>
         </div>
+
+        {showKYCPanel && (
+          <div className="mb-5 relative z-10 bg-gradient-to-r from-matrix-900/50 to-cyber-900/50 border border-matrix-500/40 rounded-xl p-4 space-y-3 animate-fadeIn">
+            <div className="flex items-center gap-2 mb-3">
+              <Shield className="h-5 w-5 text-matrix-400" />
+              <h3 className="text-sm font-semibold text-white">KYC Biyometrik Doğrulama</h3>
+            </div>
+
+            <button
+              type="button"
+              className="w-full bg-gradient-to-r from-matrix-600 to-cyber-600 hover:from-matrix-700 hover:to-cyber-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-matrix-500/30 hover:shadow-matrix-500/50 group"
+            >
+              <Fingerprint className="h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
+              <span>Yüz Tanıma ile Doğrula</span>
+              <Camera className="h-5 w-5 group-hover:scale-110 transition-transform" />
+            </button>
+
+            <button
+              type="button"
+              className="w-full bg-gradient-to-r from-cyber-600 to-purple-600 hover:from-cyber-700 hover:to-purple-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50 group"
+            >
+              <Fingerprint className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              <span>Parmak İzi ile Doğrula</span>
+              <Scan className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+            </button>
+
+            <div className="p-2.5 bg-blue-900/30 border border-blue-500/30 rounded-lg">
+              <div className="flex items-start space-x-2">
+                <Zap className="h-3.5 w-3.5 text-blue-400 flex-shrink-0 mt-0.5 animate-pulse" />
+                <p className="text-blue-200 text-xs leading-relaxed">
+                  KYC uyumlu biyometrik doğrulama ile kimliğinizi güvenle onaylayın.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
 
         <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
@@ -269,72 +297,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </button>
         </form>
 
-        <div className="mt-5 space-y-2.5 relative z-10">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-600"></div>
-            </div>
-            <div className="relative flex justify-center text-xs">
-              <span className="px-2 bg-slate-800 text-slate-400">Gelecek Nesil Giriş Yöntemleri</span>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                className="bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-700 hover:to-yellow-700 text-white font-medium py-3 px-2 text-xs rounded-lg transition-all flex flex-col items-center justify-center space-y-1 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 group"
-              >
-                <Wallet className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                <div className="text-center">
-                  <div className="font-semibold text-xs">Web3</div>
-                  <div className="text-[9px] opacity-80">Wallet</div>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-3 px-2 text-xs rounded-lg transition-all flex flex-col items-center justify-center space-y-1 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 group"
-              >
-                <Globe className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                <div className="text-center">
-                  <div className="font-semibold text-xs">Web4</div>
-                  <div className="text-[9px] opacity-80">DID</div>
-                </div>
-              </button>
-
-              <button
-                type="button"
-                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-2 text-xs rounded-lg transition-all flex flex-col items-center justify-center space-y-1 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 group"
-              >
-                <Smartphone className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                <div className="text-center">
-                  <div className="font-semibold text-xs">Web5</div>
-                  <div className="text-[9px] opacity-80">DWN</div>
-                </div>
-              </button>
-            </div>
-
-            <button
-              type="button"
-              className="w-full bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-matrix-500/30 hover:shadow-matrix-500/50 animate-cyber-glow group"
-            >
-              <Fingerprint className="h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
-              <span>Biyometrik Yüz & Parmak İzi Tarama</span>
-              <Camera className="h-5 w-5 group-hover:scale-110 transition-transform" />
-            </button>
-          </div>
-
-          <div className="p-3 bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 rounded-lg">
-            <div className="flex items-start space-x-2">
-              <Zap className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5 animate-pulse" />
-              <div className="flex-1">
-                <p className="text-blue-200 text-xs leading-relaxed">
-                  <span className="font-semibold">Web3/Web4/Web5 Ready:</span> Merkeziyetsiz kimlik doğrulama, blockchain tabanlı güvenlik ve kullanıcı kontrolünde veri yönetimi ile geleceğe hazır altyapı. KYC doğrulama ile tam uyumluluk.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="mt-5 relative z-10">
+          <button
+            type="button"
+            onClick={() => setShowKYCPanel(!showKYCPanel)}
+            className="w-full bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50"
+          >
+            <Scan className="h-5 w-5" />
+            <span>KYC Doğrula - Biyometrik Yüz & Parmak İzi</span>
+            <Fingerprint className="h-5 w-5" />
+          </button>
         </div>
 
         <div className="mt-4 text-center relative z-10">

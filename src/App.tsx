@@ -6,7 +6,9 @@ import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import { AlbisChatBot } from './components/AlbisChatBot';
+import { TurkeyMapModal } from './components/TurkeyMapModal';
 import { detectLanguage } from './utils/i18n';
+import { MapPin } from 'lucide-react';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -22,6 +24,7 @@ function App() {
   const [state, setState] = useState<AppState>('splash');
   const [user, setUser] = useState<User | null>(null);
   const [language, setLanguage] = useState('tr');
+  const [showMapModal, setShowMapModal] = useState(false);
 
   useEffect(() => {
     const detectedLang = detectLanguage();
@@ -154,30 +157,55 @@ function App() {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
-                  <h4 className="text-sm font-semibold text-matrix-400 mb-2 flex items-center">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                      <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
-                    </svg>
-                    Vizyon
-                  </h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    Dijital kimlik güvenliğinde dünya lideri olmak ve blockchain teknolojisi ile her bireyin kimliğini güvence altına almak.
-                  </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-4">
+                  <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
+                    <h4 className="text-sm font-semibold text-matrix-400 mb-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
+                      </svg>
+                      Vizyon
+                    </h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      Dijital kimlik güvenliğinde dünya lideri olmak ve blockchain teknolojisi ile her bireyin kimliğini güvence altına almak.
+                    </p>
+                  </div>
+
+                  <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
+                    <h4 className="text-sm font-semibold text-cyber-400 mb-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd"/>
+                        <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+                      </svg>
+                      Misyon
+                    </h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      Biyometrik doğrulama ve yapay zeka teknolojileriyle kimlik hırsızlığına karşı en güvenli çözümleri sunmak.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-cyber-500/30">
-                  <h4 className="text-sm font-semibold text-cyber-400 mb-2 flex items-center">
-                    <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd"/>
-                      <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
-                    </svg>
-                    Misyon
-                  </h4>
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    Biyometrik doğrulama ve yapay zeka teknolojileriyle kimlik hırsızlığına karşı en güvenli çözümleri sunmak.
+                <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 shadow-2xl border border-emerald-500/30 hover:border-emerald-500/50 transition-all cursor-pointer group" onClick={() => setShowMapModal(true)}>
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-sm font-semibold text-emerald-400 flex items-center">
+                      <MapPin className="w-4 h-4 mr-2" />
+                      Türkiye Sertifika Haritası
+                    </h4>
+                    <div className="bg-emerald-500/20 px-2 py-1 rounded-full">
+                      <span className="text-xs text-emerald-300 font-semibold">Canlı</span>
+                    </div>
+                  </div>
+
+                  <div className="aspect-[4/3] bg-gradient-to-br from-emerald-950/50 to-cyan-950/50 rounded-lg flex items-center justify-center mb-3 border border-emerald-500/20 group-hover:border-emerald-500/40 transition-all">
+                    <div className="text-center">
+                      <MapPin className="w-12 h-12 text-emerald-400 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                      <p className="text-emerald-300 text-xs font-medium">Haritayı Görüntüle</p>
+                    </div>
+                  </div>
+
+                  <p className="text-slate-300 text-xs leading-relaxed">
+                    Türkiye genelindeki sertifikalı kullanıcı dağılımını ve istatistikleri görüntüleyin.
                   </p>
                 </div>
               </div>
@@ -211,6 +239,7 @@ function App() {
         {renderContent()}
       </Layout>
       <AlbisChatBot language={language} />
+      <TurkeyMapModal isOpen={showMapModal} onClose={() => setShowMapModal(false)} totalUsers={12500} />
     </>
   );
 }
