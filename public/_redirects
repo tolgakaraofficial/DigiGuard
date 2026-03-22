@@ -1,0 +1,12 @@
+# Netlify Redirects Configuration for DigiGuard
+# https://docs.netlify.com/routing/redirects/
+
+# Force HTTPS
+http://digiguard.com/* https://digiguard.com/:splat 301!
+http://www.digiguard.com/* https://digiguard.com/:splat 301!
+
+# Redirect www to non-www
+https://www.digiguard.com/* https://digiguard.com/:splat 301!
+
+# SPA fallback - must be last
+/*    /index.html   200

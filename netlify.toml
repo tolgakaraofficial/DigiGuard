@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = "dist"
 
+# Custom domain configuration
+# Domain: digiguard.com
+# SSL: Automatic (Let's Encrypt)
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

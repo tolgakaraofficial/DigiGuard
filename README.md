@@ -2,7 +2,7 @@
 
 <div align="center">
 
-  [![Netlify Status](https://api.netlify.com/api/v1/badges/digiguard/deploy-status)](https://digiguard.netlify.app)
+  [![Netlify Status](https://api.netlify.com/api/v1/badges/digiguard/deploy-status)](https://digiguard.com)
 
   <img src="https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.5.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/Vite-5.4.2-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-3.4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
 
-  **[Live Demo](https://digiguard.netlify.app)** | **[GitHub](https://github.com/digiguard/digiguard)** | **[Documentation](https://github.com/digiguard/digiguard/tree/main/docs)**
+  **[Live Demo](https://digiguard.com)** | **[GitHub](https://github.com/digiguard/digiguard)** | **[Documentation](https://github.com/digiguard/digiguard/tree/main/docs)**
 
 </div>
 
@@ -557,10 +557,25 @@ npm run build
 dist/
 
 # Live Site
-https://digiguard.netlify.app
+https://digiguard.com
 ```
 
 **Not:** Netlify deployment otomatik olarak yapılandırılmıştır. Her GitHub push otomatik deploy tetikler.
+
+### Özel Domain Yapılandırması
+
+Netlify üzerinde özel domain (digiguard.com) kullanmak için:
+
+1. **Netlify Dashboard'a giriş yapın**
+2. **Site Settings** > **Domain Management** bölümüne gidin
+3. **Add custom domain** butonuna tıklayın
+4. Domain adınızı girin: `digiguard.com`
+5. DNS kayıtlarınızı güncelleyin:
+   ```
+   A Record: @ -> 75.2.60.5
+   CNAME: www -> digiguard.netlify.app
+   ```
+6. **Enable HTTPS** seçeneğini aktifleştirin (otomatik Let's Encrypt SSL)
 
 ### Docker ile Deploy
 ```bash
@@ -596,7 +611,7 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 
 - **Proje Sahibi**: DigiGuard Team / Karprime Technology INC.
 - **E-posta**: info@digiguard.com
-- **Website**: https://digiguard.netlify.app
+- **Website**: https://digiguard.com
 - **GitHub**: https://github.com/digiguard/digiguard
 - **Destek**: support@digiguard.com
 - **Issues**: https://github.com/digiguard/digiguard/issues
