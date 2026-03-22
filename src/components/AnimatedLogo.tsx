@@ -49,15 +49,15 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete 
           </div>
         </div>
 
-        <div className="space-y-6 animate-fade-in-up">
-          <div className="flex items-center justify-center space-x-3">
+        <div className="space-y-8 animate-fade-in-up">
+          <div className="flex items-center justify-center space-x-4">
             <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyber-500 animate-expand-left"></div>
-            <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyber-400 via-matrix-400 to-secure-400 text-transparent bg-clip-text animate-glow">
+            <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyber-400 via-matrix-400 to-secure-400 text-transparent bg-clip-text animate-glow tracking-wide">
               DigiGuard
             </h1>
             <div className="h-px w-12 bg-gradient-to-l from-transparent to-matrix-500 animate-expand-right"></div>
           </div>
-          <h2 className="text-xl md:text-2xl font-medium text-slate-300 animate-slide-in">
+          <h2 className="text-xl md:text-2xl font-medium text-slate-300 animate-slide-in tracking-wider">
             Karprime Technology INC.
           </h2>
           <p className="text-slate-300 text-lg animate-fade-in-delayed flex items-center justify-center gap-2">
