@@ -12,6 +12,12 @@
 9. [SDKs & Tools](#sdks--tools)
 10. [Changelog](#changelog)
 
+**Related Documentation:**
+- [Main README](../README.md)
+- [Architecture Documentation](./ARCHITECTURE.md)
+- [Security Architecture](./SECURITY_ARCHITECTURE.md)
+- [OpenAPI Specification](./OPENAPI_SPEC.yaml)
+
 ## 🌟 Overview
 
 The DigiGuard API provides secure digital identity verification and protection services. It offers endpoints for user authentication, biometric verification, AI-powered deepfake detection, and blockchain-based certificate management.

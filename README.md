@@ -13,6 +13,28 @@
 
 DigiGuard, yapay zeka tabanlı sahte içeriklere karşı kişilerin dijital kimliklerini koruyan çok platformlu güvenlik uygulamasıdır. Deepfake videolar, sahte ses kayıtları ve manipüle edilmiş fotoğraflar gibi sahte içeriklerin artan tehdidine karşı, kullanıcıların gerçek kimliklerini doğrulayan ve koruyan kapsamlı bir çözüm sunar.
 
+### 🎯 Proje Durumu
+
+**Mevcut Sürüm:** v1.0.0-beta (Prototip Aşaması)
+
+**Tamamlanan Özellikler:**
+- ✅ Web ve mobil kullanıcı arayüzleri
+- ✅ Çok adımlı kayıt sistemi
+- ✅ Biyometrik giriş arayüzü
+- ✅ SHA-256 hash demo sistemi
+- ✅ Dijital sertifika UI ve indirme
+- ✅ Dashboard ve navigasyon sistemi
+- ✅ Responsive tasarım
+- ✅ 7 saniyelik splash screen animasyonu
+
+**Geliştirme Aşamasında:**
+- 🔄 Backend API entegrasyonu
+- 🔄 Blockchain kimlik kaydı
+- 🔄 AI deepfake tespit modelleri
+- 🔄 Biyometrik veri işleme
+- 🔄 Ödeme gateway entegrasyonu
+- 🔄 Veri tabanı yapılandırması
+
 ## ✨ Ana Özellikler
 
 ### 🔐 Çok Faktörlü Kimlik Doğrulama
@@ -167,11 +189,18 @@ npm run preview
 ```
 
 ### Animasyonlu Açılış Ekranı
-Uygulama 4 saniye süren profesyonel bir açılış ekranı ile başlar:
+Uygulama 7 saniye süren profesyonel bir açılış ekranı ile başlar:
 - Karprime Technology INC. branding
 - DigiGuard logo animasyonu
 - Fade-in/fade-out geçiş efektleri
 - Mavi gradient arka plan tasarımı
+
+### Ortam Değişkenleri
+Web uygulaması için bir `.env` dosyası oluşturun:
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
 ### Mobil Uygulama
 ```bash
@@ -460,13 +489,54 @@ Detaylı dokümantasyon için `docs/` klasörüne bakın:
 - [Kullanım Senaryoları](docs/USE_CASES.md)
 - [Etkileşim Diyagramları](docs/INTERACTION_DIAGRAMS.md)
 
+## 🚢 Deployment
+
+### Vercel ile Deploy
+```bash
+# Vercel CLI'yi yükleyin
+npm i -g vercel
+
+# Deploy edin
+vercel
+
+# Production'a deploy
+vercel --prod
+```
+
+### Netlify ile Deploy
+```bash
+# Build komutu
+npm run build
+
+# Build klasörü
+dist/
+```
+
+### Docker ile Deploy
+```bash
+# Docker image oluştur
+docker build -t digiguard .
+
+# Container çalıştır
+docker run -p 3000:3000 digiguard
+```
+
 ## 🤝 Katkıda Bulunma
 
+Katkılarınızı bekliyoruz! Lütfen [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını okuyun.
+
+### Geliştirme Süreci
 1. Projeyi fork edin
 2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
 3. Değişikliklerinizi commit edin (`git commit -m 'Add amazing feature'`)
 4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
 5. Pull Request oluşturun
+
+### Kod Standartları
+- TypeScript kullanın
+- ESLint kurallarına uyun
+- Meaningful commit mesajları yazın
+- Kod review sürecine katılın
 
 ## 📄 Lisans
 
@@ -474,10 +544,13 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 
 ## 📞 İletişim
 
-- **Proje Sahibi**: DigiGuard Team
+- **Proje Sahibi**: DigiGuard Team / Karprime Technology INC.
 - **E-posta**: info@digiguard.com
 - **Website**: https://digiguard.com
+- **GitHub**: https://github.com/karprime/digiguard
 - **Destek**: support@digiguard.com
+- **Issues**: https://github.com/karprime/digiguard/issues
+- **Discussions**: https://github.com/karprime/digiguard/discussions
 
 ## 🙏 Teşekkürler
 
