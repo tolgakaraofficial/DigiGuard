@@ -118,7 +118,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </button>
       </div>
 
-      <div className="mb-4 flex gap-2 justify-center">
+      <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30 mb-4">
+        <h3 className="text-lg font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-4 text-center">
+          Kullanıcı Tipi Seçin
+        </h3>
+        <div className="flex gap-2 justify-center">
         {userTypes.map((type) => {
           const Icon = type.icon;
           const isSelected = userType === type.id;
@@ -146,6 +150,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             </button>
           );
         })}
+        </div>
       </div>
 
       <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
