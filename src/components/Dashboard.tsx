@@ -4,6 +4,7 @@ import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
 import { IntegrationsModal } from './IntegrationsModal';
 import { PublicBenefitModal } from './PublicBenefitModal';
+import { Sidebar } from './Sidebar';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -14,6 +15,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   const [globalReachOpen, setGlobalReachOpen] = useState(false);
   const [integrationsOpen, setIntegrationsOpen] = useState(false);
   const [publicBenefitOpen, setPublicBenefitOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const stats = [
     { label: 'Biyometrik Durum', value: 'Doğrulandı', color: 'text-matrix-400', icon: Fingerprint, trend: '+100%' },
     { label: 'Güvenlik Skoru', value: '98/100', color: 'text-cyber-400', icon: Shield, trend: '+5%' },
@@ -139,9 +141,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
     { action: 'Yeni cihaz girişi tespit edildi', time: '2 gün önce', type: 'alert' },
   ];
   return (
-    <div>
-      {/* Header */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
+    <div className="flex min-h-screen bg-slate-900">
+      <Sidebar
+        isOpen={sidebarOpen}
+        onToggle={() => setSidebarOpen(!sidebarOpen)}
+        onOpenUserScenarios={() => setUserScenariosOpen(true)}
+        onOpenGlobalReach={() => setGlobalReachOpen(true)}
+        onOpenIntegrations={() => setIntegrationsOpen(true)}
+        onOpenPublicBenefit={() => setPublicBenefitOpen(true)}
+      />
+
+      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-cyber-400 via-matrix-400 to-secure-400 bg-clip-text text-transparent mb-2">
             DigiGuard Biyometrik Kontrol Merkezi
@@ -250,10 +263,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
               <span className="text-slate-400 text-xs">{activity.time}</span>
             </div>
           ))}
+          </div>
         </div>
-      </div>
-      {/* Features */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map((feature, index) => (
           <div
             key={index}
@@ -287,15 +300,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
               <span className="text-cyber-400 text-sm font-medium group-hover:text-cyber-300 transition-colors">
                 Ac →
               </span>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
-      <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />
-      <IntegrationsModal isOpen={integrationsOpen} onClose={() => setIntegrationsOpen(false)} />
-      <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
+          <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
+          <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />
+          <IntegrationsModal isOpen={integrationsOpen} onClose={() => setIntegrationsOpen(false)} />
+          <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
+        </div>
+      </div>
     </div>
   );
 };

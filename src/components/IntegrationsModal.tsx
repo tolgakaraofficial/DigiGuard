@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Workflow, Cloud, Code, Database, Lock, Zap, CheckCircle } from 'lucide-react';
+import { X, Workflow, Cloud, Code, Database, Lock, Zap, CheckCircle, Boxes, Link2, Globe, Cpu } from 'lucide-react';
 
 interface IntegrationsModalProps {
   isOpen: boolean;
@@ -93,7 +93,7 @@ export const IntegrationsModal: React.FC<IntegrationsModalProps> = ({ isOpen, on
                   <div className="bg-purple-600 p-2 rounded-lg">
                     <Lock className="h-5 w-5 text-white" />
                   </div>
-                  <h4 className="font-semibold text-white">Blockchain Aglar</h4>
+                  <h4 className="font-semibold text-white">Web3 Blockchain Aglar</h4>
                 </div>
                 <ul className="space-y-2 text-sm text-slate-300">
                   <li className="flex items-center">
@@ -102,11 +102,11 @@ export const IntegrationsModal: React.FC<IntegrationsModalProps> = ({ isOpen, on
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="h-3 w-3 mr-2 text-green-400" />
-                    Solana, Avalanche
+                    Solana, Avalanche, Arbitrum
                   </li>
                   <li className="flex items-center">
                     <CheckCircle className="h-3 w-3 mr-2 text-green-400" />
-                    Hyperledger Fabric
+                    Hyperledger Fabric, Cosmos
                   </li>
                 </ul>
               </div>
@@ -200,6 +200,118 @@ export const IntegrationsModal: React.FC<IntegrationsModalProps> = ({ isOpen, on
                   POST /api/v1/gov/authenticate<br/>
                   Authorization: Bearer GOV_API_KEY<br/>
                   {"{"} "nationalId": "***", "service": "tax" {"}"}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-blue-900/30 to-cyan-900/30 border border-blue-500/30 rounded-xl p-6">
+            <h3 className="text-xl font-bold text-white mb-4 flex items-center">
+              <Boxes className="h-5 w-5 mr-2 text-blue-400" />
+              Web3, Web4 ve Web5 Entegrasyonu
+            </h3>
+
+            <div className="space-y-4">
+              <div className="bg-slate-700/50 rounded-lg p-5 border border-blue-500/20">
+                <div className="flex items-center mb-3">
+                  <div className="bg-blue-600 p-2 rounded-lg mr-3">
+                    <Link2 className="h-5 w-5 text-white" />
+                  </div>
+                  <h4 className="font-bold text-white">Web3: Merkeziyetsiz Kimlik (DID)</h4>
+                </div>
+                <p className="text-slate-300 text-sm leading-relaxed mb-3">
+                  Blockchain tabanli merkezi olmayan kimlik sistemleri. Kullanicilar kendi verilerinin tam kontrolune sahip.
+                  W3C standartlari ile uyumlu DID dokumanlari, dogrulanabilir kimlik bilgileri (Verifiable Credentials).
+                </p>
+                <div className="bg-slate-800/50 rounded p-3 mb-3">
+                  <div className="font-mono text-xs text-green-400">
+                    did:digiguard:0x1234567890abcdef<br/>
+                    VC: Educational, Professional, Identity
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-2 py-1 bg-blue-600/30 text-blue-300 text-xs rounded border border-blue-500/50">
+                    DID Documents
+                  </span>
+                  <span className="px-2 py-1 bg-blue-600/30 text-blue-300 text-xs rounded border border-blue-500/50">
+                    Verifiable Credentials
+                  </span>
+                  <span className="px-2 py-1 bg-blue-600/30 text-blue-300 text-xs rounded border border-blue-500/50">
+                    Self-Sovereign Identity
+                  </span>
+                  <span className="px-2 py-1 bg-blue-600/30 text-blue-300 text-xs rounded border border-blue-500/50">
+                    Web3Auth
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-slate-700/50 rounded-lg p-5 border border-cyan-500/20">
+                <div className="flex items-center mb-3">
+                  <div className="bg-cyan-600 p-2 rounded-lg mr-3">
+                    <Globe className="h-5 w-5 text-white" />
+                  </div>
+                  <h4 className="font-bold text-white">Web4: AI Destekli Semantik Web</h4>
+                </div>
+                <p className="text-slate-300 text-sm leading-relaxed mb-3">
+                  Yapay zeka ve makine ogrenimi ile guclendirilmis kimlik dogrulamasi. Semantik veri analizi,
+                  davranis tabanli kimlik dogrulamasi ve baglamsal guvenlik kontrolleri. AI ile otomatik risk degerlendirmesi.
+                </p>
+                <div className="bg-slate-800/50 rounded p-3 mb-3">
+                  <div className="font-mono text-xs text-cyan-400">
+                    AI Context-Aware Authentication<br/>
+                    Behavioral Biometrics + Semantic Analysis<br/>
+                    Risk Score: Dynamic Real-time Assessment
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-2 py-1 bg-cyan-600/30 text-cyan-300 text-xs rounded border border-cyan-500/50">
+                    AI Risk Scoring
+                  </span>
+                  <span className="px-2 py-1 bg-cyan-600/30 text-cyan-300 text-xs rounded border border-cyan-500/50">
+                    Behavioral Analysis
+                  </span>
+                  <span className="px-2 py-1 bg-cyan-600/30 text-cyan-300 text-xs rounded border border-cyan-500/50">
+                    Semantic Identity
+                  </span>
+                  <span className="px-2 py-1 bg-cyan-600/30 text-cyan-300 text-xs rounded border border-cyan-500/50">
+                    Context-Aware Auth
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-slate-700/50 rounded-lg p-5 border border-purple-500/20">
+                <div className="flex items-center mb-3">
+                  <div className="bg-purple-600 p-2 rounded-lg mr-3">
+                    <Cpu className="h-5 w-5 text-white" />
+                  </div>
+                  <h4 className="font-bold text-white">Web5: Kullanici Odakli Merkeziyetsiz Platform</h4>
+                </div>
+                <p className="text-slate-300 text-sm leading-relaxed mb-3">
+                  TBD (Block tarafindan gelistirilen) Web5 mimarisi: Merkezi olmayan web duzgumleri (Decentralized Web Nodes),
+                  kullanicilarin kendi verilerini yonettigi kimlik cuzadanlari. Bitcoin Lightning Network ile mikro-odemeler.
+                  Tam veri kontrolu ve tasinabilirlik.
+                </p>
+                <div className="bg-slate-800/50 rounded p-3 mb-3">
+                  <div className="font-mono text-xs text-purple-400">
+                    DWN: Decentralized Web Nodes<br/>
+                    Self-Owned Data Stores<br/>
+                    Bitcoin Lightning Integration<br/>
+                    Portable Identity Wallets
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-2 py-1 bg-purple-600/30 text-purple-300 text-xs rounded border border-purple-500/50">
+                    DWN Architecture
+                  </span>
+                  <span className="px-2 py-1 bg-purple-600/30 text-purple-300 text-xs rounded border border-purple-500/50">
+                    Identity Wallets
+                  </span>
+                  <span className="px-2 py-1 bg-purple-600/30 text-purple-300 text-xs rounded border border-purple-500/50">
+                    Data Portability
+                  </span>
+                  <span className="px-2 py-1 bg-purple-600/30 text-purple-300 text-xs rounded border border-purple-500/50">
+                    Lightning Network
+                  </span>
                 </div>
               </div>
             </div>
