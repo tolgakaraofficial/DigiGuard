@@ -53,21 +53,21 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="bg-blue-600 p-3 rounded-full">
-              <Shield className="h-8 w-8 text-white" />
+    <div className="w-full max-w-sm mx-auto px-4">
+      <div className="bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700">
+        <div className="text-center mb-6">
+          <div className="flex justify-center mb-3">
+            <div className="bg-blue-600 p-2.5 rounded-full">
+              <Shield className="h-7 w-7 text-white" />
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Güvenli Giriş</h2>
-          <p className="text-slate-300">
+          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Güvenli Giriş</h2>
+          <p className="text-sm sm:text-base text-slate-300">
             Dijital kimliğinizi korumak için giriş yapın
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               E-posta Adresi
@@ -79,7 +79,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full pl-10 pr-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
                   errors.email ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="ornek@email.com"
@@ -99,7 +99,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className={`w-full pl-10 pr-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
                   errors.phone ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="+90 5XX XXX XX XX"
@@ -119,7 +119,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`w-full pl-10 pr-12 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                className={`w-full pl-10 pr-12 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
                   errors.password ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="Şifrenizi girin"
@@ -138,7 +138,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-colors flex items-center justify-center space-x-2"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -150,6 +150,25 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             )}
           </button>
         </form>
+
+        <div className="mt-6 space-y-3">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-600"></div>
+            </div>
+            <div className="relative flex justify-center text-xs sm:text-sm">
+              <span className="px-2 bg-slate-800 text-slate-400">veya</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-cyan-500/50"
+          >
+            <Shield className="h-5 w-5" />
+            <span>Biyometrik Kimlik Doğrulama</span>
+          </button>
+        </div>
 
         <div className="mt-6 text-center">
           <p className="text-xs text-slate-400">

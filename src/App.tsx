@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Layout } from './components/Layout';
+import { AnimatedLogo } from './components/AnimatedLogo';
 import { LoginForm } from './components/LoginForm';
 import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import { BetaBanner } from './components/BetaBanner';
 
-type AppState = 'login' | 'verification' | 'registration' | 'dashboard';
+type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
 interface User {
   email: string;
@@ -16,8 +17,12 @@ interface User {
 }
 
 function App() {
-  const [state, setState] = useState<AppState>('login');
+  const [state, setState] = useState<AppState>('splash');
   const [user, setUser] = useState<User | null>(null);
+
+  const handleAnimationComplete = () => {
+    setState('login');
+  };
 
   const handleLogin = (email: string, phone: string) => {
     setUser({
@@ -50,6 +55,8 @@ function App() {
 
   const renderContent = () => {
     switch (state) {
+      case 'splash':
+        return <AnimatedLogo onAnimationComplete={handleAnimationComplete} />;
       case 'login':
         return <LoginForm onLogin={handleLogin} />;
       case 'verification':
@@ -68,6 +75,10 @@ function App() {
         return null;
     }
   };
+
+  if (state === 'splash') {
+    return renderContent();
+  }
 
   return (
     <Layout>
