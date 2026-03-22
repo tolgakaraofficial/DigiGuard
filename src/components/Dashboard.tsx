@@ -264,68 +264,76 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
         </div>
       </div>
 
-      {/* Recent Activities */}
-      <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 mb-8 border border-cyber-500/20">
-        <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-          <Activity className="h-5 w-5 text-cyber-400 mr-2" />
-          Biyometrik Aktivite Geçmişi
-        </h3>
-        <div className="space-y-3">
-          {recentActivities.map((activity, index) => (
-            <div key={index} className="flex items-center justify-between py-3 px-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 transition-colors border-l-2 border-l-transparent hover:border-l-cyber-400">
-              <div className="flex items-center space-x-3">
-                <div className={`w-2.5 h-2.5 rounded-full animate-pulse ${
-                  activity.type === 'success' ? 'bg-matrix-400' :
-                  activity.type === 'info' ? 'bg-cyber-400' :
-                  activity.type === 'warning' ? 'bg-amber-400' : 'bg-red-400'
-                }`} />
-                <span className="text-white text-sm">{activity.action}</span>
+      {/* Main Content with Sidebar */}
+      <div className="flex gap-6 mb-8">
+        {/* Features Grid - Main Content */}
+        <div className="flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                onClick={feature.action}
+                className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 hover:border-cyber-500/50 transition-all duration-300 cursor-pointer group hover:shadow-xl hover:shadow-cyber-500/20 relative overflow-hidden"
+              >
+                <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-cyber-500/10 to-matrix-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className={`${feature.color} p-3 rounded-lg w-fit mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg relative z-10`}>
+                  <feature.icon className="h-6 w-6 text-white" />
+                </div>
+                <div className="flex items-center justify-between mb-2 relative z-10">
+                  <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
+                  <span className={`px-2 py-1 text-xs rounded-full border ${
+                    feature.status === 'Aktif' ? 'bg-matrix-600/30 text-matrix-300 border-matrix-500/50' :
+                    feature.status === 'Guncel' ? 'bg-cyber-600/30 text-cyber-300 border-cyber-500/50' :
+                    feature.status === 'Izleniyor' ? 'bg-red-600/30 text-red-300 border-red-500/50' :
+                    feature.status === 'Bilgilendirme' ? 'bg-blue-600/30 text-blue-300 border-blue-500/50' :
+                    feature.status === 'Global' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
+                    feature.status === 'Gelistirici' ? 'bg-purple-600/30 text-purple-300 border-purple-500/50' :
+                    feature.status === 'Sosyal' ? 'bg-pink-600/30 text-pink-300 border-pink-500/50' :
+                    feature.status === 'Kurumsal' ? 'bg-indigo-600/30 text-indigo-300 border-indigo-500/50' :
+                    feature.status === 'Egitim' ? 'bg-yellow-600/30 text-yellow-300 border-yellow-500/50' :
+                    feature.status === 'Premium' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
+                    'bg-slate-600/30 text-slate-300 border-slate-500/50'
+                  }`}>
+                    {feature.status}
+                  </span>
+                </div>
+                <p className="text-slate-400 text-sm mb-3 relative z-10">{feature.description}</p>
+                <div className="flex items-center justify-between relative z-10">
+                  <span className="text-xs text-slate-500">Son: {feature.lastUsed}</span>
+                  <span className="text-cyber-400 text-sm font-medium group-hover:text-cyber-300 transition-colors">
+                    Ac →
+                  </span>
+                </div>
               </div>
-              <span className="text-slate-400 text-xs">{activity.time}</span>
-            </div>
-          ))}
+            ))}
           </div>
         </div>
-        {/* Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {features.map((feature, index) => (
-          <div
-            key={index}
-            onClick={feature.action}
-            className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 hover:border-cyber-500/50 transition-all duration-300 cursor-pointer group hover:shadow-xl hover:shadow-cyber-500/20 relative overflow-hidden"
-          >
-            <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-cyber-500/10 to-matrix-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className={`${feature.color} p-3 rounded-lg w-fit mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg relative z-10`}>
-              <feature.icon className="h-6 w-6 text-white" />
+
+        {/* Recent Activities - Right Sidebar */}
+        <div className="w-80 flex-shrink-0">
+          <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 sticky top-6">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+              <Activity className="h-5 w-5 text-cyber-400 mr-2" />
+              Biyometrik Aktivite Geçmişi
+            </h3>
+            <div className="space-y-3">
+              {recentActivities.map((activity, index) => (
+                <div key={index} className="py-3 px-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 transition-colors border-l-2 border-l-transparent hover:border-l-cyber-400">
+                  <div className="flex items-center space-x-3 mb-2">
+                    <div className={`w-2.5 h-2.5 rounded-full animate-pulse ${
+                      activity.type === 'success' ? 'bg-matrix-400' :
+                      activity.type === 'info' ? 'bg-cyber-400' :
+                      activity.type === 'warning' ? 'bg-amber-400' : 'bg-red-400'
+                    }`} />
+                    <span className="text-white text-sm leading-snug">{activity.action}</span>
+                  </div>
+                  <span className="text-slate-400 text-xs ml-5 block">{activity.time}</span>
+                </div>
+              ))}
             </div>
-            <div className="flex items-center justify-between mb-2 relative z-10">
-              <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
-              <span className={`px-2 py-1 text-xs rounded-full border ${
-                feature.status === 'Aktif' ? 'bg-matrix-600/30 text-matrix-300 border-matrix-500/50' :
-                feature.status === 'Guncel' ? 'bg-cyber-600/30 text-cyber-300 border-cyber-500/50' :
-                feature.status === 'Izleniyor' ? 'bg-red-600/30 text-red-300 border-red-500/50' :
-                feature.status === 'Bilgilendirme' ? 'bg-blue-600/30 text-blue-300 border-blue-500/50' :
-                feature.status === 'Global' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
-                feature.status === 'Gelistirici' ? 'bg-purple-600/30 text-purple-300 border-purple-500/50' :
-                feature.status === 'Sosyal' ? 'bg-pink-600/30 text-pink-300 border-pink-500/50' :
-                feature.status === 'Kurumsal' ? 'bg-indigo-600/30 text-indigo-300 border-indigo-500/50' :
-                feature.status === 'Egitim' ? 'bg-yellow-600/30 text-yellow-300 border-yellow-500/50' :
-                feature.status === 'Premium' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
-                'bg-slate-600/30 text-slate-300 border-slate-500/50'
-              }`}>
-                {feature.status}
-              </span>
-            </div>
-            <p className="text-slate-400 text-sm mb-3 relative z-10">{feature.description}</p>
-            <div className="flex items-center justify-between relative z-10">
-              <span className="text-xs text-slate-500">Son: {feature.lastUsed}</span>
-              <span className="text-cyber-400 text-sm font-medium group-hover:text-cyber-300 transition-colors">
-                Ac →
-              </span>
-              </div>
-            </div>
-          ))}
+          </div>
         </div>
+      </div>
 
           <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
           <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />
