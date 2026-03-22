@@ -238,51 +238,51 @@ export const TeamPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 py-16 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 py-12 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-white mb-4">DigiGuard Ekibi</h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">DigiGuard Ekibi</h1>
+          <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto drop-shadow-md">
             Dijital kimlik güvenliği konusunda dünyanın en yetenekli uzmanlarından oluşan ekibimizle tanışın
           </p>
         </div>
 
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-white mb-10 text-center">Liderlik Ekibi</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="mb-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-8 text-center drop-shadow-lg">Liderlik Ekibi</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700 hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/20 group"
+                className="bg-slate-800/60 backdrop-blur-md rounded-xl p-5 border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 group hover:scale-105"
               >
-                <div className="relative mb-4">
-                  <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-blue-500 group-hover:border-emerald-500 transition-colors">
+                <div className="relative mb-3">
+                  <div className="w-24 h-24 mx-auto rounded-full overflow-hidden border-3 border-blue-500 group-hover:border-emerald-500 transition-all duration-300 shadow-lg">
                     <img
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                    <Award className="h-3 w-3 inline mr-1" />
+                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-2.5 py-0.5 rounded-full text-xs font-semibold shadow-lg">
+                    <Award className="h-2.5 w-2.5 inline mr-1" />
                     Verified
                   </div>
                 </div>
 
-                <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
-                  <p className="text-blue-400 font-medium text-sm mb-2">{member.role}</p>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                <div className="text-center mb-3">
+                  <h3 className="text-lg font-bold text-white mb-1 drop-shadow-md">{member.name}</h3>
+                  <p className="text-blue-400 font-medium text-xs mb-2 drop-shadow-sm">{member.role}</p>
+                  <p className="text-slate-300 text-xs leading-relaxed mb-3 drop-shadow-sm">
                     {member.description}
                   </p>
                 </div>
 
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-2 justify-center">
+                <div className="mb-3">
+                  <div className="flex flex-wrap gap-1.5 justify-center">
                     {member.expertise.map((skill, idx) => (
                       <span
                         key={idx}
-                        className="bg-blue-600/20 text-blue-400 text-xs px-3 py-1 rounded-full border border-blue-500/30"
+                        className="bg-blue-600/20 backdrop-blur-sm text-blue-400 text-xs px-2.5 py-0.5 rounded-full border border-blue-500/30 hover:bg-blue-600/30 transition-all duration-300 drop-shadow-md"
                       >
                         {skill}
                       </span>
@@ -290,32 +290,32 @@ export const TeamPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-center space-x-3 pt-4 border-t border-slate-700">
+                <div className="flex justify-center space-x-2 pt-3 border-t border-slate-700/50">
                   <a
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors"
+                    className="bg-blue-600/80 backdrop-blur-sm hover:bg-blue-600 text-white p-1.5 rounded-lg transition-all duration-300 hover:scale-110 shadow-lg"
                     title="LinkedIn"
                   >
-                    <Linkedin className="h-5 w-5" />
+                    <Linkedin className="h-4 w-4" />
                   </a>
                   <a
                     href={`mailto:${member.email}`}
-                    className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg transition-colors"
+                    className="bg-slate-700/80 backdrop-blur-sm hover:bg-slate-600 text-white p-1.5 rounded-lg transition-all duration-300 hover:scale-110 shadow-lg"
                     title="Email"
                   >
-                    <Mail className="h-5 w-5" />
+                    <Mail className="h-4 w-4" />
                   </a>
                   {member.github && (
                     <a
                       href={member.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-slate-700 hover:bg-slate-600 text-white p-2 rounded-lg transition-colors"
+                      className="bg-slate-700/80 backdrop-blur-sm hover:bg-slate-600 text-white p-1.5 rounded-lg transition-all duration-300 hover:scale-110 shadow-lg"
                       title="GitHub"
                     >
-                      <Github className="h-5 w-5" />
+                      <Github className="h-4 w-4" />
                     </a>
                   )}
                 </div>
@@ -324,16 +324,16 @@ export const TeamPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl p-12 border border-blue-500/30">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">Danışman Kurulu</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 backdrop-blur-md rounded-2xl p-8 md:p-10 border border-blue-500/30 shadow-2xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center drop-shadow-lg">Danışman Kurulu</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {advisors.map((advisor, index) => (
               <div
                 key={index}
-                className="bg-slate-800/70 backdrop-blur-sm rounded-2xl p-6 border border-slate-700 hover:border-purple-500 transition-all"
+                className="bg-slate-800/70 backdrop-blur-md rounded-xl p-5 border border-slate-700/50 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 hover:scale-105"
               >
                 <div className="flex items-start space-x-4">
-                  <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-purple-500 flex-shrink-0">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-cyan-500 flex-shrink-0 shadow-lg">
                     <img
                       src={advisor.image}
                       alt={advisor.name}
@@ -341,18 +341,18 @@ export const TeamPage: React.FC = () => {
                     />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-white mb-1">{advisor.name}</h3>
-                    <p className="text-purple-400 font-medium text-sm mb-2">{advisor.role}</p>
-                    <p className="text-slate-300 text-sm leading-relaxed mb-3">
+                    <h3 className="text-base font-bold text-white mb-1 drop-shadow-md">{advisor.name}</h3>
+                    <p className="text-cyan-400 font-medium text-xs mb-2 drop-shadow-sm">{advisor.role}</p>
+                    <p className="text-slate-300 text-xs leading-relaxed mb-3 drop-shadow-sm">
                       {advisor.description}
                     </p>
                     <a
                       href={advisor.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+                      className="inline-flex items-center space-x-2 bg-cyan-600/80 backdrop-blur-sm hover:bg-cyan-600 text-white px-3 py-1.5 rounded-lg transition-all duration-300 text-xs shadow-lg hover:scale-105"
                     >
-                      <Linkedin className="h-4 w-4" />
+                      <Linkedin className="h-3.5 w-3.5" />
                       <span>LinkedIn</span>
                     </a>
                   </div>
@@ -362,16 +362,16 @@ export const TeamPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-16 bg-slate-800/50 rounded-2xl p-8 border border-slate-700 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Ekibimize Katılın</h3>
-          <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
+        <div className="mt-12 bg-slate-800/60 backdrop-blur-md rounded-xl p-6 md:p-8 border border-slate-700/50 text-center shadow-xl">
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-3 drop-shadow-lg">Ekibimize Katılın</h3>
+          <p className="text-slate-300 mb-5 max-w-2xl mx-auto text-sm md:text-base drop-shadow-md">
             Dijital güvenliğin geleceğini şekillendirmek için yetenekli ve tutkulu insanlar arıyoruz
           </p>
           <a
             href="mailto:kariyer@digiguard.com"
-            className="inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-8 py-3 rounded-lg transition-colors"
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-medium px-6 py-2.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-emerald-500/50 hover:scale-105 text-sm"
           >
-            <Mail className="h-5 w-5" />
+            <Mail className="h-4 w-4" />
             <span>kariyer@digiguard.com</span>
           </a>
         </div>

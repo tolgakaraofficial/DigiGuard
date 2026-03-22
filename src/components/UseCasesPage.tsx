@@ -113,26 +113,29 @@ export const UseCasesPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-emerald-600 rounded-2xl mb-6">
-          <Briefcase className="h-10 w-10 text-white" />
+    <div className="max-w-7xl mx-auto px-4">
+      <div className="text-center mb-10">
+        <div className="relative inline-block mb-5">
+          <div className="absolute inset-0 bg-emerald-500/40 blur-2xl rounded-full animate-pulse"></div>
+          <div className="relative inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl shadow-2xl hover:scale-110 transition-transform duration-300">
+            <Briefcase className="h-10 w-10 text-white drop-shadow-lg" />
+          </div>
         </div>
-        <h1 className="text-4xl font-bold text-white mb-4">Kullanım Senaryoları</h1>
-        <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">Kullanım Senaryoları</h1>
+        <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto drop-shadow-md">
           DigiGuard'ın farklı sektörlerde ve kullanım alanlarında nasıl değer yarattığını keşfedin
         </p>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-600/20 to-emerald-600/20 rounded-2xl p-8 mb-12 border border-blue-500/30">
-        <h2 className="text-2xl font-bold text-white mb-4 text-center">Gerçek Dünya Problemleri, Gerçek Çözümler</h2>
-        <p className="text-slate-300 text-center max-w-4xl mx-auto leading-relaxed">
+      <div className="bg-gradient-to-r from-blue-600/20 to-emerald-600/20 backdrop-blur-md rounded-xl p-6 md:p-8 mb-10 border border-blue-500/30 shadow-2xl hover:shadow-emerald-500/30 transition-all duration-500">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-4 text-center drop-shadow-lg">Gerçek Dünya Problemleri, Gerçek Çözümler</h2>
+        <p className="text-slate-300 text-center max-w-4xl mx-auto leading-relaxed text-sm md:text-base drop-shadow-md">
           Deepfake teknolojisinin yaygınlaşmasıyla birlikte, dijital kimlik doğrulama ihtiyacı her sektörde kritik hale geldi.
           DigiGuard, bu ihtiyaca kapsamlı ve güvenilir çözümler sunuyor.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6 mb-10">
         {useCases.map((useCase, index) => {
           const Icon = useCase.icon;
           const colors = colorClasses[useCase.color];
@@ -140,24 +143,24 @@ export const UseCasesPage: React.FC = () => {
           return (
             <div
               key={index}
-              className={`bg-slate-800 rounded-xl p-6 border border-slate-700 hover:${colors.border} transition-all`}
+              className={`bg-slate-800/60 backdrop-blur-md rounded-xl p-5 border border-slate-700/50 hover:${colors.border} transition-all duration-300 hover:shadow-lg hover:scale-105`}
             >
-              <div className="flex items-start space-x-4 mb-4">
-                <div className={`${colors.bg} w-14 h-14 rounded-lg flex items-center justify-center flex-shrink-0`}>
-                  <Icon className={`h-7 w-7 ${colors.text}`} />
+              <div className="flex items-start space-x-3 mb-3">
+                <div className={`${colors.bg} backdrop-blur-sm w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg`}>
+                  <Icon className={`h-6 w-6 ${colors.text}`} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{useCase.title}</h3>
-                  <p className="text-slate-400 text-sm">{useCase.description}</p>
+                  <h3 className="text-lg font-semibold text-white mb-1.5 drop-shadow-md">{useCase.title}</h3>
+                  <p className="text-slate-400 text-xs drop-shadow-sm">{useCase.description}</p>
                 </div>
               </div>
 
-              <div className="ml-[72px]">
-                <h4 className="text-sm font-semibold text-slate-300 mb-3">Kullanım Alanları:</h4>
-                <ul className="space-y-2">
+              <div className="ml-[60px]">
+                <h4 className="text-xs font-semibold text-slate-300 mb-2 drop-shadow-sm">Kullanım Alanları:</h4>
+                <ul className="space-y-1.5">
                   {useCase.scenarios.map((scenario, scenarioIndex) => (
-                    <li key={scenarioIndex} className="flex items-start text-slate-400 text-sm">
-                      <span className={`${colors.text} mr-2 mt-1`}>•</span>
+                    <li key={scenarioIndex} className="flex items-start text-slate-400 text-xs drop-shadow-sm">
+                      <span className={`${colors.text} mr-2 mt-0.5`}>•</span>
                       <span>{scenario}</span>
                     </li>
                   ))}
@@ -168,24 +171,24 @@ export const UseCasesPage: React.FC = () => {
         })}
       </div>
 
-      <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">Başarı Metrikleri</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center">
-            <div className="text-4xl font-bold text-blue-400 mb-2">99.9%</div>
-            <div className="text-slate-300 text-sm">Doğruluk Oranı</div>
+      <div className="bg-slate-800/60 backdrop-blur-md rounded-xl p-6 md:p-8 border border-slate-700/50 shadow-2xl">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-5 text-center drop-shadow-lg">Başarı Metrikleri</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="text-center bg-slate-700/30 backdrop-blur-sm rounded-lg p-4 border border-slate-600/30 hover:border-blue-500/50 transition-all duration-300 hover:scale-105">
+            <div className="text-3xl md:text-4xl font-bold text-blue-400 mb-2 drop-shadow-lg">99.9%</div>
+            <div className="text-slate-300 text-xs md:text-sm drop-shadow-md">Doğruluk Oranı</div>
           </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-emerald-400 mb-2">&lt;2s</div>
-            <div className="text-slate-300 text-sm">Doğrulama Süresi</div>
+          <div className="text-center bg-slate-700/30 backdrop-blur-sm rounded-lg p-4 border border-slate-600/30 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105">
+            <div className="text-3xl md:text-4xl font-bold text-emerald-400 mb-2 drop-shadow-lg">&lt;2s</div>
+            <div className="text-slate-300 text-xs md:text-sm drop-shadow-md">Doğrulama Süresi</div>
           </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-purple-400 mb-2">8+</div>
-            <div className="text-slate-300 text-sm">Sektör Desteği</div>
+          <div className="text-center bg-slate-700/30 backdrop-blur-sm rounded-lg p-4 border border-slate-600/30 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105">
+            <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-2 drop-shadow-lg">8+</div>
+            <div className="text-slate-300 text-xs md:text-sm drop-shadow-md">Sektör Desteği</div>
           </div>
-          <div className="text-center">
-            <div className="text-4xl font-bold text-orange-400 mb-2">24/7</div>
-            <div className="text-slate-300 text-sm">Kesintisiz Hizmet</div>
+          <div className="text-center bg-slate-700/30 backdrop-blur-sm rounded-lg p-4 border border-slate-600/30 hover:border-orange-500/50 transition-all duration-300 hover:scale-105">
+            <div className="text-3xl md:text-4xl font-bold text-orange-400 mb-2 drop-shadow-lg">24/7</div>
+            <div className="text-slate-300 text-xs md:text-sm drop-shadow-md">Kesintisiz Hizmet</div>
           </div>
         </div>
       </div>

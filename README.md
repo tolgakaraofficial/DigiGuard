@@ -546,11 +546,11 @@ Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICE
 
 - **Proje Sahibi**: DigiGuard Team / Karprime Technology INC.
 - **E-posta**: info@digiguard.com
-- **Website**: https://digiguard.com
-- **GitHub**: https://github.com/karprime/digiguard
+- **Website**: https://digiguard.netlify.app
+- **GitHub**: https://github.com/digiguard/digiguard
 - **Destek**: support@digiguard.com
-- **Issues**: https://github.com/karprime/digiguard/issues
-- **Discussions**: https://github.com/karprime/digiguard/discussions
+- **Issues**: https://github.com/digiguard/digiguard/issues
+- **Discussions**: https://github.com/digiguard/digiguard/discussions
 
 ## 🙏 Teşekkürler
 
