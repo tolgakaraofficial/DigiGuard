@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shield, Users, Lock, Globe, Award, Zap } from 'lucide-react';
+import { TechStackStarfield } from './TechStackStarfield';
 
 export const AboutPage: React.FC = () => {
   const features = [
@@ -156,8 +157,9 @@ export const AboutPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-md rounded-xl p-6 md:p-8 border border-blue-500/30 shadow-2xl hover:shadow-blue-500/30 transition-all duration-500">
-        <div className="text-center">
+      <div className="relative bg-black rounded-xl p-6 md:p-8 border border-blue-500/30 shadow-2xl overflow-hidden">
+        <TechStackStarfield />
+        <div className="relative z-10 text-center">
           <h2 className="text-xl md:text-2xl font-bold text-white mb-4 drop-shadow-lg">Teknoloji Yığınımız</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-6">
             <div className="text-center group">
