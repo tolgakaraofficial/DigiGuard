@@ -69,10 +69,10 @@ function App() {
       case 'login':
         return (
           <div className="flex flex-col lg:flex-row gap-6 items-start justify-center max-w-7xl mx-auto px-4">
-            <div className="w-full lg:w-[580px] lg:flex-shrink-0">
+            <div className="w-full lg:w-[580px] lg:flex-shrink-0 order-2 lg:order-1">
               <LoginForm onLogin={handleLogin} />
             </div>
-            <div className="w-full lg:w-[560px] lg:flex-shrink-0 space-y-6">
+            <div className="w-full lg:w-[560px] lg:flex-shrink-0 space-y-6 order-1 lg:order-2">
               <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30">
                 <h3 className="text-lg font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-4">
                   Tanıtım Videosu

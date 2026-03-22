@@ -99,37 +99,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   return (
     <div className="w-full max-w-lg mx-auto px-4">
-      <div className="mb-4 flex gap-3 flex-wrap">
-        <div className="flex gap-2 flex-1 min-w-[280px]">
-          {userTypes.map((type) => {
-            const Icon = type.icon;
-            const isSelected = userType === type.id;
-            return (
-              <button
-                key={type.id}
-                onClick={() => setUserType(type.id)}
-                className={`relative flex-1 p-2 rounded-lg transition-all border-2 ${
-                  isSelected
-                    ? `bg-gradient-to-br ${type.color} ${type.borderColor} shadow-lg scale-105`
-                    : 'bg-slate-700/30 border-slate-600 hover:border-slate-500 hover:bg-slate-700/50'
-                }`}
-              >
-                <div className="flex flex-col items-center">
-                  <Icon className={`h-5 w-5 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
-                  <div className={`text-[10px] font-semibold mt-1 ${isSelected ? 'text-white' : 'text-slate-300'}`}>
-                    {type.label}
-                  </div>
-                </div>
-                {isSelected && (
-                  <div className="absolute -top-1 -right-1">
-                    <CheckCircle className="h-3 w-3 text-white" />
-                  </div>
-                )}
-              </button>
-            );
-          })}
-        </div>
-
+      <div className="mb-4 flex gap-3 flex-wrap justify-center">
         <button
           onClick={() => setShowSecurityModal(true)}
           className="bg-gradient-to-r from-cyber-600 to-secure-600 hover:from-cyber-700 hover:to-secure-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-cyber-500/50 whitespace-nowrap"
@@ -151,6 +121,36 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           <Users className="h-4 w-4 flex-shrink-0" />
           <span className="text-sm">DigiGuard</span>
         </button>
+      </div>
+
+      <div className="mb-4 flex gap-2 justify-center">
+        {userTypes.map((type) => {
+          const Icon = type.icon;
+          const isSelected = userType === type.id;
+          return (
+            <button
+              key={type.id}
+              onClick={() => setUserType(type.id)}
+              className={`relative flex-1 max-w-[140px] p-2 rounded-lg transition-all border-2 ${
+                isSelected
+                  ? `bg-gradient-to-br ${type.color} ${type.borderColor} shadow-lg scale-105`
+                  : 'bg-slate-700/30 border-slate-600 hover:border-slate-500 hover:bg-slate-700/50'
+              }`}
+            >
+              <div className="flex flex-col items-center">
+                <Icon className={`h-5 w-5 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
+                <div className={`text-[10px] font-semibold mt-1 ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                  {type.label}
+                </div>
+              </div>
+              {isSelected && (
+                <div className="absolute -top-1 -right-1">
+                  <CheckCircle className="h-3 w-3 text-white" />
+                </div>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-5 sm:p-6 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
