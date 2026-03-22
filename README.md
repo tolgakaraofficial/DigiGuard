@@ -281,15 +281,49 @@ npm run web
 ### Proje Yapısı
 ```
 DigiGuard/
-├── src/                    # Web uygulaması kaynak kodu
-│   ├── components/         # React bileşenleri
-│   ├── types/             # TypeScript tip tanımları
-│   ├── utils/             # Yardımcı fonksiyonlar
-│   └── services/          # İş mantığı servisleri
-├── DigiGuardApp/          # Mobil uygulama
-│   ├── components/        # React Native bileşenleri
-│   └── types/            # Mobil tip tanımları
-└── docs/                 # Dokümantasyon
+├── src/                           # Web uygulaması kaynak kodu
+│   ├── components/                # React bileşenleri (20 dosya)
+│   ├── services/                  # İş mantığı servisleri
+│   │   ├── BiometricService.ts   # Biyometrik işlemler
+│   │   ├── HashService.ts        # SHA-256 hash
+│   │   ├── Web3Service.ts        # Blockchain entegrasyonu
+│   │   └── Web4Service.ts        # AI-native web servisi
+│   ├── types/                     # TypeScript tip tanımları
+│   └── utils/                     # Yardımcı fonksiyonlar
+│
+├── DigiGuardApp/                  # Mobil uygulama (React Native + Expo)
+│   ├── components/                # React Native bileşenleri (9 dosya)
+│   ├── types/                     # Mobil tip tanımları
+│   └── assets/                    # Mobil uygulama varlıkları
+│
+├── docs/                          # Dokümantasyon merkezi
+│   ├── ARCHITECTURE.md
+│   ├── ALGORITHM_FLOW.md
+│   ├── CODE_STRUCTURE.md
+│   ├── SECURITY_ARCHITECTURE.md
+│   ├── API_DOCUMENTATION.md
+│   ├── OPENAPI_SPEC.yaml
+│   ├── CONTRIBUTING.md
+│   ├── GUIDES/                    # Rehberler
+│   │   └── PRESENTATION.md
+│   └── Turkish_Government_Documents/  # Türkçe resmi belgeler
+│       ├── TESVIK_BASVURU_FORMU.md
+│       ├── TESVIK_BASVURU_SUNUMU.md
+│       ├── TESVIK_DESTEKLEYICI_BELGELER.md
+│       ├── TESVIK_SUNUM_SLAYTLARI.md
+│       └── NOTER_TASDIK_BELGESI.md
+│
+├── public/                        # Statik dosyalar
+│   └── models/                    # Face-api.js AI modelleri
+│
+├── .github/                       # GitHub yapılandırması
+│   ├── ISSUE_TEMPLATE/           # Issue şablonları
+│   └── pull_request_template.md
+│
+├── netlify.toml                   # Netlify deployment config
+├── Dockerfile                     # Docker container tanımı
+├── package.json                   # Web app bağımlılıkları
+└── README.md                      # Bu dosya
 ```
 
 ### Kod Kalitesi
@@ -485,6 +519,7 @@ npx prettier --write .
 
 Detaylı dokümantasyon için `docs/` klasörüne bakın:
 
+### Teknik Dokümantasyon
 - [Sistem Mimarisi](docs/ARCHITECTURE.md)
 - [Algoritma Akışları](docs/ALGORITHM_FLOW.md)
 - [Kod Yapısı](docs/CODE_STRUCTURE.md)
@@ -494,29 +529,38 @@ Detaylı dokümantasyon için `docs/` klasörüne bakın:
 - [Kullanıcı Hikayeleri](docs/USER_STORIES.md)
 - [Kullanım Senaryoları](docs/USE_CASES.md)
 - [Etkileşim Diyagramları](docs/INTERACTION_DIAGRAMS.md)
+- [API Dokümantasyonu](docs/API_DOCUMENTATION.md)
+- [API Araçları Kurulumu](docs/API_TOOLS_SETUP.md)
+
+### API Spesifikasyonu
+- [OpenAPI Specification](docs/OPENAPI_SPEC.yaml)
+
+### Katkı ve Sunum
+- [Katkıda Bulunma Rehberi](docs/CONTRIBUTING.md)
+- [Proje Sunumu](docs/GUIDES/PRESENTATION.md)
+
+### Türkçe Resmi Belgeler
+- [TÜSVIK Başvuru Formu](docs/Turkish_Government_Documents/TESVIK_BASVURU_FORMU.md)
+- [TÜSVIK Başvuru Sunumu](docs/Turkish_Government_Documents/TESVIK_BASVURU_SUNUMU.md)
+- [TÜSVIK Destekleyici Belgeler](docs/Turkish_Government_Documents/TESVIK_DESTEKLEYICI_BELGELER.md)
+- [TÜSVIK Sunum Slaytları](docs/Turkish_Government_Documents/TESVIK_SUNUM_SLAYTLARI.md)
+- [Noter Tasdik Belgesi](docs/Turkish_Government_Documents/NOTER_TASDIK_BELGESI.md)
 
 ## 🚢 Deployment
 
-### Vercel ile Deploy
-```bash
-# Vercel CLI'yi yükleyin
-npm i -g vercel
-
-# Deploy edin
-vercel
-
-# Production'a deploy
-vercel --prod
-```
-
-### Netlify ile Deploy
+### Netlify ile Deploy (Ana Platform)
 ```bash
 # Build komutu
 npm run build
 
 # Build klasörü
 dist/
+
+# Live Site
+https://digiguard.netlify.app
 ```
+
+**Not:** Netlify deployment otomatik olarak yapılandırılmıştır. Her GitHub push otomatik deploy tetikler.
 
 ### Docker ile Deploy
 ```bash
@@ -529,7 +573,7 @@ docker run -p 3000:3000 digiguard
 
 ## 🤝 Katkıda Bulunma
 
-Katkılarınızı bekliyoruz! Lütfen [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını okuyun.
+Katkılarınızı bekliyoruz! Lütfen [CONTRIBUTING.md](docs/CONTRIBUTING.md) dosyasını okuyun.
 
 ### Geliştirme Süreci
 1. Projeyi fork edin
