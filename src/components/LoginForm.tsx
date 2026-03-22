@@ -77,10 +77,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </button>
         <button
           onClick={() => setShowTeamModal(true)}
-          className="flex-1 bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-matrix-500/50"
+          className="flex-1 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70"
         >
           <Users className="h-4 w-4" />
-          <span className="text-sm">Ekip</span>
+          <span className="text-sm">DigiGuard Ekibi</span>
         </button>
       </div>
 

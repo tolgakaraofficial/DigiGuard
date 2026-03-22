@@ -58,11 +58,11 @@ function App() {
         return <AnimatedLogo onAnimationComplete={handleAnimationComplete} />;
       case 'login':
         return (
-          <div className="flex flex-col lg:flex-row gap-8 items-start justify-center max-w-7xl mx-auto px-4">
-            <div className="w-full lg:w-auto lg:flex-shrink-0">
+          <div className="flex flex-col lg:flex-row gap-6 items-start justify-center max-w-7xl mx-auto px-4">
+            <div className="w-full lg:w-[480px] lg:flex-shrink-0">
               <LoginForm onLogin={handleLogin} />
             </div>
-            <div className="w-full lg:w-[600px] lg:flex-shrink-0 space-y-6">
+            <div className="w-full lg:w-[560px] lg:flex-shrink-0 space-y-6">
               <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30">
                 <h3 className="text-lg font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-4">
                   Tanıtım Videosu
@@ -76,6 +76,38 @@ function App() {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
+                </div>
+              </div>
+
+              <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30">
+                <h3 className="text-lg font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-4">
+                  Vizyon ve Misyon
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-matrix-400 mb-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                        <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd"/>
+                      </svg>
+                      Vizyon
+                    </h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      Dijital kimlik güvenliğinde dünya lideri olmak ve blockchain teknolojisi ile her bireyin kimliğini güvence altına almak.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-cyber-400 mb-2 flex items-center">
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clipRule="evenodd"/>
+                        <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"/>
+                      </svg>
+                      Misyon
+                    </h4>
+                    <p className="text-slate-300 text-sm leading-relaxed">
+                      Biyometrik doğrulama ve yapay zeka teknolojileriyle kimlik hırsızlığına karşı en güvenli çözümleri sunmak.
+                    </p>
+                  </div>
                 </div>
               </div>
 
