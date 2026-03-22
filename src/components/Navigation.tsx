@@ -1,7 +1,7 @@
 import React from 'react';
-import { Home, Info, Target, BookOpen, FileText, Shield } from 'lucide-react';
+import { Home, Info, Target, BookOpen, FileText, Users } from 'lucide-react';
 
-export type PageType = 'dashboard' | 'about' | 'vision' | 'usecases' | 'certificate';
+export type PageType = 'dashboard' | 'about' | 'vision' | 'usecases' | 'certificate' | 'team';
 
 interface NavigationProps {
   currentPage: PageType;
@@ -14,6 +14,7 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate 
     { id: 'about' as PageType, label: 'Hakkında', icon: Info },
     { id: 'vision' as PageType, label: 'Vizyon', icon: Target },
     { id: 'usecases' as PageType, label: 'Kullanım Senaryoları', icon: BookOpen },
+    { id: 'team' as PageType, label: 'Ekibimiz', icon: Users },
     { id: 'certificate' as PageType, label: 'Sertifikam', icon: FileText },
   ];
 

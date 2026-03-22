@@ -11,6 +11,7 @@ import { AboutPage } from './components/AboutPage';
 import { VisionPage } from './components/VisionPage';
 import { UseCasesPage } from './components/UseCasesPage';
 import { CertificatePage } from './components/CertificatePage';
+import { TeamPage } from './components/TeamPage';
 import { LogOut, Shield } from 'lucide-react';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard' | 'hashDemo' | 'about';
@@ -68,17 +69,19 @@ function App() {
   const renderDashboardContent = () => {
     switch (currentPage) {
       case 'dashboard':
-        return <Dashboard onLogout={handleLogout} />;
+        return <Dashboard />;
       case 'about':
         return <AboutPage />;
       case 'vision':
         return <VisionPage />;
       case 'usecases':
         return <UseCasesPage />;
+      case 'team':
+        return <TeamPage />;
       case 'certificate':
         return <CertificatePage />;
       default:
-        return <Dashboard onLogout={handleLogout} />;
+        return <Dashboard />;
     }
   };
 
