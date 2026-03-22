@@ -59,7 +59,7 @@ function App() {
       case 'login':
         return (
           <div className="flex flex-col lg:flex-row gap-6 items-start justify-center max-w-7xl mx-auto px-4">
-            <div className="w-full lg:w-[480px] lg:flex-shrink-0">
+            <div className="w-full lg:w-[580px] lg:flex-shrink-0">
               <LoginForm onLogin={handleLogin} />
             </div>
             <div className="w-full lg:w-[560px] lg:flex-shrink-0 space-y-6">

@@ -59,27 +59,27 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto px-4">
-      <div className="mb-4 flex gap-2">
+    <div className="w-full max-w-lg mx-auto px-4">
+      <div className="mb-4 flex gap-3">
         <button
           onClick={() => setShowSecurityModal(true)}
-          className="flex-1 bg-gradient-to-r from-cyber-600 to-secure-600 hover:from-cyber-700 hover:to-secure-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-cyber-500/50"
+          className="flex-1 bg-gradient-to-r from-cyber-600 to-secure-600 hover:from-cyber-700 hover:to-secure-700 text-white font-medium py-3 px-5 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-cyber-500/50 whitespace-nowrap"
         >
-          <Lock className="h-4 w-4" />
+          <Lock className="h-4 w-4 flex-shrink-0" />
           <span className="text-sm">SHA-256 Güvenlik</span>
         </button>
         <button
           onClick={() => setShowAboutModal(true)}
-          className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-green-500/50 hover:shadow-green-500/70"
+          className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-5 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-green-500/50 hover:shadow-green-500/70 whitespace-nowrap"
         >
-          <Info className="h-4 w-4" />
+          <Info className="h-4 w-4 flex-shrink-0" />
           <span className="text-sm">Hakkında</span>
         </button>
         <button
           onClick={() => setShowTeamModal(true)}
-          className="flex-1 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70"
+          className="flex-1 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-5 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70 whitespace-nowrap"
         >
-          <Users className="h-4 w-4" />
+          <Users className="h-4 w-4 flex-shrink-0" />
           <span className="text-sm">DigiGuard Ekibi</span>
         </button>
       </div>
