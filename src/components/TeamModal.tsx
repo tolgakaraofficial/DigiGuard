@@ -25,7 +25,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       title: 'Kurucu & CEO',
       role: 'Blockchain & Güvenlik Uzmanı',
       expertise: ['Blockchain Architecture', 'Cryptography', 'Smart Contracts', 'System Security'],
-      linkedin: 'https://linkedin.com/in/ahmet-yilmaz',
+      linkedin: 'https://www.linkedin.com/in/digiguard-team',
       image: 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
         '15+ yıl siber güvenlik deneyimi',
@@ -38,7 +38,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       title: 'CTO',
       role: 'Yazılım Mimarı & Web3 Uzmanı',
       expertise: ['Full Stack Development', 'Web3/Web4/Web5', 'Cloud Architecture', 'DevOps'],
-      linkedin: 'https://linkedin.com/in/ayse-demir',
+      linkedin: 'https://www.linkedin.com/company/digiguard-officialayse-demir',
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
         '12 yıl yazılım geliştirme',
@@ -51,7 +51,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       title: 'Baş Güvenlik Müdürü',
       role: 'Siber Güvenlik & Kriptografi',
       expertise: ['Penetration Testing', 'Cryptography', 'Security Auditing', 'ISO 27001'],
-      linkedin: 'https://linkedin.com/in/mehmet-kaya',
+      linkedin: 'https://www.linkedin.com/company/digiguard-officialmehmet-kaya',
       image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
         'CISSP & CEH Sertifikalı',
@@ -64,7 +64,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       title: 'Ürün Müdürü',
       role: 'UX/UI & Kullanıcı Deneyimi',
       expertise: ['Product Design', 'User Research', 'Agile Management', 'Data Analytics'],
-      linkedin: 'https://linkedin.com/in/zeynep-sahin',
+      linkedin: 'https://www.linkedin.com/company/digiguard-officialzeynep-sahin',
       image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
         '10+ yıl ürün yönetimi',
@@ -77,7 +77,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       title: 'Blockchain Geliştirici',
       role: 'Smart Contract & DApp Uzmanı',
       expertise: ['Solidity', 'Ethereum', 'IPFS', 'Web3.js'],
-      linkedin: 'https://linkedin.com/in/can-ozdemir',
+      linkedin: 'https://www.linkedin.com/company/digiguard-officialcan-ozdemir',
       image: 'https://images.pexels.com/photos/3778966/pexels-photo-3778966.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
         'Ethereum Foundation Developer',
@@ -90,7 +90,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       title: 'Veri Bilimci',
       role: 'AI & Machine Learning Uzmanı',
       expertise: ['Machine Learning', 'Biometric Systems', 'Data Science', 'Python/TensorFlow'],
-      linkedin: 'https://linkedin.com/in/elif-arslan',
+      linkedin: 'https://www.linkedin.com/company/digiguard-officialelif-arslan',
       image: 'https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
         'PhD in Computer Vision',

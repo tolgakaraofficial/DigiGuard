@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award } from 'lucide-react';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
 import { IntegrationsModal } from './IntegrationsModal';
 import { PublicBenefitModal } from './PublicBenefitModal';
 import { PricingModal } from './PricingModal';
+import { TurkeyCertificateModal } from './TurkeyCertificateModal';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
@@ -20,6 +21,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [integrationsOpen, setIntegrationsOpen] = useState(false);
   const [publicBenefitOpen, setPublicBenefitOpen] = useState(false);
   const [pricingOpen, setPricingOpen] = useState(false);
+  const [turkeyCertificateOpen, setTurkeyCertificateOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
 
@@ -139,6 +141,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       status: 'Sosyal',
       lastUsed: 'Yeni',
       action: () => setPublicBenefitOpen(true)
+    },
+    {
+      title: 'Turkiye Sertifika Istatistikleri',
+      description: 'Canli veri analizi ve sehir bazinda sertifika dagilimi',
+      icon: Award,
+      color: 'bg-gradient-to-br from-red-600 to-red-700',
+      status: 'Canli',
+      lastUsed: 'Gercek Zamanli',
+      action: () => setTurkeyCertificateOpen(true)
     },
     {
       title: 'Ekip Isbirligi Senaryolari',
@@ -446,6 +457,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
                     feature.status === 'Kurumsal' ? 'bg-indigo-600/30 text-indigo-300 border-indigo-500/50' :
                     feature.status === 'Egitim' ? 'bg-yellow-600/30 text-yellow-300 border-yellow-500/50' :
                     feature.status === 'Premium' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
+                    feature.status === 'Canli' ? 'bg-red-600/30 text-red-300 border-red-500/50 animate-pulse' :
                     'bg-slate-600/30 text-slate-300 border-slate-500/50'
                   }`}>
                     {feature.status}
@@ -494,6 +506,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <IntegrationsModal isOpen={integrationsOpen} onClose={() => setIntegrationsOpen(false)} />
           <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
           <PricingModal isOpen={pricingOpen} onClose={() => setPricingOpen(false)} />
+          <TurkeyCertificateModal isOpen={turkeyCertificateOpen} onClose={() => setTurkeyCertificateOpen(false)} />
         </div>
       </div>
 

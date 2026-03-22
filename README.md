@@ -150,9 +150,13 @@ npx netlify-cli deploy --prod --dir=dist
 ```
 
 ### GitHub Integration
-1. Kodu GitHub'a push et
+1. Kodu GitHub'a push et: https://github.com/digiguard/digiguard-platform
 2. https://app.netlify.com/start adresine git
 3. Repository'yi seçip otomatik deploy başlat
+
+### Live Demo
+- **Production**: https://digiguard.netlify.app
+- **GitHub**: https://github.com/digiguard/digiguard-platform
 
 ## 📋 Proje Yapısı
 
@@ -218,8 +222,9 @@ Bu proje DigiGuard tarafından geliştirilmiştir. Tüm hakları saklıdır.
 
 Sorularınız için:
 - E-posta: support@digiguard.com
-- Web: https://digiguard.com
-- Twitter: @DigiGuardApp
+- Web: https://digiguard.netlify.app
+- LinkedIn: https://www.linkedin.com/company/digiguard-official
+- GitHub: https://github.com/digiguard/digiguard-platform
 
 ## ⚠️ Beta Sürümü
 

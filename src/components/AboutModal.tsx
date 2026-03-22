@@ -134,16 +134,6 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-orange-900/30 to-yellow-900/30 border border-orange-500/30 rounded-xl p-5">
-            <h3 className="text-lg font-semibold text-white mb-3">🎯 Misyonumuz</h3>
-            <p className="text-slate-200 text-sm leading-relaxed">
-              Dijital dünyada kimlik hırsızlığı ve veri ihlallerini önlemek, her bireyin
-              ve kurumun kimlik bilgilerini en üst düzey güvenlik standartlarıyla
-              korumalarını sağlamak. Blockchain ve modern şifreleme teknolojileriyle
-              güvenilir, şeffaf ve kullanıcı dostu bir kimlik yönetim ekosistemi oluşturmak.
-            </p>
-          </div>
-
           <div className="bg-slate-700/30 rounded-lg p-5 border border-slate-600">
             <h4 className="font-semibold text-white mb-3">📊 Güvenlik Standartları</h4>
             <ul className="space-y-2 text-slate-300 text-sm">
