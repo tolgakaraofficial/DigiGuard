@@ -105,11 +105,11 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
       <div className="bg-slate-800 rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-slate-700 shadow-2xl">
         <div className="sticky top-0 bg-slate-800 border-b border-slate-700 p-6 flex items-center justify-between z-10">
           <div className="flex items-center space-x-3">
-            <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-2.5 rounded-lg">
+            <div className="bg-gradient-to-r from-orange-500 to-amber-500 p-2.5 rounded-lg shadow-lg shadow-orange-500/50">
               <Users className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">DigiGuard Ekibi</h2>
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">DigiGuard Ekibi</h2>
               <p className="text-slate-300 text-sm">Güvenliğiniz için çalışan uzmanlar</p>
             </div>
           </div>
@@ -138,7 +138,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="bg-slate-700/50 rounded-xl border border-slate-600 overflow-hidden hover:border-blue-500/50 transition-all hover:shadow-lg hover:shadow-blue-500/20"
+                className="bg-slate-700/50 rounded-xl border border-slate-600 overflow-hidden hover:border-orange-500/50 transition-all hover:shadow-lg hover:shadow-orange-500/20"
               >
                 <div className="aspect-square bg-gradient-to-br from-slate-600 to-slate-700 relative overflow-hidden">
                   <img
@@ -199,7 +199,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm"
+                    className="flex items-center justify-center space-x-2 w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all shadow-lg shadow-orange-500/30 text-sm"
                   >
                     <Linkedin className="h-4 w-4" />
                     <span>LinkedIn Profilini Gör</span>
@@ -234,7 +234,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <div className="sticky bottom-0 bg-slate-800 border-t border-slate-700 p-6">
           <button
             onClick={onClose}
-            className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-3 px-4 rounded-lg transition-all"
+            className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-4 rounded-lg transition-all shadow-lg shadow-orange-500/30"
           >
             Kapat
           </button>

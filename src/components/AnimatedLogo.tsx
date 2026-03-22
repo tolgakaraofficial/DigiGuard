@@ -49,17 +49,17 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete 
           </div>
         </div>
 
-        <div className="space-y-4 animate-fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-bold text-white tracking-wide animate-slide-in">
-            Karprime Technology INC.
-          </h1>
+        <div className="space-y-6 animate-fade-in-up">
           <div className="flex items-center justify-center space-x-3">
             <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyber-500 animate-expand-left"></div>
-            <h2 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyber-400 via-matrix-400 to-secure-400 text-transparent bg-clip-text animate-glow">
+            <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-cyber-400 via-matrix-400 to-secure-400 text-transparent bg-clip-text animate-glow">
               DigiGuard
-            </h2>
+            </h1>
             <div className="h-px w-12 bg-gradient-to-l from-transparent to-matrix-500 animate-expand-right"></div>
           </div>
+          <h2 className="text-xl md:text-2xl font-medium text-slate-300 animate-slide-in">
+            Karprime Technology INC.
+          </h2>
           <p className="text-slate-300 text-lg animate-fade-in-delayed flex items-center justify-center gap-2">
             <Shield className="h-5 w-5 text-cyber-400" />
             Biyometrik KYC Güvenlik Sistemi

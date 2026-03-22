@@ -70,7 +70,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </button>
         <button
           onClick={() => setShowAboutModal(true)}
-          className="flex-1 bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-slate-500/50"
+          className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-green-500/50 hover:shadow-green-500/70"
         >
           <Info className="h-4 w-4" />
           <span className="text-sm">Hakkında</span>
