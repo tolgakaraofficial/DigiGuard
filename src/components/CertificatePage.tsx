@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Shield, CheckCircle, Calendar, Hash, FileText, Award } from 'lucide-react';
+import { Download, Shield, CheckCircle, Calendar, Hash, FileText, Award, Lock, ShieldCheck } from 'lucide-react';
+import jsPDF from 'jspdf';
 
 interface CertificateData {
   fullName: string;
@@ -148,21 +149,142 @@ export const CertificatePage: React.FC = () => {
     `.trim();
   };
 
-  const handleDownload = () => {
+  const handleDownloadPDF = () => {
     if (!certificate) return;
 
     setIsDownloading(true);
 
-    const svg = generateCertificateSVG(certificate);
-    const blob = new Blob([svg], { type: 'image/svg+xml' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `DigiGuard_Certificate_${certificate.certificateId}.svg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    pdf.setFillColor(15, 23, 42);
+    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+
+    const blueGradient = [30, 64, 175];
+    const purpleGradient = [126, 34, 206];
+
+    pdf.setFillColor(blueGradient[0], blueGradient[1], blueGradient[2]);
+    pdf.setGState(new pdf.GState({ opacity: 0.1 }));
+    pdf.roundedRect(10, 10, pageWidth - 20, pageHeight - 20, 3, 3, 'F');
+
+    pdf.setGState(new pdf.GState({ opacity: 1 }));
+    pdf.setDrawColor(96, 165, 250);
+    pdf.setLineWidth(0.5);
+    pdf.roundedRect(15, 15, pageWidth - 30, pageHeight - 30, 3, 3, 'S');
+
+    pdf.setFontSize(32);
+    pdf.setTextColor(96, 165, 250);
+    pdf.setFont(undefined, 'bold');
+    pdf.text('DigiGuard', pageWidth / 2, 30, { align: 'center' });
+
+    pdf.setFontSize(12);
+    pdf.setTextColor(148, 163, 184);
+    pdf.setFont(undefined, 'normal');
+    pdf.text('Dijital Kimlik Doğrulama Sertifikası', pageWidth / 2, 40, { align: 'center' });
+
+    pdf.setFillColor(96, 165, 250);
+    pdf.setGState(new pdf.GState({ opacity: 0.2 }));
+    pdf.circle(pageWidth / 2, 65, 15, 'F');
+
+    pdf.setGState(new pdf.GState({ opacity: 1 }));
+    pdf.setDrawColor(96, 165, 250);
+    pdf.setLineWidth(1);
+    pdf.line(pageWidth / 2, 55, pageWidth / 2, 60);
+    pdf.line(pageWidth / 2 - 5, 65, pageWidth / 2, 70);
+    pdf.line(pageWidth / 2, 70, pageWidth / 2 + 10, 60);
+
+    pdf.setFontSize(10);
+    pdf.setTextColor(203, 213, 225);
+    pdf.text('Bu sertifika aşağıdaki kişinin dijital kimliğinin', pageWidth / 2, 95, { align: 'center' });
+    pdf.text('DigiGuard platformu tarafından doğrulandığını belgeler', pageWidth / 2, 102, { align: 'center' });
+
+    pdf.setFontSize(18);
+    pdf.setTextColor(241, 245, 249);
+    pdf.setFont(undefined, 'bold');
+    pdf.text(certificate.fullName, pageWidth / 2, 120, { align: 'center' });
+
+    pdf.setDrawColor(71, 85, 105);
+    pdf.setLineWidth(0.3);
+    pdf.line(50, 125, pageWidth - 50, 125);
+
+    const leftMargin = 25;
+    let yPos = 145;
+    const lineHeight = 15;
+
+    const fields = [
+      { label: 'Kullanıcı ID:', value: certificate.userId },
+      { label: 'E-posta:', value: certificate.email },
+      { label: 'Sertifika No:', value: certificate.certificateId },
+      {
+        label: 'Düzenlenme Tarihi:',
+        value: new Date(certificate.issuedDate).toLocaleDateString('tr-TR', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        })
+      },
+      {
+        label: 'Geçerlilik Tarihi:',
+        value: new Date(certificate.expiryDate).toLocaleDateString('tr-TR', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        })
+      },
+      { label: 'Güvenlik Seviyesi:', value: certificate.securityLevel }
+    ];
+
+    fields.forEach(field => {
+      pdf.setFontSize(9);
+      pdf.setTextColor(148, 163, 184);
+      pdf.setFont(undefined, 'bold');
+      pdf.text(field.label, leftMargin, yPos);
+
+      pdf.setFontSize(10);
+      pdf.setTextColor(226, 232, 240);
+      pdf.setFont(undefined, 'normal');
+      pdf.text(field.value, leftMargin, yPos + 5);
+
+      yPos += lineHeight;
+    });
+
+    yPos += 5;
+    pdf.setFontSize(9);
+    pdf.setTextColor(148, 163, 184);
+    pdf.setFont(undefined, 'bold');
+    pdf.text('Blockchain Hash:', leftMargin, yPos);
+
+    pdf.setFontSize(8);
+    pdf.setTextColor(96, 165, 250);
+    pdf.setFont('courier', 'normal');
+    const hashLine1 = certificate.blockchainHash.substring(0, 50);
+    const hashLine2 = certificate.blockchainHash.substring(50);
+    pdf.text(hashLine1, leftMargin, yPos + 5);
+    pdf.text(hashLine2, leftMargin, yPos + 10);
+
+    pdf.setFillColor(30, 64, 175);
+    pdf.setGState(new pdf.GState({ opacity: 0.1 }));
+    pdf.roundedRect(20, pageHeight - 55, pageWidth - 40, 20, 2, 2, 'F');
+
+    pdf.setGState(new pdf.GState({ opacity: 1 }));
+    pdf.setDrawColor(96, 165, 250);
+    pdf.setLineWidth(0.3);
+    pdf.roundedRect(20, pageHeight - 55, pageWidth - 40, 20, 2, 2, 'S');
+
+    pdf.setFontSize(8);
+    pdf.setTextColor(100, 116, 139);
+    pdf.setFont(undefined, 'normal');
+    pdf.text('🔒 Blockchain ile Güvence Altında', pageWidth / 2, pageHeight - 48, { align: 'center' });
+    pdf.text('Bu sertifika değiştirilemez ve blockchain üzerinde doğrulanabilir', pageWidth / 2, pageHeight - 42, { align: 'center' });
+
+    pdf.setFontSize(7);
+    pdf.setTextColor(71, 85, 105);
+    pdf.text('Karprime Technology INC. - DigiGuard Platform', pageWidth / 2, pageHeight - 15, { align: 'center' });
+    pdf.text('www.digiguard.com | info@digiguard.com', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+    pdf.save(`DigiGuard_Certificate_${certificate.certificateId}.pdf`);
 
     setTimeout(() => setIsDownloading(false), 1000);
   };
@@ -307,30 +429,63 @@ export const CertificatePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/30 text-center">
-        <h3 className="text-2xl font-bold text-white mb-4">Sertifikanızı İndirin</h3>
-        <p className="text-slate-300 mb-6">
-          Dijital kimlik sertifikanızı SVG formatında indirerek saklayabilir veya paylaşabilirsiniz.
+      <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-blue-500/30">
+        <div className="flex items-center justify-center mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-xl mr-4">
+            <Lock className="h-8 w-8 text-white" />
+          </div>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-600 rounded-xl mr-4">
+            <ShieldCheck className="h-8 w-8 text-white" />
+          </div>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-600 rounded-xl">
+            <CheckCircle className="h-8 w-8 text-white" />
+          </div>
+        </div>
+
+        <h3 className="text-2xl font-bold text-white mb-4 text-center">Sertifikanızı İndirin</h3>
+        <p className="text-slate-300 mb-6 text-center">
+          Dijital kimlik sertifikanızı PDF formatında indirerek saklayabilir veya paylaşabilirsiniz.
           Sertifika üzerindeki blockchain hash ile doğrulama yapılabilir.
         </p>
-        <button
-          onClick={handleDownload}
-          disabled={isDownloading}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white font-semibold py-4 px-8 rounded-lg transition-all inline-flex items-center space-x-3 text-lg"
-        >
-          {isDownloading ? (
-            <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>İndiriliyor...</span>
-            </>
-          ) : (
-            <>
-              <Download className="h-6 w-6" />
-              <span>Sertifikayı İndir (SVG)</span>
-            </>
-          )}
-        </button>
-        <p className="text-slate-400 text-sm mt-4">
+
+        <div className="flex justify-center">
+          <button
+            onClick={handleDownloadPDF}
+            disabled={isDownloading}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-blue-800 disabled:to-purple-800 text-white font-semibold py-4 px-8 rounded-lg transition-all inline-flex items-center space-x-3 text-lg shadow-lg shadow-blue-500/50"
+          >
+            {isDownloading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span>İndiriliyor...</span>
+              </>
+            ) : (
+              <>
+                <Download className="h-6 w-6" />
+                <span>Sertifikayı İndir (PDF)</span>
+              </>
+            )}
+          </button>
+        </div>
+
+        <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-slate-400">
+          <div className="flex items-center space-x-1">
+            <Shield className="h-4 w-4 text-emerald-400" />
+            <span>Güvenli</span>
+          </div>
+          <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
+          <div className="flex items-center space-x-1">
+            <Lock className="h-4 w-4 text-blue-400" />
+            <span>Şifreli</span>
+          </div>
+          <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
+          <div className="flex items-center space-x-1">
+            <CheckCircle className="h-4 w-4 text-purple-400" />
+            <span>Doğrulanabilir</span>
+          </div>
+        </div>
+
+        <p className="text-slate-400 text-sm mt-4 text-center">
           İndirilme Zamanı: {new Date().toLocaleString('tr-TR')}
         </p>
       </div>

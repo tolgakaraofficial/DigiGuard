@@ -38,13 +38,32 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-600 rounded-2xl mb-6">
-          <Shield className="h-10 w-10 text-white" />
+        <div className="relative inline-block mb-6">
+          <div className="absolute inset-0 bg-blue-500/30 blur-xl rounded-full"></div>
+          <div className="relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl shadow-xl">
+            <Shield className="h-12 w-12 text-white" />
+          </div>
         </div>
         <h1 className="text-4xl font-bold text-white mb-4">DigiGuard Hakkında</h1>
         <p className="text-xl text-slate-300 max-w-3xl mx-auto">
           Dijital kimliğinizi deepfake ve sahte içeriklerden koruyan yeni nesil güvenlik platformu
         </p>
+
+        {/* Security Badges */}
+        <div className="flex items-center justify-center space-x-4 mt-8">
+          <div className="flex items-center space-x-2 bg-blue-600/20 px-4 py-2 rounded-lg border border-blue-500/30">
+            <Lock className="h-4 w-4 text-blue-400" />
+            <span className="text-blue-400 font-medium text-sm">256-bit Şifreleme</span>
+          </div>
+          <div className="flex items-center space-x-2 bg-emerald-600/20 px-4 py-2 rounded-lg border border-emerald-500/30">
+            <Shield className="h-4 w-4 text-emerald-400" />
+            <span className="text-emerald-400 font-medium text-sm">Blockchain Güvenlik</span>
+          </div>
+          <div className="flex items-center space-x-2 bg-purple-600/20 px-4 py-2 rounded-lg border border-purple-500/30">
+            <Award className="h-4 w-4 text-purple-400" />
+            <span className="text-purple-400 font-medium text-sm">AI Korumalı</span>
+          </div>
+        </div>
       </div>
 
       <div className="bg-slate-800 rounded-2xl p-8 mb-12 border border-slate-700">

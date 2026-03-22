@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Fingerprint, Info } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Fingerprint, Info, Lock, ShieldCheck } from 'lucide-react';
 import { BiometricLogin } from './BiometricLogin';
 import { BiometricData } from '../services/BiometricService';
 
@@ -84,14 +84,30 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onShowHashDemo, o
       <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="bg-blue-600 p-3 rounded-full">
-              <Shield className="h-8 w-8 text-white" />
+            <div className="relative">
+              <div className="absolute inset-0 bg-blue-500/30 blur-lg rounded-full"></div>
+              <div className="relative bg-gradient-to-br from-blue-600 to-purple-600 p-4 rounded-2xl shadow-lg">
+                <Shield className="h-10 w-10 text-white" />
+              </div>
             </div>
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">Güvenli Giriş</h2>
           <p className="text-slate-300">
             Dijital kimliğinizi korumak için giriş yapın
           </p>
+
+          {/* Security Indicators */}
+          <div className="flex items-center justify-center space-x-3 mt-4">
+            <div className="flex items-center space-x-1 text-xs text-emerald-400">
+              <ShieldCheck className="h-3 w-3" />
+              <span>SSL Güvenli</span>
+            </div>
+            <div className="w-1 h-1 bg-slate-600 rounded-full"></div>
+            <div className="flex items-center space-x-1 text-xs text-blue-400">
+              <Lock className="h-3 w-3" />
+              <span>256-bit Şifreleme</span>
+            </div>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
