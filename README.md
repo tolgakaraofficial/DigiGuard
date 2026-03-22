@@ -1,12 +1,18 @@
 # DigiGuard - Dijital Kimlik Koruma Sistemi
 
 <div align="center">
+
+  [![Netlify Status](https://api.netlify.com/api/v1/badges/digiguard/deploy-status)](https://digiguard.netlify.app)
+
   <img src="https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
   <img src="https://img.shields.io/badge/TypeScript-5.5.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/React_Native-0.72.6-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React Native" />
   <img src="https://img.shields.io/badge/Expo-49.0.0-000020?style=for-the-badge&logo=expo&logoColor=white" alt="Expo" />
   <img src="https://img.shields.io/badge/Vite-5.4.2-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-3.4.1-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+
+  **[Live Demo](https://digiguard.netlify.app)** | **[GitHub](https://github.com/digiguard/digiguard)** | **[Documentation](https://github.com/digiguard/digiguard/tree/main/docs)**
+
 </div>
 
 ## 🛡️ Genel Bakış
@@ -572,4 +578,13 @@ Bu projeyi mümkün kılan açık kaynak topluluğuna ve aşağıdaki teknolojil
 <div align="center">
   <p><strong>DigiGuard ile dijital kimliğinizi koruyun! 🛡️</strong></p>
   <p>Sahte içeriklere karşı güvenli kalın.</p>
+
+  <br/>
+
+  **Made with ❤️ by Karprime Technology INC.**
+
+  <br/>
+
+  [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/digiguard/digiguard)
+
 </div>

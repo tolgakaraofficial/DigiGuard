@@ -28,7 +28,7 @@ DigiGuard topluluğu, herkes için açık ve misafirperver bir ortam yaratmayı 
 
 Bir hata bulduysanız:
 
-1. [Issues](https://github.com/karprime/digiguard/issues) sayfasını kontrol edin
+1. [Issues](https://github.com/digiguard/digiguard/issues) sayfasını kontrol edin
 2. Benzer bir issue yoksa, yeni bir issue açın
 3. Issue şablonunu doldurun ve detaylı bilgi verin
 4. Hatayı yeniden oluşturma adımlarını ekleyin
@@ -38,7 +38,7 @@ Bir hata bulduysanız:
 
 Yeni bir özellik önermek için:
 
-1. [Discussions](https://github.com/karprime/digiguard/discussions) sayfasında öneriyi tartışın
+1. [Discussions](https://github.com/digiguard/digiguard/discussions) sayfasında öneriyi tartışın
 2. Özelliğin neden gerekli olduğunu açıklayın
 3. Kullanım senaryolarını paylaşın
 4. Topluluk geri bildirimini bekleyin
@@ -410,8 +410,9 @@ async function hashUserData(userData: UserData): Promise<string> {
 
 Sorularınız veya önerileriniz için:
 
-- GitHub Discussions: https://github.com/karprime/digiguard/discussions
+- GitHub Discussions: https://github.com/digiguard/digiguard/discussions
 - Email: dev@digiguard.com
+- Website: https://digiguard.netlify.app
 - Discord: (coming soon)
 
 ---

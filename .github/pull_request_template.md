@@ -99,4 +99,4 @@ Başka eklemek istediğiniz notlar veya sorular:
 ---
 
 **Kod sahiplerini otomatik olarak etiketlemek için:**
-/cc @karprime/digiguard-team
+/cc @digiguard/core-team
