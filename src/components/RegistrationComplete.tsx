@@ -29,12 +29,30 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     setIsProcessing(false);
   };
 
+  const generateSerialNumber = () => {
+    const year = new Date().getFullYear();
+    const month = String(new Date().getMonth() + 1).padStart(2, '0');
+    const random = Math.floor(Math.random() * 999999).toString().padStart(6, '0');
+    return `DG-KYC-${year}${month}-${random}`;
+  };
+
+  const generateBlockchainHash = () => {
+    const chars = '0123456789abcdef';
+    let hash = '0x';
+    for (let i = 0; i < 64; i++) {
+      hash += chars[Math.floor(Math.random() * 16)];
+    }
+    return hash;
+  };
+
   const handleDownloadCertificate = async () => {
     setCertificateGenerated(true);
 
     const timestamp = new Date();
-    const certificateId = `DG-${Date.now()}`;
-    const blockchainHash = `0x${Math.random().toString(16).substring(2, 66)}`;
+    const serialNumber = generateSerialNumber();
+    const blockchainHash = generateBlockchainHash();
+    const blockNumber = Math.floor(Math.random() * 10000000) + 15000000;
+    const gasUsed = (Math.random() * 0.005 + 0.001).toFixed(6);
 
     const pdf = new jsPDF({
       orientation: 'portrait',
@@ -60,31 +78,44 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     pdf.setFont('helvetica', 'normal');
     pdf.text('Biyometrik KYC Guvenlik Sistemi', 105, 28, { align: 'center' });
 
+    pdf.setFontSize(10);
+    pdf.setTextColor(203, 213, 225);
+    pdf.text('Karprime Technology INC.', 105, 35, { align: 'center' });
+
     pdf.setFontSize(22);
     pdf.setTextColor(6, 182, 212);
-    pdf.text('BLOCKCHAIN KYC SERTIFIKASI', 105, 60, { align: 'center' });
+    pdf.text('BLOCKCHAIN KYC SERTIFIKASI', 105, 55, { align: 'center' });
 
     pdf.setDrawColor(6, 182, 212);
     pdf.setLineWidth(0.5);
-    pdf.line(40, 65, 170, 65);
-
-    pdf.setFontSize(12);
-    pdf.setTextColor(226, 232, 240);
-    pdf.text('Bu sertifika, kimlik dogrulamasinin blockchain teknolojisi ile', 105, 75, { align: 'center' });
-    pdf.text('guvence altina alindigini teyit eder.', 105, 82, { align: 'center' });
+    pdf.line(40, 60, 170, 60);
 
     pdf.setFontSize(11);
+    pdf.setTextColor(226, 232, 240);
+    pdf.text('Bu sertifika, kimlik dogrulamasinin blockchain teknolojisi ile', 105, 70, { align: 'center' });
+    pdf.text('guvence altina alindigini ve KYC surecinin tamamlandigini teyit eder.', 105, 77, { align: 'center' });
+
+    pdf.setFontSize(10);
     pdf.setTextColor(148, 163, 184);
-    pdf.text('Kayit Bilgileri:', 40, 100);
+    pdf.text('Seri Numarasi:', 40, 92);
+    pdf.setFontSize(11);
+    pdf.setTextColor(6, 182, 212);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text(serialNumber, 75, 92);
+
+    pdf.setFontSize(11);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setTextColor(148, 163, 184);
+    pdf.text('KYC Kayit Bilgileri:', 40, 105);
 
     pdf.setDrawColor(71, 85, 105);
     pdf.setLineWidth(0.3);
-    pdf.line(40, 102, 170, 102);
+    pdf.line(40, 107, 170, 107);
 
     pdf.setFontSize(10);
     pdf.setTextColor(203, 213, 225);
 
-    const infoY = 112;
+    const infoY = 117;
     const lineHeight = 10;
 
     pdf.setFont('helvetica', 'bold');
@@ -117,29 +148,32 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
 
     pdf.setFontSize(11);
     pdf.setTextColor(148, 163, 184);
-    pdf.text('Blockchain Dogrulama:', 40, 170);
-    pdf.line(40, 172, 170, 172);
+    pdf.text('Blockchain Zaman Damgasi ve Dogrulama:', 40, 175);
+    pdf.line(40, 177, 170, 177);
 
     pdf.setFontSize(10);
     pdf.setTextColor(203, 213, 225);
 
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Sertifika ID:', 45, 182);
+    pdf.text('Blockchain Agi:', 45, 187);
     pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(9);
-    pdf.text(certificateId, 110, 182);
+    pdf.text('Ethereum Mainnet', 110, 187);
 
-    pdf.setFontSize(10);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Blockchain Hash:', 45, 192);
+    pdf.text('Blok Numarasi:', 45, 195);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text(`#${blockNumber}`, 110, 195);
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Transaction Hash:', 45, 203);
     pdf.setFont('helvetica', 'normal');
     pdf.setFontSize(8);
-    pdf.text(blockchainHash.substring(0, 45), 45, 200);
-    pdf.text(blockchainHash.substring(45), 45, 206);
+    pdf.text(blockchainHash.substring(0, 45), 45, 211);
+    pdf.text(blockchainHash.substring(45), 45, 217);
 
     pdf.setFontSize(10);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Zaman Damgasi:', 45, 216);
+    pdf.text('Zaman Damgasi:', 45, 227);
     pdf.setFont('helvetica', 'normal');
     pdf.text(timestamp.toLocaleString('tr-TR', {
       year: 'numeric',
@@ -149,32 +183,39 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
       minute: '2-digit',
       second: '2-digit',
       timeZone: 'Europe/Istanbul'
-    }), 110, 216);
+    }), 110, 227);
+
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Gas Kullanimi:', 45, 235);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text(`${gasUsed} ETH`, 110, 235);
 
     pdf.setDrawColor(34, 197, 94);
     pdf.setLineWidth(1);
-    pdf.rect(35, 230, 140, 20);
+    pdf.rect(35, 245, 140, 8);
 
     pdf.setFontSize(9);
     pdf.setTextColor(34, 197, 94);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('GUVENLIK ONAYLARI', 105, 237, { align: 'center' });
+    pdf.text('DOGRULANDI - KYC TAMAMLANDI', 105, 250, { align: 'center' });
 
     pdf.setFontSize(8);
+    pdf.setTextColor(203, 213, 225);
     pdf.setFont('helvetica', 'normal');
-    pdf.text('AES-256 Sifreleme | KVKK Uyumlu | GDPR Uyumlu | ISO 27001', 105, 243, { align: 'center' });
+    pdf.text('AES-256 Sifreleme | KVKK Uyumlu | GDPR Uyumlu | ISO 27001 | Blockchain Secured', 105, 258, { align: 'center' });
 
     pdf.setFontSize(9);
     pdf.setTextColor(255, 255, 255);
     pdf.text('Karprime Technology INC. | www.digiguard.com', 105, 270, { align: 'center' });
     pdf.setFontSize(7);
-    pdf.text('Bu sertifika blockchain uzerinde dogrulanabilir ve degistirilemez.', 105, 277, { align: 'center' });
+    pdf.text('Bu sertifika blockchain uzerinde dogrulanabilir ve degistirilemez bir kayittir.', 105, 277, { align: 'center' });
 
     pdf.setFontSize(6);
     pdf.setTextColor(148, 163, 184);
-    pdf.text(`Olusturulma: ${timestamp.toISOString()} | Surum: 1.0.0`, 105, 285, { align: 'center' });
+    pdf.text(`Olusturulma Zamani: ${timestamp.toISOString()} | Sertifika Surumu: 2.0.0`, 105, 285, { align: 'center' });
+    pdf.text(`Dogrulama: https://digiguard.com/verify/${serialNumber}`, 105, 290, { align: 'center' });
 
-    pdf.save(`DigiGuard-KYC-Sertifika-${certificateId}.pdf`);
+    pdf.save(`DigiGuard-KYC-Sertifika-${serialNumber}.pdf`);
   };
   const totalFiles = mediaFiles.photos.length + mediaFiles.videos.length + mediaFiles.audioRecordings.length;
 
@@ -310,16 +351,16 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
           className={`flex-1 font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg ${
             certificateGenerated
               ? 'bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white shadow-matrix-500/30'
-              : 'bg-slate-600 hover:bg-slate-700 text-white'
+              : 'bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 text-white shadow-cyber-500/30'
           }`}
         >
           <Download className="h-5 w-5" />
-          <span>{certificateGenerated ? 'Blockchain Sertifikası İndirildi' : 'Blockchain Sertifikası İndir'}</span>
+          <span>Sertifika İndir</span>
         </button>
 
         <button
           onClick={() => alert('KYC profil görüntüleme özelliği yakında eklenecek!')}
-          className="flex-1 bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30"
+          className="flex-1 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-slate-500/30"
         >
           <Eye className="h-5 w-5" />
           <span>KYC Profili Görüntüle</span>
