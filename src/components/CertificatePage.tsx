@@ -154,139 +154,140 @@ export const CertificatePage: React.FC = () => {
 
     setIsDownloading(true);
 
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'mm',
-      format: 'a4'
-    });
+    try {
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
 
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
 
-    pdf.setFillColor(15, 23, 42);
-    pdf.rect(0, 0, pageWidth, pageHeight, 'F');
+      pdf.setFillColor(15, 23, 42);
+      pdf.rect(0, 0, pageWidth, pageHeight, 'F');
 
-    const blueGradient = [30, 64, 175];
-    const purpleGradient = [126, 34, 206];
+      pdf.setFillColor(30, 64, 175);
+      pdf.setGState(pdf.GState({ opacity: 0.1 }));
+      pdf.roundedRect(10, 10, pageWidth - 20, pageHeight - 20, 3, 3, 'F');
 
-    pdf.setFillColor(blueGradient[0], blueGradient[1], blueGradient[2]);
-    pdf.setGState(new pdf.GState({ opacity: 0.1 }));
-    pdf.roundedRect(10, 10, pageWidth - 20, pageHeight - 20, 3, 3, 'F');
+      pdf.setGState(pdf.GState({ opacity: 1 }));
+      pdf.setDrawColor(96, 165, 250);
+      pdf.setLineWidth(0.5);
+      pdf.roundedRect(15, 15, pageWidth - 30, pageHeight - 30, 3, 3, 'S');
 
-    pdf.setGState(new pdf.GState({ opacity: 1 }));
-    pdf.setDrawColor(96, 165, 250);
-    pdf.setLineWidth(0.5);
-    pdf.roundedRect(15, 15, pageWidth - 30, pageHeight - 30, 3, 3, 'S');
+      pdf.setFontSize(32);
+      pdf.setTextColor(96, 165, 250);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('DigiGuard', pageWidth / 2, 30, { align: 'center' });
 
-    pdf.setFontSize(32);
-    pdf.setTextColor(96, 165, 250);
-    pdf.setFont(undefined, 'bold');
-    pdf.text('DigiGuard', pageWidth / 2, 30, { align: 'center' });
-
-    pdf.setFontSize(12);
-    pdf.setTextColor(148, 163, 184);
-    pdf.setFont(undefined, 'normal');
-    pdf.text('Dijital Kimlik Doğrulama Sertifikası', pageWidth / 2, 40, { align: 'center' });
-
-    pdf.setFillColor(96, 165, 250);
-    pdf.setGState(new pdf.GState({ opacity: 0.2 }));
-    pdf.circle(pageWidth / 2, 65, 15, 'F');
-
-    pdf.setGState(new pdf.GState({ opacity: 1 }));
-    pdf.setDrawColor(96, 165, 250);
-    pdf.setLineWidth(1);
-    pdf.line(pageWidth / 2, 55, pageWidth / 2, 60);
-    pdf.line(pageWidth / 2 - 5, 65, pageWidth / 2, 70);
-    pdf.line(pageWidth / 2, 70, pageWidth / 2 + 10, 60);
-
-    pdf.setFontSize(10);
-    pdf.setTextColor(203, 213, 225);
-    pdf.text('Bu sertifika aşağıdaki kişinin dijital kimliğinin', pageWidth / 2, 95, { align: 'center' });
-    pdf.text('DigiGuard platformu tarafından doğrulandığını belgeler', pageWidth / 2, 102, { align: 'center' });
-
-    pdf.setFontSize(18);
-    pdf.setTextColor(241, 245, 249);
-    pdf.setFont(undefined, 'bold');
-    pdf.text(certificate.fullName, pageWidth / 2, 120, { align: 'center' });
-
-    pdf.setDrawColor(71, 85, 105);
-    pdf.setLineWidth(0.3);
-    pdf.line(50, 125, pageWidth - 50, 125);
-
-    const leftMargin = 25;
-    let yPos = 145;
-    const lineHeight = 15;
-
-    const fields = [
-      { label: 'Kullanıcı ID:', value: certificate.userId },
-      { label: 'E-posta:', value: certificate.email },
-      { label: 'Sertifika No:', value: certificate.certificateId },
-      {
-        label: 'Düzenlenme Tarihi:',
-        value: new Date(certificate.issuedDate).toLocaleDateString('tr-TR', {
-          year: 'numeric', month: 'long', day: 'numeric'
-        })
-      },
-      {
-        label: 'Geçerlilik Tarihi:',
-        value: new Date(certificate.expiryDate).toLocaleDateString('tr-TR', {
-          year: 'numeric', month: 'long', day: 'numeric'
-        })
-      },
-      { label: 'Güvenlik Seviyesi:', value: certificate.securityLevel }
-    ];
-
-    fields.forEach(field => {
-      pdf.setFontSize(9);
+      pdf.setFontSize(12);
       pdf.setTextColor(148, 163, 184);
-      pdf.setFont(undefined, 'bold');
-      pdf.text(field.label, leftMargin, yPos);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Dijital Kimlik Dogrulama Sertifikasi', pageWidth / 2, 40, { align: 'center' });
+
+      pdf.setFillColor(96, 165, 250);
+      pdf.setGState(pdf.GState({ opacity: 0.2 }));
+      pdf.circle(pageWidth / 2, 65, 15, 'F');
+
+      pdf.setGState(pdf.GState({ opacity: 1 }));
+      pdf.setDrawColor(96, 165, 250);
+      pdf.setLineWidth(1);
+      pdf.line(pageWidth / 2, 55, pageWidth / 2, 60);
+      pdf.line(pageWidth / 2 - 5, 65, pageWidth / 2, 70);
+      pdf.line(pageWidth / 2, 70, pageWidth / 2 + 10, 60);
 
       pdf.setFontSize(10);
-      pdf.setTextColor(226, 232, 240);
-      pdf.setFont(undefined, 'normal');
-      pdf.text(field.value, leftMargin, yPos + 5);
+      pdf.setTextColor(203, 213, 225);
+      pdf.text('Bu sertifika asagidaki kisinin dijital kimliginin', pageWidth / 2, 95, { align: 'center' });
+      pdf.text('DigiGuard platformu tarafindan dogrulandigini belgeler', pageWidth / 2, 102, { align: 'center' });
 
-      yPos += lineHeight;
-    });
+      pdf.setFontSize(18);
+      pdf.setTextColor(241, 245, 249);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text(certificate.fullName, pageWidth / 2, 120, { align: 'center' });
 
-    yPos += 5;
-    pdf.setFontSize(9);
-    pdf.setTextColor(148, 163, 184);
-    pdf.setFont(undefined, 'bold');
-    pdf.text('Blockchain Hash:', leftMargin, yPos);
+      pdf.setDrawColor(71, 85, 105);
+      pdf.setLineWidth(0.3);
+      pdf.line(50, 125, pageWidth - 50, 125);
 
-    pdf.setFontSize(8);
-    pdf.setTextColor(96, 165, 250);
-    pdf.setFont('courier', 'normal');
-    const hashLine1 = certificate.blockchainHash.substring(0, 50);
-    const hashLine2 = certificate.blockchainHash.substring(50);
-    pdf.text(hashLine1, leftMargin, yPos + 5);
-    pdf.text(hashLine2, leftMargin, yPos + 10);
+      const leftMargin = 25;
+      let yPos = 145;
+      const lineHeight = 15;
 
-    pdf.setFillColor(30, 64, 175);
-    pdf.setGState(new pdf.GState({ opacity: 0.1 }));
-    pdf.roundedRect(20, pageHeight - 55, pageWidth - 40, 20, 2, 2, 'F');
+      const fields = [
+        { label: 'Kullanici ID:', value: certificate.userId },
+        { label: 'E-posta:', value: certificate.email },
+        { label: 'Sertifika No:', value: certificate.certificateId },
+        {
+          label: 'Duzenlenme Tarihi:',
+          value: new Date(certificate.issuedDate).toLocaleDateString('tr-TR', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })
+        },
+        {
+          label: 'Gecerlilik Tarihi:',
+          value: new Date(certificate.expiryDate).toLocaleDateString('tr-TR', {
+            year: 'numeric', month: 'long', day: 'numeric'
+          })
+        },
+        { label: 'Guvenlik Seviyesi:', value: certificate.securityLevel }
+      ];
 
-    pdf.setGState(new pdf.GState({ opacity: 1 }));
-    pdf.setDrawColor(96, 165, 250);
-    pdf.setLineWidth(0.3);
-    pdf.roundedRect(20, pageHeight - 55, pageWidth - 40, 20, 2, 2, 'S');
+      fields.forEach(field => {
+        pdf.setFontSize(9);
+        pdf.setTextColor(148, 163, 184);
+        pdf.setFont('helvetica', 'bold');
+        pdf.text(field.label, leftMargin, yPos);
 
-    pdf.setFontSize(8);
-    pdf.setTextColor(100, 116, 139);
-    pdf.setFont(undefined, 'normal');
-    pdf.text('🔒 Blockchain ile Güvence Altında', pageWidth / 2, pageHeight - 48, { align: 'center' });
-    pdf.text('Bu sertifika değiştirilemez ve blockchain üzerinde doğrulanabilir', pageWidth / 2, pageHeight - 42, { align: 'center' });
+        pdf.setFontSize(10);
+        pdf.setTextColor(226, 232, 240);
+        pdf.setFont('helvetica', 'normal');
+        pdf.text(field.value, leftMargin, yPos + 5);
 
-    pdf.setFontSize(7);
-    pdf.setTextColor(71, 85, 105);
-    pdf.text('Karprime Technology INC. - DigiGuard Platform', pageWidth / 2, pageHeight - 15, { align: 'center' });
-    pdf.text('www.digiguard.com | info@digiguard.com', pageWidth / 2, pageHeight - 10, { align: 'center' });
+        yPos += lineHeight;
+      });
 
-    pdf.save(`DigiGuard_Certificate_${certificate.certificateId}.pdf`);
+      yPos += 5;
+      pdf.setFontSize(9);
+      pdf.setTextColor(148, 163, 184);
+      pdf.setFont('helvetica', 'bold');
+      pdf.text('Blockchain Hash:', leftMargin, yPos);
 
-    setTimeout(() => setIsDownloading(false), 1000);
+      pdf.setFontSize(8);
+      pdf.setTextColor(96, 165, 250);
+      pdf.setFont('courier', 'normal');
+      const hashLine1 = certificate.blockchainHash.substring(0, 50);
+      const hashLine2 = certificate.blockchainHash.substring(50);
+      pdf.text(hashLine1, leftMargin, yPos + 5);
+      pdf.text(hashLine2, leftMargin, yPos + 10);
+
+      pdf.setFillColor(30, 64, 175);
+      pdf.setGState(pdf.GState({ opacity: 0.1 }));
+      pdf.roundedRect(20, pageHeight - 55, pageWidth - 40, 20, 2, 2, 'F');
+
+      pdf.setGState(pdf.GState({ opacity: 1 }));
+      pdf.setDrawColor(96, 165, 250);
+      pdf.setLineWidth(0.3);
+      pdf.roundedRect(20, pageHeight - 55, pageWidth - 40, 20, 2, 2, 'S');
+
+      pdf.setFontSize(8);
+      pdf.setTextColor(100, 116, 139);
+      pdf.setFont('helvetica', 'normal');
+      pdf.text('Blockchain ile Guvence Altinda', pageWidth / 2, pageHeight - 48, { align: 'center' });
+      pdf.text('Bu sertifika degistirilemez ve blockchain uzerinde dogrulanabilir', pageWidth / 2, pageHeight - 42, { align: 'center' });
+
+      pdf.setFontSize(7);
+      pdf.setTextColor(71, 85, 105);
+      pdf.text('Karprime Technology INC. - DigiGuard Platform', pageWidth / 2, pageHeight - 15, { align: 'center' });
+      pdf.text('www.digiguard.com | info@digiguard.com', pageWidth / 2, pageHeight - 10, { align: 'center' });
+
+      pdf.save(`DigiGuard_Certificate_${certificate.certificateId}.pdf`);
+    } catch (error) {
+      console.error('PDF generation error:', error);
+    } finally {
+      setTimeout(() => setIsDownloading(false), 1000);
+    }
   };
 
   if (!certificate) {
