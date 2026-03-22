@@ -3,7 +3,6 @@ import { Camera, Mic, Shield, Eye, Fingerprint, Zap, Globe, Brain } from 'lucide
 import { biometricService, BiometricData } from '../services/BiometricService';
 import { web3Service } from '../services/Web3Service';
 import { web4Service } from '../services/Web4Service';
-import { web5Service } from '../services/Web5Service';
 
 interface BiometricLoginProps {
   onSuccess: (biometricData: BiometricData) => void;
@@ -16,7 +15,6 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onErr
   const [currentStep, setCurrentStep] = useState<'init' | 'face' | 'voice' | 'web3' | 'complete'>('init');
   const [biometricData, setBiometricData] = useState<BiometricData | null>(null);
   const [web3Connected, setWeb3Connected] = useState(false);
-  const [web5Initialized, setWeb5Initialized] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -37,13 +35,9 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onErr
     try {
       // Biyometrik servisleri başlat
       await biometricService.initialize();
-      
+
       // Web4 AI agents kaydet
       web4Service.registerAIAgents();
-      
-      // Web5 başlat
-      await web5Service.initialize();
-      setWeb5Initialized(true);
 
       setCurrentStep('face');
     } catch (error) {
@@ -151,27 +145,9 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onErr
         timestamp: Date.now()
       });
 
-      // Web5 DID oluştur
-      const did = await web5Service.createDecentralizedIdentity();
-
-      // Verifiable credential oluştur
-      const credential = await web5Service.createVerifiableCredential({
-        issuer: did.did,
-        subject: did.did,
-        credentialType: ['BiometricIdentityCredential', 'DigiGuardVerification'],
-        claims: {
-          biometricVerified: true,
-          securityLevel: riskAssessment.riskScore > 0.8 ? 'high' : 'medium',
-          verificationMethod: 'face-voice-combined',
-          issuedAt: new Date().toISOString()
-        }
-      });
-
       onSuccess({
         ...biometricData,
         web3Connected,
-        did: did.did,
-        credential: credential,
         riskAssessment: riskAssessment
       } as any);
 
@@ -197,10 +173,10 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onErr
               </div>
             </div>
             <h3 className="text-xl font-semibold text-white mb-4">
-              Web3/Web4/Web5 Biyometrik Giriş
+              Web3/Web4 Biyometrik Giriş
             </h3>
             <p className="text-slate-300 mb-6">
-              Gelişmiş biyometrik doğrulama ve merkezi olmayan kimlik sistemi
+              Gelişmiş biyometrik doğrulama ve blockchain tabanlı kimlik sistemi
             </p>
             <button
               onClick={initializeServices}
@@ -348,7 +324,6 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onErr
                 <li>✓ Ses tanıma: {biometricData?.voiceprint ? 'Başarılı' : 'Başarısız'}</li>
                 <li>✓ Canlılık tespiti: {(biometricData?.livenessScore || 0) > 0.6 ? 'Başarılı' : 'Başarısız'}</li>
                 <li>✓ Web3 bağlantısı: {web3Connected ? 'Aktif' : 'Pasif'}</li>
-                <li>✓ Web5 DID: {web5Initialized ? 'Oluşturuldu' : 'Beklemede'}</li>
               </ul>
             </div>
 
@@ -392,7 +367,7 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onErr
 
         {/* Web Technologies Info */}
         <div className="mt-8 pt-6 border-t border-slate-700">
-          <div className="grid grid-cols-3 gap-4 text-center">
+          <div className="grid grid-cols-2 gap-4 text-center">
             <div className="bg-blue-600/20 rounded-lg p-3">
               <Globe className="h-6 w-6 text-blue-400 mx-auto mb-2" />
               <p className="text-xs text-blue-400 font-medium">Web3</p>
@@ -402,11 +377,6 @@ export const BiometricLogin: React.FC<BiometricLoginProps> = ({ onSuccess, onErr
               <Brain className="h-6 w-6 text-purple-400 mx-auto mb-2" />
               <p className="text-xs text-purple-400 font-medium">Web4</p>
               <p className="text-xs text-slate-400">AI-Native</p>
-            </div>
-            <div className="bg-emerald-600/20 rounded-lg p-3">
-              <Zap className="h-6 w-6 text-emerald-400 mx-auto mb-2" />
-              <p className="text-xs text-emerald-400 font-medium">Web5</p>
-              <p className="text-xs text-slate-400">Decentralized</p>
             </div>
           </div>
         </div>

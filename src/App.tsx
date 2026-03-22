@@ -5,8 +5,9 @@ import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import { HashDemo } from './components/HashDemo';
+import { SplashScreen } from './components/SplashScreen';
 
-type AppState = 'login' | 'verification' | 'registration' | 'dashboard';
+type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
 interface User {
   email: string;
@@ -16,8 +17,12 @@ interface User {
 }
 
 function App() {
-  const [state, setState] = useState<AppState>('login');
+  const [state, setState] = useState<AppState>('splash');
   const [user, setUser] = useState<User | null>(null);
+
+  const handleSplashComplete = () => {
+    setState('login');
+  };
 
   const handleLogin = (email: string, phone: string) => {
     setUser({
@@ -50,6 +55,8 @@ function App() {
 
   const renderContent = () => {
     switch (state) {
+      case 'splash':
+        return <SplashScreen onComplete={handleSplashComplete} duration={4000} />;
       case 'login':
         return (
           <div>
@@ -75,6 +82,10 @@ function App() {
         return null;
     }
   };
+
+  if (state === 'splash') {
+    return renderContent();
+  }
 
   return (
     <Layout>
