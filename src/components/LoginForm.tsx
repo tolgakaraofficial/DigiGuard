@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
@@ -63,37 +63,47 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       <div className="mb-4 flex gap-2">
         <button
           onClick={() => setShowSecurityModal(true)}
-          className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-blue-500/50"
+          className="flex-1 bg-gradient-to-r from-cyber-600 to-secure-600 hover:from-cyber-700 hover:to-secure-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-cyber-500/50"
         >
           <Lock className="h-4 w-4" />
           <span className="text-sm">SHA-256 Güvenlik</span>
         </button>
         <button
           onClick={() => setShowAboutModal(true)}
-          className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-purple-500/50"
+          className="flex-1 bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-slate-500/50"
         >
           <Info className="h-4 w-4" />
           <span className="text-sm">Hakkında</span>
         </button>
         <button
           onClick={() => setShowTeamModal(true)}
-          className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-green-500/50"
+          className="flex-1 bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-matrix-500/50"
         >
           <Users className="h-4 w-4" />
           <span className="text-sm">Ekip</span>
         </button>
       </div>
 
-      <div className="bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700">
-        <div className="text-center mb-6">
+      <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
+        {/* Cyber glow effect */}
+        <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyber-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-matrix-500/20 rounded-full blur-3xl"></div>
+
+        <div className="text-center mb-6 relative z-10">
           <div className="flex justify-center mb-3">
-            <div className="bg-blue-600 p-2.5 rounded-full">
-              <Shield className="h-7 w-7 text-white" />
+            <div className="relative">
+              <div className="bg-gradient-to-br from-cyber-600 to-matrix-600 p-3 rounded-full animate-fingerprint-pulse">
+                <Fingerprint className="h-8 w-8 text-white" />
+              </div>
+              <div className="absolute inset-0 bg-cyber-400/30 rounded-full blur-xl animate-pulse"></div>
             </div>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Güvenli Giriş</h2>
-          <p className="text-sm sm:text-base text-slate-300">
-            Dijital kimliğinizi korumak için giriş yapın
+          <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-2">
+            Biyometrik Giriş
+          </h2>
+          <p className="text-sm sm:text-base text-slate-300 flex items-center justify-center gap-2">
+            <Scan className="h-4 w-4 text-cyber-400" />
+            KYC Kimlik Doğrulama Sistemi
           </p>
         </div>
 
@@ -109,7 +119,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
                   errors.email ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="ornek@email.com"
@@ -129,7 +139,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                className={`w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
                   errors.phone ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="+90 5XX XXX XX XX"
@@ -149,7 +159,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`w-full pl-10 pr-12 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400 ${
+                className={`w-full pl-10 pr-12 py-2.5 sm:py-3 text-sm sm:text-base bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
                   errors.password ? 'border-red-500' : 'border-slate-600'
                 }`}
                 placeholder="Şifrenizi girin"
@@ -168,7 +178,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-colors flex items-center justify-center space-x-2"
+            className="w-full bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 disabled:from-cyber-800 disabled:to-cyber-900 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50 relative z-10"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -181,7 +191,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </button>
         </form>
 
-        <div className="mt-6 space-y-3">
+        <div className="mt-6 space-y-3 relative z-10">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-slate-600"></div>
@@ -193,25 +203,41 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
           <button
             type="button"
-            className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-cyan-500/50"
+            className="w-full bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white font-medium py-2.5 sm:py-3 px-4 text-sm sm:text-base rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-matrix-500/30 hover:shadow-matrix-500/50 animate-cyber-glow"
           >
-            <Shield className="h-5 w-5" />
+            <Fingerprint className="h-5 w-5" />
             <span>Biyometrik Kimlik Doğrulama</span>
           </button>
         </div>
 
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center relative z-10">
           <p className="text-xs text-slate-400">
             Giriş yaparak{' '}
-            <a href="#" className="text-blue-400 hover:text-blue-300">
+            <a href="#" className="text-cyber-400 hover:text-cyber-300">
               Kullanım Koşulları
             </a>{' '}
             ve{' '}
-            <a href="#" className="text-blue-400 hover:text-blue-300">
+            <a href="#" className="text-cyber-400 hover:text-cyber-300">
               Gizlilik Politikası
             </a>
             'nı kabul etmiş olursunuz.
           </p>
+        </div>
+
+        {/* Security indicators */}
+        <div className="mt-4 grid grid-cols-3 gap-2 relative z-10">
+          <div className="flex items-center justify-center gap-1 px-2 py-1.5 bg-slate-700/50 rounded-md border border-cyber-500/30">
+            <Lock className="h-3 w-3 text-cyber-400" />
+            <span className="text-xs text-slate-300">AES-256</span>
+          </div>
+          <div className="flex items-center justify-center gap-1 px-2 py-1.5 bg-slate-700/50 rounded-md border border-matrix-500/30">
+            <Fingerprint className="h-3 w-3 text-matrix-400" />
+            <span className="text-xs text-slate-300">Biyometrik</span>
+          </div>
+          <div className="flex items-center justify-center gap-1 px-2 py-1.5 bg-slate-700/50 rounded-md border border-secure-500/30">
+            <Shield className="h-3 w-3 text-secure-400" />
+            <span className="text-xs text-slate-300">Blockchain</span>
+          </div>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle, Shield, Download, Eye, Star, Award, Lock, FileCheck } from 'lucide-react';
+import { CheckCircle, Shield, Download, Eye, Star, Award, Lock, FileCheck, Fingerprint, Database } from 'lucide-react';
 import { PersonalInfo, IdentityInfo, MediaFiles } from '../types';
 
 interface RegistrationCompleteProps {
@@ -46,18 +46,26 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
   const totalFiles = mediaFiles.photos.length + mediaFiles.videos.length + mediaFiles.audioRecordings.length;
 
   return (
-    <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
-      <div className="text-center mb-8">
+    <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
+      {/* Cyber background effects */}
+      <div className="absolute -top-20 -right-20 w-60 h-60 bg-cyber-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-matrix-500/10 rounded-full blur-3xl"></div>
+
+      <div className="text-center mb-8 relative z-10">
         <div className="flex justify-center mb-4">
-          <div className="bg-gradient-to-r from-emerald-600 to-blue-600 p-4 rounded-full animate-pulse">
-            <Award className="h-12 w-12 text-white" />
+          <div className="relative">
+            <div className="bg-gradient-to-r from-matrix-600 to-cyber-600 p-4 rounded-full animate-pulse">
+              <Award className="h-12 w-12 text-white" />
+            </div>
+            <div className="absolute inset-0 bg-cyber-400/30 rounded-full blur-xl animate-pulse"></div>
           </div>
         </div>
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent mb-2">
-          Tebrikler! Kayıt Tamamlandı!
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-matrix-400 via-cyber-400 to-secure-400 bg-clip-text text-transparent mb-2">
+          Biyometrik KYC Kaydı Tamamlandı!
         </h2>
-        <p className="text-slate-300 text-lg mb-4">
-          Dijital kimlik profiliniz başarıyla oluşturuldu
+        <p className="text-slate-300 text-lg mb-4 flex items-center justify-center gap-2">
+          <Fingerprint className="h-5 w-5 text-cyber-400" />
+          Blockchain tabanlı kimlik profiliniz oluşturuldu
         </p>
         <div className="flex justify-center space-x-1">
           {[...Array(5)].map((_, i) => (
@@ -67,27 +75,27 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
       </div>
 
       {/* Başarı İstatistikleri */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-emerald-600/20 border border-emerald-500/30 rounded-lg p-4 text-center">
-          <FileCheck className="h-8 w-8 text-emerald-400 mx-auto mb-2" />
-          <p className="text-emerald-300 font-semibold">Doğrulandı</p>
-          <p className="text-emerald-200 text-sm">Kimlik Bilgileri</p>
+      <div className="grid grid-cols-3 gap-4 mb-8 relative z-10">
+        <div className="bg-matrix-600/20 border border-matrix-500/30 rounded-lg p-4 text-center hover:bg-matrix-600/30 transition-all">
+          <Fingerprint className="h-8 w-8 text-matrix-400 mx-auto mb-2 animate-fingerprint-pulse" />
+          <p className="text-matrix-300 font-semibold">Biyometrik</p>
+          <p className="text-matrix-200 text-sm">AI Doğrulandı</p>
         </div>
-        <div className="bg-blue-600/20 border border-blue-500/30 rounded-lg p-4 text-center">
-          <Shield className="h-8 w-8 text-blue-400 mx-auto mb-2" />
-          <p className="text-blue-300 font-semibold">Güvenli</p>
-          <p className="text-blue-200 text-sm">Şifreleme Aktif</p>
+        <div className="bg-cyber-600/20 border border-cyber-500/30 rounded-lg p-4 text-center hover:bg-cyber-600/30 transition-all">
+          <Shield className="h-8 w-8 text-cyber-400 mx-auto mb-2" />
+          <p className="text-cyber-300 font-semibold">AES-256</p>
+          <p className="text-cyber-200 text-sm">Şifreleme Aktif</p>
         </div>
-        <div className="bg-purple-600/20 border border-purple-500/30 rounded-lg p-4 text-center">
-          <Lock className="h-8 w-8 text-purple-400 mx-auto mb-2" />
-          <p className="text-purple-300 font-semibold">Korumalı</p>
-          <p className="text-purple-200 text-sm">Medya Dosyaları</p>
+        <div className="bg-secure-600/20 border border-secure-500/30 rounded-lg p-4 text-center hover:bg-secure-600/30 transition-all">
+          <Database className="h-8 w-8 text-secure-400 mx-auto mb-2" />
+          <p className="text-secure-300 font-semibold">Blockchain</p>
+          <p className="text-secure-200 text-sm">Kayıt Güvenli</p>
         </div>
       </div>
-      <div className="bg-slate-700 rounded-xl p-6 mb-8">
+      <div className="bg-slate-700/80 backdrop-blur-sm rounded-xl p-6 mb-8 border border-cyber-500/20 relative z-10">
         <h3 className="text-xl font-semibold text-white mb-4 flex items-center space-x-2">
-          <Shield className="h-5 w-5 text-blue-400" />
-          <span>Kayıt Özeti</span>
+          <FileCheck className="h-5 w-5 text-cyber-400" />
+          <span>KYC Kayıt Özeti</span>
         </h3>
 
         <div className="space-y-4">
@@ -129,77 +137,84 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-blue-600/20 to-emerald-600/20 rounded-xl p-6 mb-8 border border-blue-500/30">
+      <div className="bg-gradient-to-r from-cyber-600/20 to-matrix-600/20 rounded-xl p-6 mb-8 border border-cyber-500/30 relative z-10">
         <div className="flex items-start space-x-3">
-          <Shield className="h-6 w-6 text-blue-400 mt-1" />
+          <Shield className="h-6 w-6 text-cyber-400 mt-1 animate-cyber-glow" />
           <div>
-            <h4 className="text-lg font-semibold text-white mb-2">Güvenlik Bilgisi</h4>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Tüm verileriniz end-to-end şifreleme ile korunmaktadır. Kişisel bilgileriniz ve medya dosyalarınız 
-              sadece kimlik doğrulama süreçlerinde kullanılacak ve üçüncü taraflarla paylaşılmayacaktır.
+            <h4 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+              <Database className="h-5 w-5 text-matrix-400" />
+              Blockchain Güvenlik Sertifikası
+            </h4>
+            <p className="text-slate-300 text-sm leading-relaxed mb-3">
+              Biyometrik verileriniz AES-256 şifreleme ile korunmakta ve blockchain üzerinde değiştirilemez kayıtlar olarak saklanmaktadır.
+              Kişisel bilgileriniz sadece KYC doğrulama süreçlerinde kullanılacak ve üçüncü taraflarla asla paylaşılmayacaktır.
             </p>
-            <div className="flex items-center space-x-4 text-xs text-slate-400">
-              <span className="flex items-center">
+            <div className="flex flex-wrap items-center gap-3 text-xs">
+              <span className="flex items-center px-2 py-1 rounded-full bg-cyber-900/50 text-cyber-300 border border-cyber-500/30">
                 <Lock className="h-3 w-3 mr-1" />
                 KVKK Uyumlu
               </span>
-              <span className="flex items-center">
+              <span className="flex items-center px-2 py-1 rounded-full bg-matrix-900/50 text-matrix-300 border border-matrix-500/30">
                 <Shield className="h-3 w-3 mr-1" />
                 GDPR Uyumlu
               </span>
-              <span className="flex items-center">
+              <span className="flex items-center px-2 py-1 rounded-full bg-secure-900/50 text-secure-300 border border-secure-500/30">
                 <FileCheck className="h-3 w-3 mr-1" />
                 ISO 27001
+              </span>
+              <span className="flex items-center px-2 py-1 rounded-full bg-slate-700 text-slate-300 border border-slate-600">
+                <Database className="h-3 w-3 mr-1" />
+                Blockchain Secured
               </span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="flex space-x-4">
+      <div className="flex space-x-4 relative z-10">
         <button
           onClick={handleDownloadCertificate}
-          className={`flex-1 font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2 ${
-            certificateGenerated 
-              ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+          className={`flex-1 font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg ${
+            certificateGenerated
+              ? 'bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white shadow-matrix-500/30'
               : 'bg-slate-600 hover:bg-slate-700 text-white'
           }`}
         >
           <Download className="h-5 w-5" />
-          <span>{certificateGenerated ? 'Sertifika İndirildi' : 'Sertifika İndir'}</span>
+          <span>{certificateGenerated ? 'Blockchain Sertifikası İndirildi' : 'Blockchain Sertifikası İndir'}</span>
         </button>
 
         <button
-          onClick={() => alert('Profil görüntüleme özelliği yakında eklenecek!')}
-          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center space-x-2"
+          onClick={() => alert('KYC profil görüntüleme özelliği yakında eklenecek!')}
+          className="flex-1 bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30"
         >
           <Eye className="h-5 w-5" />
-          <span>Profili Görüntüle</span>
+          <span>KYC Profili Görüntüle</span>
         </button>
       </div>
 
-      <div className="mt-8 text-center">
+      <div className="mt-8 text-center relative z-10">
         <button
           onClick={handleComplete}
           disabled={isProcessing}
-          className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 disabled:from-emerald-800 disabled:to-blue-800 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 flex items-center justify-center space-x-2 mx-auto transform hover:scale-105"
+          className="bg-gradient-to-r from-matrix-600 via-cyber-600 to-secure-600 hover:from-matrix-700 hover:via-cyber-700 hover:to-secure-700 disabled:from-slate-700 disabled:to-slate-800 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 flex items-center justify-center space-x-2 mx-auto transform hover:scale-105 shadow-xl shadow-cyber-500/30 animate-cyber-glow"
         >
           {isProcessing ? (
             <>
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Sistem Hazırlanıyor...</span>
+              <span>Biyometrik Sistem Hazırlanıyor...</span>
             </>
           ) : (
             <>
-              <Award className="h-6 w-6" />
-              <span>DigiGuard'a Hoş Geldiniz!</span>
+              <Fingerprint className="h-6 w-6" />
+              <span>DigiGuard KYC'ye Hoş Geldiniz!</span>
             </>
           )}
         </button>
-        
+
         {!isProcessing && (
           <p className="text-slate-400 text-sm mt-4">
-            Artık dijital kimliğiniz güvende! Kontrol panelinize yönlendiriliyorsunuz...
+            Biyometrik kimliğiniz blockchain üzerinde güvende! Kontrol panelinize yönlendiriliyorsunuz...
           </p>
         )}
       </div>

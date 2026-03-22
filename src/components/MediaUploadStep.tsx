@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useState } from 'react';
-import { ArrowRight, ArrowLeft, Upload, Camera, Video, Mic, X, Image, FileText, AlertCircle, CheckCircle } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Upload, Camera, Video, Mic, X, Image, FileText, AlertCircle, CheckCircle, Fingerprint, Scan } from 'lucide-react';
 import { MediaFiles } from '../types';
 
 interface MediaUploadStepProps {
@@ -107,22 +107,31 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
   };
 
   const getFileTypeIcon = (file: File) => {
-    if (file.type.startsWith('image/')) return <Image className="h-8 w-8 text-emerald-400" />;
-    if (file.type.startsWith('video/')) return <Video className="h-8 w-8 text-blue-400" />;
-    if (file.type.startsWith('audio/')) return <Mic className="h-8 w-8 text-purple-400" />;
+    if (file.type.startsWith('image/')) return <Image className="h-8 w-8 text-matrix-400" />;
+    if (file.type.startsWith('video/')) return <Video className="h-8 w-8 text-cyber-400" />;
+    if (file.type.startsWith('audio/')) return <Mic className="h-8 w-8 text-secure-400" />;
     return <FileText className="h-8 w-8 text-slate-400" />;
   };
   const canProceed = data.photos.length > 0 && data.videos.length > 0 && data.audioRecordings.length > 0;
 
   return (
-    <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
-      <div className="flex items-center space-x-3 mb-6">
-        <Upload className="h-6 w-6 text-blue-400" />
-        <h2 className="text-2xl font-bold text-white">Medya Dosyaları</h2>
+    <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
+      {/* Cyber background effect */}
+      <div className="absolute -top-20 -right-20 w-60 h-60 bg-cyber-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-matrix-500/10 rounded-full blur-3xl"></div>
+
+      <div className="flex items-center space-x-3 mb-6 relative z-10">
+        <div className="relative">
+          <Fingerprint className="h-6 w-6 text-cyber-400 animate-fingerprint-pulse" />
+        </div>
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent">
+          Biyometrik Veri Yükleme
+        </h2>
       </div>
 
-      <p className="text-slate-300 mb-8">
-        Kimlik doğrulama için fotoğraf, video ve ses kayıtlarınızı yükleyin. Bu dosyalar güvenli şekilde şifrelenerek saklanacaktır.
+      <p className="text-slate-300 mb-6 relative z-10 flex items-center gap-2">
+        <Scan className="h-4 w-4 text-cyber-400" />
+        KYC kimlik doğrulama için biyometrik verilerinizi yükleyin. Tüm dosyalar AES-256 ile şifrelenerek blockchain üzerinde saklanacaktır.
       </p>
 
       {errors.length > 0 && (
@@ -141,38 +150,42 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
         </div>
       )}
 
-      <div className="bg-blue-600/20 border border-blue-500/30 rounded-lg p-4 mb-8">
+      <div className="bg-cyber-600/20 border border-cyber-500/30 rounded-lg p-4 mb-8 relative z-10">
         <div className="flex items-start space-x-3">
-          <AlertCircle className="h-5 w-5 text-blue-400 mt-0.5" />
+          <AlertCircle className="h-5 w-5 text-cyber-400 mt-0.5" />
           <div>
-            <p className="text-blue-300 font-medium mb-2">Dosya Gereksinimleri:</p>
-            <ul className="text-blue-200 text-sm space-y-1">
-              <li>• <strong>Fotoğraflar:</strong> JPG, PNG formatında, maksimum 5MB</li>
-              <li>• <strong>Videolar:</strong> MP4, AVI, MOV formatında, maksimum 50MB</li>
-              <li>• <strong>Ses Kayıtları:</strong> MP3, WAV, M4A formatında, maksimum 10MB</li>
+            <p className="text-cyber-300 font-medium mb-2">Biyometrik Veri Gereksinimleri:</p>
+            <ul className="text-cyber-200 text-sm space-y-2">
+              <li>• <strong>Yüz Fotoğrafları:</strong> Net, iyi ışıklandırılmış, farklı açılardan (JPG/PNG, max 5MB)</li>
+              <li>• <strong>Canlılık Videoları:</strong> Yüz hareketleri içeren 5-10 saniyelik kayıt (MP4, max 50MB)</li>
+              <li>• <strong>Ses Kayıtları:</strong> Belirli metinleri okuyarak kayıt (MP3/WAV, max 10MB)</li>
             </ul>
+            <div className="mt-3 flex items-center gap-2 text-xs text-matrix-400">
+              <CheckCircle className="h-3 w-3" />
+              AI analizi ile otomatik kalite kontrolü yapılacaktır
+            </div>
           </div>
         </div>
       </div>
       <div className="space-y-8">
         {/* Photos */}
-        <div>
+        <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
-              <Camera className="h-5 w-5 text-emerald-400" />
-              <h3 className="text-lg font-semibold text-white">Fotoğraflar</h3>
+              <Camera className="h-5 w-5 text-matrix-400" />
+              <h3 className="text-lg font-semibold text-white">Yüz Fotoğrafları</h3>
               <span className="text-sm text-slate-400">({data.photos.length}/5)</span>
               {data.photos.length > 0 && (
-                <CheckCircle className="h-4 w-4 text-emerald-400" />
+                <CheckCircle className="h-4 w-4 text-matrix-400" />
               )}
             </div>
             <button
               onClick={() => photoInputRef.current?.click()}
               disabled={data.photos.length >= 5}
-              className={`text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2 ${
-                data.photos.length >= 5 
-                  ? 'bg-slate-600 cursor-not-allowed' 
-                  : 'bg-emerald-600 hover:bg-emerald-700'
+              className={`text-white text-sm font-medium py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg ${
+                data.photos.length >= 5
+                  ? 'bg-slate-600 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 shadow-matrix-500/30'
               }`}
             >
               <Image className="h-4 w-4" />
@@ -209,23 +222,23 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
         </div>
 
         {/* Videos */}
-        <div>
+        <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
-              <Video className="h-5 w-5 text-blue-400" />
-              <h3 className="text-lg font-semibold text-white">Videolar</h3>
+              <Video className="h-5 w-5 text-cyber-400" />
+              <h3 className="text-lg font-semibold text-white">Canlılık Videoları</h3>
               <span className="text-sm text-slate-400">({data.videos.length}/3)</span>
               {data.videos.length > 0 && (
-                <CheckCircle className="h-4 w-4 text-blue-400" />
+                <CheckCircle className="h-4 w-4 text-cyber-400" />
               )}
             </div>
             <button
               onClick={() => videoInputRef.current?.click()}
               disabled={data.videos.length >= 3}
-              className={`text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2 ${
-                data.videos.length >= 3 
-                  ? 'bg-slate-600 cursor-not-allowed' 
-                  : 'bg-blue-600 hover:bg-blue-700'
+              className={`text-white text-sm font-medium py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg ${
+                data.videos.length >= 3
+                  ? 'bg-slate-600 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 shadow-cyber-500/30'
               }`}
             >
               <Video className="h-4 w-4" />
@@ -264,23 +277,23 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
         </div>
 
         {/* Audio */}
-        <div>
+        <div className="relative z-10">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
-              <Mic className="h-5 w-5 text-purple-400" />
-              <h3 className="text-lg font-semibold text-white">Ses Kayıtları</h3>
+              <Mic className="h-5 w-5 text-secure-400" />
+              <h3 className="text-lg font-semibold text-white">Ses Biyometrisi</h3>
               <span className="text-sm text-slate-400">({data.audioRecordings.length}/3)</span>
               {data.audioRecordings.length > 0 && (
-                <CheckCircle className="h-4 w-4 text-purple-400" />
+                <CheckCircle className="h-4 w-4 text-secure-400" />
               )}
             </div>
             <button
               onClick={() => audioInputRef.current?.click()}
               disabled={data.audioRecordings.length >= 3}
-              className={`text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2 ${
-                data.audioRecordings.length >= 3 
-                  ? 'bg-slate-600 cursor-not-allowed' 
-                  : 'bg-purple-600 hover:bg-purple-700'
+              className={`text-white text-sm font-medium py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg ${
+                data.audioRecordings.length >= 3
+                  ? 'bg-slate-600 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-secure-600 to-secure-700 hover:from-secure-700 hover:to-secure-800 shadow-secure-500/30'
               }`}
             >
               <Mic className="h-4 w-4" />
@@ -319,10 +332,10 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
         </div>
       </div>
 
-      <div className="flex justify-between mt-8">
+      <div className="flex justify-between mt-8 relative z-10">
         <button
           onClick={onBack}
-          className="bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2"
+          className="bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center space-x-2 shadow-lg"
         >
           <ArrowLeft className="h-5 w-5" />
           <span>Geri</span>
@@ -331,19 +344,19 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
         <button
           onClick={onNext}
           disabled={!canProceed}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2"
+          className="bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 disabled:from-slate-600 disabled:to-slate-700 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-cyber-500/30"
         >
-          <span>Devam Et</span>
+          <span>Biyometrik Analiz</span>
           <ArrowRight className="h-5 w-5" />
         </button>
       </div>
 
       {!canProceed && (
-        <div className="bg-amber-600/20 border border-amber-500/30 rounded-lg p-4 mt-4">
+        <div className="bg-amber-600/20 border border-amber-500/30 rounded-lg p-4 mt-4 relative z-10">
           <div className="flex items-center space-x-3">
             <AlertCircle className="h-5 w-5 text-amber-400" />
             <p className="text-amber-300 text-sm">
-              Devam etmek için en az bir fotoğraf, bir video ve bir ses kaydı yüklemelisiniz.
+              Devam etmek için en az bir yüz fotoğrafı, bir canlılık videosu ve bir ses kaydı yüklemelisiniz.
             </p>
           </div>
         </div>
