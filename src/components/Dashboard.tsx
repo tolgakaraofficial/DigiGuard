@@ -1,12 +1,12 @@
 import React from 'react';
-import { Shield, User, FileText, Settings, LogOut, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Shield, User, FileText, Settings, CheckCircle, AlertTriangle } from 'lucide-react';
 import { PaymentButtons } from './PaymentButtons';
 
 interface DashboardProps {
-  onLogout: () => void;
+  onLogout?: () => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
+export const Dashboard: React.FC<DashboardProps> = () => {
   const stats = [
     { label: 'Doğrulanmış Profil', value: 'Aktif', color: 'text-emerald-400', icon: CheckCircle },
     { label: 'Güvenlik Seviyesi', value: 'Yüksek', color: 'text-blue-400', icon: Shield },
@@ -41,18 +41,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   return (
     <div>
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Kontrol Paneli</h1>
-          <p className="text-slate-300">Dijital kimlik korumanız aktif ve güvenli</p>
-        </div>
-        <button
-          onClick={onLogout}
-          className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors flex items-center space-x-2"
-        >
-          <LogOut className="h-4 w-4" />
-          <span>Çıkış Yap</span>
-        </button>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-white mb-2">Kontrol Paneli</h1>
+        <p className="text-slate-300">Dijital kimlik korumanız aktif ve güvenli</p>
       </div>
 
       {/* Stats */}
