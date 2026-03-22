@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan, Wallet, Smartphone, Globe, Zap, Camera, UserCheck, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Mail, Phone, ArrowRight, Shield, Eye, EyeOff, Lock, Info, Users, Fingerprint, Scan, Wallet, Smartphone, Globe, Zap, Camera, UserCheck, CheckCircle, MapPin, Activity } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
+import { TurkeyMapModal } from './TurkeyMapModal';
+import { supabase } from '../services/supabaseClient';
 
 interface LoginFormProps {
   onLogin: (email: string, phone: string) => void;
@@ -19,11 +21,30 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showTeamModal, setShowTeamModal] = useState(false);
   const [showKYCPanel, setShowKYCPanel] = useState(false);
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [totalCertifiedUsers, setTotalCertifiedUsers] = useState(0);
   const [kycStatus, setKycStatus] = useState({
     faceVerification: false,
     documentVerification: false,
     biometricScan: false,
   });
+
+  useEffect(() => {
+    fetchUserStatistics();
+    const interval = setInterval(fetchUserStatistics, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchUserStatistics = async () => {
+    const { data, error } = await supabase
+      .from('user_statistics')
+      .select('total_certified_users')
+      .single();
+
+    if (!error && data) {
+      setTotalCertifiedUsers(data.total_certified_users);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -376,7 +397,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </div>
 
         {/* Security indicators */}
-        <div className="mt-3 grid grid-cols-3 gap-1.5 relative z-10">
+        <div className="mt-3 grid grid-cols-4 gap-1.5 relative z-10">
           <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-cyber-500/30">
             <Lock className="h-3 w-3 text-cyber-400" />
             <span className="text-xs text-slate-300">AES-256</span>
@@ -389,12 +410,27 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             <Shield className="h-3 w-3 text-secure-400" />
             <span className="text-xs text-slate-300">Blockchain</span>
           </div>
+          <button
+            onClick={() => setShowMapModal(true)}
+            className="flex items-center justify-center gap-1 px-1.5 py-1 bg-gradient-to-r from-green-700/50 to-emerald-700/50 hover:from-green-600/70 hover:to-emerald-600/70 rounded-md border border-green-500/50 hover:border-green-400/70 transition-all cursor-pointer group"
+          >
+            <Activity className="h-3 w-3 text-green-400 animate-pulse" />
+            <span className="text-xs text-green-300 font-semibold tabular-nums">
+              {totalCertifiedUsers.toLocaleString('tr-TR')}
+            </span>
+            <MapPin className="h-3 w-3 text-green-400 group-hover:scale-110 transition-transform" />
+          </button>
         </div>
       </div>
 
       <SecurityInfoModal isOpen={showSecurityModal} onClose={() => setShowSecurityModal(false)} />
       <AboutModal isOpen={showAboutModal} onClose={() => setShowAboutModal(false)} />
       <TeamModal isOpen={showTeamModal} onClose={() => setShowTeamModal(false)} />
+      <TurkeyMapModal
+        isOpen={showMapModal}
+        onClose={() => setShowMapModal(false)}
+        totalUsers={totalCertifiedUsers}
+      />
     </div>
   );
 };
