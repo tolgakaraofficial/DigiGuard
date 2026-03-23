@@ -14,6 +14,31 @@ export interface PersonalInfo {
   address: string;
   city: string;
   postalCode: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface CorporateInfo {
+  companyName: string;
+  companyType: 'limited' | 'anonim' | 'sahis' | 'komandit' | 'kolektif' | 'cooperative' | 'other';
+  taxNumber: string;
+  tradeRegistryNumber: string;
+  foundationDate: string;
+  mersisNumber: string;
+  companyAddress: string;
+  companyCity: string;
+  companyPostalCode: string;
+  authorizedPersonFirstName: string;
+  authorizedPersonLastName: string;
+  authorizedPersonTitle: string;
+  authorizedPersonIdNumber: string;
+  authorizedPersonPhone: string;
+  authorizedPersonEmail: string;
+  companyPhone: string;
+  companyEmail: string;
+  employeeCount: string;
+  sector: string;
+  website: string;
 }
 
 export interface IdentityInfo {
