@@ -22,10 +22,16 @@ function App() {
   const [state, setState] = useState<AppState>('splash');
   const [user, setUser] = useState<User | null>(null);
   const [language, setLanguage] = useState('tr');
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    const detectedLang = detectLanguage();
-    setLanguage(detectedLang);
+    try {
+      const detectedLang = detectLanguage();
+      setLanguage(detectedLang);
+    } catch (error) {
+      console.error('Error detecting language:', error);
+      setHasError(true);
+    }
   }, []);
 
   const handleAnimationComplete = () => {
@@ -199,6 +205,30 @@ function App() {
         return null;
     }
   };
+
+  if (hasError) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+        <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-red-500/30 max-w-md w-full">
+          <div className="flex items-center justify-center w-16 h-16 bg-red-500/20 rounded-full mx-auto mb-4">
+            <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-bold text-white text-center mb-2">Yapılandırma Hatası</h2>
+          <p className="text-slate-300 text-center mb-4">
+            Lütfen tarayıcınızı yenileyin. Sorun devam ederse geliştirici konsolunu kontrol edin.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="w-full bg-gradient-to-r from-cyber-500 to-matrix-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyber-500/50 transition-all duration-300"
+          >
+            Sayfayı Yenile
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (state === 'splash') {
     return renderContent();
