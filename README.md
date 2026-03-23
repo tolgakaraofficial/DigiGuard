@@ -155,7 +155,8 @@ npx netlify-cli deploy --prod --dir=dist
 3. Repository'yi seçip otomatik deploy başlat
 
 ### Live Demo
-- **Production**: https://digiguard.netlify.app
+- **Production**: https://digiguard.app
+- **Netlify**: https://digiguard.netlify.app
 - **GitHub**: https://github.com/digiguard/digiguard-platform
 
 ## 📋 Proje Yapısı
@@ -221,8 +222,8 @@ Bu proje DigiGuard tarafından geliştirilmiştir. Tüm hakları saklıdır.
 ## 🤝 Destek
 
 Sorularınız için:
-- E-posta: support@digiguard.com
-- Web: https://digiguard.netlify.app
+- E-posta: support@digiguard.app
+- Web: https://digiguard.app
 - LinkedIn: https://www.linkedin.com/company/digiguard-official
 - GitHub: https://github.com/digiguard/digiguard-platform
 
