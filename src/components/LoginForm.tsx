@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, Shield, Fingerprint, UserCheck, Scan, Camera, Zap } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, Shield, Fingerprint, UserCheck, Scan, Camera, Zap, MapPin, ChevronDown, ChevronUp, TrendingUp, Activity } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
 import { supabase } from '../services/supabaseClient';
+
+interface CityStatistics {
+  id: string;
+  city_name: string;
+  city_code: string;
+  certified_users: number;
+  region: string;
+  coordinates: { lat: number; lng: number };
+}
 
 interface LoginFormProps {
   onLogin: (email: string, phone: string) => void;
@@ -61,6 +70,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   };
 
   const [totalUsers, setTotalUsers] = useState(152847);
+  const [showMapDetails, setShowMapDetails] = useState(false);
+  const [cityStats, setCityStats] = useState<CityStatistics[]>([]);
+  const [topCities, setTopCities] = useState<CityStatistics[]>([]);
 
   useEffect(() => {
     const fetchTotalUsers = async () => {
@@ -78,7 +90,24 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
       }
     };
 
+    const fetchCityStats = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('city_statistics')
+          .select('*')
+          .order('certified_users', { ascending: false });
+
+        if (data && !error) {
+          setCityStats(data);
+          setTopCities(data.slice(0, 5));
+        }
+      } catch (err) {
+        console.error('Error fetching city statistics:', err);
+      }
+    };
+
     fetchTotalUsers();
+    fetchCityStats();
 
     const interval = setInterval(() => {
       setTotalUsers(prev => prev + Math.floor(Math.random() * 3));
@@ -298,23 +327,84 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </div>
       </div>
 
-      <div className="mt-4 bg-gradient-to-r from-emerald-900/40 to-green-900/40 backdrop-blur-sm rounded-xl p-4 border border-emerald-500/30 shadow-lg">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-emerald-500/20 p-2 rounded-lg">
-              <Shield className="h-5 w-5 text-emerald-400" />
+      <div className="mt-4 bg-gradient-to-r from-emerald-900/40 to-green-900/40 backdrop-blur-sm rounded-xl border border-emerald-500/30 shadow-lg overflow-hidden">
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <div className="bg-emerald-500/20 p-2 rounded-lg">
+                <Shield className="h-5 w-5 text-emerald-400" />
+              </div>
+              <div>
+                <p className="text-xs text-emerald-300/80 font-medium">Türkiye Sertifikalı Kullanıcı</p>
+                <p className="text-emerald-400 text-xl font-bold">{totalUsers.toLocaleString('tr-TR')}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-xs text-emerald-300/80 font-medium">Türkiye Sertifikalı Kullanıcı</p>
-              <p className="text-emerald-400 text-xl font-bold">{totalUsers.toLocaleString('tr-TR')}</p>
+            <div className="flex items-center gap-2">
+              <div className="bg-emerald-500/20 px-3 py-1 rounded-full">
+                <span className="text-xs text-emerald-300 font-semibold flex items-center gap-1">
+                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                  Canlı
+                </span>
+              </div>
+              <button
+                onClick={() => setShowMapDetails(!showMapDetails)}
+                className="bg-emerald-500/20 hover:bg-emerald-500/30 p-2 rounded-lg transition-all"
+              >
+                {showMapDetails ? (
+                  <ChevronUp className="h-4 w-4 text-emerald-400" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 text-emerald-400" />
+                )}
+              </button>
             </div>
           </div>
-          <div className="bg-emerald-500/20 px-3 py-1 rounded-full">
-            <span className="text-xs text-emerald-300 font-semibold flex items-center gap-1">
-              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-              Canlı
-            </span>
-          </div>
+
+          {showMapDetails && (
+            <div className="mt-3 pt-3 border-t border-emerald-500/20 space-y-3 animate-fadeIn">
+              <div className="flex items-center gap-2 mb-2">
+                <MapPin className="h-4 w-4 text-emerald-400" />
+                <h4 className="text-sm font-semibold text-emerald-300">İl Bazlı Dağılım</h4>
+              </div>
+
+              <div className="space-y-2 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
+                {topCities.map((city, index) => (
+                  <div
+                    key={city.id}
+                    className="bg-emerald-950/40 rounded-lg p-2.5 border border-emerald-500/20 hover:border-emerald-500/40 transition-all"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="bg-emerald-500/20 w-6 h-6 rounded-full flex items-center justify-center">
+                          <span className="text-xs font-bold text-emerald-300">{index + 1}</span>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-emerald-200">{city.city_name}</p>
+                          <p className="text-xs text-emerald-400/70">{city.region}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm font-bold text-emerald-400">{city.certified_users.toLocaleString('tr-TR')}</p>
+                        <div className="flex items-center gap-1">
+                          <TrendingUp className="h-3 w-3 text-emerald-500" />
+                          <span className="text-xs text-emerald-500">+{Math.floor(Math.random() * 5 + 1)}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="pt-2 border-t border-emerald-500/20">
+                <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-1 text-emerald-300/80">
+                    <Activity className="h-3 w-3" />
+                    <span>Toplam {cityStats.length} il</span>
+                  </div>
+                  <span className="text-emerald-400 font-semibold">Türkiye Geneli</span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
