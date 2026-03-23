@@ -10,6 +10,7 @@ import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { SecurityMetricsModal } from './SecurityMetricsModal';
+import { MonitoringPanel } from './MonitoringPanel';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
@@ -218,15 +219,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       status: 'Yapilandirildi',
       lastUsed: '3 gun once',
       action: () => alert('Profil yonetimi paneli yakinda aktif olacak!')
-    },
-    {
-      title: 'Siber Tehdit Izleme',
-      description: 'Dark web ve internette kimliginizle ilgili sahte icerikleri tespit edin',
-      icon: Eye,
-      color: 'bg-gradient-to-br from-red-600 to-red-700',
-      status: 'Izleniyor',
-      lastUsed: 'Surekli',
-      action: () => alert('Tehdit izleme sistemi 7/24 aktif!')
     },
     {
       title: 'Guvenlik Analiz Raporlari',
@@ -451,6 +443,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         </div>
       </div>
 
+
+      {/* Monitoring Panel */}
+      <div className="mb-8">
+        <MonitoringPanel />
+      </div>
 
       {/* Main Content with Sidebar */}
       <div className="flex gap-6 mb-8">
