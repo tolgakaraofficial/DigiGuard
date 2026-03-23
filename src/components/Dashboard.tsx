@@ -14,7 +14,7 @@ import { MonitoringPanel } from './MonitoringPanel';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
-import jsPDF from 'jspdf';
+import { generatePremiumCertificate } from '../services/certificateService';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -55,134 +55,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   };
 
   const generateBlockchainCertificate = () => {
-    const doc = new jsPDF();
-
-    const now = new Date();
-    const timestamp = now.toISOString();
-    const blockchainHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
-    const certificateId = `DG-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-
-    doc.setFillColor(15, 23, 42);
-    doc.rect(0, 0, 210, 297, 'F');
-
-    doc.setDrawColor(6, 182, 212);
-    doc.setLineWidth(2);
-    doc.rect(10, 10, 190, 277);
-
-    doc.setDrawColor(34, 197, 94);
-    doc.setLineWidth(0.5);
-    doc.rect(15, 15, 180, 267);
-
-    doc.setTextColor(6, 182, 212);
-    doc.setFontSize(28);
-    doc.setFont('helvetica', 'bold');
-    doc.text('DigiGuard', 105, 40, { align: 'center' });
-
-    doc.setFontSize(20);
-    doc.setTextColor(34, 197, 94);
-    doc.text('BLOCKCHAIN KYC SERTİFİKASI', 105, 55, { align: 'center' });
-
-    doc.setFontSize(10);
-    doc.setTextColor(148, 163, 184);
-    doc.text('Dijital Kimlik Doğrulama ve Güvenlik Sistemi', 105, 65, { align: 'center' });
-
-    doc.setDrawColor(71, 85, 105);
-    doc.setLineWidth(0.5);
-    doc.line(30, 75, 180, 75);
-
-    doc.setFontSize(12);
-    doc.setTextColor(226, 232, 240);
-    doc.setFont('helvetica', 'bold');
-    doc.text('SERTİFİKA BİLGİLERİ', 30, 90);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.setTextColor(148, 163, 184);
-
-    doc.text('Sertifika No:', 30, 105);
-    doc.setTextColor(6, 182, 212);
-    doc.text(certificateId, 80, 105);
-
-    doc.setTextColor(148, 163, 184);
-    doc.text('Kullanıcı Tipi:', 30, 115);
-    doc.setTextColor(34, 197, 94);
-    doc.text(getUserTypeLabel(), 80, 115);
-
-    doc.setTextColor(148, 163, 184);
-    doc.text('Doğrulama Seviyesi:', 30, 125);
-    doc.setTextColor(34, 197, 94);
-    doc.text('Tam Doğrulanmış (KYC Level 3)', 80, 125);
-
-    doc.setTextColor(148, 163, 184);
-    doc.text('Güvenlik Skoru:', 30, 135);
-    doc.setTextColor(34, 197, 94);
-    doc.text('98/100 - Mükemmel', 80, 135);
-
-    doc.setFontSize(12);
-    doc.setTextColor(226, 232, 240);
-    doc.setFont('helvetica', 'bold');
-    doc.text('BLOCKCHAIN DOĞRULAMA', 30, 155);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    doc.setTextColor(148, 163, 184);
-
-    doc.text('Blockchain Hash:', 30, 170);
-    doc.setTextColor(139, 92, 246);
-    doc.setFontSize(8);
-    doc.text(blockchainHash.substring(0, 50), 30, 178);
-    doc.text(blockchainHash.substring(50), 30, 184);
-
-    doc.setFontSize(9);
-    doc.setTextColor(148, 163, 184);
-    doc.text('Zaman Damgası:', 30, 197);
-    doc.setTextColor(6, 182, 212);
-    doc.text(timestamp, 80, 197);
-
-    doc.setTextColor(148, 163, 184);
-    doc.text('Blockchain Ağı:', 30, 207);
-    doc.setTextColor(34, 197, 94);
-    doc.text('Ethereum Mainnet', 80, 207);
-
-    doc.setTextColor(148, 163, 184);
-    doc.text('Şifreleme:', 30, 217);
-    doc.setTextColor(34, 197, 94);
-    doc.text('AES-256 + SHA-256', 80, 217);
-
-    doc.setFontSize(12);
-    doc.setTextColor(226, 232, 240);
-    doc.setFont('helvetica', 'bold');
-    doc.text('DOĞRULANAN ÖZELLİKLER', 30, 235);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    const features = [
-      '✓ Biyometrik Kimlik Doğrulama (Yüz + Parmak İzi)',
-      '✓ Canlılık Tespiti (Liveness Detection)',
-      '✓ Kimlik Belgesi Doğrulaması',
-      '✓ Adres Doğrulaması',
-      '✓ Telefon ve E-posta Doğrulaması',
-      '✓ AI Tabanlı Sahtecilik Kontrolü'
-    ];
-
-    let yPos = 245;
-    features.forEach(feature => {
-      doc.setTextColor(34, 197, 94);
-      doc.text(feature, 35, yPos);
-      yPos += 7;
+    generatePremiumCertificate({
+      userType,
+      language
     });
-
-    doc.setDrawColor(71, 85, 105);
-    doc.setLineWidth(0.5);
-    doc.line(30, 287, 180, 287);
-
-    doc.setFontSize(7);
-    doc.setTextColor(100, 116, 139);
-    doc.setFont('helvetica', 'italic');
-    doc.text('Bu sertifika blockchain teknolojisi ile güvence altına alınmıştır ve değiştirilemez.', 105, 293, { align: 'center' });
-    doc.text(`Doğrulama: https://digiguard.app/verify/${certificateId}`, 105, 297, { align: 'center' });
-
-    doc.save(`DigiGuard_Blockchain_Certificate_${certificateId}.pdf`);
   };
 
   const stats = [
