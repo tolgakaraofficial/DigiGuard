@@ -107,7 +107,7 @@ function App() {
                   </a>
 
                   <a
-                    href="https://www.linkedin.com/company/digiguard"
+                    href="https://www.linkedin.com/company/digiguard-official"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/30 hover:border-blue-500/60 transition-all duration-300 group"
@@ -119,7 +119,7 @@ function App() {
                   </a>
 
                   <a
-                    href="https://twitter.com/digiguard"
+                    href="https://x.com/digiguardapp"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 rounded-lg bg-slate-600/20 hover:bg-slate-600/40 border border-slate-500/30 hover:border-slate-500/60 transition-all duration-300 group"
@@ -131,7 +131,7 @@ function App() {
                   </a>
 
                   <a
-                    href="https://www.instagram.com/digiguard"
+                    href="https://www.instagram.com/digiguardapp"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-purple-600/20 to-pink-600/20 hover:from-purple-600/40 hover:to-pink-600/40 border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 group"
@@ -143,7 +143,7 @@ function App() {
                   </a>
 
                   <a
-                    href="https://www.facebook.com/digiguard"
+                    href="https://www.facebook.com/digiguardapp"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-700/20 hover:bg-blue-700/40 border border-blue-600/30 hover:border-blue-600/60 transition-all duration-300 group"

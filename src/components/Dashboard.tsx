@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info } from 'lucide-react';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
 import { IntegrationsModal } from './IntegrationsModal';
 import { PublicBenefitModal } from './PublicBenefitModal';
 import { PricingModal } from './PricingModal';
 import { TurkeyCertificateModal } from './TurkeyCertificateModal';
+import { AboutModal } from './AboutModal';
+import { TeamModal } from './TeamModal';
+import { SecurityInfoModal } from './SecurityInfoModal';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
@@ -22,6 +25,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [publicBenefitOpen, setPublicBenefitOpen] = useState(false);
   const [pricingOpen, setPricingOpen] = useState(false);
   const [turkeyCertificateOpen, setTurkeyCertificateOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [teamOpen, setTeamOpen] = useState(false);
+  const [securityInfoOpen, setSecurityInfoOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
 
@@ -268,7 +274,28 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
             </span>
           </p>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
+          <button
+            onClick={() => setSecurityInfoOpen(true)}
+            className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium py-2.5 px-5 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-cyan-500/30"
+          >
+            <Lock className="h-4 w-4" />
+            <span className="whitespace-nowrap">SHA-256</span>
+          </button>
+          <button
+            onClick={() => setAboutOpen(true)}
+            className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-2.5 px-5 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-orange-500/30"
+          >
+            <Info className="h-4 w-4" />
+            <span className="whitespace-nowrap">Hakkında</span>
+          </button>
+          <button
+            onClick={() => setTeamOpen(true)}
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-2.5 px-5 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-purple-500/30"
+          >
+            <Users className="h-4 w-4" />
+            <span className="whitespace-nowrap">DigiGuard Ekibi</span>
+          </button>
           <button className="relative p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-800">
             <Bell className="h-6 w-6" />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
@@ -277,7 +304,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           </button>
           <button
             onClick={onLogout}
-            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-red-500/30"
+            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2.5 px-5 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-red-500/30"
           >
             <LogOut className="h-4 w-4" />
             <span>{t.logout}</span>
@@ -507,6 +534,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
           <PricingModal isOpen={pricingOpen} onClose={() => setPricingOpen(false)} />
           <TurkeyCertificateModal isOpen={turkeyCertificateOpen} onClose={() => setTurkeyCertificateOpen(false)} />
+          <AboutModal isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
+          <TeamModal isOpen={teamOpen} onClose={() => setTeamOpen(false)} />
+          <SecurityInfoModal isOpen={securityInfoOpen} onClose={() => setSecurityInfoOpen(false)} />
         </div>
       </div>
 

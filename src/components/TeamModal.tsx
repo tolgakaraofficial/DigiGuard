@@ -199,7 +199,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                     href={member.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2 w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all shadow-lg shadow-orange-500/30 text-sm"
+                    className="flex items-center justify-center space-x-2 w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all shadow-lg shadow-blue-500/30 text-sm"
                   >
                     <Linkedin className="h-4 w-4" />
                     <span>LinkedIn Profilini Gör</span>
