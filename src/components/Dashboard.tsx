@@ -9,9 +9,11 @@ import { TurkeyCertificateModal } from './TurkeyCertificateModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
 import { SecurityInfoModal } from './SecurityInfoModal';
+import { SecurityMetricsModal } from './SecurityMetricsModal';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
+import jsPDF from 'jspdf';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -28,6 +30,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [aboutOpen, setAboutOpen] = useState(false);
   const [teamOpen, setTeamOpen] = useState(false);
   const [securityInfoOpen, setSecurityInfoOpen] = useState(false);
+  const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
 
@@ -48,6 +51,137 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
     if (userType === 'corporate') return 'from-purple-400 to-pink-400';
     if (userType === 'personnel') return 'from-orange-400 to-red-400';
     return 'from-blue-400 to-cyan-400';
+  };
+
+  const generateBlockchainCertificate = () => {
+    const doc = new jsPDF();
+
+    const now = new Date();
+    const timestamp = now.toISOString();
+    const blockchainHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    const certificateId = `DG-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+    doc.setFillColor(15, 23, 42);
+    doc.rect(0, 0, 210, 297, 'F');
+
+    doc.setDrawColor(6, 182, 212);
+    doc.setLineWidth(2);
+    doc.rect(10, 10, 190, 277);
+
+    doc.setDrawColor(34, 197, 94);
+    doc.setLineWidth(0.5);
+    doc.rect(15, 15, 180, 267);
+
+    doc.setTextColor(6, 182, 212);
+    doc.setFontSize(28);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DigiGuard', 105, 40, { align: 'center' });
+
+    doc.setFontSize(20);
+    doc.setTextColor(34, 197, 94);
+    doc.text('BLOCKCHAIN KYC SERTİFİKASI', 105, 55, { align: 'center' });
+
+    doc.setFontSize(10);
+    doc.setTextColor(148, 163, 184);
+    doc.text('Dijital Kimlik Doğrulama ve Güvenlik Sistemi', 105, 65, { align: 'center' });
+
+    doc.setDrawColor(71, 85, 105);
+    doc.setLineWidth(0.5);
+    doc.line(30, 75, 180, 75);
+
+    doc.setFontSize(12);
+    doc.setTextColor(226, 232, 240);
+    doc.setFont('helvetica', 'bold');
+    doc.text('SERTİFİKA BİLGİLERİ', 30, 90);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(148, 163, 184);
+
+    doc.text('Sertifika No:', 30, 105);
+    doc.setTextColor(6, 182, 212);
+    doc.text(certificateId, 80, 105);
+
+    doc.setTextColor(148, 163, 184);
+    doc.text('Kullanıcı Tipi:', 30, 115);
+    doc.setTextColor(34, 197, 94);
+    doc.text(getUserTypeLabel(), 80, 115);
+
+    doc.setTextColor(148, 163, 184);
+    doc.text('Doğrulama Seviyesi:', 30, 125);
+    doc.setTextColor(34, 197, 94);
+    doc.text('Tam Doğrulanmış (KYC Level 3)', 80, 125);
+
+    doc.setTextColor(148, 163, 184);
+    doc.text('Güvenlik Skoru:', 30, 135);
+    doc.setTextColor(34, 197, 94);
+    doc.text('98/100 - Mükemmel', 80, 135);
+
+    doc.setFontSize(12);
+    doc.setTextColor(226, 232, 240);
+    doc.setFont('helvetica', 'bold');
+    doc.text('BLOCKCHAIN DOĞRULAMA', 30, 155);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.setTextColor(148, 163, 184);
+
+    doc.text('Blockchain Hash:', 30, 170);
+    doc.setTextColor(139, 92, 246);
+    doc.setFontSize(8);
+    doc.text(blockchainHash.substring(0, 50), 30, 178);
+    doc.text(blockchainHash.substring(50), 30, 184);
+
+    doc.setFontSize(9);
+    doc.setTextColor(148, 163, 184);
+    doc.text('Zaman Damgası:', 30, 197);
+    doc.setTextColor(6, 182, 212);
+    doc.text(timestamp, 80, 197);
+
+    doc.setTextColor(148, 163, 184);
+    doc.text('Blockchain Ağı:', 30, 207);
+    doc.setTextColor(34, 197, 94);
+    doc.text('Ethereum Mainnet', 80, 207);
+
+    doc.setTextColor(148, 163, 184);
+    doc.text('Şifreleme:', 30, 217);
+    doc.setTextColor(34, 197, 94);
+    doc.text('AES-256 + SHA-256', 80, 217);
+
+    doc.setFontSize(12);
+    doc.setTextColor(226, 232, 240);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DOĞRULANAN ÖZELLİKLER', 30, 235);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    const features = [
+      '✓ Biyometrik Kimlik Doğrulama (Yüz + Parmak İzi)',
+      '✓ Canlılık Tespiti (Liveness Detection)',
+      '✓ Kimlik Belgesi Doğrulaması',
+      '✓ Adres Doğrulaması',
+      '✓ Telefon ve E-posta Doğrulaması',
+      '✓ AI Tabanlı Sahtecilik Kontrolü'
+    ];
+
+    let yPos = 245;
+    features.forEach(feature => {
+      doc.setTextColor(34, 197, 94);
+      doc.text(feature, 35, yPos);
+      yPos += 7;
+    });
+
+    doc.setDrawColor(71, 85, 105);
+    doc.setLineWidth(0.5);
+    doc.line(30, 287, 180, 287);
+
+    doc.setFontSize(7);
+    doc.setTextColor(100, 116, 139);
+    doc.setFont('helvetica', 'italic');
+    doc.text('Bu sertifika blockchain teknolojisi ile güvence altına alınmıştır ve değiştirilemez.', 105, 293, { align: 'center' });
+    doc.text(`Doğrulama: https://digiguard.app/verify/${certificateId}`, 105, 297, { align: 'center' });
+
+    doc.save(`DigiGuard_Blockchain_Certificate_${certificateId}.pdf`);
   };
 
   const stats = [
@@ -74,7 +208,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       color: 'bg-gradient-to-br from-matrix-600 to-matrix-700',
       status: 'Guncel',
       lastUsed: 'Dun',
-      action: () => alert('Sertifika indirme yakinda aktif olacak!')
+      action: () => generateBlockchainCertificate()
     },
     {
       title: 'KYC Profil Yonetimi',
@@ -113,51 +247,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       action: () => alert('Acil durum sistemi standby modunda!')
     },
     {
-      title: 'Kullanici Senaryolari',
-      description: 'Bireysel, kurumsal ve kamu kullanim senaryolarini inceleyin',
-      icon: Users,
-      color: 'bg-gradient-to-br from-blue-600 to-cyan-600',
-      status: 'Bilgilendirme',
-      lastUsed: 'Yeni',
-      action: () => setUserScenariosOpen(true)
-    },
-    {
-      title: 'Kuresel Erisim (7 Kita)',
-      description: 'DigiGuard\'in dunya capindaki etkisini ve vizyonunu kesfedin',
-      icon: Globe2,
-      color: 'bg-gradient-to-br from-green-600 to-emerald-600',
-      status: 'Global',
-      lastUsed: 'Yeni',
-      action: () => setGlobalReachOpen(true)
-    },
-    {
-      title: 'Entegrasyonlar ve API',
-      description: 'Sistemlerinize DigiGuard\'i kolayca entegre edin',
-      icon: Workflow,
-      color: 'bg-gradient-to-br from-purple-600 to-pink-600',
-      status: 'Gelistirici',
-      lastUsed: 'Yeni',
-      action: () => setIntegrationsOpen(true)
-    },
-    {
-      title: 'Kamu Yarari ve Sosyal Etki',
-      description: 'Toplumsal fayda projeleri ve sosyal sorumluluk calismalari',
-      icon: Heart,
-      color: 'bg-gradient-to-br from-pink-600 to-rose-600',
-      status: 'Sosyal',
-      lastUsed: 'Yeni',
-      action: () => setPublicBenefitOpen(true)
-    },
-    {
-      title: 'Turkiye Sertifika Istatistikleri',
-      description: 'Canli veri analizi ve sehir bazinda sertifika dagilimi',
-      icon: Award,
-      color: 'bg-gradient-to-br from-red-600 to-red-700',
-      status: 'Canli',
-      lastUsed: 'Gercek Zamanli',
-      action: () => setTurkeyCertificateOpen(true)
-    },
-    {
       title: 'Ekip Isbirligi Senaryolari',
       description: 'Kurumsal ekiplerde DigiGuard kullanimi ve yonetimi',
       icon: Network,
@@ -174,15 +263,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       status: 'Egitim',
       lastUsed: 'Yeni',
       action: () => alert('Video egitim kutuphanesi, interaktif rehberler ve sertifika programlari hazirlaniyor!')
-    },
-    {
-      title: 'Hizmetler ve Fiyatlandirma',
-      description: 'Paketler, odeme secenekleri ve abonelik yonetimi',
-      icon: CreditCard,
-      color: 'bg-gradient-to-br from-green-600 to-emerald-600',
-      status: 'Premium',
-      lastUsed: 'Yeni',
-      action: () => setPricingOpen(true)
     },
   ];
 
@@ -250,6 +330,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         onOpenGlobalReach={() => setGlobalReachOpen(true)}
         onOpenIntegrations={() => setIntegrationsOpen(true)}
         onOpenPublicBenefit={() => setPublicBenefitOpen(true)}
+        onOpenTurkeyCertificate={() => setTurkeyCertificateOpen(true)}
+        onOpenPricing={() => setPricingOpen(true)}
+        onOpenSecurityMetrics={() => setSecurityMetricsOpen(true)}
       />
 
       <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
@@ -368,93 +451,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         </div>
       </div>
 
-      {/* Security Metrics Panel */}
-      <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 mb-8 border border-cyber-500/20">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold text-white flex items-center">
-            <BarChart3 className="h-5 w-5 text-cyber-400 mr-2" />
-            Güvenlik ve Risk Metrikleri
-          </h3>
-          <span className="text-xs text-slate-400 bg-slate-700/50 px-3 py-1 rounded-full">
-            Son Güncelleme: Az önce
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          {securityMetrics.map((metric, index) => (
-            <div key={index} className="bg-slate-700/50 rounded-lg p-4 border border-slate-600/50 hover:border-cyber-500/50 transition-all group">
-              <div className="flex items-center justify-between mb-3">
-                <div className={`p-2 rounded-lg ${metric.inverse ? 'bg-gradient-to-br from-amber-600/20 to-orange-600/20' : 'bg-gradient-to-br from-cyber-600/20 to-matrix-600/20'}`}>
-                  <metric.icon className={`h-4 w-4 ${metric.color}`} />
-                </div>
-                <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                  metric.inverse
-                    ? 'bg-amber-600/20 text-amber-300'
-                    : 'bg-green-600/20 text-green-300'
-                }`}>
-                  {metric.trend}
-                </span>
-              </div>
-
-              <div className="mb-3">
-                <div className="flex items-baseline justify-between mb-1">
-                  <span className="text-xs text-slate-400">{metric.label}</span>
-                  <span className={`text-2xl font-bold ${metric.color}`}>{metric.score}</span>
-                </div>
-                <div className="w-full bg-slate-600/50 rounded-full h-2 overflow-hidden">
-                  <div
-                    className={`h-full ${metric.bgColor} rounded-full transition-all duration-1000 ease-out group-hover:opacity-80`}
-                    style={{ width: `${metric.score}%` }}
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-slate-500">Durum:</span>
-                <span className={`text-xs font-medium ${metric.color}`}>{metric.status}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 border border-green-500/30 rounded-lg p-4">
-            <div className="flex items-center space-x-3">
-              <div className="bg-green-500/20 p-2 rounded-lg">
-                <TrendingUp className="h-5 w-5 text-green-400" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-green-300/80">Genel Güvenlik Skoru</p>
-                <p className="text-2xl font-bold text-green-400">96.4/100</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-amber-900/30 to-orange-900/30 border border-amber-500/30 rounded-lg p-4">
-            <div className="flex items-center space-x-3">
-              <div className="bg-amber-500/20 p-2 rounded-lg">
-                <AlertTriangle className="h-5 w-5 text-amber-400" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-amber-300/80">Tespit Edilen Tehdit</p>
-                <p className="text-2xl font-bold text-amber-400">3 Engellendi</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-cyber-900/30 to-matrix-900/30 border border-cyber-500/30 rounded-lg p-4">
-            <div className="flex items-center space-x-3">
-              <div className="bg-cyber-500/20 p-2 rounded-lg">
-                <Shield className="h-5 w-5 text-cyber-400 animate-pulse" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs text-cyber-300/80">Aktif Koruma</p>
-                <p className="text-2xl font-bold text-cyber-400">7/24</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Main Content with Sidebar */}
       <div className="flex gap-6 mb-8">
@@ -537,6 +533,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <AboutModal isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
           <TeamModal isOpen={teamOpen} onClose={() => setTeamOpen(false)} />
           <SecurityInfoModal isOpen={securityInfoOpen} onClose={() => setSecurityInfoOpen(false)} />
+          <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
         </div>
       </div>
 

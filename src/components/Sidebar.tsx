@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3 } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -8,6 +8,9 @@ interface SidebarProps {
   onOpenGlobalReach: () => void;
   onOpenIntegrations: () => void;
   onOpenPublicBenefit: () => void;
+  onOpenTurkeyCertificate: () => void;
+  onOpenPricing: () => void;
+  onOpenSecurityMetrics: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -17,6 +20,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenGlobalReach,
   onOpenIntegrations,
   onOpenPublicBenefit,
+  onOpenTurkeyCertificate,
+  onOpenPricing,
+  onOpenSecurityMetrics,
 }) => {
   const menuItems = [
     {
@@ -42,6 +48,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'Kamu Yarari',
       color: 'from-pink-600 to-rose-600',
       action: onOpenPublicBenefit,
+    },
+    {
+      icon: Award,
+      label: 'Turkiye Sertifika',
+      color: 'from-red-600 to-red-700',
+      action: onOpenTurkeyCertificate,
+    },
+    {
+      icon: CreditCard,
+      label: 'Fiyatlandirma',
+      color: 'from-green-600 to-emerald-600',
+      action: onOpenPricing,
+    },
+    {
+      icon: BarChart3,
+      label: 'Guvenlik Metrikleri',
+      color: 'from-cyan-600 to-blue-600',
+      action: onOpenSecurityMetrics,
     },
     {
       icon: Network,
