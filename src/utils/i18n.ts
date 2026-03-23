@@ -1,6 +1,6 @@
 export const translations = {
   tr: {
-    welcome: 'DigiGuard Biyometrik Kontrol Merkezi',
+    welcome: 'DigiGuard Kontrol Merkezi',
     subtitle: 'KYC kimliğiniz aktif olarak korunuyor',
     live: 'CANLI',
     logout: 'Güvenli Çıkış',
@@ -12,7 +12,7 @@ export const translations = {
     current: 'Güncel',
   },
   en: {
-    welcome: 'DigiGuard Biometric Control Center',
+    welcome: 'DigiGuard Control Center',
     subtitle: 'Your KYC identity is actively protected',
     live: 'LIVE',
     logout: 'Secure Logout',
@@ -24,7 +24,7 @@ export const translations = {
     current: 'Current',
   },
   de: {
-    welcome: 'DigiGuard Biometrisches Kontrollzentrum',
+    welcome: 'DigiGuard Kontrollzentrum',
     subtitle: 'Ihre KYC-Identität wird aktiv geschützt',
     live: 'LIVE',
     logout: 'Sicherer Ausgang',
@@ -36,7 +36,7 @@ export const translations = {
     current: 'Aktuell',
   },
   fr: {
-    welcome: 'Centre de Contrôle Biométrique DigiGuard',
+    welcome: 'Centre de Contrôle DigiGuard',
     subtitle: 'Votre identité KYC est activement protégée',
     live: 'EN DIRECT',
     logout: 'Déconnexion Sécurisée',
@@ -48,7 +48,7 @@ export const translations = {
     current: 'Actuel',
   },
   es: {
-    welcome: 'Centro de Control Biométrico DigiGuard',
+    welcome: 'Centro de Control DigiGuard',
     subtitle: 'Su identidad KYC está activamente protegida',
     live: 'EN VIVO',
     logout: 'Salida Segura',
@@ -60,7 +60,7 @@ export const translations = {
     current: 'Actual',
   },
   ar: {
-    welcome: 'مركز التحكم البيومتري DigiGuard',
+    welcome: 'مركز التحكم DigiGuard',
     subtitle: 'هويتك KYC محمية بنشاط',
     live: 'مباشر',
     logout: 'خروج آمن',
@@ -72,7 +72,7 @@ export const translations = {
     current: 'حالي',
   },
   zh: {
-    welcome: 'DigiGuard 生物识别控制中心',
+    welcome: 'DigiGuard 控制中心',
     subtitle: '您的 KYC 身份受到主动保护',
     live: '直播',
     logout: '安全退出',
@@ -84,7 +84,7 @@ export const translations = {
     current: '当前',
   },
   ja: {
-    welcome: 'DigiGuard バイオメトリック制御センター',
+    welcome: 'DigiGuard 制御センター',
     subtitle: 'あなたのKYCアイデンティティは積極的に保護されています',
     live: 'ライブ',
     logout: '安全なログアウト',
@@ -96,7 +96,7 @@ export const translations = {
     current: '現在',
   },
   ru: {
-    welcome: 'Центр биометрического контроля DigiGuard',
+    welcome: 'Центр контроля DigiGuard',
     subtitle: 'Ваша идентичность KYC активно защищена',
     live: 'В ПРЯМОМ ЭФИРЕ',
     logout: 'Безопасный выход',
