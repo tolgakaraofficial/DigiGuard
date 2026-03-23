@@ -17,9 +17,9 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
   useEffect(() => {
     if (isOpen) {
       const targetStats = {
-        total: 847523,
-        individual: 612384,
-        corporate: 235139,
+        total: 145661,
+        individual: 112384,
+        corporate: 28139,
         cities: 81
       };
 
@@ -52,14 +52,14 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
   if (!isOpen) return null;
 
   const cityData = [
-    { name: 'İstanbul', count: 234567, growth: '+12%' },
-    { name: 'Ankara', count: 145234, growth: '+8%' },
-    { name: 'İzmir', count: 98765, growth: '+10%' },
-    { name: 'Bursa', count: 67543, growth: '+7%' },
-    { name: 'Antalya', count: 54321, growth: '+9%' },
-    { name: 'Adana', count: 45678, growth: '+6%' },
-    { name: 'Gaziantep', count: 38765, growth: '+11%' },
-    { name: 'Konya', count: 32145, growth: '+5%' }
+    { name: 'İstanbul', count: 42315, growth: '+12%' },
+    { name: 'Ankara', count: 28456, growth: '+8%' },
+    { name: 'İzmir', count: 19872, growth: '+10%' },
+    { name: 'Bursa', count: 12543, growth: '+7%' },
+    { name: 'Antalya', count: 9876, growth: '+9%' },
+    { name: 'Adana', count: 8234, growth: '+6%' },
+    { name: 'Konya', count: 7123, growth: '+11%' },
+    { name: 'Gaziantep', count: 6534, growth: '+5%' }
   ];
 
   return (
@@ -182,7 +182,7 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
                   <div className="mt-3 w-full bg-slate-600/50 rounded-full h-2 overflow-hidden">
                     <div
                       className="h-full bg-gradient-to-r from-red-500 to-red-600 rounded-full transition-all duration-1000"
-                      style={{ width: `${(city.count / 234567) * 100}%` }}
+                      style={{ width: `${(city.count / 42315) * 100}%` }}
                     />
                   </div>
                 </div>
