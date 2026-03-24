@@ -70,67 +70,67 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
 
   const features = [
     {
-      title: 'Biyometrik Kimlik Dogrulama',
-      description: 'AI destekli yuz tanima, parmak izi ve ses analizi ile kimliginizi dogrulayin',
+      title: 'Biyometrik Kimlik Doğrulama',
+      description: 'AI destekli yüz tanıma, parmak izi ve ses analizi ile kimliğinizi doğrulayın',
       icon: Fingerprint,
       color: 'bg-gradient-to-br from-cyber-600 to-cyber-700',
       status: 'Aktif',
-      lastUsed: '1 saat once',
-      action: () => alert('Biyometrik dogrulama sistemi aktif!')
+      lastUsed: '1 saat önce',
+      action: () => alert('Biyometrik doğrulama sistemi aktif!')
     },
     {
-      title: 'Blockchain Guvenlik Sertifikasi',
-      description: 'Blockchain tabanli KYC sertifikanizi goruntuyleyin, paylasin ve indirin',
+      title: 'Blockchain Güvenlik Sertifikası',
+      description: 'Blockchain tabanlı KYC sertifikanızı görüntüleyin, paylaşın ve indirin',
       icon: Database,
       color: 'bg-gradient-to-br from-matrix-600 to-matrix-700',
-      status: 'Guncel',
-      lastUsed: 'Dun',
+      status: 'Güncel',
+      lastUsed: 'Dün',
       action: () => generateBlockchainCertificate()
     },
     {
-      title: 'KYC Profil Yonetimi',
-      description: 'Kisisel bilgilerinizi, guvenlik ayarlarinizi ve gizlilik tercihlerinizi yonetin',
+      title: 'KYC Profil Yönetimi',
+      description: 'Kişisel bilgilerinizi, güvenlik ayarlarınızı ve gizlilik tercihlerinizi yönetin',
       icon: Settings,
       color: 'bg-gradient-to-br from-slate-600 to-slate-700',
-      status: 'Yapilandirildi',
-      lastUsed: '3 gun once',
-      action: () => alert('Profil yonetimi paneli yakinda aktif olacak!')
+      status: 'Yapılandırıldı',
+      lastUsed: '3 gün önce',
+      action: () => alert('Profil yönetimi paneli yakında aktif olacak!')
     },
     {
-      title: 'Guvenlik Analiz Raporlari',
-      description: 'Detayli siber guvenlik analizleri ve kimlik koruma raporlarini inceleyin',
+      title: 'Güvenlik Analiz Raporları',
+      description: 'Detaylı siber güvenlik analizleri ve kimlik koruma raporlarını inceleyin',
       icon: TrendingUp,
       color: 'bg-gradient-to-br from-secure-600 to-secure-700',
-      status: 'Hazir',
-      lastUsed: '1 hafta once',
-      action: () => alert('Raporlar hazirlaniyor!')
+      status: 'Hazır',
+      lastUsed: '1 hafta önce',
+      action: () => alert('Raporlar hazırlanıyor!')
     },
     {
-      title: 'Acil Durum Mudahale',
-      description: 'Kimlik hirsizligi ve siber saldiri durumunda aninda mudahale sistemi',
+      title: 'Acil Durum Müdahale',
+      description: 'Kimlik hırsızlığı ve siber saldırı durumunda anında müdahale sistemi',
       icon: AlertTriangle,
       color: 'bg-gradient-to-br from-amber-600 to-orange-600',
       status: 'Standby',
-      lastUsed: 'Hic kullanilmadi',
+      lastUsed: 'Hiç kullanılmadı',
       action: () => alert('Acil durum sistemi standby modunda!')
     },
     {
-      title: 'Ekip Isbirligi Senaryolari',
-      description: 'Kurumsal ekiplerde DigiGuard kullanimi ve yonetimi',
+      title: 'Ekip İşbirliği Senaryoları',
+      description: 'Kurumsal ekiplerde DigiGuard kullanımı ve yönetimi',
       icon: Network,
-      color: 'bg-gradient-to-br from-indigo-600 to-blue-600',
+      color: 'bg-gradient-to-br from-blue-600 to-cyan-600',
       status: 'Kurumsal',
       lastUsed: 'Yeni',
-      action: () => alert('Takimlar arası KYC yonetimi, rol tabanli erisim kontrolleri ve kurumsal dashboard ozellikleri yakinda!')
+      action: () => alert('Takımlar arası KYC yönetimi, rol tabanlı erişim kontrolleri ve kurumsal dashboard özellikleri yakında!')
     },
     {
-      title: 'Egitim ve Dokumantasyon',
-      description: 'Video egitimler, kullanim kilavuzlari ve en iyi uygulamalar',
+      title: 'Eğitim ve Dokümantasyon',
+      description: 'Video eğitimler, kullanım kılavuzları ve en iyi uygulamalar',
       icon: BookOpen,
       color: 'bg-gradient-to-br from-yellow-600 to-orange-600',
-      status: 'Egitim',
+      status: 'Eğitim',
       lastUsed: 'Yeni',
-      action: () => alert('Video egitim kutuphanesi, interaktif rehberler ve sertifika programlari hazirlaniyor!')
+      action: () => alert('Video eğitim kütüphanesi, interaktif rehberler ve sertifika programları hazırlanıyor!')
     },
   ];
 
@@ -205,6 +205,50 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
 
       <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
         <div className="p-6">
+          <div className="bg-gradient-to-r from-slate-800/90 via-slate-700/90 to-slate-800/90 backdrop-blur-sm rounded-2xl p-6 border border-cyber-500/30 shadow-2xl mb-8 relative overflow-hidden">
+            <div className="absolute -top-20 -right-20 w-60 h-60 bg-cyber-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-matrix-500/10 rounded-full blur-3xl animate-pulse"></div>
+
+            <div className="flex items-center gap-6 relative z-10">
+              <div className="flex-shrink-0">
+                <div className="relative w-20 h-20">
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyber-500 via-matrix-500 to-secure-500 rounded-full animate-spin-slow opacity-75"></div>
+                  <div className="absolute inset-1 bg-slate-800 rounded-full flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent">AI</div>
+                      <div className="text-xs text-slate-400">ALBIS</div>
+                    </div>
+                  </div>
+                  <div className="absolute -inset-2 bg-gradient-to-r from-cyber-500/20 via-matrix-500/20 to-secure-500/20 rounded-full blur-xl animate-pulse"></div>
+                </div>
+              </div>
+
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-cyber-400 animate-pulse" />
+                  ALBIS Yapay Zeka Asistanı
+                </h3>
+                <p className="text-slate-300 text-sm mb-2">
+                  Tüm raporlar, bildirimler ve güvenlik uyarıları ALBIS tarafından izleniyor ve yönetiliyor.
+                </p>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="flex items-center gap-1 px-2 py-1 bg-matrix-600/30 text-matrix-300 text-xs rounded-full border border-matrix-500/50">
+                    <CheckCircle className="h-3 w-3" />
+                    Aktif İzleme
+                  </span>
+                  <span className="flex items-center gap-1 px-2 py-1 bg-cyber-600/30 text-cyber-300 text-xs rounded-full border border-cyber-500/50 animate-pulse">
+                    <Activity className="h-3 w-3" />
+                    Gerçek Zamanlı Analiz
+                  </span>
+                  <span className="flex items-center gap-1 px-2 py-1 bg-secure-600/30 text-secure-300 text-xs rounded-full border border-secure-500/50">
+                    <Shield className="h-3 w-3" />
+                    7/24 Koruma
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Header */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
         <div>
@@ -264,20 +308,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {stats.map((stat, index) => (
-          <div key={index} className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 hover:border-cyber-500/50 transition-all shadow-lg hover:shadow-cyber-500/20 relative overflow-hidden group">
-            <div className="absolute -right-6 -top-6 w-24 h-24 bg-gradient-to-br from-cyber-500/10 to-matrix-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+          <div key={index} className="bg-slate-800/80 backdrop-blur-sm rounded-lg p-4 border border-cyber-500/20 hover:border-cyber-500/50 transition-all shadow-lg hover:shadow-cyber-500/20 relative overflow-hidden group">
+            <div className="absolute -right-6 -top-6 w-20 h-20 bg-gradient-to-br from-cyber-500/10 to-matrix-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
             <div className="flex items-center justify-between relative z-10">
               <div>
-                <p className="text-slate-400 text-sm">{stat.label}</p>
-                <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                <p className="text-xs text-slate-500 mt-1">{stat.trend}</p>
+                <p className="text-slate-400 text-xs">{stat.label}</p>
+                <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
+                <p className="text-xs text-slate-500 mt-0.5">{stat.trend}</p>
               </div>
               <div className="relative">
-                <stat.icon className={`h-10 w-10 ${stat.color}`} />
+                <stat.icon className={`h-8 w-8 ${stat.color}`} />
                 <div className="absolute inset-0 blur-md opacity-50">
-                  <stat.icon className={`h-10 w-10 ${stat.color}`} />
+                  <stat.icon className={`h-8 w-8 ${stat.color}`} />
                 </div>
               </div>
             </div>
@@ -286,22 +330,21 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       </div>
 
       {/* Security Alert */}
-      <div className="bg-gradient-to-r from-amber-600/20 to-orange-600/20 rounded-xl p-6 mb-8 border border-amber-500/30 hover:border-amber-400/50 transition-all shadow-lg shadow-amber-500/10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl"></div>
+      <div className="bg-gradient-to-r from-amber-600/20 to-orange-600/20 rounded-lg p-4 mb-6 border border-amber-500/30 hover:border-amber-400/50 transition-all shadow-lg shadow-amber-500/10 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-3xl"></div>
         <div className="flex items-start space-x-3 relative z-10">
-          <AlertTriangle className="h-6 w-6 text-amber-400 mt-1 animate-pulse" />
+          <AlertTriangle className="h-5 w-5 text-amber-400 mt-0.5 animate-pulse" />
           <div>
-            <h3 className="text-lg font-semibold text-white mb-2 flex items-center flex-wrap gap-2">
+            <h3 className="text-base font-semibold text-white mb-1.5 flex items-center flex-wrap gap-2">
               Siber Güvenlik Bildirimi
-              <span className="px-2 py-1 bg-amber-600/30 text-amber-300 text-xs rounded-full border border-amber-500/50 animate-pulse">
+              <span className="px-2 py-0.5 bg-amber-600/30 text-amber-300 text-xs rounded-full border border-amber-500/50 animate-pulse">
                 YENİ
               </span>
             </h3>
-            <p className="text-slate-300 text-sm mb-3">
-              Son 24 saatte 3 adet sahte profil tespit edildi ve AI tabanlı sistemimiz tarafından otomatik olarak engellendi.
-              Biyometrik kimlik korumanız başarıyla çalışıyor.
+            <p className="text-slate-300 text-sm mb-2">
+              Son 24 saatte 3 sahte profil tespit edildi ve AI sistemimiz tarafından otomatik engellendi.
             </p>
-            <div className="flex items-center flex-wrap gap-4 text-xs">
+            <div className="flex items-center flex-wrap gap-3 text-xs">
               <span className="text-matrix-400 flex items-center">
                 <CheckCircle className="h-3 w-3 mr-1" />
                 AI Koruma Aktif
@@ -396,6 +439,44 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           </div>
         </div>
       </div>
+
+          <div className="bg-gradient-to-r from-slate-800/90 via-slate-700/90 to-slate-800/90 backdrop-blur-sm rounded-lg p-5 border border-cyber-500/30 shadow-lg mt-6">
+            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
+              <Heart className="h-5 w-5 text-pink-400" />
+              Sevdiklerinize Tavsiye Edin
+            </h3>
+            <p className="text-slate-300 text-sm mb-3">
+              DigiGuard'ı arkadaşlarınız ve ailenizle paylaşın. Her başarılı kayıt için özel avantajlar kazanın!
+            </p>
+            <div className="flex gap-3">
+              <input
+                type="text"
+                readOnly
+                value="https://digiguard.app/ref/DG-2024-USER"
+                className="flex-1 bg-slate-900/50 text-slate-300 px-4 py-2 rounded-lg border border-cyber-500/30 text-sm focus:outline-none focus:border-cyber-500/50"
+              />
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText('https://digiguard.app/ref/DG-2024-USER');
+                  alert('Referans linki kopyalandı!');
+                }}
+                className="bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-medium px-6 py-2 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-cyber-500/30"
+              >
+                <Award className="h-4 w-4" />
+                Kopyala
+              </button>
+            </div>
+            <div className="flex items-center gap-4 mt-3 text-xs text-slate-400">
+              <span className="flex items-center gap-1">
+                <CheckCircle className="h-3 w-3 text-matrix-400" />
+                0 Başarılı Referans
+              </span>
+              <span className="flex items-center gap-1">
+                <Award className="h-3 w-3 text-cyber-400" />
+                Premium Avantajlar
+              </span>
+            </div>
+          </div>
 
           <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
           <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />

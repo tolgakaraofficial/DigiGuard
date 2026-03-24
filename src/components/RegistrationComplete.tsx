@@ -345,27 +345,6 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
         </div>
       </div>
 
-      <div className="flex space-x-4 relative z-10">
-        <button
-          onClick={handleDownloadCertificate}
-          className={`flex-1 font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg ${
-            certificateGenerated
-              ? 'bg-gradient-to-r from-matrix-600 to-matrix-700 hover:from-matrix-700 hover:to-matrix-800 text-white shadow-matrix-500/30'
-              : 'bg-gradient-to-r from-cyber-600 to-cyber-700 hover:from-cyber-700 hover:to-cyber-800 text-white shadow-cyber-500/30'
-          }`}
-        >
-          <Download className="h-5 w-5" />
-          <span>Sertifika İndir</span>
-        </button>
-
-        <button
-          onClick={() => alert('KYC profil görüntüleme özelliği yakında eklenecek!')}
-          className="flex-1 bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-slate-500/30"
-        >
-          <Eye className="h-5 w-5" />
-          <span>KYC Profili Görüntüle</span>
-        </button>
-      </div>
 
       <div className="mt-8 text-center relative z-10">
         <button

@@ -184,8 +184,11 @@ export const MonitoringPanel: React.FC = () => {
             <Shield className="h-7 w-7 text-cyber-400 mr-3" />
             Kimlik İzleme ve İhlal Tespit Merkezi
           </h2>
-          <p className="text-slate-400 mt-1">
+          <p className="text-slate-400 mt-1 flex items-center gap-2">
             Tüm arama motorları, sosyal medya ve web sitelerinden kimlik taraması
+            <span className="px-2 py-0.5 bg-yellow-600/30 text-yellow-300 text-xs rounded-full border border-yellow-500/50 font-semibold">
+              Tarama/Raporlama Ücretlidir
+            </span>
           </p>
         </div>
         <button
