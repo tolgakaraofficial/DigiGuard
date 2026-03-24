@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info } from 'lucide-react';
+import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
 import { IntegrationsModal } from './IntegrationsModal';
@@ -54,10 +55,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
     return 'from-blue-400 to-cyan-400';
   };
 
-  const generateBlockchainCertificate = () => {
+  const generateBlockchainCertificate = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      alert('Kullanıcı bilgisi bulunamadı!');
+      return;
+    }
+
+    const { data: userData } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', user.id)
+      .maybeSingle();
+
     generatePremiumCertificate({
       userType,
-      language
+      language,
+      userName: userData?.full_name || user.email?.split('@')[0] || 'Kullanıcı',
+      userEmail: user.email || '',
+      registrationDate: userData?.created_at || user.created_at,
+      userId: user.id
     });
   };
 

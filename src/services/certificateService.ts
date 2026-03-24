@@ -4,6 +4,9 @@ interface CertificateData {
   userType: string;
   certificateId?: string;
   userName?: string;
+  userEmail?: string;
+  registrationDate?: string;
+  userId?: string;
   language?: string;
 }
 
@@ -59,13 +62,13 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   }
 
   doc.setFontSize(30);
-  doc.setTextColor(0, 51, 102);
+  doc.setTextColor(218, 165, 32);
   doc.setFont('helvetica', 'bold');
   doc.text('DigiGuard', 105, 40, { align: 'center' });
 
   doc.setFontSize(8);
-  doc.setTextColor(100, 100, 100);
-  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(218, 165, 32);
+  doc.setFont('helvetica', 'bold');
   doc.text('Karprime Technology INC.', 105, 46, { align: 'center' });
 
   doc.setFontSize(18);
@@ -82,7 +85,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setLineWidth(0.5);
   doc.line(45, 72, 165, 72);
 
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(50, 50, 50);
   doc.setFont('helvetica', 'normal');
   const descriptionText = 'Bu sertifika, aşağıda belirtilen kişi/kuruluşun DigiGuard Biyometrik KYC sistemi';
@@ -113,7 +116,25 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.text('Sertifika No:', 35, yPos);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(139, 0, 0);
-  doc.text(certificateId, 80, yPos);
+  doc.text(certificateId, 75, yPos);
+
+  yPos += lineHeight;
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(60, 60, 60);
+  doc.text('Ad Soyad / Kurum:', 35, yPos);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(0, 51, 102);
+  const displayName = data.userName || 'Kullanıcı';
+  doc.text(displayName.substring(0, 35), 75, yPos);
+
+  yPos += lineHeight;
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(60, 60, 60);
+  doc.text('E-posta:', 35, yPos);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(0, 51, 102);
+  const displayEmail = data.userEmail || '';
+  doc.text(displayEmail.substring(0, 38), 75, yPos);
 
   yPos += lineHeight;
   doc.setFont('helvetica', 'normal');
@@ -122,31 +143,16 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(0, 100, 0);
   const userTypeLabel = data.userType === 'corporate' ? 'Kurumsal' : data.userType === 'personnel' ? 'Personel' : 'Bireysel';
-  doc.text(userTypeLabel, 80, yPos);
+  doc.text(userTypeLabel, 75, yPos);
 
   yPos += lineHeight;
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(60, 60, 60);
-  doc.text('Doğrulama Seviyesi:', 35, yPos);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(0, 100, 0);
-  doc.text('Tam Doğrulanmış (KYC Level 3)', 80, yPos);
-
-  yPos += lineHeight;
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-  doc.text('Güvenlik Teknolojisi:', 35, yPos);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(0, 51, 102);
-  doc.text('DigiGuard SSL + Biyometrik KYC', 80, yPos);
-
-  yPos += lineHeight;
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-  doc.text('Veriliş Tarihi:', 35, yPos);
+  doc.text('Kayıt Tarihi:', 35, yPos);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(0, 0, 0);
-  doc.text(now.toLocaleDateString('tr-TR'), 80, yPos);
+  const regDate = data.registrationDate ? new Date(data.registrationDate) : now;
+  doc.text(regDate.toLocaleDateString('tr-TR'), 75, yPos);
 
   doc.setFillColor(248, 249, 250);
   doc.roundedRect(30, 157, 150, 43, 2, 2, 'F');
@@ -167,27 +173,27 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.text('Blockchain Hash:', 35, yPos);
   doc.setTextColor(100, 50, 150);
   doc.setFont('courier', 'normal');
-  doc.text(blockchainHash.substring(0, 54), 35, yPos + 3);
-  doc.text(blockchainHash.substring(54), 35, yPos + 6);
+  doc.text(blockchainHash.substring(0, 52), 35, yPos + 3);
+  doc.text(blockchainHash.substring(52), 35, yPos + 6);
 
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(80, 80, 80);
   yPos += 13;
   doc.text('Zaman Damgası (UTC+3):', 35, yPos);
   doc.setTextColor(0, 100, 0);
-  doc.text(timestamp, 72, yPos);
+  doc.text(timestamp.substring(0, 40), 70, yPos);
 
   yPos += 4;
   doc.setTextColor(80, 80, 80);
   doc.text('Blockchain Ağı:', 35, yPos);
   doc.setTextColor(0, 100, 0);
-  doc.text('Ethereum Mainnet', 72, yPos);
+  doc.text('Ethereum Mainnet', 70, yPos);
 
   yPos += 4;
   doc.setTextColor(80, 80, 80);
-  doc.text('Şifreleme Standardı:', 35, yPos);
+  doc.text('Şifreleme:', 35, yPos);
   doc.setTextColor(0, 100, 0);
-  doc.text('AES-256 + SHA-256 + RSA-4096', 72, yPos);
+  doc.text('AES-256 + SHA-256 + RSA-4096', 70, yPos);
 
   doc.setFillColor(255, 250, 240);
   doc.roundedRect(30, 207, 150, 23, 2, 2, 'F');
@@ -200,15 +206,15 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFont('helvetica', 'bold');
   doc.text('NEDEN VERİLDİ?', 35, 214);
 
-  doc.setFontSize(7);
+  doc.setFontSize(6.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(60, 60, 60);
-  const reason1 = 'Bu sertifika, kimlik doğrulama süreçlerinin başarıyla tamamlandığını, biyometrik verilerin';
-  const reason2 = 'güvenli bir şekilde kaydedildiğini ve blockchain teknolojisi ile değiştirilemez bir kayıt';
-  const reason3 = 'oluşturulduğunu teyit etmek amacıyla Karprime Technology INC. tarafından verilmiştir.';
-  doc.text(reason1, 35, 219);
-  doc.text(reason2, 35, 223);
-  doc.text(reason3, 35, 227);
+  const reason1 = 'Bu sertifika, kimlik doğrulama süreçlerinin başarıyla tamamlandığını,';
+  const reason2 = 'biyometrik verilerin güvenli kaydedildiğini ve blockchain teknolojisi ile';
+  const reason3 = 'değiştirilemez kayıt oluşturulduğunu teyit eder. Karprime Technology INC.';
+  doc.text(reason1, 35, 218);
+  doc.text(reason2, 35, 222);
+  doc.text(reason3, 35, 226);
 
   doc.setDrawColor(218, 165, 32);
   doc.setLineWidth(0.5);
@@ -222,7 +228,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
 
   doc.setFontSize(8);
   doc.setFont('helvetica', 'bold');
-  doc.setTextColor(0, 51, 102);
+  doc.setTextColor(218, 165, 32);
   doc.text('Karprime Technology INC.', 155, 245, { align: 'center' });
 
   doc.setDrawColor(218, 165, 32);
@@ -245,10 +251,10 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(6);
   doc.setTextColor(120, 120, 120);
   doc.setFont('helvetica', 'italic');
-  const footer1 = 'Bu sertifika blockchain teknolojisi ile güvence altına alınmıştır ve değiştirilemez.';
-  const footer2 = `Doğrulama: https://digiguard.app/verify/${certificateId}`;
-  doc.text(footer1, 105, 260, { align: 'center' });
-  doc.text(footer2, 105, 265, { align: 'center' });
+  const footer1 = 'Bu sertifika blockchain ile güvence altındadır ve değiştirilemez.';
+  const footer2 = `Doğrulama: https://digiguard.app/verify/${certificateId.substring(0, 25)}`;
+  doc.text(footer1, 105, 258, { align: 'center' });
+  doc.text(footer2, 105, 263, { align: 'center' });
 
   doc.save(`DigiGuard_KYC_Certificate_${certificateId}.pdf`);
 };
