@@ -65,80 +65,79 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
   }
 
   return (
-    <div className="space-y-6">
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 border border-slate-700">
+    <div className="space-y-3">
+      <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg p-3 border border-slate-700/50">
         <button
           onClick={() => setExpandedSection(expandedSection === 'person' ? null : 'person')}
-          className="w-full flex items-center justify-between mb-4"
+          className="w-full flex items-center justify-between mb-3"
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-500/10 rounded-lg">
-              <MapPin className="w-6 h-6 text-blue-400" />
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 bg-blue-500/10 rounded">
+              <MapPin className="w-4 h-4 text-blue-400" />
             </div>
             <div className="text-left">
-              <h3 className="text-lg font-bold text-white">Kişi Takibi</h3>
-              <p className="text-sm text-slate-400">{personTracking.length} aktif kayıt</p>
+              <h3 className="text-sm font-bold text-white">Kişi Takibi</h3>
+              <p className="text-xs text-slate-400">{personTracking.length} kayıt</p>
             </div>
           </div>
           {expandedSection === 'person' ? (
-            <ChevronUp className="w-5 h-5 text-slate-400" />
+            <ChevronUp className="w-4 h-4 text-slate-400" />
           ) : (
-            <ChevronDown className="w-5 h-5 text-slate-400" />
+            <ChevronDown className="w-4 h-4 text-slate-400" />
           )}
         </button>
 
         {expandedSection === 'person' && (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {personTracking.length === 0 ? (
-              <div className="text-center py-8 text-slate-400">
-                <Radio className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>Henüz kayıtlı kişi takibi yok</p>
+              <div className="text-center py-4 text-slate-400">
+                <Radio className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                <p className="text-xs">Henüz kayıt yok</p>
               </div>
             ) : (
               personTracking.map((person) => (
                 <div
                   key={person.id}
-                  className="bg-slate-800/50 rounded-lg p-4 border border-slate-700 hover:border-blue-500/50 transition-all"
+                  className="bg-slate-700/30 rounded p-2 border border-slate-700 hover:border-blue-500/50 transition-all"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-medium text-white">Sertifika: {person.certificate_id}</span>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="text-sm text-white">{person.certificate_id}</span>
                         {person.tracking_enabled ? (
-                          <CheckCircle className="w-4 h-4 text-green-400" />
+                          <CheckCircle className="w-3 h-3 text-green-400" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-red-400" />
+                          <XCircle className="w-3 h-3 text-red-400" />
                         )}
                       </div>
-                      <p className="text-sm text-slate-400">GSM: {person.gsm_number}</p>
-                      <p className="text-sm text-slate-400">Baz İstasyonu: {person.last_base_station || 'Bilinmiyor'}</p>
+                      <p className="text-xs text-slate-400">{person.gsm_number}</p>
                       {person.current_location && (
-                        <p className="text-xs text-blue-400 mt-1">
-                          Konum: {person.current_location.lat.toFixed(6)}, {person.current_location.lng.toFixed(6)}
+                        <p className="text-[10px] text-blue-400 mt-0.5">
+                          {person.current_location.lat.toFixed(4)}, {person.current_location.lng.toFixed(4)}
                         </p>
                       )}
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1">
                       <button
                         onClick={() => updateCurrentLocation(person.id, 'person')}
-                        className="p-2 bg-blue-500/10 hover:bg-blue-500/20 rounded-lg transition-all"
-                        title="Konumu Güncelle"
+                        className="p-1 bg-blue-500/10 hover:bg-blue-500/20 rounded transition-all"
+                        title="Konum Güncelle"
                       >
-                        <Navigation className="w-4 h-4 text-blue-400" />
+                        <Navigation className="w-3 h-3 text-blue-400" />
                       </button>
                       <button
                         onClick={() => toggleTracking(person.id, 'person', person.tracking_enabled)}
-                        className={`p-2 rounded-lg transition-all ${
+                        className={`p-1 rounded transition-all ${
                           person.tracking_enabled
                             ? 'bg-green-500/10 hover:bg-green-500/20'
                             : 'bg-red-500/10 hover:bg-red-500/20'
                         }`}
-                        title={person.tracking_enabled ? 'Takibi Durdur' : 'Takibi Başlat'}
+                        title={person.tracking_enabled ? 'Durdur' : 'Başlat'}
                       >
                         {person.tracking_enabled ? (
-                          <CheckCircle className="w-4 h-4 text-green-400" />
+                          <CheckCircle className="w-3 h-3 text-green-400" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-red-400" />
+                          <XCircle className="w-3 h-3 text-red-400" />
                         )}
                       </button>
                     </div>
@@ -150,18 +149,18 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
         )}
       </div>
 
-      <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 border border-slate-700">
+      <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg p-3 border border-slate-700/50">
         <button
           onClick={() => setExpandedSection(expandedSection === 'chip' ? null : 'chip')}
-          className="w-full flex items-center justify-between mb-4"
+          className="w-full flex items-center justify-between mb-3"
         >
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-purple-500/10 rounded-lg">
-              <Radio className="w-6 h-6 text-purple-400" />
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 bg-purple-500/10 rounded">
+              <Radio className="w-4 h-4 text-purple-400" />
             </div>
             <div className="text-left">
-              <h3 className="text-lg font-bold text-white">Çipli Varlık Takibi</h3>
-              <p className="text-sm text-slate-400">{chipItems.length} kayıtlı varlık</p>
+              <h3 className="text-sm font-bold text-white">Çipli Varlık</h3>
+              <p className="text-xs text-slate-400">{chipItems.length} varlık</p>
             </div>
           </div>
           {expandedSection === 'chip' ? (
@@ -182,53 +181,49 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
               chipItems.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-slate-800/50 rounded-lg p-4 border border-slate-700 hover:border-purple-500/50 transition-all"
+                  className="bg-slate-700/30 rounded p-2 border border-slate-700 hover:border-purple-500/50 transition-all"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-medium text-white">{item.item_name}</span>
-                        <span className="px-2 py-0.5 bg-purple-500/10 text-purple-400 text-xs rounded-full">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="text-sm text-white">{item.item_name}</span>
+                        <span className="px-1.5 py-0.5 bg-purple-500/10 text-purple-400 text-[10px] rounded">
                           {item.item_type}
                         </span>
                         {item.tracking_enabled ? (
-                          <CheckCircle className="w-4 h-4 text-green-400" />
+                          <CheckCircle className="w-3 h-3 text-green-400" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-red-400" />
+                          <XCircle className="w-3 h-3 text-red-400" />
                         )}
                       </div>
-                      <p className="text-sm text-slate-400">Çip: {item.chip_code}</p>
-                      <p className="text-sm text-slate-400">Sertifika: {item.certificate_id}</p>
+                      <p className="text-xs text-slate-400">{item.chip_code}</p>
                       {item.current_location && (
-                        <p className="text-xs text-purple-400 mt-1">
-                          Konum: {item.current_location.lat.toFixed(6)}, {item.current_location.lng.toFixed(6)}
+                        <p className="text-[10px] text-purple-400 mt-0.5">
+                          {item.current_location.lat.toFixed(4)}, {item.current_location.lng.toFixed(4)}
                         </p>
                       )}
-                      <p className="text-xs text-slate-500 mt-1">
-                        Son görülme: {new Date(item.last_seen).toLocaleString('tr-TR')}
-                      </p>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-1">
                       <button
                         onClick={() => updateCurrentLocation(item.id, 'chip')}
-                        className="p-2 bg-purple-500/10 hover:bg-purple-500/20 rounded-lg transition-all"
-                        title="Konumu Güncelle"
+                        className="p-1 bg-purple-500/10 hover:bg-purple-500/20 rounded transition-all"
+                        title="Konum Güncelle"
                       >
-                        <Navigation className="w-4 h-4 text-purple-400" />
+                        <Navigation className="w-3 h-3 text-purple-400" />
                       </button>
                       <button
                         onClick={() => toggleTracking(item.id, 'chip', item.tracking_enabled)}
-                        className={`p-2 rounded-lg transition-all ${
+                        className={`p-1 rounded transition-all ${
                           item.tracking_enabled
                             ? 'bg-green-500/10 hover:bg-green-500/20'
                             : 'bg-red-500/10 hover:bg-red-500/20'
                         }`}
-                        title={item.tracking_enabled ? 'Takibi Durdur' : 'Takibi Başlat'}
+                        title={item.tracking_enabled ? 'Durdur' : 'Başlat'}
                       >
                         {item.tracking_enabled ? (
-                          <CheckCircle className="w-4 h-4 text-green-400" />
+                          <CheckCircle className="w-3 h-3 text-green-400" />
                         ) : (
-                          <XCircle className="w-4 h-4 text-red-400" />
+                          <XCircle className="w-3 h-3 text-red-400" />
                         )}
                       </button>
                     </div>

@@ -209,7 +209,27 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
     },
   ];
   return (
-    <div className="flex min-h-screen bg-slate-900">
+    <div className="flex min-h-screen bg-slate-900 relative overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/3 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 right-1/3 w-80 h-80 bg-purple-500/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+
+        <svg className="absolute top-20 left-20 w-32 h-32 opacity-[0.02]" viewBox="0 0 100 100">
+          <text x="50" y="50" fontSize="50" fill="currentColor" className="text-cyan-500" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">
+            DG
+          </text>
+        </svg>
+
+        <svg className="absolute bottom-32 right-32 w-40 h-40 opacity-[0.02]" viewBox="0 0 100 100">
+          <text x="50" y="50" fontSize="40" fill="currentColor" className="text-blue-500" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">
+            Guard
+          </text>
+        </svg>
+
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.01] via-transparent to-blue-500/[0.01]"></div>
+      </div>
+
       <Sidebar
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
@@ -222,7 +242,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         onOpenSecurityMetrics={() => setSecurityMetricsOpen(true)}
       />
 
-      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'}`}>
+      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'} relative z-10`}>
         <div className="p-6">
           <div className="bg-gradient-to-r from-slate-800/90 via-slate-700/90 to-slate-800/90 backdrop-blur-sm rounded-2xl p-6 border border-cyber-500/30 shadow-2xl mb-8 relative overflow-hidden">
             <div className="absolute -top-20 -right-20 w-60 h-60 bg-cyber-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -401,10 +421,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
 
       {/* Tracking Panel */}
       <div className="mb-8">
-        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 flex items-center gap-2">
-          <Network className="h-6 w-6 text-blue-400" />
-          Takip Sistemleri
-        </h2>
         <TrackingPanel language={language} />
       </div>
 
