@@ -12,6 +12,8 @@ import { TeamModal } from './TeamModal';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { SecurityMetricsModal } from './SecurityMetricsModal';
 import { MonitoringPanel } from './MonitoringPanel';
+import { TrackingPanel } from './TrackingPanel';
+import { CentralMonitoringHub } from './CentralMonitoringHub';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
@@ -288,6 +290,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         </div>
         <div className="flex items-center space-x-2">
           <button
+            onClick={generateBlockchainCertificate}
+            className="bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-700 hover:to-amber-700 text-white font-bold py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-yellow-500/30 text-sm border border-yellow-400/20"
+          >
+            <Award className="h-4 w-4" />
+            <span className="whitespace-nowrap">Sertifika İndir</span>
+          </button>
+          <button
             onClick={() => setSecurityInfoOpen(true)}
             className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-cyan-500/30 text-sm"
           >
@@ -380,9 +389,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       </div>
 
 
+      {/* Central Monitoring Hub */}
+      <div className="mb-8">
+        <CentralMonitoringHub language={language} />
+      </div>
+
       {/* Monitoring Panel */}
       <div className="mb-8">
         <MonitoringPanel />
+      </div>
+
+      {/* Tracking Panel */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 flex items-center gap-2">
+          <Network className="h-6 w-6 text-blue-400" />
+          Takip Sistemleri
+        </h2>
+        <TrackingPanel language={language} />
       </div>
 
       {/* Main Content with Sidebar */}

@@ -12,8 +12,8 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
     {
       type: 'bot',
       text: language === 'tr'
-        ? 'Merhaba! Ben ALBIS, DigiGuard asistanınız. Size nasıl yardımcı olabilirim?'
-        : 'Hello! I am ALBIS, your DigiGuard assistant. How can I help you?',
+        ? 'Merhaba! Ben ALBIS, DigiGuard merkezi yapay zeka asistanınızım. Tüm sistemleri yönetiyorum ve size yardımcı olmak için buradayım. Takip sistemi, sertifikalar, güvenlik panelleri hakkında sorularınızı yanıtlayabilirim.'
+        : 'Hello! I am ALBIS, your DigiGuard central AI assistant. I manage all systems and I am here to help you. I can answer questions about tracking, certificates, and security panels.',
       time: new Date().toLocaleTimeString(language === 'tr' ? 'tr-TR' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
@@ -50,12 +50,18 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
     }
 
     if (language === 'tr') {
-      if (msgLower.includes('nasılsın') || msgLower.includes('nasıl gidiyor') || msgLower.includes('ne haber')) {
-        return '😊 İyiyim, teşekkür ederim! Size yardımcı olmak için buradayım. DigiGuard platformu hakkında bilgi almak ister misiniz?';
+      if (msgLower.includes('takip') || msgLower.includes('konum') || msgLower.includes('yer tespiti')) {
+        return '📍 Takip Sistemleri:\n\n• Kişi Takibi: GSM ve baz istasyonu ile\n• Çipli Varlık Takibi: Hayvan, eşya, araç\n• Gerçek zamanlı konum güncellemesi\n• Blockchain doğrulamalı kayıtlar\n• Geçmiş konum verileri\n\nTakip paneline Dashboard menüsünden ulaşabilirsiniz.';
+      } else if (msgLower.includes('çip') || msgLower.includes('hayvan') || msgLower.includes('eşya')) {
+        return '🔖 Çipli Varlık Sistemi:\n\n• Her varlık için benzersiz çip kodu\n• Sertifika ile entegre kayıt\n• Konum takip sistemi\n• Kayıp/çalıntı bildirimi\n• Sahiplik doğrulama\n\nYeni çipli varlık eklemek için Takip Panelini kullanın.';
+      } else if (msgLower.includes('sertifika') || msgLower.includes('blockchain')) {
+        return '📜 Blockchain Sertifikası:\n\n• Kişisel bilgilerinizle otomatik oluşturulur\n• Altın çerçeveli profesyonel tasarım\n• Blockchain zaman damgası\n• A4 boyutunda baskıya hazır\n• Anında PDF indirme\n\nDashboard üst panelindeki butona tıklayarak indirebilirsiniz.';
+      } else if (msgLower.includes('nasılsın') || msgLower.includes('nasıl gidiyor') || msgLower.includes('ne haber')) {
+        return '😊 Tüm sistemleri izliyorum ve her şey mükemmel çalışıyor! Size yardımcı olmak için buradayım. Takip sistemleri, sertifikalar veya güvenlik hakkında bilgi ister misiniz?';
       } else if (msgLower.includes('adın ne') || msgLower.includes('kimsin')) {
-        return '🤖 Ben ALBIS, DigiGuard yapay zeka asistanıyım. Dijital kimlik güvenliği ve KYC doğrulama konularında size yardımcı oluyorum.';
+        return '🤖 Ben ALBIS, DigiGuard merkezi yapay zeka asistanıyım. Tüm sistemleri yönetiyorum: kimlik doğrulama, takip sistemleri, sertifikalar, güvenlik panelleri. Dijital kimlik güvenliği ve KYC doğrulama konularında size yardımcı oluyorum.';
       } else if (msgLower.includes('teşekkür') || msgLower.includes('sağol')) {
-        return '🙏 Rica ederim! Başka bir konuda yardıma ihtiyacınız olursa buradayım.';
+        return '🙏 Rica ederim! Başka bir konuda yardıma ihtiyacınız olursa buradayım. Sistemlerinizi 7/24 izliyorum.';
       } else if (msgLower.includes('başla') || msgLower.includes('kayıt')) {
         return '🚀 DigiGuard ile başlamak çok kolay!\n\n1. Kayıt formunu doldurun\n2. Kimlik belgelerinizi yükleyin\n3. Biyometrik doğrulama yapın\n4. KYC sertifikanızı alın\n\nHemen şimdi başlamak ister misiniz?';
       } else if (msgLower.includes('birey') || msgLower.includes('kişisel')) {
