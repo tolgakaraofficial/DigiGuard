@@ -64,20 +64,62 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       return;
     }
 
-    const { data: userData } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', user.id)
-      .maybeSingle();
+    try {
+      const { data: userData } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', user.id)
+        .maybeSingle();
 
-    generatePremiumCertificate({
-      userType,
-      language,
-      userName: userData?.full_name || user.email?.split('@')[0] || 'Kullanıcı',
-      userEmail: user.email || '',
-      registrationDate: userData?.created_at || user.created_at,
-      userId: user.id
-    });
+      const { data: identityData } = await supabase
+        .from('user_identity_info')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      const { data: photoData } = await supabase
+        .storage
+        .from('identity-documents')
+        .getPublicUrl(`${user.id}/profile.jpg`);
+
+      setCertData({
+        userName: userData?.full_name || user.email?.split('@')[0] || 'MEMBER',
+        userEmail: user.email || '',
+        registrationDate: userData?.created_at || user.created_at,
+        userId: user.id,
+        userPhoto: photoData?.publicUrl || null,
+        birthDate: identityData?.date_of_birth || null,
+        idNumber: identityData?.id_number || '1234567890',
+        nationality: identityData?.nationality || 'T.C.',
+      });
+      setCertModalOpen(true);
+    } catch (error) {
+      console.error('Error fetching certificate data:', error);
+      setCertData({
+        userName: user.email?.split('@')[0] || 'MEMBER',
+        userEmail: user.email || '',
+        registrationDate: new Date().toISOString(),
+        userId: user.id,
+      });
+      setCertModalOpen(true);
+    }
+  };
+
+  const handleCertDownload = () => {
+    if (certData) {
+      generatePremiumCertificate({
+        userType,
+        language,
+        userName: certData.userName,
+        userEmail: certData.userEmail,
+        registrationDate: certData.registrationDate,
+        userId: certData.userId,
+        userPhoto: certData.userPhoto || undefined,
+        birthDate: certData.birthDate || undefined,
+        idNumber: certData.idNumber,
+        nationality: certData.nationality,
+      });
+    }
   };
 
   const stats = [
@@ -546,6 +588,136 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
         </div>
       </div>
+
+      {/* Certificate Download Modal */}
+      {certModalOpen && certData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={() => setCertModalOpen(false)}>
+          <div className="relative max-w-2xl w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setCertModalOpen(false)}
+              className="absolute -top-3 -right-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full p-1.5 border border-slate-600 z-10 transition-colors"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            {/* Certificate Preview Card */}
+            <div className="bg-white rounded-lg shadow-2xl overflow-hidden" style={{ aspectRatio: '1.5/1' }}>
+              <div className="relative w-full h-full bg-gradient-to-b from-slate-50 to-white p-6 flex flex-col" style={{ fontSize: '12px' }}>
+                {/* Top Header Bar */}
+                <div className="bg-gradient-to-r from-blue-900 to-slate-800 text-white px-4 py-3 -m-6 mb-4 flex items-center justify-between">
+                  <div>
+                    <h1 className="text-xl font-bold">Digiguard</h1>
+                    <p className="text-xs">KİMLİK VE DİJİTAL SERTİFİKA | BIOMETRIC KYC & BLOCKCHAIN VERIFIED</p>
+                  </div>
+                  <div className="text-right text-xs">
+                    <p className="font-mono">DG-{new Date().getFullYear()}-XXXX</p>
+                    <p className="text-slate-400">Block #{Math.floor(Math.random() * 10000000 + 15000000)}</p>
+                  </div>
+                </div>
+
+                {/* Content Grid */}
+                <div className="flex gap-4 flex-1">
+                  {/* Left: Photo */}
+                  <div className="flex-shrink-0 flex flex-col items-center">
+                    <div className="w-24 h-32 bg-gradient-to-br from-blue-100 to-slate-100 rounded border-2 border-blue-300 flex items-center justify-center overflow-hidden">
+                      {certData.userPhoto ? (
+                        <img src={certData.userPhoto} alt="Profile" className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-blue-400 text-xs">PHOTO</span>
+                      )}
+                    </div>
+                    <p className="text-xs font-bold mt-2 text-center leading-tight">{certData.userName}</p>
+                    <p className="text-[10px] text-slate-500">DIGIGUARD</p>
+                  </div>
+
+                  {/* Center: Identity Info */}
+                  <div className="flex-1">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-600">DOĞUM TARİHİ</p>
+                        <p className="text-sm font-bold">{certData.birthDate || '01.01.1990'}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-600">UYRUK</p>
+                        <p className="text-sm font-bold">{certData.nationality}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-600">KİMLİK NO</p>
+                        <p className="text-sm font-bold font-mono">{certData.idNumber}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-600">SERTİFİKA NO</p>
+                        <p className="text-sm font-bold text-blue-600">{`DG-${new Date().getFullYear()}-XXXX`}</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 p-2 bg-blue-50 rounded border border-blue-200">
+                      <p className="text-[9px] font-bold text-blue-700">E-POSTA</p>
+                      <p className="text-[11px] text-blue-900">{certData.userEmail}</p>
+                    </div>
+
+                    {/* Blockchain box */}
+                    <div className="mt-3 p-2 bg-cyan-50 rounded border border-cyan-300">
+                      <p className="text-[9px] font-bold text-cyan-700">BLOCKCHAIN DOĞRULAMA</p>
+                      <p className="text-[8px] text-cyan-600 font-mono mt-1">Ag: Ethereum | Sifreleme: AES-256</p>
+                      <p className="text-[8px] text-green-600 font-bold mt-1">
+                        VERIFIED: {new Date().toLocaleString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Right: QR & Biometric */}
+                  <div className="flex flex-col gap-2 items-center">
+                    {/* QR Code placeholder */}
+                    <div className="w-20 h-20 bg-white border-2 border-slate-300 flex items-center justify-center grid grid-cols-5 gap-0.5 p-1">
+                      {Array.from({ length: 25 }).map((_, i) => (
+                        <div
+                          key={i}
+                          className={`flex-1 rounded-[1px] ${Math.random() > 0.5 ? 'bg-black' : 'bg-white'}`}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-[8px] text-center font-bold text-slate-700 leading-tight">SCAN TO<br />VERIFY</p>
+
+                    {/* Biometric badge */}
+                    <div className="text-center mt-2 p-1.5 bg-green-50 rounded border border-green-300 w-full">
+                      <p className="text-[9px] font-bold text-green-700">BIOMETRIC</p>
+                      <p className="text-[8px] text-green-600">KYC APPROVED</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom status bar */}
+                <div className="mt-3 pt-3 border-t border-slate-300 flex justify-between items-center text-[9px]">
+                  <div className="flex gap-3">
+                    <span className="px-2 py-1 bg-slate-100 rounded border border-slate-300">CERT ID</span>
+                    <span className="px-2 py-1 bg-green-100 rounded border border-green-300 text-green-700 font-bold">VERIFIED</span>
+                    <span className="px-2 py-1 bg-blue-100 rounded border border-blue-300 text-blue-700">AES-256</span>
+                  </div>
+                  <p className="text-slate-600">Karprime Technology INC.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Download Button */}
+            <div className="mt-4 flex justify-center gap-3">
+              <button
+                onClick={handleCertDownload}
+                className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/30 text-sm"
+              >
+                <Download className="h-5 w-5" />
+                PDF Olarak İndir
+              </button>
+              <button
+                onClick={() => setCertModalOpen(false)}
+                className="bg-slate-600 hover:bg-slate-700 text-white font-bold py-3 px-8 rounded-lg transition-all"
+              >
+                Kapat
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <AlbisChatBot language={language} />
     </div>

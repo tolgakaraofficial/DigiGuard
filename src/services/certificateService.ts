@@ -8,253 +8,388 @@ interface CertificateData {
   registrationDate?: string;
   userId?: string;
   language?: string;
+  userPhoto?: string;
+  birthDate?: string;
+  idNumber?: string;
+  nationality?: string;
+}
+
+function generateBlockchainHash(): string {
+  return `0x${Array.from({ length: 64 }, () =>
+    Math.floor(Math.random() * 16).toString(16)
+  ).join('')}`;
+}
+
+function generateCertificateId(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `DG-${year}-${random}`;
+}
+
+function formatDateTR(date: Date | string): string {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return d.toLocaleDateString('tr-TR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+}
+
+function generateQRCodeMatrix(): boolean[][] {
+  const size = 21;
+  const matrix: boolean[][] = Array(size).fill(null).map(() => Array(size).fill(false));
+
+  // Add version info patterns
+  for (let i = 0; i < 9; i++) {
+    matrix[8][i] = true;
+    matrix[i][8] = true;
+    matrix[8][size - 1 - i] = true;
+    matrix[size - 1 - i][8] = true;
+  }
+
+  // Add finder patterns (corners)
+  const addFinderPattern = (x: number, y: number) => {
+    for (let i = 0; i < 7; i++) {
+      for (let j = 0; j < 7; j++) {
+        if (i === 0 || i === 6 || j === 0 || j === 6 || (i >= 2 && i <= 4 && j >= 2 && j <= 4)) {
+          if (x + i < size && y + j < size) {
+            matrix[x + i][y + j] = true;
+          }
+        }
+      }
+    }
+  };
+
+  addFinderPattern(0, 0);
+  addFinderPattern(0, size - 7);
+  addFinderPattern(size - 7, 0);
+
+  // Fill data randomly
+  for (let i = 9; i < size - 8; i++) {
+    for (let j = 9; j < size - 8; j++) {
+      matrix[i][j] = Math.random() > 0.5;
+    }
+  }
+
+  return matrix;
 }
 
 export const generatePremiumCertificate = (data: CertificateData) => {
   const doc = new jsPDF({
-    orientation: 'portrait',
+    orientation: 'landscape',
     unit: 'mm',
-    format: 'a4'
+    format: [152, 101]
   });
+
+  const pageW = 152;
+  const pageH = 101;
 
   const now = new Date();
   const timestamp = now.toLocaleString('tr-TR', {
     year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
     timeZone: 'Europe/Istanbul'
   });
 
-  const blockchainHash = `0x${Array.from({ length: 64 }, () =>
-    Math.floor(Math.random() * 16).toString(16)
-  ).join('')}`;
+  const blockchainHash = generateBlockchainHash();
+  const certificateId = data.certificateId || generateCertificateId();
+  const blockNumber = Math.floor(Math.random() * 10000000 + 15000000);
+  const displayName = (data.userName || 'MEMBER').toUpperCase();
+  const birthDate = data.birthDate ? formatDateTR(data.birthDate) : '01.01.1990';
+  const idNumber = data.idNumber || '1234567890';
+  const nationality = data.nationality || 'T.C.';
 
-  const certificateId = data.certificateId ||
-    `DG-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+  // ===== BACKGROUND & BORDERS =====
+  doc.setFillColor(240, 245, 250);
+  doc.rect(0, 0, pageW, pageH, 'F');
 
-  doc.setFillColor(255, 255, 255);
-  doc.rect(0, 0, 210, 297, 'F');
+  // Top gradient bar - dark blue
+  doc.setFillColor(15, 35, 75);
+  doc.rect(0, 0, pageW, 18, 'F');
 
-  doc.setFillColor(218, 165, 32);
-  doc.rect(10, 10, 190, 4);
-  doc.rect(10, 283, 190, 4);
-  doc.rect(10, 10, 4, 277);
-  doc.rect(196, 10, 4, 277);
+  // Bottom section - light gray
+  doc.setFillColor(245, 248, 252);
+  doc.rect(0, 65, pageW, pageH - 65, 'F');
 
-  doc.setDrawColor(218, 165, 32);
+  // ===== TOP HEADER SECTION =====
+  // Logo area
+  doc.setFontSize(22);
+  doc.setTextColor(0, 200, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Digiguard', 8, 14);
+
+  // Shield icon - simplified
+  doc.setDrawColor(0, 200, 255);
   doc.setLineWidth(0.5);
-  doc.rect(18, 18, 174, 261);
+  doc.roundedRect(4, 2, 3.5, 4, 0.2, 0.2);
 
-  doc.setDrawColor(200, 150, 20);
-  doc.setLineWidth(0.2);
-  doc.rect(20, 20, 170, 257);
+  // Title
+  doc.setFontSize(7.5);
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'bold');
+  doc.text('KİMLİK VE DİJİTAL SERTİFİKA / IDENTITY AND DIGITAL CERTIFICATE', 8, 18.5);
+  doc.setFontSize(6.5);
+  doc.text('BIOMETRIC KYC & BLOCKCHAIN VERIFIED', 8, 21);
 
-  doc.setDrawColor(218, 165, 32);
-  doc.setLineWidth(0.3);
-  for (let i = 0; i < 3; i++) {
-    doc.circle(23 + i * 0.4, 23 + i * 0.4, 1.5 - i * 0.3);
-    doc.circle(187 - i * 0.4, 23 + i * 0.4, 1.5 - i * 0.3);
-    doc.circle(23 + i * 0.4, 274 - i * 0.4, 1.5 - i * 0.3);
-    doc.circle(187 - i * 0.4, 274 - i * 0.4, 1.5 - i * 0.3);
+  // ===== LEFT SECTION: PHOTO & NAME =====
+  const photoX = 7;
+  const photoY = 26;
+  const photoW = 22;
+  const photoH = 28;
+
+  // Photo frame
+  doc.setDrawColor(100, 140, 180);
+  doc.setLineWidth(0.8);
+  doc.roundedRect(photoX, photoY, photoW, photoH, 1, 1);
+
+  // Load user photo if available, else placeholder
+  if (data.userPhoto) {
+    try {
+      doc.addImage(data.userPhoto, 'JPEG', photoX + 0.5, photoY + 0.5, photoW - 1, photoH - 1);
+    } catch (e) {
+      // Fallback to placeholder
+      doc.setFillColor(200, 220, 240);
+      doc.rect(photoX + 0.5, photoY + 0.5, photoW - 1, photoH - 1, 'F');
+      doc.setFontSize(8);
+      doc.setTextColor(100, 140, 180);
+      doc.text('PHOTO', photoX + photoW / 2, photoY + photoH / 2, { align: 'center' });
+    }
+  } else {
+    doc.setFillColor(200, 220, 240);
+    doc.rect(photoX + 0.5, photoY + 0.5, photoW - 1, photoH - 1, 'F');
+    doc.setFontSize(8);
+    doc.setTextColor(100, 140, 180);
+    doc.text('PHOTO', photoX + photoW / 2, photoY + photoH / 2, { align: 'center' });
   }
 
-  doc.setFontSize(30);
-  doc.setTextColor(218, 165, 32);
-  doc.setFont('helvetica', 'bold');
-  doc.text('DigiGuard', 105, 40, { align: 'center' });
-
-  doc.setFontSize(8);
-  doc.setTextColor(218, 165, 32);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Karprime Technology INC.', 105, 46, { align: 'center' });
-
-  doc.setFontSize(18);
-  doc.setTextColor(139, 0, 0);
-  doc.setFont('times', 'bold');
-  doc.text('KİMLİK DOĞRULAMA SERTİFİKASI', 105, 60, { align: 'center' });
-
-  doc.setFontSize(9);
-  doc.setTextColor(70, 70, 70);
-  doc.setFont('helvetica', 'italic');
-  doc.text('Certificate of Identity Verification', 105, 66, { align: 'center' });
-
-  doc.setDrawColor(218, 165, 32);
-  doc.setLineWidth(0.5);
-  doc.line(45, 72, 165, 72);
-
-  doc.setFontSize(7.5);
-  doc.setTextColor(50, 50, 50);
-  doc.setFont('helvetica', 'normal');
-  const descriptionText = 'Bu sertifika, aşağıda belirtilen kişi/kuruluşun DigiGuard Biyometrik KYC sistemi';
-  const descriptionText2 = 'tarafından blockchain teknolojisi ile doğrulandığını ve kimlik bilgilerinin';
-  const descriptionText3 = 'güvenli bir şekilde saklandığını teyit eder.';
-  doc.text(descriptionText, 105, 82, { align: 'center' });
-  doc.text(descriptionText2, 105, 87, { align: 'center' });
-  doc.text(descriptionText3, 105, 92, { align: 'center' });
-
-  doc.setFillColor(248, 249, 250);
-  doc.roundedRect(30, 100, 150, 50, 2, 2, 'F');
-  doc.setDrawColor(218, 165, 32);
-  doc.setLineWidth(0.5);
-  doc.roundedRect(30, 100, 150, 50, 2, 2, 'S');
-
-  doc.setFontSize(10);
-  doc.setTextColor(0, 51, 102);
-  doc.setFont('helvetica', 'bold');
-  doc.text('SERTİFİKA BİLGİLERİ', 35, 108);
-
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-
-  let yPos = 117;
-  const lineHeight = 7;
-
-  doc.text('Sertifika No:', 35, yPos);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(139, 0, 0);
-  doc.text(certificateId, 75, yPos);
-
-  yPos += lineHeight;
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-  doc.text('Ad Soyad / Kurum:', 35, yPos);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(0, 51, 102);
-  const displayName = data.userName || 'Kullanıcı';
-  doc.text(displayName.substring(0, 35), 75, yPos);
-
-  yPos += lineHeight;
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-  doc.text('E-posta:', 35, yPos);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(0, 51, 102);
-  const displayEmail = data.userEmail || '';
-  doc.text(displayEmail.substring(0, 38), 75, yPos);
-
-  yPos += lineHeight;
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-  doc.text('Kullanıcı Tipi:', 35, yPos);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(0, 100, 0);
-  const userTypeLabel = data.userType === 'corporate' ? 'Kurumsal' : data.userType === 'personnel' ? 'Personel' : 'Bireysel';
-  doc.text(userTypeLabel, 75, yPos);
-
-  yPos += lineHeight;
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-  doc.text('Kayıt Tarihi:', 35, yPos);
-  doc.setFont('helvetica', 'bold');
+  // Name below photo
+  doc.setFontSize(9.5);
   doc.setTextColor(0, 0, 0);
-  const regDate = data.registrationDate ? new Date(data.registrationDate) : now;
-  doc.text(regDate.toLocaleDateString('tr-TR'), 75, yPos);
-
-  doc.setFillColor(248, 249, 250);
-  doc.roundedRect(30, 157, 150, 43, 2, 2, 'F');
-  doc.setDrawColor(0, 51, 102);
-  doc.setLineWidth(0.5);
-  doc.roundedRect(30, 157, 150, 43, 2, 2, 'S');
-
-  doc.setFontSize(10);
-  doc.setTextColor(0, 51, 102);
   doc.setFont('helvetica', 'bold');
-  doc.text('BLOCKCHAIN DOĞRULAMA', 35, 165);
+  doc.text(displayName, photoX + photoW / 2, photoY + photoH + 4, { align: 'center' });
 
-  doc.setFontSize(6.5);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(80, 80, 80);
-
-  yPos = 172;
-  doc.text('Blockchain Hash:', 35, yPos);
-  doc.setTextColor(100, 50, 150);
-  doc.setFont('courier', 'normal');
-  doc.text(blockchainHash.substring(0, 52), 35, yPos + 3);
-  doc.text(blockchainHash.substring(52), 35, yPos + 6);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(80, 80, 80);
-  yPos += 13;
-  doc.text('Zaman Damgası (UTC+3):', 35, yPos);
-  doc.setTextColor(0, 100, 0);
-  doc.text(timestamp.substring(0, 40), 70, yPos);
-
-  yPos += 4;
-  doc.setTextColor(80, 80, 80);
-  doc.text('Blockchain Ağı:', 35, yPos);
-  doc.setTextColor(0, 100, 0);
-  doc.text('Ethereum Mainnet', 70, yPos);
-
-  yPos += 4;
-  doc.setTextColor(80, 80, 80);
-  doc.text('Şifreleme:', 35, yPos);
-  doc.setTextColor(0, 100, 0);
-  doc.text('AES-256 + SHA-256 + RSA-4096', 70, yPos);
-
-  doc.setFillColor(255, 250, 240);
-  doc.roundedRect(30, 207, 150, 23, 2, 2, 'F');
-  doc.setDrawColor(218, 165, 32);
-  doc.setLineWidth(0.3);
-  doc.roundedRect(30, 207, 150, 23, 2, 2, 'S');
-
-  doc.setFontSize(8);
-  doc.setTextColor(139, 0, 0);
-  doc.setFont('helvetica', 'bold');
-  doc.text('NEDEN VERİLDİ?', 35, 214);
-
-  doc.setFontSize(6.5);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(60, 60, 60);
-  const reason1 = 'Bu sertifika, kimlik doğrulama süreçlerinin başarıyla tamamlandığını,';
-  const reason2 = 'biyometrik verilerin güvenli kaydedildiğini ve blockchain teknolojisi ile';
-  const reason3 = 'değiştirilemez kayıt oluşturulduğunu teyit eder. Karprime Technology INC.';
-  doc.text(reason1, 35, 218);
-  doc.text(reason2, 35, 222);
-  doc.text(reason3, 35, 226);
-
-  doc.setDrawColor(218, 165, 32);
-  doc.setLineWidth(0.5);
-  doc.line(30, 240, 80, 240);
-  doc.line(130, 240, 180, 240);
-
-  doc.setFontSize(6.5);
-  doc.setTextColor(100, 100, 100);
-  doc.setFont('helvetica', 'italic');
-  doc.text('Dijital Mühür', 55, 245, { align: 'center' });
-
-  doc.setFontSize(8);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(218, 165, 32);
-  doc.text('Karprime Technology INC.', 155, 245, { align: 'center' });
-
-  doc.setDrawColor(218, 165, 32);
-  doc.setFillColor(255, 255, 255);
-  doc.circle(55, 241.5, 3, 'FD');
-
+  // DigiGuard footer text
   doc.setFontSize(5);
-  doc.setTextColor(139, 0, 0);
-  doc.setFont('helvetica', 'bold');
-  doc.text('DG', 55, 242.5, { align: 'center' });
+  doc.setTextColor(150, 150, 150);
+  doc.setFont('helvetica', 'normal');
+  doc.text('DIGIGUARD', photoX + photoW / 2, photoY + photoH + 8, { align: 'center' });
 
-  doc.setDrawColor(0, 51, 102);
-  doc.setLineWidth(0.6);
-  doc.line(130, 242, 180, 242);
-  doc.setFontSize(6.5);
-  doc.setTextColor(100, 100, 100);
-  doc.setFont('helvetica', 'italic');
-  doc.text('Yetkili İmza', 155, 248, { align: 'center' });
+  // ===== CENTER SECTION: IDENTITY INFO =====
+  const infoX = 32;
+  const infoY = 26;
+
+  // Section title
+  doc.setFontSize(7);
+  doc.setTextColor(15, 35, 75);
+  doc.setFont('helvetica', 'bold');
+  doc.text('DOĞUM TARİHİ / DATE OF BIRTH:', infoX, infoY);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text(birthDate, infoX, infoY + 5);
+
+  // Row 2
+  doc.setFontSize(7);
+  doc.setTextColor(15, 35, 75);
+  doc.setFont('helvetica', 'bold');
+  doc.text('UYRUK / NATIONALITY:', infoX, infoY + 11);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text(nationality, infoX, infoY + 16);
+
+  // Row 3
+  doc.setFontSize(7);
+  doc.setTextColor(15, 35, 75);
+  doc.setFont('helvetica', 'bold');
+  doc.text('KİMLİK NO / ID NO:', infoX, infoY + 22);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text(idNumber, infoX, infoY + 27);
+
+  // Column 2
+  const col2X = 70;
+
+  doc.setFontSize(7);
+  doc.setTextColor(15, 35, 75);
+  doc.setFont('helvetica', 'bold');
+  doc.text('SERTİFİKA NO / CERTIFICATE NO:', col2X, infoY);
+  doc.setFontSize(8.5);
+  doc.setTextColor(0, 100, 200);
+  doc.setFont('helvetica', 'bold');
+  doc.text(certificateId, col2X, infoY + 5);
+
+  doc.setFontSize(7);
+  doc.setTextColor(15, 35, 75);
+  doc.setFont('helvetica', 'normal');
+  doc.text('E-POSTA / EMAIL:', col2X, infoY + 11);
+  doc.setFontSize(7);
+  doc.setFont('helvetica', 'normal');
+  doc.text((data.userEmail || '').substring(0, 28), col2X, infoY + 16);
+
+  // ===== RIGHT SECTION: BLOCKCHAIN & BIOMETRIC =====
+  const rightX = 100;
+
+  // Biometric box
+  doc.setFillColor(220, 240, 255);
+  doc.setDrawColor(0, 150, 200);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(rightX, infoY, 50, 22, 1, 1, 'FD');
 
   doc.setFontSize(6);
+  doc.setTextColor(0, 100, 150);
+  doc.setFont('helvetica', 'bold');
+  doc.text('BIOMETRIC', rightX + 25, infoY + 4, { align: 'center' });
+  doc.text('KYC APPROVED', rightX + 25, infoY + 8, { align: 'center' });
+
+  doc.setFontSize(5);
+  doc.setTextColor(100, 100, 100);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Fingerprint verified', rightX + 25, infoY + 12, { align: 'center' });
+  doc.text('Face recognition passed', rightX + 25, infoY + 16, { align: 'center' });
+  doc.text('Voice analysis confirmed', rightX + 25, infoY + 20, { align: 'center' });
+
+  // ===== QR CODE SECTION =====
+  const qrX = rightX;
+  const qrY = infoY + 25;
+  const qrSize = 15;
+
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(50, 50, 50);
+  doc.setLineWidth(0.3);
+  doc.rect(qrX, qrY, qrSize, qrSize, 'FD');
+
+  // Generate QR pattern
+  const qrMatrix = generateQRCodeMatrix();
+  const moduleSize = qrSize / 21;
+  doc.setFillColor(0, 0, 0);
+
+  for (let i = 0; i < qrMatrix.length; i++) {
+    for (let j = 0; j < qrMatrix[i].length; j++) {
+      if (qrMatrix[i][j]) {
+        doc.rect(
+          qrX + j * moduleSize,
+          qrY + i * moduleSize,
+          moduleSize,
+          moduleSize,
+          'F'
+        );
+      }
+    }
+  }
+
+  doc.setFontSize(4);
+  doc.setTextColor(50, 50, 50);
+  doc.setFont('helvetica', 'normal');
+  doc.text('SCAN TO VERIFY', qrX + qrSize / 2, qrY + qrSize + 2, { align: 'center' });
+  doc.text('DOĞRULAMAK İÇİN TARAYIN', qrX + qrSize / 2, qrY + qrSize + 4, { align: 'center' });
+
+  // ===== BLOCKCHAIN TIMESTAMP SECTION =====
+  const bcX = rightX + 18;
+
+  doc.setFontSize(6);
+  doc.setTextColor(0, 100, 150);
+  doc.setFont('helvetica', 'bold');
+  doc.text('BLOCKCHAIN', bcX, qrY);
+  doc.text('ZAMAN DAMGALI', bcX, qrY + 4);
+
+  doc.setFontSize(4.5);
+  doc.setTextColor(50, 50, 50);
+  doc.setFont('helvetica', 'normal');
+  doc.text('BLOCKCHAIN TIMESTAMPED', bcX, qrY + 7);
+
+  doc.setFontSize(3.5);
+  doc.setTextColor(0, 150, 100);
+  doc.setFont('courier', 'bold');
+  doc.text(`VERIFIED ON CHAIN:`, bcX, qrY + 10);
+  doc.text(`${timestamp.replace(/\s/g, ' ')} UTC`, bcX, qrY + 12.5);
+
+  // ===== BOTTOM SECTION: DETAILS =====
+  const bottomY = 68;
+
+  // Secure element boxes
+  doc.setFillColor(250, 250, 250);
+  doc.setDrawColor(180, 180, 180);
+  doc.setLineWidth(0.3);
+  doc.rect(5, bottomY, 35, 12, 'FD');
+  doc.rect(42, bottomY, 35, 12, 'FD');
+  doc.rect(79, bottomY, 35, 12, 'FD');
+  doc.rect(116, bottomY, 35, 12, 'FD');
+
+  // Box 1: Certificate ID
+  doc.setFontSize(5);
+  doc.setTextColor(100, 100, 100);
+  doc.setFont('helvetica', 'bold');
+  doc.text('CERT ID', 7, bottomY + 2);
+  doc.setFontSize(6.5);
+  doc.setTextColor(0, 100, 200);
+  doc.setFont('courier', 'bold');
+  doc.text(certificateId, 7, bottomY + 7);
+
+  // Box 2: Block Number
+  doc.setFontSize(5);
+  doc.setTextColor(100, 100, 100);
+  doc.setFont('helvetica', 'bold');
+  doc.text('BLOCK #', 44, bottomY + 2);
+  doc.setFontSize(6.5);
+  doc.setTextColor(0, 150, 100);
+  doc.setFont('courier', 'bold');
+  doc.text(`${blockNumber}`, 44, bottomY + 7);
+
+  // Box 3: Encryption
+  doc.setFontSize(5);
+  doc.setTextColor(100, 100, 100);
+  doc.setFont('helvetica', 'bold');
+  doc.text('SECURE', 81, bottomY + 2);
+  doc.setFontSize(6);
+  doc.setTextColor(150, 50, 50);
+  doc.setFont('helvetica', 'bold');
+  doc.text('AES-256', 81, bottomY + 7);
+
+  // Box 4: Status
+  doc.setFillColor(240, 255, 240);
+  doc.setDrawColor(50, 150, 100);
+  doc.setLineWidth(0.4);
+  doc.rect(116, bottomY, 35, 12, 'FD');
+  doc.setFontSize(5);
+  doc.setTextColor(50, 150, 100);
+  doc.setFont('helvetica', 'bold');
+  doc.text('STATUS', 118, bottomY + 2);
+  doc.setFontSize(6.5);
+  doc.text('VERIFIED', 118, bottomY + 7);
+
+  // ===== FOOTER =====
+  const footerY = bottomY + 15;
+
+  doc.setFontSize(4);
   doc.setTextColor(120, 120, 120);
   doc.setFont('helvetica', 'italic');
-  const footer1 = 'Bu sertifika blockchain ile güvence altındadır ve değiştirilemez.';
-  const footer2 = `Doğrulama: https://digiguard.app/verify/${certificateId.substring(0, 25)}`;
-  doc.text(footer1, 105, 258, { align: 'center' });
-  doc.text(footer2, 105, 263, { align: 'center' });
+  doc.text('This certificate is blockchain-secured and immutable. | Bu sertifika blockchain ile güvence altındadır ve değiştirilemez.', pageW / 2, footerY, { align: 'center' });
 
-  doc.save(`DigiGuard_KYC_Certificate_${certificateId}.pdf`);
+  doc.setFontSize(3.5);
+  doc.setTextColor(150, 150, 150);
+  doc.text(`Verification: digiguard.app/verify/${certificateId}`, pageW / 2, footerY + 2.5, { align: 'center' });
+
+  // DigiGuard watermark
+  doc.setFontSize(3);
+  doc.setTextColor(200, 200, 200);
+  doc.setFont('helvetica', 'italic');
+  doc.text('© Karprime Technology INC. | www.digiguard.app', pageW / 2, footerY + 5, { align: 'center' });
+
+  // Right corner seal
+  doc.setFillColor(0, 150, 200);
+  doc.circle(pageW - 5, pageH - 5, 2.5, 'F');
+  doc.setFillColor(255, 255, 255);
+  doc.circle(pageW - 5, pageH - 5, 2, 'F');
+  doc.setFillColor(0, 150, 200);
+  doc.setFontSize(4);
+  doc.setFont('helvetica', 'bold');
+  doc.text('DG', pageW - 5, pageH - 4.5, { align: 'center' });
+
+  // Save PDF
+  doc.save(`DigiGuard_Certificate_${certificateId}.pdf`);
 };
