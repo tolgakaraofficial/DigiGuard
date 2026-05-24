@@ -1,0 +1,21 @@
+name: Continuous Monitoring
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+env:
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Monitoring Agent
+        run: |
+          curl -X POST \
+            "${{ env.SUPABASE_URL }}/functions/v1/agent-executor?agent=monitoring" \
+            -H "Authorization: Bearer ${{ env.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json"

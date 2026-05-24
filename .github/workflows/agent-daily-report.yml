@@ -1,0 +1,21 @@
+name: Daily Agent Report
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+env:
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Reporting Agent
+        run: |
+          curl -X POST \
+            "${{ env.SUPABASE_URL }}/functions/v1/agent-executor?agent=reporting" \
+            -H "Authorization: Bearer ${{ env.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json"
