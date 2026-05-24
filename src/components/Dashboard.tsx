@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -37,6 +37,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
+  const [certModalOpen, setCertModalOpen] = useState(false);
+  const [certData, setCertData] = useState<{
+    userName: string;
+    userEmail: string;
+    registrationDate: string;
+    userId: string;
+  } | null>(null);
+  const certCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const detectedLang = detectLanguage();
@@ -70,13 +78,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       .eq('id', user.id)
       .maybeSingle();
 
-    generatePremiumCertificate({
-      userType,
-      language,
+    setCertData({
       userName: userData?.full_name || user.email?.split('@')[0] || 'Kullanıcı',
       userEmail: user.email || '',
       registrationDate: userData?.created_at || user.created_at,
-      userId: user.id
+      userId: user.id,
+    });
+    setCertModalOpen(true);
+  };
+
+  const handleCertDownload = () => {
+    generatePremiumCertificate({
+      userType,
+      language,
+      userName: certData?.userName || 'Kullanıcı',
+      userEmail: certData?.userEmail || '',
+      registrationDate: certData?.registrationDate,
+      userId: certData?.userId,
     });
   };
 
@@ -546,6 +564,166 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
         </div>
       </div>
+
+      {/* Certificate Preview Modal */}
+      {certModalOpen && certData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={() => setCertModalOpen(false)}>
+          <div className="relative max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setCertModalOpen(false)}
+              className="absolute -top-3 -right-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full p-1.5 border border-slate-600 z-10 transition-colors"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            {/* Police Card Style Certificate */}
+            <div ref={certCardRef} className="rounded-xl overflow-hidden shadow-2xl shadow-cyan-500/20 border border-cyan-500/40" style={{ aspectRatio: '1.48/1' }}>
+              {/* Card */}
+              <div className="bg-[#0a1220] w-full h-full relative flex flex-col">
+                {/* Top accent bar */}
+                <div className="h-1.5 bg-gradient-to-r from-cyan-500 to-cyan-400" />
+
+                {/* Header */}
+                <div className="bg-[#0f1e37] px-5 py-3 flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-cyan-500 flex items-center justify-center flex-shrink-0">
+                    <Shield className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-white font-bold text-lg leading-tight">DigiGuard</h2>
+                    <p className="text-cyan-400 text-[10px] font-medium tracking-wider">DIGITAL IDENTITY VERIFICATION SYSTEM</p>
+                    <p className="text-slate-500 text-[9px]">Karprime Technology INC.</p>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-slate-500 text-[8px] font-mono">{`DG-${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-XXXXXXX`}</p>
+                    <p className="text-slate-600 text-[7px] font-mono">{`Block #${Math.floor(Math.random() * 10000000 + 15000000)}`}</p>
+                  </div>
+                </div>
+
+                {/* Cyan divider */}
+                <div className="h-[2px] bg-cyan-500" />
+
+                {/* Body */}
+                <div className="flex flex-1 px-5 py-3 gap-4">
+                  {/* Photo placeholder */}
+                  <div className="flex-shrink-0">
+                    <div className="w-[85px] h-[105px] rounded-md bg-slate-800/80 border border-cyan-500/30 flex flex-col items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-slate-700 mb-1" />
+                      <div className="w-12 h-5 rounded-t-full bg-slate-700" />
+                      <p className="text-[7px] text-slate-600 mt-1">BIYOMETRIK</p>
+                    </div>
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0 space-y-1.5">
+                    <div>
+                      <h3 className="text-cyan-400 font-bold text-sm tracking-wide">KIMLIK DOGRULAMA KARTI</h3>
+                      <p className="text-slate-500 text-[8px]">Identity Verification Card</p>
+                    </div>
+
+                    <div>
+                      <p className="text-slate-500 text-[8px]">AD SOYAD / FULL NAME</p>
+                      <p className="text-white font-bold text-sm truncate">{certData.userName}</p>
+                    </div>
+
+                    <div>
+                      <p className="text-slate-500 text-[8px]">E-POSTA / EMAIL</p>
+                      <p className="text-slate-300 text-[11px] truncate">{certData.userEmail}</p>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <p className="text-slate-500 text-[8px]">KULLANICI TIPI</p>
+                        <span className={`inline-block px-2 py-0.5 rounded text-[9px] font-bold text-white ${
+                          userType === 'corporate' ? 'bg-purple-500' :
+                          userType === 'personnel' ? 'bg-orange-500' : 'bg-cyan-500'
+                        }`}>
+                          {userType === 'corporate' ? 'KURUMSAL' : userType === 'personnel' ? 'PERSONEL' : 'BIREYSEL'}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="text-slate-500 text-[8px]">KAYIT TARIHI</p>
+                        <p className="text-slate-300 text-[10px]">
+                          {certData.registrationDate ? new Date(certData.registrationDate).toLocaleDateString('tr-TR') : new Date().toLocaleDateString('tr-TR')}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Blockchain box */}
+                    <div className="bg-[#0f1e37] border border-cyan-500/20 rounded p-2 space-y-1">
+                      <p className="text-cyan-400 font-bold text-[9px]">BLOCKCHAIN DOGRULAMA</p>
+                      <div className="flex items-center gap-1 text-[7px]">
+                        <span className="text-slate-500">Ag:</span>
+                        <span className="text-green-400 font-medium">Ethereum</span>
+                        <span className="text-slate-600 mx-1">|</span>
+                        <span className="text-slate-500">Sifreleme:</span>
+                        <span className="text-cyan-400 font-medium">AES-256</span>
+                      </div>
+                      <div className="text-[6px] font-mono text-violet-400 leading-tight break-all">
+                        {`0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`}
+                      </div>
+                      <p className="text-[7px] text-slate-500">
+                        Zaman Damgasi: <span className="text-green-400">{new Date().toLocaleString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Istanbul' })}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Verified bar */}
+                <div className="mx-5 mb-2">
+                  <div className="bg-green-500 rounded py-1 text-center">
+                    <p className="text-white font-bold text-[10px] tracking-wider">DOGRLANDI - KYC TAMAMLANDI - VERIFIED</p>
+                  </div>
+                </div>
+
+                {/* Bottom section */}
+                <div className="px-5 pb-2 flex items-end justify-between">
+                  <div className="flex gap-3">
+                    {/* QR placeholder */}
+                    <div className="w-12 h-12 bg-white rounded p-0.5">
+                      <div className="w-full h-full grid grid-cols-8 grid-rows-8 gap-[1px]">
+                        {Array.from({ length: 64 }, (_, i) => (
+                          <div key={i} className={`rounded-[0.5px] ${Math.random() > 0.4 ? 'bg-slate-900' : 'bg-white'}`} />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="space-y-0.5">
+                      <div>
+                        <p className="text-slate-600 text-[7px]">Uyum:</p>
+                        <div className="flex gap-1">
+                          {['KVKK', 'GDPR', 'ISO'].map((b) => (
+                            <span key={b} className="px-1 py-[1px] bg-slate-800 text-cyan-400 text-[6px] rounded font-bold">{b}</span>
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-slate-600 text-[6px] italic">Blockchain guvenceli, degistirilemez kayit</p>
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="w-[1px] border-t border-cyan-500/40 mb-1" style={{ width: '80px' }} />
+                    <p className="text-cyan-400 text-[8px] font-bold">Karprime Technology INC.</p>
+                    <p className="text-slate-600 text-[7px] italic">Yetkili Imza</p>
+                  </div>
+                </div>
+
+                {/* Bottom accent bar */}
+                <div className="h-1.5 bg-gradient-to-r from-cyan-500 to-cyan-400" />
+              </div>
+            </div>
+
+            {/* Download button */}
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={handleCertDownload}
+                className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/30 text-sm"
+              >
+                <Download className="h-5 w-5" />
+                PDF Olarak Indir
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <AlbisChatBot language={language} />
     </div>
