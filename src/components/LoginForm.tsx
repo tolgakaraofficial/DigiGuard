@@ -32,33 +32,33 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Form doğrulama
     const newErrors: {email?: string, phone?: string, password?: string} = {};
-    
+
     if (!email) {
       newErrors.email = 'E-posta adresi gereklidir';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = 'Geçerli bir e-posta adresi girin';
     }
-    
+
     if (!phone) {
       newErrors.phone = 'Telefon numarası gereklidir';
     } else if (!/^(\+90|0)?[5][0-9]{9}$/.test(phone.replace(/\s/g, ''))) {
       newErrors.phone = 'Geçerli bir Türkiye telefon numarası girin';
     }
-    
+
     if (!password) {
       newErrors.password = 'Şifre gereklidir';
     } else if (password.length < 6) {
       newErrors.password = 'Şifre en az 6 karakter olmalıdır';
     }
-    
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-    
+
     setErrors({});
     setIsLoading(true);
 
