@@ -8,7 +8,6 @@ import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import { AlbisChatBot } from './components/AlbisChatBot';
 import { MarqueeInfoBand } from './components/MarqueeInfoBand';
-import { LiveUpdateStream } from './components/LiveUpdateStream';
 import { detectLanguage } from './utils/i18n';
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
@@ -359,7 +358,6 @@ function App() {
       <Layout>
         {renderContent()}
       </Layout>
-      <LiveUpdateStream />
       <AlbisChatBot language={language} />
     </>
   );
