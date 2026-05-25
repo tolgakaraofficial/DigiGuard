@@ -21,7 +21,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <header className="relative z-10 bg-slate-900/80 backdrop-blur-md border-b border-cyber-500/30 shadow-lg shadow-cyber-500/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-20 relative">
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <Shield className="h-10 w-10 text-cyber-400 animate-fingerprint-pulse" />
@@ -36,6 +36,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   Biyometrik Kimlik Doğrulama Sistemi
                 </p>
               </div>
+            </div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 hidden sm:block">
+              <span className="text-sm font-bold tracking-widest animate-blink text-cyan-300/90">
+                Karprime Technology INC.
+              </span>
             </div>
             <div className="flex items-center space-x-3">
               <div className="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-cyber-900/50 to-matrix-900/50 border border-cyber-500/30">
