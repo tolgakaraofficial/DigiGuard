@@ -21,82 +21,58 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
 
   const teamMembers: TeamMember[] = [
     {
-      name: 'Tolga Kara',
-      title: 'Kurucu & CEO',
-      role: 'Siber Güvenlik & Teknoloji Mimarı',
-      expertise: ['Siber Güvenlik', 'Kriptografi', 'Blockchain', 'Yazılım Geliştirme'],
-      linkedin: 'https://www.linkedin.com/in/tolgakara-088742296',
-      image: '/tolg_kara.png',
-      achievements: [
-        '8+ yıl yazılım geliştirme deneyimi',
-        'Kocaeli Üniversitesi Bilgisayar Mühendisliği',
-        'Karprime Technology Kurucusu',
-      ],
-    },
-    {
       name: 'Ekip Üyesi',
-      title: 'CTO',
-      role: 'Teknoloji Lideri',
-      expertise: ['Yazılım Mimarisi', 'Web3/Web4/Web5', 'Cloud', 'DevOps'],
+      title: 'Konum Beklemede',
+      role: 'Siber Güvenlik Uzmanı',
+      expertise: ['Güvenlik', 'Blockchain', 'Yazılım'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400',
-      achievements: [
-        'Yazılım geliştirme uzmanı',
-        'Cloud Architecture sertifikası',
-        'Web3 deneyimi',
-      ],
+      achievements: ['Yakında duyurulacak', 'Yakında duyurulacak', 'Yakında duyurulacak'],
     },
     {
       name: 'Ekip Üyesi',
-      title: 'Güvenlik Müdürü',
-      role: 'Siber Güvenlik Uzmanı',
-      expertise: ['Penetration Testing', 'Kriptografi', 'Güvenlik Denetimi', 'ISO 27001'],
+      title: 'Konum Beklemede',
+      role: 'Teknoloji Lideri',
+      expertise: ['Yazılım', 'Cloud', 'DevOps'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400',
-      achievements: [
-        'Güvenlik sertifikaları',
-        'Güvenlik denetimleri',
-        'Siber güvenlik danışmanlığı',
-      ],
+      achievements: ['Yakında duyurulacak', 'Yakında duyurulacak', 'Yakında duyurulacak'],
     },
     {
       name: 'Ekip Üyesi',
-      title: 'Ürün Müdürü',
+      title: 'Konum Beklemede',
       role: 'UX/UI Uzmanı',
-      expertise: ['Ürün Tasarımı', 'Kullanıcı Araştırması', 'Agile', 'Veri Analizi'],
+      expertise: ['Tasarım', 'Kullanıcı', 'Deneyim'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=400',
-      achievements: [
-        'Ürün yönetimi deneyimi',
-        'Design Thinking',
-        'Kullanıcı deneyimi',
-      ],
+      achievements: ['Yakında duyurulacak', 'Yakında duyurulacak', 'Yakında duyurulacak'],
     },
     {
       name: 'Ekip Üyesi',
-      title: 'Blockchain Geliştirici',
-      role: 'Smart Contract Uzmanı',
-      expertise: ['Solidity', 'Ethereum', 'IPFS', 'Web3.js'],
+      title: 'Konum Beklemede',
+      role: 'Blockchain Geliştirici',
+      expertise: ['Smart Contract', 'Ethereum', 'Web3'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3778966/pexels-photo-3778966.jpeg?auto=compress&cs=tinysrgb&w=400',
-      achievements: [
-        'Blockchain geliştirme',
-        'Smart contract denetimi',
-        'Dapp geliştirme',
-      ],
+      achievements: ['Yakında duyurulacak', 'Yakında duyurulacak', 'Yakında duyurulacak'],
     },
     {
       name: 'Ekip Üyesi',
-      title: 'Veri Bilimci',
+      title: 'Konum Beklemede',
       role: 'AI & ML Uzmanı',
-      expertise: ['Machine Learning', 'Biyometrik Sistemler', 'Veri Bilimi', 'Python'],
+      expertise: ['Machine Learning', 'Biyometrik', 'Veri Bilimi'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400',
-      achievements: [
-        'AI ve makine öğrenmesi',
-        'Veri bilimi projeleri',
-        'Araştırma çalışmaları',
-      ],
+      achievements: ['Yakında duyurulacak', 'Yakında duyurulacak', 'Yakında duyurulacak'],
+    },
+    {
+      name: 'Ekip Üyesi',
+      title: 'Konum Beklemede',
+      role: 'Güvenlik Müdürü',
+      expertise: ['Penetration Testing', 'Kriptografi', 'Denetim'],
+      linkedin: 'https://www.linkedin.com/company/digiguard-official',
+      image: 'https://images.pexels.com/photos/3184599/pexels-photo-3184599.jpeg?auto=compress&cs=tinysrgb&w=400',
+      achievements: ['Yakında duyurulacak', 'Yakında duyurulacak', 'Yakında duyurulacak'],
     },
   ];
 
@@ -129,8 +105,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             <p className="text-slate-200 text-sm leading-relaxed">
               DigiGuard ekibi, siber güvenlik, blockchain teknolojisi, yapay zeka ve
               yazılım geliştirme alanlarında uzmanlaşmış, sektörde kanıtlanmış profesyonellerden
-              oluşmaktadır. Toplamda 80+ yıllık deneyim ve uluslararası sertifikalarla
-              dijital kimliğinizi koruyoruz.
+              oluşmaktadır. Daha fazla ekip üyesi yakında duyurulacaktır.
             </p>
           </div>
 
@@ -149,7 +124,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 right-0 p-4">
                     <h3 className="text-xl font-bold text-white mb-1">{member.name}</h3>
-                    <p className="text-cyan-400 font-medium text-sm">{member.title}</p>
+                    <p className="text-amber-400 font-medium text-sm">{member.title}</p>
                   </div>
                 </div>
 
@@ -209,25 +184,17 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             ))}
           </div>
 
-          <div className="mt-6 bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-500/30 rounded-xl p-6">
+          <div className="mt-6 bg-gradient-to-r from-amber-900/30 to-orange-900/30 border border-amber-500/30 rounded-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-3 flex items-center space-x-2">
-              <Award className="h-5 w-5 text-purple-400" />
-              <span>Ekip Başarıları</span>
+              <Award className="h-5 w-5 text-amber-400" />
+              <span>Ekip Gelişimi</span>
             </h3>
-            <div className="grid sm:grid-cols-3 gap-4">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-cyan-400 mb-1">80+</div>
-                <div className="text-slate-300 text-sm">Yıl Toplam Deneyim</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-blue-400 mb-1">200+</div>
-                <div className="text-slate-300 text-sm">Tamamlanan Proje</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-purple-400 mb-1">50+</div>
-                <div className="text-slate-300 text-sm">Uluslararası Sertifika</div>
-              </div>
-            </div>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              DigiGuard ailesi büyümeye devam ediyor. Ekibimize katılmakla ilgili detaylı bilgi için
+              <a href="https://www.linkedin.com/company/digiguard-official" target="_blank" rel="noopener noreferrer" className="text-amber-400 hover:text-amber-300 ml-1">
+                LinkedIn sayfamızı ziyaret edin
+              </a>.
+            </p>
           </div>
         </div>
 
