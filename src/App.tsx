@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Layout } from './components/Layout';
 import { AnimatedLogo } from './components/AnimatedLogo';
 import { LoginForm } from './components/LoginForm';
@@ -23,6 +24,7 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
   const [language, setLanguage] = useState('tr');
   const [hasError, setHasError] = useState(false);
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {
     try {
@@ -78,65 +80,133 @@ function App() {
               <LoginForm onLogin={handleLogin} />
             </div>
             <div className="w-full lg:w-[560px] lg:flex-shrink-0 space-y-6 order-1 lg:order-2">
-              <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyan-500/30">
-                <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                    <path fillRule="evenodd" d="M4 4a2 2 0 01 2-2h8a2 2 0 012 2v12a1 1 0 110 2H4a1 1 0 110-2V4zm2 5a1 1 0 000 2h6a1 1 0 000-2H6zm0 4a1 1 0 100 2h6a1 1 0 100-2H6z" clipRule="evenodd"/>
-                  </svg>
-                  Blockchain Sertifikalar
-                </h3>
-                <div className="space-y-3">
-                  <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl p-4 border border-cyan-500/30">
-                    <h4 className="font-semibold text-white mb-2 text-sm">Kimlik Doğrulama Sertifikası</h4>
-                    <p className="text-slate-300 text-xs leading-relaxed mb-3">
-                      Blockchain teknolojisi ile güvence altına alınmış, değiştirilemez kimlik doğrulama sertifikaları.
-                    </p>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
-                        <span className="text-cyan-400 font-bold">✓</span>
-                        <span className="text-slate-300 ml-1">AES-256 Şifreleme</span>
+              <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl overflow-hidden shadow-2xl border border-cyan-500/30">
+                <div className="p-6">
+                  <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                      <path fillRule="evenodd" d="M4 4a2 2 0 01 2-2h8a2 2 0 012 2v12a1 1 0 110 2H4a1 1 0 110-2V4zm2 5a1 1 0 000 2h6a1 1 0 000-2H6zm0 4a1 1 0 100 2h6a1 1 0 100-2H6z" clipRule="evenodd"/>
+                    </svg>
+                    Blockchain Sertifikalar
+                  </h3>
+                </div>
+
+                {/* Carousel */}
+                <div className="relative">
+                  <div className="relative h-96 overflow-hidden bg-slate-900">
+                    {/* Slide 1: Certificate Image */}
+                    <div
+                      className={`absolute inset-0 transition-opacity duration-500 ${
+                        carouselIndex === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                      }`}
+                    >
+                      <img
+                        src="/ad.png"
+                        alt="DigiGuard Certificate"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Slide 2: Features */}
+                    <div
+                      className={`absolute inset-0 transition-opacity duration-500 p-6 flex flex-col justify-center ${
+                        carouselIndex === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                      }`}
+                    >
+                      <div className="space-y-3">
+                        <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl p-4 border border-cyan-500/30">
+                          <h4 className="font-semibold text-white mb-2 text-sm">Kimlik Doğrulama Sertifikası</h4>
+                          <p className="text-slate-300 text-xs leading-relaxed mb-3">
+                            Blockchain teknolojisi ile güvence altına alınmış, değiştirilemez kimlik doğrulama sertifikaları.
+                          </p>
+                          <div className="grid grid-cols-2 gap-2 text-xs">
+                            <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
+                              <span className="text-cyan-400 font-bold">✓</span>
+                              <span className="text-slate-300 ml-1">AES-256 Şifreleme</span>
+                            </div>
+                            <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
+                              <span className="text-cyan-400 font-bold">✓</span>
+                              <span className="text-slate-300 ml-1">Zaman Damgası</span>
+                            </div>
+                            <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
+                              <span className="text-cyan-400 font-bold">✓</span>
+                              <span className="text-slate-300 ml-1">QR Doğrulama</span>
+                            </div>
+                            <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
+                              <span className="text-cyan-400 font-bold">✓</span>
+                              <span className="text-slate-300 ml-1">PDF İndiri</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
-                        <span className="text-cyan-400 font-bold">✓</span>
-                        <span className="text-slate-300 ml-1">Zaman Damgası</span>
-                      </div>
-                      <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
-                        <span className="text-cyan-400 font-bold">✓</span>
-                        <span className="text-slate-300 ml-1">QR Doğrulama</span>
-                      </div>
-                      <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
-                        <span className="text-cyan-400 font-bold">✓</span>
-                        <span className="text-slate-300 ml-1">PDF İndiri</span>
+                    </div>
+
+                    {/* Slide 3: KYC & Biometric */}
+                    <div
+                      className={`absolute inset-0 transition-opacity duration-500 p-6 flex flex-col justify-center ${
+                        carouselIndex === 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                      }`}
+                    >
+                      <div className="space-y-3">
+                        <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-500/30">
+                          <h4 className="font-semibold text-white mb-2 text-sm">KYC & Biyometrik Onay</h4>
+                          <p className="text-slate-300 text-xs leading-relaxed mb-3">
+                            Gelişmiş biyometrik analiz ve yapay zeka ile doğrulanan kimlik bilgileri.
+                          </p>
+                          <div className="flex gap-2 flex-wrap">
+                            <span className="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded text-xs text-green-300">
+                              Yüz Tanıma
+                            </span>
+                            <span className="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded text-xs text-green-300">
+                              Ses Analizi
+                            </span>
+                            <span className="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded text-xs text-green-300">
+                              Parmak İzi
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-xl p-3 border border-amber-500/30 flex items-start gap-2">
+                          <div className="w-8 h-8 rounded-full bg-amber-500/30 flex items-center justify-center flex-shrink-0">
+                            <span className="text-amber-400 font-bold text-sm">!</span>
+                          </div>
+                          <p className="text-xs text-slate-300">
+                            Kayıt tamamlandıktan sonra kontrol panelinden sertifikalarınızı PDF olarak indirebilirsiniz.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-500/30">
-                    <h4 className="font-semibold text-white mb-2 text-sm">KYC & Biyometrik Onay</h4>
-                    <p className="text-slate-300 text-xs leading-relaxed mb-3">
-                      Gelişmiş biyometrik analiz ve yapay zeka ile doğrulanan kimlik bilgileri.
-                    </p>
-                    <div className="flex gap-2 flex-wrap">
-                      <span className="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded text-xs text-green-300">
-                        Yüz Tanıma
-                      </span>
-                      <span className="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded text-xs text-green-300">
-                        Ses Analizi
-                      </span>
-                      <span className="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded text-xs text-green-300">
-                        Parmak İzi
-                      </span>
-                    </div>
+                  {/* Navigation Buttons */}
+                  <div className="absolute inset-0 flex items-center justify-between pointer-events-none px-3">
+                    <button
+                      onClick={() => setCarouselIndex((prev) => (prev === 0 ? 2 : prev - 1))}
+                      className="pointer-events-auto bg-cyan-600/80 hover:bg-cyan-600 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:shadow-cyan-500/50"
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                      onClick={() => setCarouselIndex((prev) => (prev === 2 ? 0 : prev + 1))}
+                      className="pointer-events-auto bg-cyan-600/80 hover:bg-cyan-600 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:shadow-cyan-500/50"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </button>
                   </div>
 
-                  <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-xl p-3 border border-amber-500/30 flex items-start gap-2">
-                    <div className="w-8 h-8 rounded-full bg-amber-500/30 flex items-center justify-center flex-shrink-0">
-                      <span className="text-amber-400 font-bold text-sm">!</span>
-                    </div>
-                    <p className="text-xs text-slate-300">
-                      Kayıt tamamlandıktan sonra kontrol panelinden sertifikalarınızı PDF olarak indirebilirsiniz.
-                    </p>
+                  {/* Indicators */}
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                    {[0, 1, 2].map((index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCarouselIndex(index)}
+                        className={`h-2 rounded-full transition-all duration-300 ${
+                          carouselIndex === index
+                            ? 'bg-cyan-400 w-8'
+                            : 'bg-slate-600 w-2 hover:bg-slate-500'
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
