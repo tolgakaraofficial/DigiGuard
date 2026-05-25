@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { X, Award, TrendingUp, Users, Building2, MapPin, CheckCircle, Activity } from 'lucide-react';
+import { X, Award, TrendingUp, Users, Building2, MapPin, CheckCircle, Activity, Clock, Shield, Lock, AlertCircle } from 'lucide-react';
 
 interface TurkeyCertificateModalProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+interface LiveUpdate {
+  id: string;
+  type: 'info' | 'alert' | 'success' | 'task';
+  title: string;
+  message: string;
+  timestamp: Date;
+  icon: React.ReactNode;
+  color: string;
 }
 
 export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ isOpen, onClose }) => {
@@ -13,6 +23,7 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
     corporate: 0,
     cities: 0
   });
+  const [updates, setUpdates] = useState<LiveUpdate[]>([]);
 
   useEffect(() => {
     if (isOpen) {
@@ -49,6 +60,87 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isOpen) {
+      const initialUpdates: LiveUpdate[] = [
+        {
+          id: '1',
+          type: 'success',
+          title: 'Sertifika İşlemleri',
+          message: 'Son 24 saatte 1.234 yeni sertifika başarıyla verilerek blockchain\'e kaydedilmiştir',
+          timestamp: new Date(),
+          icon: <CheckCircle className="w-5 h-5" />,
+          color: 'from-green-500/20 to-emerald-500/20 border-green-500/30',
+        },
+        {
+          id: '2',
+          type: 'info',
+          title: 'Güvenlik Denetimi',
+          message: 'Tüm sertifikalar günlük güvenlik protokolleri ile doğrulanmaktadır',
+          timestamp: new Date(Date.now() - 30000),
+          icon: <Shield className="w-5 h-5" />,
+          color: 'from-cyan-500/20 to-blue-500/20 border-cyan-500/30',
+        },
+        {
+          id: '3',
+          type: 'task',
+          title: 'Blockchain Doğrulama',
+          message: 'Tüm kullanıcı sertifikaları Ethereum blockchain üzerinde değişmez şekilde korunmaktadır',
+          timestamp: new Date(Date.now() - 60000),
+          icon: <AlertCircle className="w-5 h-5" />,
+          color: 'from-orange-500/20 to-amber-500/20 border-orange-500/30',
+        },
+        {
+          id: '4',
+          type: 'info',
+          title: 'Şifreleme Standartları',
+          message: 'AES-256 military grade şifreleme tüm sertifika verilerini korumaktadır',
+          timestamp: new Date(Date.now() - 120000),
+          icon: <Lock className="w-5 h-5" />,
+          color: 'from-purple-500/20 to-pink-500/20 border-purple-500/30',
+        },
+      ];
+
+      setUpdates(initialUpdates);
+
+      const interval = setInterval(() => {
+        const messages = [
+          'Yeni sertifika başarıyla oluşturuldu ve blockchain\'e kaydedildi',
+          'Biyometrik doğrulama tamamlandı ve sistem onay verdi',
+          'KYC kontrolleri başarıyla geçildi',
+          'Sertifika doğrulama işlemi tamamlandı',
+          'Güvenlik protokolleri kontrol edildi ve onaylandı',
+        ];
+
+        const newUpdate: LiveUpdate = {
+          id: Date.now().toString(),
+          type: 'success',
+          title: 'Sertifika İşlemi',
+          message: messages[Math.floor(Math.random() * messages.length)],
+          timestamp: new Date(),
+          icon: <CheckCircle className="w-5 h-5" />,
+          color: 'from-green-500/20 to-emerald-500/20 border-green-500/30',
+        };
+
+        setUpdates((prev) => [newUpdate, ...prev].slice(0, 4));
+      }, 12000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isOpen]);
+
+  const formatTime = (date: Date) => {
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
+    const minutes = Math.floor(diff / 60000);
+
+    if (minutes < 1) return 'Şimdi';
+    if (minutes < 60) return `${minutes}m önce`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h önce`;
+    return date.toLocaleDateString('tr-TR');
+  };
+
   if (!isOpen) return null;
 
   const cityData = [
@@ -84,6 +176,57 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
         </div>
 
         <div className="p-6 space-y-6">
+          {/* Live Update Stream */}
+          <div className="bg-gradient-to-r from-slate-700/50 to-slate-600/50 rounded-xl p-6 border border-slate-600">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
+              Canlı Sertifika İşlemleri
+            </h3>
+            <div className="space-y-3 max-h-72 overflow-y-auto">
+              {updates.map((update) => (
+                <div
+                  key={update.id}
+                  className={`bg-gradient-to-r ${update.color} rounded-lg p-3 border transition-all hover:shadow-lg`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 mt-0.5">
+                      {update.type === 'success' && (
+                        <div className="text-green-400">{update.icon}</div>
+                      )}
+                      {update.type === 'info' && (
+                        <div className="text-cyan-400">{update.icon}</div>
+                      )}
+                      {update.type === 'task' && (
+                        <div className="text-orange-400">{update.icon}</div>
+                      )}
+                      {update.type === 'alert' && (
+                        <div className="text-red-400">{update.icon}</div>
+                      )}
+                    </div>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2">
+                        <h4 className="text-sm font-semibold text-white truncate">
+                          {update.title}
+                        </h4>
+                        <span className="text-xs text-slate-400 flex-shrink-0">
+                          {formatTime(update.timestamp)}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-300 mt-1 line-clamp-2">
+                        {update.message}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 pt-3 border-t border-slate-500/30 flex items-center justify-center gap-2 text-xs text-slate-400">
+              <Clock className="w-3 h-3" />
+              <span>Otomatik güncelleme: 12 saniye</span>
+            </div>
+          </div>
+
           {/* Main Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-gradient-to-br from-red-900/30 to-red-800/30 border border-red-500/30 rounded-xl p-6 relative overflow-hidden group">
