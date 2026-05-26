@@ -37,9 +37,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </p>
               </div>
             </div>
-            <div className="absolute left-1/2 transform -translate-x-1/2 hidden sm:block">
-              <span className="text-sm font-bold tracking-widest animate-blink text-cyan-300/90">
-                Karprime Technology INC.
+            <div className="absolute left-1/2 transform -translate-x-1/2 hidden sm:block max-w-md text-center">
+              <span className="text-xs font-medium tracking-wide shimmer-silver">
+                Projemizin Yatırımcı Arayış Kademesi ve Ekipleşme Aşamasında Olduğumuzu Belirtiriz.
               </span>
             </div>
             <div className="flex items-center space-x-3">

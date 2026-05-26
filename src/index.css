@@ -104,6 +104,31 @@
   animation: blink 2s ease-in-out infinite;
 }
 
+@keyframes shimmer-silver {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-silver {
+  background: linear-gradient(
+    90deg,
+    #9ca3af 0%,
+    #e5e7eb 25%,
+    #f3f4f6 50%,
+    #e5e7eb 75%,
+    #9ca3af 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-silver 3s linear infinite;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
