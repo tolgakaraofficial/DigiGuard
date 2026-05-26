@@ -8,7 +8,7 @@ import { PersonalInfo, CorporateInfo, IdentityInfo, MediaFiles } from '../types'
 import { User, Building2 } from 'lucide-react';
 
 interface RegistrationFormProps {
-  onComplete: () => void;
+  onComplete: (userType?: string) => void;
   userType?: string;
 }
 
@@ -171,7 +171,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
               personalInfo={personalInfo}
               identityInfo={identityInfo}
               mediaFiles={mediaFiles}
-              onComplete={onComplete}
+              onComplete={() => onComplete(userType || 'individual')}
             />
           );
         default:
@@ -202,7 +202,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
               personalInfo={personalInfo}
               identityInfo={identityInfo}
               mediaFiles={mediaFiles}
-              onComplete={onComplete}
+              onComplete={() => onComplete(userType || 'corporate')}
             />
           );
         default:

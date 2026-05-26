@@ -30,9 +30,19 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
     }
 
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    onVerify();
-    setIsLoading(false);
+
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      if (onVerify) {
+        onVerify();
+      }
+    } catch (error) {
+      console.error('Verification error:', error);
+      alert('Doğrulama sırasında bir hata oluştu. Lütfen tekrar deneyin.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
