@@ -52,17 +52,15 @@ function App() {
   };
 
   const handleRegistrationComplete = () => {
-    if (user) {
-      setUser({ ...user, isRegistered: true });
-      setState('verification');
-    }
+    const currentUser = user || { email: '', phone: '', isVerified: false };
+    setUser({ ...currentUser, isRegistered: true });
+    setState('verification');
   };
 
   const handleVerification = () => {
-    if (user) {
-      setUser({ ...user, isVerified: true });
-      setState('dashboard');
-    }
+    const updatedUser = user || { email: 'verified@user.com', phone: '+90', isRegistered: true };
+    setUser({ ...updatedUser, isVerified: true });
+    setState('dashboard');
   };
 
   const handleLogout = () => {
@@ -308,17 +306,17 @@ function App() {
           </div>
         );
       case 'verification':
-        return user ? (
+        return (
           <VerificationForm
-            email={user.email}
-            phone={user.phone}
+            email={user?.email || ''}
+            phone={user?.phone || ''}
             onVerify={handleVerification}
           />
-        ) : null;
+        );
       case 'registration':
-        return <RegistrationForm onComplete={handleRegistrationComplete} userType={user?.userType} />;
+        return <RegistrationForm onComplete={handleRegistrationComplete} userType={user?.userType || 'individual'} />;
       case 'dashboard':
-        return <Dashboard onLogout={handleLogout} userType={user?.userType} />;
+        return <Dashboard onLogout={handleLogout} userType={user?.userType || 'individual'} />;
       default:
         return null;
     }
