@@ -21,12 +21,21 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
 
   const handleComplete = async () => {
     setIsProcessing(true);
-    
-    // İşleme süresi simülasyonu
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    onComplete();
-    setIsProcessing(false);
+
+    try {
+      // İşleme süresi simülasyonu
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // onComplete callback'ini cagir
+      if (onComplete) {
+        onComplete();
+      }
+    } catch (error) {
+      console.error('Registration complete error:', error);
+      alert('Bir hata olustu. Lutfen tekrar deneyin.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const generateSerialNumber = () => {

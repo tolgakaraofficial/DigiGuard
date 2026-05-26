@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
+import { ChevronLeft, ChevronRight, AlertTriangle, RefreshCw } from 'lucide-react';
 import { Layout } from './components/Layout';
 import { AnimatedLogo } from './components/AnimatedLogo';
 import { LoginForm } from './components/LoginForm';
@@ -9,6 +9,46 @@ import { Dashboard } from './components/Dashboard';
 import { AlbisChatBot } from './components/AlbisChatBot';
 import { MarqueeInfoBand } from './components/MarqueeInfoBand';
 import { detectLanguage } from './utils/i18n';
+
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: Error | null }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+          <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-red-500/30 max-w-md w-full text-center">
+            <div className="flex items-center justify-center w-16 h-16 bg-red-500/20 rounded-full mx-auto mb-4">
+              <AlertTriangle className="w-8 h-8 text-red-500" />
+            </div>
+            <h2 className="text-xl font-bold text-white mb-2">Hata Olustu</h2>
+            <p className="text-slate-400 text-sm mb-4">{this.state.error?.message || 'Bilinmeyen hata'}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="flex items-center justify-center gap-2 mx-auto bg-gradient-to-r from-cyber-500 to-matrix-500 text-white py-3 px-6 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyber-500/50 transition-all duration-300"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Sayfayi Yenile
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 type AppState = 'splash' | 'login' | 'verification' | 'registration' | 'dashboard';
 
@@ -52,8 +92,8 @@ function App() {
   };
 
   const handleRegistrationComplete = () => {
-    const currentUser = user || { email: '', phone: '', isVerified: false };
-    setUser({ ...currentUser, isRegistered: true });
+    const currentUser = user || { email: '', phone: '', isVerified: false, isRegistered: true };
+    setUser({ ...currentUser, isRegistered: true, isVerified: false });
     setState('verification');
   };
 
@@ -361,4 +401,10 @@ function App() {
   );
 }
 
-export default App;
+const AppWrapped = () => (
+  <ErrorBoundary>
+    <App />
+  </ErrorBoundary>
+);
+
+export default AppWrapped;
