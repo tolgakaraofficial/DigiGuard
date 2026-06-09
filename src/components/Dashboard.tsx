@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -37,6 +37,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
+  const [certModalOpen, setCertModalOpen] = useState(false);
+  const [certData, setCertData] = useState<{
+    userName: string;
+    userEmail: string;
+    registrationDate: string;
+    userId: string;
+    userPhoto?: string | null;
+    birthDate?: string | null;
+    idNumber?: string;
+    nationality?: string;
+  } | null>(null);
 
   useEffect(() => {
     const detectedLang = detectLanguage();
