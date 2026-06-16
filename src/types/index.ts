@@ -16,6 +16,7 @@ export interface PersonalInfo {
   postalCode: string;
   phone?: string;
   email?: string;
+  gender?: 'male' | 'female';
 }
 
 export interface CorporateInfo {

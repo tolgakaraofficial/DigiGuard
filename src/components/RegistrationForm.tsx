@@ -23,6 +23,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
     address: '',
     city: '',
     postalCode: '',
+    gender: 'male',
   });
   const [corporateInfo, setCorporateInfo] = useState<CorporateInfo>({
     companyName: '',

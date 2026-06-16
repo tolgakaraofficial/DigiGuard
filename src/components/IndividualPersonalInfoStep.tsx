@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, User, Calendar, MapPin, Globe, Phone, Mail } from 'lucide-react';
+import { CircleUser as UserCircle } from 'lucide-react';
 import { PersonalInfo } from '../types';
 
 interface IndividualPersonalInfoStepProps {
@@ -86,6 +87,10 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
+  };
+
+  const handleGenderChange = (gender: 'male' | 'female') => {
+    onChange({ ...data, gender });
   };
 
   const turkishCities = [
@@ -194,6 +199,37 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
               <option value="other">Diğer</option>
             </select>
             {errors.nationality && <p className="text-red-400 text-sm mt-1">{errors.nationality}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              <UserCircle className="inline h-4 w-4 mr-1" />
+              Cinsiyet *
+            </label>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => handleGenderChange('male')}
+                className={`flex-1 py-3 rounded-lg border-2 transition-all font-medium text-sm ${
+                  data.gender === 'male'
+                    ? 'bg-blue-600/30 border-blue-500 text-blue-300'
+                    : 'bg-slate-700 border-slate-600 text-slate-400 hover:border-slate-500'
+                }`}
+              >
+                Erkek
+              </button>
+              <button
+                type="button"
+                onClick={() => handleGenderChange('female')}
+                className={`flex-1 py-3 rounded-lg border-2 transition-all font-medium text-sm ${
+                  data.gender === 'female'
+                    ? 'bg-pink-600/30 border-pink-500 text-pink-300'
+                    : 'bg-slate-700 border-slate-600 text-slate-400 hover:border-slate-500'
+                }`}
+              >
+                Kadın
+              </button>
+            </div>
           </div>
 
           <div>
