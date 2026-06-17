@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, Cpu, RefreshCw } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -16,6 +16,7 @@ import { TrackingPanel } from './TrackingPanel';
 import { CentralMonitoringHub } from './CentralMonitoringHub';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
+import { SecurityEvolutionDashboard } from './SecurityEvolutionDashboard';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
 import { generatePremiumCertificate } from '../services/certificateService';
 
@@ -35,6 +36,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [teamOpen, setTeamOpen] = useState(false);
   const [securityInfoOpen, setSecurityInfoOpen] = useState(false);
   const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
+  const [securityEvolutionOpen, setSecurityEvolutionOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
   const [certModalOpen, setCertModalOpen] = useState(false);
@@ -305,6 +307,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         onOpenTurkeyCertificate={() => setTurkeyCertificateOpen(true)}
         onOpenPricing={() => setPricingOpen(true)}
         onOpenSecurityMetrics={() => setSecurityMetricsOpen(true)}
+        onOpenSecurityEvolution={() => setSecurityEvolutionOpen(true)}
       />
 
       <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'} relative z-10`}>
@@ -468,6 +471,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
                 <Database className="h-3 w-3 mr-1" />
                 Blockchain Kayıtlı
               </span>
+              <button
+                onClick={() => setSecurityEvolutionOpen(true)}
+                className="px-3 py-1 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded text-xs flex items-center gap-1 transition-all"
+              >
+                <Cpu className="h-3 w-3" />
+                Self-Evolving Security
+              </button>
             </div>
           </div>
         </div>
@@ -712,6 +722,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <TeamModal isOpen={teamOpen} onClose={() => setTeamOpen(false)} />
           <SecurityInfoModal isOpen={securityInfoOpen} onClose={() => setSecurityInfoOpen(false)} />
           <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
+          <SecurityEvolutionDashboard isOpen={securityEvolutionOpen} onClose={() => setSecurityEvolutionOpen(false)} />
         </div>
       </div>
 

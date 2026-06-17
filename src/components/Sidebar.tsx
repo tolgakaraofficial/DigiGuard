@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3, Cpu, RefreshCw } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -11,6 +11,7 @@ interface SidebarProps {
   onOpenTurkeyCertificate: () => void;
   onOpenPricing: () => void;
   onOpenSecurityMetrics: () => void;
+  onOpenSecurityEvolution?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -23,6 +24,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenTurkeyCertificate,
   onOpenPricing,
   onOpenSecurityMetrics,
+  onOpenSecurityEvolution,
 }) => {
   const menuItems = [
     {
@@ -63,9 +65,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       icon: BarChart3,
-      label: 'Guvenlik Metrikleri',
+      label: 'Güvenlik Metrikleri',
       color: 'from-cyan-600 to-blue-600',
       action: onOpenSecurityMetrics,
+    },
+    {
+      icon: Cpu,
+      label: 'Self-Evolving Security',
+      color: 'from-emerald-600 to-teal-600',
+      action: onOpenSecurityEvolution || (() => {}),
     },
     {
       icon: Network,
@@ -165,7 +173,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   <Info className="h-4 w-4 text-cyan-400 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      DigiGuard ile kimliginizi koruyin, guvenle dijital dunyada yasayin.
+                      DigiGuard ile kimliğinizi koruyun, güvenle dijital dünyada yaşayın.
                     </p>
                   </div>
                 </div>
