@@ -127,36 +127,32 @@ function App() {
                   <h3 className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-4 flex items-center gap-2">
                     <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                      <path fillRule="evenodd" d="M4 4a2 2 0 01 2-2h8a2 2 0 012 2v12a1 1 0 110 2H4a1 1 0 110-2V4zm2 5a1 1 0 000 2h6a1 1 0 000-2H6zm0 4a1 1 0 100 2h6a1 1 0 100-2H6z" clipRule="evenodd"/>
+                      <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2H4a1 1 0 110-2V4zm2 5a1 1 0 000 2h6a1 1 0 000-2H6zm0 4a1 1 0 100 2h6a1 1 0 100-2H6z" clipRule="evenodd"/>
                     </svg>
-                    Blockchain Sertifikalar
+                    Blockchain Sertifikalari
                   </h3>
                 </div>
 
                 <div className="relative">
                   <div className="relative h-96 overflow-hidden bg-slate-900">
-                    <div
-                      className={`absolute inset-0 transition-opacity duration-500 ${
-                        carouselIndex === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                      }`}
-                    >
-                      <img
-                        src="/ad.png"
-                        alt="DigiGuard Certificate"
-                        className="w-full h-full object-cover"
-                      />
+                    {/* Slide 0: Promotional Image */}
+                    <div className={`absolute inset-0 transition-opacity duration-500 ${carouselIndex === 0 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                      <img src="/ad.png" alt="DigiGuard Platform" className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent">
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h4 className="text-white font-bold text-lg mb-1">DigiGuard: Dijital Kimlik Gelecegi</h4>
+                          <p className="text-slate-300 text-xs">Web4 ve Blockchain teknolojisi ile guvenli kimlik yonetimi</p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div
-                      className={`absolute inset-0 transition-opacity duration-500 p-6 flex flex-col justify-center ${
-                        carouselIndex === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                      }`}
-                    >
+                    {/* Slide 1: Features */}
+                    <div className={`absolute inset-0 transition-opacity duration-500 p-6 flex flex-col justify-center ${carouselIndex === 1 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                       <div className="space-y-3">
                         <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl p-4 border border-cyan-500/30">
                           <h4 className="font-semibold text-white mb-2 text-sm">Kimlik Dogrulama Sertifikasi</h4>
                           <p className="text-slate-300 text-xs leading-relaxed mb-3">
-                            Blockchain teknolojisi ile guvence altina alinmis, degistirilemez kimlik dogrulama sertifikasi.
+                            Blockchain teknolojisi ile guvence altina alinmis, degistirilemez kimlik sertifikasi.
                           </p>
                           <div className="grid grid-cols-2 gap-2 text-xs">
                             <div className="bg-slate-800/50 rounded p-2 border border-cyan-500/20">
@@ -169,19 +165,35 @@ function App() {
                             </div>
                           </div>
                         </div>
+                        <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-xl p-4 border border-purple-500/30">
+                          <h4 className="font-semibold text-white mb-2 text-sm">Yapay Zeka Destekli KYC</h4>
+                          <p className="text-slate-300 text-xs leading-relaxed">
+                            ALBIS AI ile anlik tehdit tespiti ve 7/24 kimlik koruma sistemi.
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    <div
-                      className={`absolute inset-0 transition-opacity duration-500 p-6 flex flex-col justify-center ${
-                        carouselIndex === 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                      }`}
-                    >
+                    {/* Slide 2: Web4 & Blockchain */}
+                    <div className={`absolute inset-0 transition-opacity duration-500 p-6 flex flex-col justify-center ${carouselIndex === 2 ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                       <div className="space-y-3">
-                        <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-500/30">
-                          <h4 className="font-semibold text-white mb-2 text-sm">KYC & Biyometrik Onay</h4>
+                        <div className="bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-xl p-4 border border-amber-500/30">
+                          <h4 className="font-semibold text-white mb-2 text-sm flex items-center gap-2">
+                            Web4 Teknolojisi
+                          </h4>
                           <p className="text-slate-300 text-xs leading-relaxed mb-3">
-                            Gelimis biyometrik analiz ve yapay zeka ile dogrulanan kimlik bilgileri.
+                            Merkeziyetsiz, kullanici odakli ve AI entegre yeni nesil web altyapisi.
+                          </p>
+                          <div className="flex flex-wrap gap-1">
+                            <span className="px-2 py-1 bg-amber-500/20 text-amber-300 text-[10px] rounded-full">DeFi</span>
+                            <span className="px-2 py-1 bg-orange-500/20 text-orange-300 text-[10px] rounded-full">DeSci</span>
+                            <span className="px-2 py-1 bg-yellow-500/20 text-yellow-300 text-[10px] rounded-full">DeSoc</span>
+                          </div>
+                        </div>
+                        <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-500/30">
+                          <h4 className="font-semibold text-white mb-2 text-sm">Blockchain Altyapisi</h4>
+                          <p className="text-slate-300 text-xs leading-relaxed">
+                            Ethereum, Polygon ve BSC desteji ile coklu zincir guvenlik katmani.
                           </p>
                         </div>
                       </div>
@@ -189,34 +201,59 @@ function App() {
                   </div>
 
                   <div className="absolute inset-0 flex items-center justify-between pointer-events-none px-3">
-                    <button
-                      onClick={() => setCarouselIndex((prev) => (prev === 0 ? 2 : prev - 1))}
-                      className="pointer-events-auto bg-cyan-600/80 hover:bg-cyan-600 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:shadow-cyan-500/50"
-                    >
+                    <button onClick={() => setCarouselIndex((prev) => (prev === 0 ? 2 : prev - 1))} className="pointer-events-auto bg-cyan-600/80 hover:bg-cyan-600 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:shadow-cyan-500/50">
                       <ChevronLeft className="h-5 w-5" />
                     </button>
-                    <button
-                      onClick={() => setCarouselIndex((prev) => (prev === 2 ? 0 : prev + 1))}
-                      className="pointer-events-auto bg-cyan-600/80 hover:bg-cyan-600 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:shadow-cyan-500/50"
-                    >
+                    <button onClick={() => setCarouselIndex((prev) => (prev === 2 ? 0 : prev + 1))} className="pointer-events-auto bg-cyan-600/80 hover:bg-cyan-600 text-white p-2 rounded-full transition-all duration-200 shadow-lg hover:shadow-cyan-500/50">
                       <ChevronRight className="h-5 w-5" />
                     </button>
                   </div>
 
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
                     {[0, 1, 2].map((index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCarouselIndex(index)}
-                        className={`h-2 rounded-full transition-all duration-300 ${
-                          carouselIndex === index
-                            ? 'bg-cyan-400 w-8'
-                            : 'bg-slate-600 w-2 hover:bg-slate-500'
-                        }`}
-                      />
+                      <button key={index} onClick={() => setCarouselIndex(index)} className={`h-2 rounded-full transition-all duration-300 ${carouselIndex === index ? 'bg-cyan-400 w-8' : 'bg-slate-600 w-2 hover:bg-slate-500'}`} />
                     ))}
                   </div>
                 </div>
+              </div>
+
+              {/* Odeme Sistemleri Paneli */}
+              <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-emerald-500/30">
+                <h4 className="text-sm font-semibold text-emerald-400 mb-4 text-center flex items-center justify-center gap-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                  Odeme Sistemleri
+                </h4>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-slate-700/50 border border-slate-600 hover:border-emerald-500/50 transition-all">
+                    <svg className="w-10 h-6" viewBox="0 0 50 35"><rect fill="#1A1F71" width="50" height="35" rx="4"/><text x="25" y="22" textAnchor="middle" fill="#fff" fontSize="10" fontWeight="bold">VISA</text></svg>
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-slate-700/50 border border-slate-600 hover:border-red-500/50 transition-all">
+                    <svg className="w-10 h-6" viewBox="0 0 50 35"><circle cx="20" cy="17.5" r="12" fill="#EB001B"/><circle cx="30" cy="17.5" r="12" fill="#F79E1B"/><path fill="#FF5F00" d="M25 8.5a12 12 0 010 18"/></svg>
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-gradient-to-br from-blue-900 to-slate-800 border border-slate-600 hover:border-blue-400/50 transition-all">
+                    <span className="text-[8px] text-white font-bold">TROY</span>
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-gradient-to-br from-orange-600 to-yellow-500 border border-slate-600 hover:border-orange-400/50 transition-all">
+                    <span className="text-[7px] text-white font-bold">BKM</span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-3 justify-center mt-4">
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 border border-slate-600 hover:border-yellow-400/50 transition-all">
+                    <span className="text-[8px] text-white font-bold">BTC</span>
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 border border-slate-600 hover:border-blue-400/50 transition-all">
+                    <span className="text-[8px] text-white font-bold">ETH</span>
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-gradient-to-br from-green-400 to-emerald-500 border border-slate-600 hover:border-green-400/50 transition-all">
+                    <span className="text-[8px] text-white font-bold">USDT</span>
+                  </div>
+                  <div className="flex items-center justify-center w-16 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-400 border border-slate-600 hover:border-blue-400/50 transition-all">
+                    <span className="text-[8px] text-white font-bold">USDC</span>
+                  </div>
+                </div>
+                <p className="text-slate-500 text-[10px] text-center mt-3">Kredi karti, banka karti ve kripto odemeler acik</p>
               </div>
 
               <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-cyber-500/30">

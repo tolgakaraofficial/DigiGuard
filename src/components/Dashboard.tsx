@@ -473,6 +473,109 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         </div>
       </div>
 
+      {/* SOF, SUB, SOPH Technology Infrastructure */}
+      <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-gradient-to-br from-slate-800/90 to-cyan-900/30 rounded-xl p-5 border border-cyan-500/30 hover:border-cyan-500/50 transition-all">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-cyan-500/20 rounded-lg">
+              <Activity className="h-5 w-5 text-cyan-400" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">SOF AI Engine</h4>
+              <p className="text-[10px] text-cyan-300">Soft Optimization Framework</p>
+            </div>
+          </div>
+          <p className="text-slate-400 text-xs mb-3">Yapay zeka ile otomatik sistem optimizasyonu ve tehdit onleme</p>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-emerald-400 font-medium">Aktif</span>
+            <span className="text-slate-500">v4.2.1</span>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-slate-800/90 to-purple-900/30 rounded-xl p-5 border border-purple-500/30 hover:border-purple-500/50 transition-all">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-purple-500/20 rounded-lg">
+              <Database className="h-5 w-5 text-purple-400" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">SUB Blockchain</h4>
+              <p className="text-[10px] text-purple-300">Secure Unified Blockchain</p>
+            </div>
+          </div>
+          <p className="text-slate-400 text-xs mb-3">Coklu zincir destegi ile merkeziyetsiz kimlik dogrulama</p>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-emerald-400 font-medium">Senkronize</span>
+            <span className="text-slate-500">ETH, MATIC, BSC</span>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-slate-800/90 to-amber-900/30 rounded-xl p-5 border border-amber-500/30 hover:border-amber-500/50 transition-all">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2 bg-amber-500/20 rounded-lg">
+              <Shield className="h-5 w-5 text-amber-400" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white">SOPH Protocol</h4>
+              <p className="text-[10px] text-amber-300">Sophisticated Operations Hub</p>
+            </div>
+          </div>
+          <p className="text-slate-400 text-xs mb-3">Gelismis sifreleme protokolleri ve guvenlik katmani</p>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-emerald-400 font-medium">Kilitli</span>
+            <span className="text-slate-500">AES-256-GCM</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Web4 Technology Infrastructure */}
+      <div className="mb-8 bg-gradient-to-r from-slate-800/90 via-indigo-900/20 to-slate-800/90 rounded-xl p-6 border border-indigo-500/30">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <Globe2 className="h-5 w-5 text-indigo-400" />
+              Web4 Teknoloji Altyapisi
+            </h3>
+            <p className="text-slate-400 text-xs">Yeni nesil, merkeziyetsiz, AI entegre web teknolojisi</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-1 bg-emerald-500/20 text-emerald-400 text-xs rounded-full border border-emerald-500/30">Aktif</span>
+            <span className="px-2 py-1 bg-indigo-500/20 text-indigo-300 text-xs rounded-full border border-indigo-500/30">v4.0</span>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-slate-900/50 rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold text-cyan-400 mb-1">DeFi</div>
+            <p className="text-[10px] text-slate-400">Merkeziyetsiz Finans</p>
+          </div>
+          <div className="bg-slate-900/50 rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold text-purple-400 mb-1">DeSci</div>
+            <p className="text-[10px] text-slate-400">Merkeziyetsiz Bilim</p>
+          </div>
+          <div className="bg-slate-900/50 rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold text-emerald-400 mb-1">DeSoc</div>
+            <p className="text-[10px] text-slate-400">Merkeziyetsiz Sosyal</p>
+          </div>
+          <div className="bg-slate-900/50 rounded-lg p-3 text-center">
+            <div className="text-2xl font-bold text-amber-400 mb-1">DAO</div>
+            <p className="text-[10px] text-slate-400">Topluluk Yonetimi</p>
+          </div>
+        </div>
+        <div className="mt-4 grid grid-cols-3 gap-3 text-xs">
+          <div className="flex items-center gap-2 text-slate-300">
+            <CheckCircle className="h-3 w-3 text-emerald-400" />
+            <span>Kendi Kimligini Sahiplen (Self-Sovereign Identity)</span>
+          </div>
+          <div className="flex items-center gap-2 text-slate-300">
+            <CheckCircle className="h-3 w-3 text-emerald-400" />
+            <span>Inter-Chain Protokol Destegi</span>
+          </div>
+          <div className="flex items-center gap-2 text-slate-300">
+            <CheckCircle className="h-3 w-3 text-emerald-400" />
+            <span>Zero-Knowledge Proof</span>
+          </div>
+        </div>
+      </div>
+
 
       {/* Central Monitoring Hub */}
       <div className="mb-8">
