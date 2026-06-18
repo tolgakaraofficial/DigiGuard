@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
-import { Shield, Fingerprint, Lock, Info, Users, Lock as LockIcon, Shield as ShieldIcon } from 'lucide-react';
-import { SecurityInfoModal } from './SecurityInfoModal';
-import { AboutModal } from './AboutModal';
-import { TeamModal } from './TeamModal';
+import React, { useState, useEffect } from 'react';
+import { Shield, Fingerprint, Lock, Zap, Smartphone } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const [showSecurityModal, setShowSecurityModal] = useState(false);
-  const [showAboutModal, setShowAboutModal] = useState(false);
-  const [showTeamModal, setShowTeamModal] = useState(false);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOffset((prev) => (prev - 2) % 2000);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
+
+  const infoItems = [
+    { icon: <Shield className="w-5 h-5" />, text: 'Blockchain teknolojisi ile güvenli kimlik doğrulama', color: 'from-cyan-500 to-blue-500' },
+    { icon: <Lock className="w-5 h-5" />, text: 'AES-256 şifreleme ve end-to-end koruması', color: 'from-green-500 to-emerald-500' },
+    { icon: <Smartphone className="w-5 h-5" />, text: 'Biyometrik doğrulama ve AI tabanlı KYC sistemi', color: 'from-purple-500 to-pink-500' },
+    { icon: <Zap className="w-5 h-5" />, text: 'Gerçek zamanlı tehdit analizi ve otomatik uyarılar', color: 'from-yellow-500 to-orange-500' },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-x-hidden flex flex-col">
@@ -45,29 +54,29 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               </div>
             </div>
 
-            {/* Center Action Buttons */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-2">
-              <button
-                onClick={() => setShowSecurityModal(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium rounded-lg transition-all shadow-lg shadow-cyan-500/20 text-xs"
+            {/* Center Marquee Band */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block w-[500px] overflow-hidden">
+              <div
+                className="flex gap-12 whitespace-nowrap"
+                style={{
+                  transform: `translateX(${offset}px)`,
+                  transition: 'none',
+                }}
               >
-                <LockIcon className="h-3.5 w-3.5" />
-                SHA-256
-              </button>
-              <button
-                onClick={() => setShowAboutModal(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-medium rounded-lg transition-all shadow-lg shadow-orange-500/20 text-xs"
-              >
-                <Info className="h-3.5 w-3.5" />
-                Hakkında
-              </button>
-              <button
-                onClick={() => setShowTeamModal(true)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium rounded-lg transition-all shadow-lg shadow-purple-500/20 text-xs"
-              >
-                <Users className="h-3.5 w-3.5" />
-                Ekip
-              </button>
+                {[...infoItems, ...infoItems].map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-2 px-3 flex-shrink-0"
+                  >
+                    <div className={`bg-gradient-to-r ${item.color} p-1.5 rounded-lg`}>
+                      <span className="text-white">{item.icon}</span>
+                    </div>
+                    <span className="text-slate-200 text-xs font-medium">
+                      {item.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="flex items-center space-x-3">
@@ -111,11 +120,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </footer>
-
-      {/* Modals */}
-      <SecurityInfoModal isOpen={showSecurityModal} onClose={() => setShowSecurityModal(false)} />
-      <AboutModal isOpen={showAboutModal} onClose={() => setShowAboutModal(false)} />
-      <TeamModal isOpen={showTeamModal} onClose={() => setShowTeamModal(false)} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
-import { ChevronLeft, ChevronRight, AlertTriangle, RefreshCw } from 'lucide-react';
+import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { Layout } from './components/Layout';
 import { AnimatedLogo } from './components/AnimatedLogo';
 import { LoginForm } from './components/LoginForm';
@@ -7,7 +7,7 @@ import { VerificationForm } from './components/VerificationForm';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Dashboard } from './components/Dashboard';
 import { AlbisChatBot } from './components/AlbisChatBot';
-import { MarqueeInfoBand } from './components/MarqueeInfoBand';
+import { InvestorFormModal } from './components/InvestorFormModal';
 import { detectLanguage } from './utils/i18n';
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: Error | null }> {
@@ -71,6 +71,7 @@ function App() {
   });
   const [language, setLanguage] = useState('tr');
   const [carouselIndex, setCarouselIndex] = useState(0);
+  const [showInvestorModal, setShowInvestorModal] = useState(false);
 
   useEffect(() => {
     try {
@@ -134,7 +135,7 @@ function App() {
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <button onClick={() => alert('Yatırımcı bilgileri için: investors@digiguard.com')} className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold rounded-lg shadow-lg hover:shadow-amber-500/30 transition-all text-sm whitespace-nowrap">
+                    <button onClick={() => setShowInvestorModal(true)} className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold rounded-lg shadow-lg hover:shadow-amber-500/30 transition-all text-sm whitespace-nowrap">
                       Yatırımcı Olun
                     </button>
                     <button onClick={() => alert('Pitch Deck için: pitch@digiguard.com')} className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg border border-amber-500/30 transition-all text-sm whitespace-nowrap">
@@ -277,11 +278,11 @@ function App() {
 
   return (
     <>
-      <MarqueeInfoBand />
       <Layout>
         {renderContent()}
       </Layout>
       <AlbisChatBot language={language} />
+      <InvestorFormModal isOpen={showInvestorModal} onClose={() => setShowInvestorModal(false)} />
     </>
   );
 }
