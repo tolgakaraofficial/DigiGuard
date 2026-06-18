@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   X, User, Building2, Mail, Phone, MapPin, Globe, Briefcase,
   DollarSign, FileText, CheckCircle, ArrowRight, ArrowLeft,
-  Users, TrendingUp, Shield, Wallet
+  Users, TrendingUp, Shield, Wallet, Send
 } from 'lucide-react';
 
 interface InvestorFormModalProps {
@@ -12,6 +12,8 @@ interface InvestorFormModalProps {
 
 type InvestorType = 'individual' | 'corporate';
 type Step = 'type' | 'form' | 'success';
+
+const INVESTOR_EMAIL = 'kartolga3@gmail.com';
 
 export const InvestorFormModal: React.FC<InvestorFormModalProps> = ({
   isOpen,
@@ -50,11 +52,11 @@ export const InvestorFormModal: React.FC<InvestorFormModalProps> = ({
   });
 
   const investmentRanges = [
-    { value: '10k-50k', label: '$10,000 - $50,000' },
-    { value: '50k-100k', label: '$50,000 - $100,000' },
-    { value: '100k-500k', label: '$100,000 - $500,000' },
-    { value: '500k-1m', label: '$500,000 - $1,000,000' },
-    { value: '1m+', label: '$1,000,000+' },
+    { value: '10k-50k', label: '$10.000 - $50.000' },
+    { value: '50k-100k', label: '$50.000 - $100.000' },
+    { value: '100k-500k', label: '$100.000 - $500.000' },
+    { value: '500k-1m', label: '$500.000 - $1.000.000' },
+    { value: '1m+', label: '$1.000.000+' },
   ];
 
   const countries = [
@@ -71,7 +73,62 @@ export const InvestorFormModal: React.FC<InvestorFormModalProps> = ({
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // Build email body
+    let subject = '';
+    let body = '';
+
+    if (investorType === 'individual') {
+      subject = `Yatırımcı Başvurusu - Bireysel - ${individualForm.fullName}`;
+      body = `
+Yatırımcı Başvurusu - Bireysel
+==============================
+
+Ad Soyad: ${individualForm.fullName}
+E-posta: ${individualForm.email}
+Telefon: ${individualForm.phone}
+Ülke: ${individualForm.country}
+Şehir: ${individualForm.city}
+Yatırım Aralığı: ${investmentRanges.find(r => r.value === individualForm.investmentRange)?.label || individualForm.investmentRange}
+
+Yatırım Deneyimi:
+${individualForm.experience}
+
+Mesaj:
+${individualForm.message}
+      `.trim();
+    } else {
+      subject = `Yatırımcı Başvurusu - Kurumsal - ${corporateForm.companyName}`;
+      body = `
+Yatırımcı Başvurusu - Kurumsal
+==============================
+
+Şirket Adı: ${corporateForm.companyName}
+Şirket Tipi: ${corporateForm.companyType}
+Kayıt Numarası: ${corporateForm.registrationNumber}
+Web Sitesi: ${corporateForm.website}
+
+İletişim Kişisi: ${corporateForm.contactPerson}
+E-posta: ${corporateForm.email}
+Telefon: ${corporateForm.phone}
+
+Ülke: ${corporateForm.country}
+Şehir: ${corporateForm.city}
+Yatırım Aralığı: ${investmentRanges.find(r => r.value === corporateForm.investmentRange)?.label || corporateForm.investmentRange}
+Portföy Büyüklüğü: ${corporateForm.portfolioSize}
+
+Mesaj:
+${corporateForm.message}
+      `.trim();
+    }
+
+    // Simulate processing
+    await new Promise(resolve => setTimeout(resolve, 1500));
+
+    // Open mailto link
+    const mailtoLink = `mailto:${INVESTOR_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+
     setIsSubmitting(false);
     setStep('success');
   };
@@ -619,7 +676,7 @@ export const InvestorFormModal: React.FC<InvestorFormModalProps> = ({
               </p>
               <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700 mb-6">
                 <p className="text-sm text-slate-300">
-                  <span className="text-amber-400 font-semibold">investors@digiguard.com</span> adresinden de bize ulaşabilirsiniz.
+                  <span className="text-amber-400 font-semibold">{INVESTOR_EMAIL}</span> adresinden de bize ulaşabilirsiniz.
                 </p>
               </div>
               <button

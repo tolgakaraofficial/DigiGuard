@@ -138,7 +138,7 @@ function App() {
                     <button onClick={() => setShowInvestorModal(true)} className="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white font-semibold rounded-lg shadow-lg hover:shadow-amber-500/30 transition-all text-sm whitespace-nowrap">
                       Yatırımcı Olun
                     </button>
-                    <button onClick={() => alert('Pitch Deck için: pitch@digiguard.com')} className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg border border-amber-500/30 transition-all text-sm whitespace-nowrap">
+                    <button onClick={() => window.location.href = 'mailto:kartolga3@gmail.com?subject=Pitch%20Deck%20Talebi&body=Merhaba%2C%0A%0ADigiGuard%20Pitch%20Deck%20dok%C3%BCman%C4%B1n%C4%B1%20istedi%C4%9Fimi%20bildirmek%20istiyorum.%0A%0ATe%C5%9Fekk%C3%BCrler.'} className="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg border border-amber-500/30 transition-all text-sm whitespace-nowrap">
                       Pitch Deck
                     </button>
                   </div>
