@@ -384,27 +384,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
             <Award className="h-4 w-4" />
             <span className="whitespace-nowrap">Sertifika İndir</span>
           </button>
-          <button
-            onClick={() => setSecurityInfoOpen(true)}
-            className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-cyan-500/30 text-sm"
-          >
-            <Lock className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">SHA-256</span>
-          </button>
-          <button
-            onClick={() => setAboutOpen(true)}
-            className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-orange-500/30 text-sm"
-          >
-            <Info className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">Hakkında</span>
-          </button>
-          <button
-            onClick={() => setTeamOpen(true)}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-purple-500/30 text-sm"
-          >
-            <Users className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">Ekip</span>
-          </button>
           <button className="relative p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-800">
             <Bell className="h-5 w-5" />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center animate-pulse text-[10px]">

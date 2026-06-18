@@ -1,11 +1,18 @@
-import React from 'react';
-import { Shield, Fingerprint, Lock } from 'lucide-react';
+import React, { useState } from 'react';
+import { Shield, Fingerprint, Lock, Info, Users, Lock as LockIcon, Shield as ShieldIcon } from 'lucide-react';
+import { SecurityInfoModal } from './SecurityInfoModal';
+import { AboutModal } from './AboutModal';
+import { TeamModal } from './TeamModal';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const [showSecurityModal, setShowSecurityModal] = useState(false);
+  const [showAboutModal, setShowAboutModal] = useState(false);
+  const [showTeamModal, setShowTeamModal] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-x-hidden flex flex-col">
       {/* Cyber background effects */}
@@ -37,11 +44,32 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </p>
               </div>
             </div>
-            <div className="absolute left-1/2 transform -translate-x-1/2 hidden sm:block max-w-md text-center">
-              <span className="text-xs font-medium tracking-wide shimmer-silver">
-                Projemizin Yatırımcı Arayış Kademesi ve Ekipleşme Aşamasında Olduğumuzu Belirtiriz.
-              </span>
+
+            {/* Center Action Buttons */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex items-center gap-2">
+              <button
+                onClick={() => setShowSecurityModal(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium rounded-lg transition-all shadow-lg shadow-cyan-500/20 text-xs"
+              >
+                <LockIcon className="h-3.5 w-3.5" />
+                SHA-256
+              </button>
+              <button
+                onClick={() => setShowAboutModal(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-medium rounded-lg transition-all shadow-lg shadow-orange-500/20 text-xs"
+              >
+                <Info className="h-3.5 w-3.5" />
+                Hakkında
+              </button>
+              <button
+                onClick={() => setShowTeamModal(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-medium rounded-lg transition-all shadow-lg shadow-purple-500/20 text-xs"
+              >
+                <Users className="h-3.5 w-3.5" />
+                Ekip
+              </button>
             </div>
+
             <div className="flex items-center space-x-3">
               <div className="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-cyber-900/50 to-matrix-900/50 border border-cyber-500/30">
                 <Fingerprint className="h-5 w-5 text-matrix-400" />
@@ -83,6 +111,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      {/* Modals */}
+      <SecurityInfoModal isOpen={showSecurityModal} onClose={() => setShowSecurityModal(false)} />
+      <AboutModal isOpen={showAboutModal} onClose={() => setShowAboutModal(false)} />
+      <TeamModal isOpen={showTeamModal} onClose={() => setShowTeamModal(false)} />
     </div>
   );
 };
