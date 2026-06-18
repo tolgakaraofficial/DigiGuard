@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3, Cpu, RefreshCw } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3, Cpu, Link2 } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -12,6 +12,7 @@ interface SidebarProps {
   onOpenPricing: () => void;
   onOpenSecurityMetrics: () => void;
   onOpenSecurityEvolution?: () => void;
+  onOpenERPIntegration?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -25,19 +26,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenPricing,
   onOpenSecurityMetrics,
   onOpenSecurityEvolution,
+  onOpenERPIntegration,
 }) => {
   const menuItems = [
     {
       icon: Users,
-      label: 'Kullanici Senaryolari',
+      label: 'Kullanıcı Senaryoları',
       color: 'from-blue-600 to-cyan-600',
       action: onOpenUserScenarios,
     },
     {
       icon: Globe2,
-      label: 'Kuresel Erisim',
+      label: 'Küresel Erişim',
       color: 'from-green-600 to-emerald-600',
       action: onOpenGlobalReach,
+    },
+    {
+      icon: Link2,
+      label: 'ERP, CRM, SOAP/REST',
+      color: 'from-emerald-600 to-teal-600',
+      action: onOpenERPIntegration || (() => {}),
     },
     {
       icon: Workflow,
@@ -47,19 +55,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       icon: Heart,
-      label: 'Kamu Yarari',
+      label: 'Kamu Yararı',
       color: 'from-pink-600 to-rose-600',
       action: onOpenPublicBenefit,
     },
     {
       icon: Award,
-      label: 'Turkiye Sertifika',
+      label: 'Türkiye Sertifika',
       color: 'from-red-600 to-red-700',
       action: onOpenTurkeyCertificate,
     },
     {
       icon: CreditCard,
-      label: 'Fiyatlandirma',
+      label: 'Fiyatlandırma',
       color: 'from-green-600 to-emerald-600',
       action: onOpenPricing,
     },
@@ -77,15 +85,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       icon: Network,
-      label: 'Ekip Isbirligi',
+      label: 'Ekip İşbirliği',
       color: 'from-indigo-600 to-blue-600',
-      action: () => alert('Takimlar arası KYC yonetimi, rol tabanli erisim kontrolleri ve kurumsal dashboard ozellikleri yakinda!'),
+      action: () => alert('Takımlar arası KYC yönetimi, rol tabanlı erişim kontrolleri ve kurumsal dashboard özellikleri yakında!'),
     },
     {
       icon: BookOpen,
-      label: 'Egitim',
+      label: 'Eğitim',
       color: 'from-yellow-600 to-orange-600',
-      action: () => alert('Video egitim kutuphanesi, interaktif rehberler ve sertifika programlari hazirlaniyor!'),
+      action: () => alert('Video eğitim kütüphanesi, interaktif rehberler ve sertifika programları hazırlanıyor!'),
     },
   ];
 

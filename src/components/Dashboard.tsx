@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, Cpu, RefreshCw } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, Cpu, RefreshCw, Link2 } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -17,6 +17,7 @@ import { CentralMonitoringHub } from './CentralMonitoringHub';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { SecurityEvolutionDashboard } from './SecurityEvolutionDashboard';
+import { IntegrationDashboard } from './IntegrationDashboard';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
 import { generatePremiumCertificate } from '../services/certificateService';
 
@@ -37,6 +38,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [securityInfoOpen, setSecurityInfoOpen] = useState(false);
   const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
   const [securityEvolutionOpen, setSecurityEvolutionOpen] = useState(false);
+  const [integrationDashboardOpen, setIntegrationDashboardOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
   const [certModalOpen, setCertModalOpen] = useState(false);
@@ -308,6 +310,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         onOpenPricing={() => setPricingOpen(true)}
         onOpenSecurityMetrics={() => setSecurityMetricsOpen(true)}
         onOpenSecurityEvolution={() => setSecurityEvolutionOpen(true)}
+        onOpenERPIntegration={() => setIntegrationDashboardOpen(true)}
       />
 
       <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'} relative z-10`}>
@@ -702,6 +705,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <SecurityInfoModal isOpen={securityInfoOpen} onClose={() => setSecurityInfoOpen(false)} />
           <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
           <SecurityEvolutionDashboard isOpen={securityEvolutionOpen} onClose={() => setSecurityEvolutionOpen(false)} />
+          <IntegrationDashboard isOpen={integrationDashboardOpen} onClose={() => setIntegrationDashboardOpen(false)} />
         </div>
       </div>
 
