@@ -382,10 +382,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         <div className="flex items-center space-x-2">
           <button
             onClick={generateBlockchainCertificate}
-            className="bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-700 hover:to-amber-700 text-white font-bold py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-yellow-500/30 text-sm border border-yellow-400/20"
+            className="bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 hover:from-amber-400 hover:via-yellow-400 hover:to-orange-400 text-white font-bold py-2.5 px-5 rounded-xl transition-all flex items-center gap-2.5 shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 text-sm border border-amber-300/30 backdrop-blur-sm group relative overflow-hidden"
           >
-            <Award className="h-4 w-4" />
-            <span className="whitespace-nowrap">Sertifika İndir</span>
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+            <div className="relative flex items-center gap-2.5">
+              <div className="p-1 bg-white/20 rounded-md">
+                <Award className="h-4 w-4" />
+              </div>
+              <span className="whitespace-nowrap">{language === 'tr' ? 'Sertifika Oluştur' : 'Create Certificate'}</span>
+              <span className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 bg-white/15 text-amber-100 text-[10px] rounded-md border border-white/20">
+                Blockchain
+              </span>
+            </div>
           </button>
           <button className="relative p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-800">
             <Bell className="h-5 w-5" />

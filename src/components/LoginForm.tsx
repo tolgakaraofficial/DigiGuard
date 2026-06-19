@@ -118,27 +118,25 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   return (
     <div className="w-full max-w-lg mx-auto px-4">
-      <div className="mb-4 flex gap-3 flex-wrap justify-center">
+      {/* Top Action Bar - Global Style */}
+      <div className="mb-4 flex gap-2 flex-wrap justify-center">
         <button
-          onClick={() => setShowSecurityModal(true)}
-          className="bg-gradient-to-r from-cyber-600 to-secure-600 hover:from-cyber-700 hover:to-secure-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg hover:shadow-cyber-500/50 whitespace-nowrap"
+          onClick={() => setShowTeamModal(true)}
+          className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-semibold py-2.5 px-5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 border border-cyan-400/20 backdrop-blur-sm"
         >
-          <Lock className="h-4 w-4 flex-shrink-0" />
-          <span className="text-sm">SHA-256</span>
+          <Shield className="h-4 w-4" />
+          <span className="text-sm">DigiGuard</span>
         </button>
         <button
           onClick={() => setShowAboutModal(true)}
-          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-green-500/50 hover:shadow-green-500/70 whitespace-nowrap"
+          className="bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-white font-semibold py-2.5 px-5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-slate-500/20 hover:shadow-slate-500/30 border border-slate-500/30 backdrop-blur-sm group"
         >
-          <Info className="h-4 w-4 flex-shrink-0" />
+          <Info className="h-4 w-4 group-hover:scale-110 transition-transform" />
           <span className="text-sm">Hakkında</span>
-        </button>
-        <button
-          onClick={() => setShowTeamModal(true)}
-          className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/50 hover:shadow-orange-500/70 whitespace-nowrap"
-        >
-          <Users className="h-4 w-4 flex-shrink-0" />
-          <span className="text-sm">DigiGuard</span>
+          <span className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 bg-emerald-500/20 text-emerald-300 text-[10px] rounded-md border border-emerald-500/30">
+            <Lock className="h-2.5 w-2.5" />
+            SHA-256
+          </span>
         </button>
       </div>
 
