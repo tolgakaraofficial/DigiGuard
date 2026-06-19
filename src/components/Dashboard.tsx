@@ -19,7 +19,7 @@ import { AlbisChatBot } from './AlbisChatBot';
 import { SecurityEvolutionDashboard } from './SecurityEvolutionDashboard';
 import { IntegrationDashboard } from './IntegrationDashboard';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
-import { generatePremiumCertificate } from '../services/certificateService';
+import { CertificateGeneratorModal } from './CertificateGeneratorModal';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -41,20 +41,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [integrationDashboardOpen, setIntegrationDashboardOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
-  const [certModalOpen, setCertModalOpen] = useState(false);
-  const [certTab, setCertTab] = useState<'system' | 'member'>('member');
-  const [certData, setCertData] = useState<{
-    userName: string;
-    userEmail: string;
-    registrationDate: string;
-    userId: string;
-    userPhoto?: string | null;
-    birthDate?: string | null;
-    idNumber?: string;
-    nationality?: string;
-    gender?: 'male' | 'female';
-    city?: string;
-  } | null>(null);
+  const [certGeneratorOpen, setCertGeneratorOpen] = useState(false);
 
   useEffect(() => {
     const detectedLang = detectLanguage();
@@ -75,78 +62,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
     return 'from-blue-400 to-cyan-400';
   };
 
-  const generateBlockchainCertificate = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      alert('Kullanıcı bilgisi bulunamadı!');
-      return;
-    }
-
-    try {
-      const { data: userData } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', user.id)
-        .maybeSingle();
-
-      const { data: identityData } = await supabase
-        .from('user_identity_info')
-        .select('*')
-        .eq('user_id', user.id)
-        .maybeSingle();
-
-      const { data: photoData } = await supabase
-        .storage
-        .from('identity-documents')
-        .getPublicUrl(`${user.id}/profile.jpg`);
-
-      setCertData({
-        userName: userData?.full_name || user.email?.split('@')[0] || 'MEMBER',
-        userEmail: user.email || '',
-        registrationDate: userData?.created_at || user.created_at,
-        userId: user.id,
-        userPhoto: photoData?.publicUrl || null,
-        birthDate: identityData?.date_of_birth || null,
-        idNumber: identityData?.id_number || '1234567890',
-        nationality: identityData?.nationality || 'T.C.',
-        gender: identityData?.gender === 'female' ? 'female' : 'male',
-        city: userData?.city || '-',
-      });
-      setCertTab('member');
-      setCertModalOpen(true);
-    } catch (error) {
-      console.error('Error fetching certificate data:', error);
-      setCertData({
-        userName: user.email?.split('@')[0] || 'MEMBER',
-        userEmail: user.email || '',
-        registrationDate: new Date().toISOString(),
-        userId: user.id,
-        gender: 'male',
-        city: '-',
-      });
-      setCertTab('member');
-      setCertModalOpen(true);
-    }
-  };
-
-  const handleCertDownload = () => {
-    if (certData) {
-      generatePremiumCertificate({
-        userType,
-        language,
-        userName: certData.userName,
-        userEmail: certData.userEmail,
-        registrationDate: certData.registrationDate,
-        userId: certData.userId,
-        userPhoto: certData.userPhoto || undefined,
-        birthDate: certData.birthDate || undefined,
-        idNumber: certData.idNumber,
-        nationality: certData.nationality,
-        gender: certData.gender,
-        city: certData.city,
-        issuerType: certTab,
-      });
-    }
+  const generateBlockchainCertificate = () => {
+    setCertGeneratorOpen(true);
   };
 
   const stats = [
@@ -717,237 +634,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         </div>
       </div>
 
-      {/* Certificate Tab Panel Modal */}
-      {certModalOpen && certData && (() => {
-        const isFemale = certData.gender === 'female';
-        const headerGrad = isFemale ? 'from-pink-800 to-rose-900' : 'from-blue-900 to-slate-800';
-        const accentColor = isFemale ? 'pink' : 'blue';
-        const photoBorder = isFemale ? 'border-pink-300' : 'border-blue-300';
-        const photoBg = isFemale ? 'from-pink-100 to-rose-100' : 'from-blue-100 to-slate-100';
-        const photoText = isFemale ? 'text-pink-400' : 'text-blue-400';
-        const certNoColor = isFemale ? 'text-pink-600' : 'text-blue-600';
-        const emailBg = isFemale ? 'bg-pink-50 border-pink-200' : 'bg-blue-50 border-blue-200';
-        const emailText = isFemale ? 'text-pink-700' : 'text-blue-700';
-        const bcBg = isFemale ? 'bg-rose-50 border-rose-300' : 'bg-cyan-50 border-cyan-300';
-        const bcText = isFemale ? 'text-rose-700' : 'text-cyan-700';
-        const bioBg = isFemale ? 'bg-pink-50 border-pink-300' : 'bg-blue-50 border-blue-300';
-        const bioTitle = isFemale ? 'text-pink-700' : 'text-blue-700';
-        const genderBarBg = isFemale ? 'bg-pink-600' : 'bg-blue-600';
-        const genderLabel = isFemale ? 'KADIN / FEMALE' : 'ERKEK / MALE';
-        const genderBadgeBg = isFemale ? 'bg-pink-600/30 border-pink-500/50 text-pink-300' : 'bg-blue-600/30 border-blue-500/50 text-blue-300';
-        const systemEncLabel = 'DG-SYS-AES256-GCM-SHA3';
-        const memberEncLabel = 'DG-MBR-CHACHA20-POLY';
-        const activeEnc = certTab === 'system' ? systemEncLabel : memberEncLabel;
-        const encBadgeBg = certTab === 'system' ? 'bg-cyan-600/20 border-cyan-500/40' : 'bg-amber-600/20 border-amber-500/40';
-        const encBadgeText = certTab === 'system' ? 'text-cyan-300' : 'text-amber-300';
-        const certId = `DG-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-        const blockNum = Math.floor(Math.random() * 10000000 + 15000000);
-
-        return (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={() => setCertModalOpen(false)}>
-            <div className="relative max-w-3xl w-full max-h-[92vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-              <button
-                onClick={() => setCertModalOpen(false)}
-                className="absolute -top-3 -right-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full p-1.5 border border-slate-600 z-10 transition-colors"
-              >
-                <X className="h-4 w-4" />
-              </button>
-
-              {/* Tab Header */}
-              <div className={`bg-gradient-to-r ${headerGrad} rounded-t-xl px-6 py-4`}>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                      <Award className="h-5 w-5 text-yellow-400" />
-                      DigiGuard Kimlik Sertifikasi
-                    </h2>
-                    <p className="text-white/70 text-sm mt-1">BIOMETRIC KYC & BLOCKCHAIN VERIFIED</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <span className={`px-2 py-1 ${genderBadgeBg} text-xs rounded-full border font-semibold`}>
-                      {genderLabel}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Tabs */}
-                <div className="flex gap-1 mt-4">
-                  <button
-                    onClick={() => setCertTab('member')}
-                    className={`px-4 py-2 rounded-t-lg text-sm font-semibold transition-all ${
-                      certTab === 'member'
-                        ? 'bg-white text-slate-800'
-                        : 'bg-white/20 text-white/70 hover:bg-white/30'
-                    }`}
-                  >
-                    Uye Sertifikasi
-                  </button>
-                  <button
-                    onClick={() => setCertTab('system')}
-                    className={`px-4 py-2 rounded-t-lg text-sm font-semibold transition-all ${
-                      certTab === 'system'
-                        ? 'bg-white text-slate-800'
-                        : 'bg-white/20 text-white/70 hover:bg-white/30'
-                    }`}
-                  >
-                    Tesis Sertifikasi
-                  </button>
-                </div>
-              </div>
-
-              {/* Certificate Preview - ID Card Format */}
-              <div className="bg-white p-6">
-                <div className={`bg-gradient-to-b from-slate-50 to-white rounded-lg shadow-xl overflow-hidden border-2 ${isFemale ? 'border-pink-200' : 'border-blue-200'}`} style={{ aspectRatio: '1.586/1' }}>
-                  <div className="relative w-full h-full flex flex-col" style={{ fontSize: '11px' }}>
-                    {/* Top Header */}
-                    <div className={`bg-gradient-to-r ${headerGrad} text-white px-5 py-2.5 flex items-center justify-between`}>
-                      <div>
-                        <h1 className="text-lg font-bold">Digiguard</h1>
-                        <p className="text-[9px] opacity-90">KIMLIK VE DIJITAL SERTIFIKA / IDENTITY & DIGITAL CERTIFICATE</p>
-                      </div>
-                      <div className="text-right text-[9px]">
-                        <p className="font-mono font-bold">{certId}</p>
-                        <p className="opacity-70">Block #{blockNum}</p>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex gap-4 flex-1 p-4">
-                      {/* Left: Photo & Name */}
-                      <div className="flex-shrink-0 flex flex-col items-center w-24">
-                        <div className={`w-20 h-24 bg-gradient-to-br ${photoBg} rounded border-2 ${photoBorder} flex items-center justify-center overflow-hidden`}>
-                          {certData.userPhoto ? (
-                            <img src={certData.userPhoto} alt="Profile" className="w-full h-full object-cover" />
-                          ) : (
-                            <span className={`${photoText} text-[10px]`}>PHOTO</span>
-                          )}
-                        </div>
-                        <p className="text-[10px] font-bold mt-1.5 text-center leading-tight text-slate-800">{certData.userName}</p>
-                        <p className="text-[8px] text-slate-400">DIGIGUARD</p>
-                        <div className={`${genderBarBg} w-20 mt-1 py-0.5 rounded text-center`}>
-                          <span className="text-white text-[7px] font-bold">{genderLabel}</span>
-                        </div>
-                      </div>
-
-                      {/* Center: Identity Info */}
-                      <div className="flex-1">
-                        <div className={`p-2 rounded ${bioBg} mb-2`}>
-                          <p className={`text-[8px] font-bold ${bioTitle}`}>KIMLIK BILGILERI / IDENTITY INFORMATION</p>
-                        </div>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
-                          <div>
-                            <p className="text-[8px] font-bold text-slate-500">DOGUM TARIHI</p>
-                            <p className="text-xs font-bold">{certData.birthDate || '01.01.1990'}</p>
-                          </div>
-                          <div>
-                            <p className="text-[8px] font-bold text-slate-500">UYRUK</p>
-                            <p className="text-xs font-bold">{certData.nationality || 'T.C.'}</p>
-                          </div>
-                          <div>
-                            <p className="text-[8px] font-bold text-slate-500">KIMLIK NO</p>
-                            <p className="text-xs font-bold font-mono">{certData.idNumber}</p>
-                          </div>
-                          <div>
-                            <p className="text-[8px] font-bold text-slate-500">SERTIFIKA NO</p>
-                            <p className={`text-xs font-bold ${certNoColor}`}>{certId}</p>
-                          </div>
-                        </div>
-                        <div className={`mt-2 p-1.5 rounded border ${emailBg}`}>
-                          <p className={`text-[7px] font-bold ${emailText}`}>E-POSTA</p>
-                          <p className="text-[9px] text-slate-700">{certData.userEmail}</p>
-                        </div>
-                        <div className={`mt-2 p-1.5 rounded border ${bcBg}`}>
-                          <p className={`text-[7px] font-bold ${bcText}`}>BLOCKCHAIN DOGRULAMA</p>
-                          <p className="text-[7px] text-slate-500 font-mono">Ag: Ethereum | Sifreleme: {certTab === 'system' ? 'AES-256-GCM' : 'CHACHA20-POLY'}</p>
-                          <p className="text-[7px] text-green-600 font-bold">
-                            VERIFIED: {new Date().toLocaleString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Right: QR & Badges */}
-                      <div className="flex flex-col gap-1.5 items-center w-20">
-                        <div className="w-16 h-16 bg-white border-2 border-slate-300 grid grid-cols-5 gap-0 p-0.5">
-                          {Array.from({ length: 25 }).map((_, i) => (
-                            <div key={i} className={`flex-1 rounded-[0.5px] ${Math.random() > 0.5 ? 'bg-black' : 'bg-white'}`} />
-                          ))}
-                        </div>
-                        <p className="text-[6px] text-center font-bold text-slate-600 leading-tight">SCAN TO<br />VERIFY</p>
-                        <div className="text-center p-1 bg-green-50 rounded border border-green-300 w-full">
-                          <p className="text-[7px] font-bold text-green-700">BIOMETRIC</p>
-                          <p className="text-[6px] text-green-600">KYC APPROVED</p>
-                        </div>
-                        <div className={`text-center p-1 rounded border w-full ${encBadgeBg}`}>
-                          <p className={`text-[6px] font-bold ${encBadgeText}`}>{certTab === 'system' ? 'SYSTEM' : 'MEMBER'}</p>
-                          <p className="text-[5px] text-slate-400 font-mono">{activeEnc.substring(0, 16)}</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom Status Bar */}
-                    <div className={`border-t ${isFemale ? 'border-pink-200' : 'border-blue-200'} px-4 py-2 flex justify-between items-center text-[8px]`}>
-                      <div className="flex gap-2">
-                        <span className="px-1.5 py-0.5 bg-slate-100 rounded border border-slate-300">CERT ID</span>
-                        <span className="px-1.5 py-0.5 bg-green-100 rounded border border-green-300 text-green-700 font-bold">VERIFIED</span>
-                        <span className={`px-1.5 py-0.5 rounded border ${isFemale ? 'bg-pink-100 border-pink-300 text-pink-700' : 'bg-blue-100 border-blue-300 text-blue-700'}`}>
-                          {certTab === 'system' ? 'AES-256' : 'CHACHA20'}
-                        </span>
-                      </div>
-                      <p className="text-slate-500">Karprime Technology INC.</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Encryption Info */}
-                <div className="mt-4 p-3 bg-slate-50 rounded-lg border border-slate-200">
-                  <h4 className="text-sm font-bold text-slate-700 mb-2 flex items-center gap-2">
-                    <Lock className="h-4 w-4 text-slate-500" />
-                    Sifreleme Bilgileri
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className={`p-2 rounded border ${certTab === 'system' ? 'bg-cyan-50 border-cyan-200' : 'bg-amber-50 border-amber-200'}`}>
-                      <p className={`text-xs font-bold ${certTab === 'system' ? 'text-cyan-700' : 'text-amber-700'}`}>
-                        {certTab === 'system' ? 'Tesis Sertifikasi' : 'Uye Sertifikasi'}
-                      </p>
-                      <p className="text-[10px] text-slate-500 font-mono mt-1">{activeEnc}</p>
-                      <p className="text-[9px] text-slate-400 mt-0.5">
-                        {certTab === 'system'
-                          ? 'Sistem tarafindan uretilmis, en ust duzey guvenlik katmani'
-                          : 'Uye/abone tarafindan indirilen, standart guvenlik katmani'}
-                      </p>
-                    </div>
-                    <div className="p-2 rounded border bg-slate-100 border-slate-200">
-                      <p className="text-xs font-bold text-slate-600">Fark Nedir?</p>
-                      <p className="text-[9px] text-slate-500 mt-1">
-                        Tesis sertifikasi: Kurum icin uretilen ozel AES-256-GCM + SHA3 sifreleme.
-                        Uye sertifikasi: Bireysel kullanicilar icin CHACHA20-POLY sifreleme.
-                        Her iki sertifika da blockchain ile zaman damgalidir.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Download Button */}
-                <div className="mt-4 flex justify-center gap-3">
-                  <button
-                    onClick={handleCertDownload}
-                    className={`bg-gradient-to-r ${isFemale ? 'from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700' : 'from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700'} text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center gap-2 shadow-lg text-sm`}
-                  >
-                    <Download className="h-5 w-5" />
-                    PDF Olarak Indir ({certTab === 'system' ? 'Tesis' : 'Uye'})
-                  </button>
-                  <button
-                    onClick={() => setCertModalOpen(false)}
-                    className="bg-slate-600 hover:bg-slate-700 text-white font-bold py-3 px-8 rounded-lg transition-all"
-                  >
-                    Kapat
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })()}
+      <CertificateGeneratorModal
+        isOpen={certGeneratorOpen}
+        onClose={() => setCertGeneratorOpen(false)}
+        language={language}
+        userType={userType}
+      />
 
       <AlbisChatBot language={language} />
     </div>
