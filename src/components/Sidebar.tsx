@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3, Cpu, Link2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3, Cpu, Link2, Brain, Monitor, Building2 } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -13,6 +13,10 @@ interface SidebarProps {
   onOpenSecurityMetrics: () => void;
   onOpenSecurityEvolution?: () => void;
   onOpenERPIntegration?: () => void;
+  onOpenAIOrchestrator?: () => void;
+  onOpenHRPanel?: () => void;
+  onOpenPhysicalSecurity?: () => void;
+  onOpenITPanel?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -27,10 +31,39 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenSecurityMetrics,
   onOpenSecurityEvolution,
   onOpenERPIntegration,
+  onOpenAIOrchestrator,
+  onOpenHRPanel,
+  onOpenPhysicalSecurity,
+  onOpenITPanel,
 }) => {
   const menuItems = [
     {
+      icon: Brain,
+      label: 'AI Merkez / PUKO',
+      color: 'from-cyan-500 to-blue-600',
+      action: onOpenAIOrchestrator || (() => {}),
+      highlight: true,
+    },
+    {
       icon: Users,
+      label: 'İK Paneli',
+      color: 'from-blue-600 to-blue-700',
+      action: onOpenHRPanel || (() => {}),
+    },
+    {
+      icon: Shield,
+      label: 'Fiziksel Güvenlik',
+      color: 'from-red-600 to-red-700',
+      action: onOpenPhysicalSecurity || (() => {}),
+    },
+    {
+      icon: Monitor,
+      label: 'BT / IT Paneli',
+      color: 'from-purple-600 to-purple-700',
+      action: onOpenITPanel || (() => {}),
+    },
+    {
+      icon: Globe2,
       label: 'Kullanıcı Senaryoları',
       color: 'from-blue-600 to-cyan-600',
       action: onOpenUserScenarios,
@@ -148,7 +181,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className="w-full group relative"
                 >
                   <div
-                    className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 hover:bg-slate-800 ${
+                    className={`flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 hover:bg-slate-800 ${'highlight' in item && item.highlight ? 'bg-cyan-950/40 border border-cyan-500/20' : ''} ${
                       !isOpen && 'justify-center'
                     }`}
                   >
@@ -156,9 +189,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       <item.icon className="h-4 w-4 text-white" />
                     </div>
                     {isOpen && (
-                      <span className="text-slate-300 text-sm font-medium group-hover:text-white transition-colors">
+                      <span className={`text-sm font-medium group-hover:text-white transition-colors ${'highlight' in item && item.highlight ? 'text-cyan-300 font-semibold' : 'text-slate-300'}`}>
                         {item.label}
                       </span>
+                    )}
+                    {isOpen && 'highlight' in item && item.highlight && (
+                      <span className="ml-auto px-1.5 py-0.5 bg-cyan-500/20 text-cyan-400 text-[9px] rounded font-bold border border-cyan-500/30">AI</span>
                     )}
                   </div>
 

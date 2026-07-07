@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, Cpu, RefreshCw, Link2 } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, Cpu, RefreshCw, Link2, Brain, Monitor } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -20,6 +20,10 @@ import { SecurityEvolutionDashboard } from './SecurityEvolutionDashboard';
 import { IntegrationDashboard } from './IntegrationDashboard';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
 import { CertificateGeneratorModal } from './CertificateGeneratorModal';
+import { AIOrchestratorDashboard } from './AIOrchestratorDashboard';
+import { HRPanel } from './HRPanel';
+import { PhysicalSecurityPanel } from './PhysicalSecurityPanel';
+import { ITPanel } from './ITPanel';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -42,6 +46,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<Language>('tr');
   const [certGeneratorOpen, setCertGeneratorOpen] = useState(false);
+  const [aiOrchestratorOpen, setAiOrchestratorOpen] = useState(false);
+  const [hrPanelOpen, setHrPanelOpen] = useState(false);
+  const [physicalSecurityOpen, setPhysicalSecurityOpen] = useState(false);
+  const [itPanelOpen, setItPanelOpen] = useState(false);
 
   useEffect(() => {
     const detectedLang = detectLanguage();
@@ -228,6 +236,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         onOpenSecurityMetrics={() => setSecurityMetricsOpen(true)}
         onOpenSecurityEvolution={() => setSecurityEvolutionOpen(true)}
         onOpenERPIntegration={() => setIntegrationDashboardOpen(true)}
+        onOpenAIOrchestrator={() => setAiOrchestratorOpen(true)}
+        onOpenHRPanel={() => setHrPanelOpen(true)}
+        onOpenPhysicalSecurity={() => setPhysicalSecurityOpen(true)}
+        onOpenITPanel={() => setItPanelOpen(true)}
       />
 
       <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'} relative z-10`}>
@@ -494,6 +506,75 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       </div>
 
 
+      {/* AI PUKO Orchestrator Quick Access */}
+      <div className="mb-8 bg-gradient-to-br from-slate-800/90 via-cyan-900/10 to-slate-800/90 rounded-2xl p-6 border border-cyan-500/20 shadow-xl relative overflow-hidden">
+        <div className="absolute -top-16 -right-16 w-48 h-48 bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <h3 className="text-lg font-bold text-white flex items-center gap-2.5">
+                <div className="p-2 bg-cyan-500/20 rounded-lg border border-cyan-500/30">
+                  <Brain className="h-5 w-5 text-cyan-400" />
+                </div>
+                Merkezi AI & PUKO Yönetim Sistemi
+              </h3>
+              <p className="text-xs text-slate-400 mt-1 ml-11">AI Orchestrator, SOPON → SUPON → SOFT 10 — Departman bazlı otonom döngü</p>
+            </div>
+            <button
+              onClick={() => setAiOrchestratorOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-sm font-semibold rounded-xl transition-all shadow-lg shadow-cyan-500/20"
+            >
+              <Brain className="h-4 w-4" />
+              Tam Görünüm
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {[
+              { label: 'PLANLA', sublabel: 'Dinamik Politika', color: 'from-cyan-900/60 border-cyan-500/30 text-cyan-400', desc: 'AI tehdit istihbaratına göre politika üretir', badge: 'SOPON', active: true },
+              { label: 'UYGULA', sublabel: 'Otonom İşleyiş', color: 'from-blue-900/60 border-blue-500/30 text-blue-400', desc: 'Kimlik doğrulama ve sertifikasyon tetiklenir', badge: 'SOPON' },
+              { label: 'KONTROL ET', sublabel: 'Akıllı Anomali', color: 'from-amber-900/60 border-amber-500/30 text-amber-400', desc: 'SIEM mantığıyla loglar anlık taranır', badge: 'SUPON' },
+              { label: 'ÖNLEM AL', sublabel: 'Self-Healing', color: 'from-red-900/60 border-red-500/30 text-red-400', desc: 'Otonom defansif aksiyon ve sertifika koruma', badge: 'SOFT 10' },
+            ].map((step, i) => (
+              <div key={i} className={`p-4 rounded-xl border bg-gradient-to-br ${step.color} to-slate-900/40 relative`}>
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <div className={`text-xs font-bold ${step.color.split(' ')[2]}`}>{i + 1}. {step.label}</div>
+                    <div className="text-[10px] text-slate-500">{step.sublabel}</div>
+                  </div>
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${step.color.split(' ')[1]} ${step.color.split(' ')[2]} bg-slate-900/40`}>{step.badge}</span>
+                </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
+                {step.active && <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
+            {[
+              { label: 'İK Paneli', sublabel: 'HR-Agent v2.1', color: 'from-blue-900/40 border-blue-500/20 text-blue-400', icon: Users, action: () => setHrPanelOpen(true), stat: '138 Doğrulama', stage: 'UYGULA' },
+              { label: 'Fiziksel Güvenlik', sublabel: 'PhySec-Agent v1.8', color: 'from-red-900/40 border-red-500/20 text-red-400', icon: Shield, action: () => setPhysicalSecurityOpen(true), stat: '5 Bölge Aktif', stage: 'KONTROL ET' },
+              { label: 'BT / IT Paneli', sublabel: 'IT-Agent v3.0', color: 'from-purple-900/40 border-purple-500/20 text-purple-400', icon: Monitor, action: () => setItPanelOpen(true), stat: '3 Tehdit Aktif', stage: 'ÖNLEM AL' },
+            ].map((dept) => (
+              <button key={dept.label} onClick={dept.action} className={`flex items-center gap-3 p-3.5 rounded-xl border bg-gradient-to-br ${dept.color} to-slate-900/40 text-left hover:opacity-80 transition-opacity group`}>
+                <div className={`p-2 rounded-lg ${dept.color.split(' ')[2].replace('text-', 'bg-').replace('400', '500/20')}`}>
+                  <dept.icon className={`h-4 w-4 ${dept.color.split(' ')[2]}`} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className={`text-xs font-bold ${dept.color.split(' ')[2]}`}>{dept.label}</div>
+                  <div className="text-[10px] text-slate-500">{dept.sublabel}</div>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <div className={`text-[10px] font-semibold ${dept.color.split(' ')[2]}`}>{dept.stat}</div>
+                  <div className="text-[9px] text-slate-600">{dept.stage}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Central Monitoring Hub */}
       <div className="mb-8">
         <CentralMonitoringHub language={language} />
@@ -631,6 +712,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
           <SecurityEvolutionDashboard isOpen={securityEvolutionOpen} onClose={() => setSecurityEvolutionOpen(false)} />
           <IntegrationDashboard isOpen={integrationDashboardOpen} onClose={() => setIntegrationDashboardOpen(false)} />
+          <AIOrchestratorDashboard isOpen={aiOrchestratorOpen} onClose={() => setAiOrchestratorOpen(false)} />
+          <HRPanel isOpen={hrPanelOpen} onClose={() => setHrPanelOpen(false)} />
+          <PhysicalSecurityPanel isOpen={physicalSecurityOpen} onClose={() => setPhysicalSecurityOpen(false)} />
+          <ITPanel isOpen={itPanelOpen} onClose={() => setItPanelOpen(false)} />
         </div>
       </div>
 
