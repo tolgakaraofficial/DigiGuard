@@ -172,6 +172,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
               personalInfo={personalInfo}
               identityInfo={identityInfo}
               mediaFiles={mediaFiles}
+              userType="individual"
               onComplete={() => onComplete(userType || 'individual')}
             />
           );
@@ -203,6 +204,8 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
               personalInfo={personalInfo}
               identityInfo={identityInfo}
               mediaFiles={mediaFiles}
+              corporateInfo={corporateInfo}
+              userType="corporate"
               onComplete={() => onComplete(userType || 'corporate')}
             />
           );

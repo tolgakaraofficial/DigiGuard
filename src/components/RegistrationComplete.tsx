@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Shield, Download, Eye, Star, Award, Lock, FileCheck, Fingerprint, Database } from 'lucide-react';
-import { PersonalInfo, IdentityInfo, MediaFiles } from '../types';
+import { Shield, Download, Eye, Star, Award, Lock, FileCheck, Fingerprint, Database, Zap } from 'lucide-react';
+import { PersonalInfo, IdentityInfo, MediaFiles, CorporateInfo } from '../types';
 import jsPDF from 'jspdf';
+import { CertificateBridgePanel } from './CertificateBridgePanel';
 
 interface RegistrationCompleteProps {
   personalInfo: PersonalInfo;
   identityInfo: IdentityInfo;
   mediaFiles: MediaFiles;
+  corporateInfo?: CorporateInfo;
+  userType?: 'individual' | 'corporate' | 'personnel';
   onComplete: () => void;
 }
 
@@ -14,25 +17,35 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
   personalInfo,
   identityInfo,
   mediaFiles,
+  corporateInfo,
+  userType = 'individual',
   onComplete,
 }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [certificateGenerated, setCertificateGenerated] = useState(false);
+  const [showBridge, setShowBridge] = useState(false);
+  const [profilePhotoDataUrl, setProfilePhotoDataUrl] = useState<string | null>(null);
 
   const handleComplete = async () => {
     setIsProcessing(true);
-
     try {
-      // İşleme süresi simülasyonu
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      // onComplete callback'ini cagir
-      if (onComplete) {
-        onComplete();
+      // Convert first photo to data URL for the bridge pipeline
+      let photoUrl: string | null = null;
+      if (mediaFiles.photos.length > 0) {
+        const file = mediaFiles.photos[0];
+        photoUrl = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
       }
+      setProfilePhotoDataUrl(photoUrl);
+      setShowBridge(true);
     } catch (error) {
-      console.error('Registration complete error:', error);
-      alert('Bir hata olustu. Lutfen tekrar deneyin.');
+      console.error('Bridge init error:', error);
+      // Fallback: launch pipeline without photo
+      setShowBridge(true);
     } finally {
       setIsProcessing(false);
     }
@@ -228,6 +241,21 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
   };
   const totalFiles = mediaFiles.photos.length + mediaFiles.videos.length + mediaFiles.audioRecordings.length;
 
+  // Show bridge pipeline when triggered
+  if (showBridge) {
+    return (
+      <CertificateBridgePanel
+        personalInfo={personalInfo}
+        identityInfo={identityInfo}
+        mediaFiles={mediaFiles}
+        corporateInfo={corporateInfo}
+        userType={userType}
+        profilePhotoDataUrl={profilePhotoDataUrl}
+        onComplete={onComplete}
+      />
+    );
+  }
+
   return (
     <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-cyber-500/30 relative overflow-hidden">
       {/* Cyber background effects */}
@@ -364,12 +392,12 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
           {isProcessing ? (
             <>
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Biyometrik Sistem Hazırlanıyor...</span>
+              <span>SOPON Pipeline Başlatılıyor...</span>
             </>
           ) : (
             <>
-              <Fingerprint className="h-6 w-6" />
-              <span>DigiGuard KYC'ye Hoş Geldiniz!</span>
+              <Zap className="h-6 w-6" />
+              <span>Sertifika Pipeline'ını Başlat</span>
             </>
           )}
         </button>
