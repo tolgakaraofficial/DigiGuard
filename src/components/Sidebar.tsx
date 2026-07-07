@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3, Cpu, Link2, Brain, Monitor, Building2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3, Cpu, Link2, Brain, Monitor, Building2, Server } from 'lucide-react';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -17,6 +17,7 @@ interface SidebarProps {
   onOpenHRPanel?: () => void;
   onOpenPhysicalSecurity?: () => void;
   onOpenITPanel?: () => void;
+  onOpenCorporateService?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -35,6 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onOpenHRPanel,
   onOpenPhysicalSecurity,
   onOpenITPanel,
+  onOpenCorporateService,
 }) => {
   const menuItems = [
     {
@@ -61,6 +63,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       label: 'BT / IT Paneli',
       color: 'from-purple-600 to-purple-700',
       action: onOpenITPanel || (() => {}),
+    },
+    {
+      icon: Server,
+      label: 'Kurumsal Servisler',
+      color: 'from-teal-600 to-cyan-700',
+      action: onOpenCorporateService || (() => {}),
+      highlight: false,
     },
     {
       icon: Globe2,

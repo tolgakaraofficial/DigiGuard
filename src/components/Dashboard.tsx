@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, Cpu, RefreshCw, Link2, Brain, Monitor } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, Cpu, RefreshCw, Link2, Brain, Monitor, Server } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -24,6 +24,7 @@ import { AIOrchestratorDashboard } from './AIOrchestratorDashboard';
 import { HRPanel } from './HRPanel';
 import { PhysicalSecurityPanel } from './PhysicalSecurityPanel';
 import { ITPanel } from './ITPanel';
+import { CorporateServicePanel } from './CorporateServicePanel';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -50,6 +51,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [hrPanelOpen, setHrPanelOpen] = useState(false);
   const [physicalSecurityOpen, setPhysicalSecurityOpen] = useState(false);
   const [itPanelOpen, setItPanelOpen] = useState(false);
+  const [corporateServiceOpen, setCorporateServiceOpen] = useState(false);
 
   useEffect(() => {
     const detectedLang = detectLanguage();
@@ -240,6 +242,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         onOpenHRPanel={() => setHrPanelOpen(true)}
         onOpenPhysicalSecurity={() => setPhysicalSecurityOpen(true)}
         onOpenITPanel={() => setItPanelOpen(true)}
+        onOpenCorporateService={() => setCorporateServiceOpen(true)}
       />
 
       <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'} relative z-10`}>
@@ -580,6 +583,52 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
         <CentralMonitoringHub language={language} />
       </div>
 
+      {/* Corporate Service Architecture Quick Access */}
+      <div className="mb-8 bg-gradient-to-br from-slate-800/90 via-teal-900/10 to-slate-800/90 rounded-2xl p-6 border border-teal-500/20 shadow-xl relative overflow-hidden">
+        <div className="absolute -top-16 -right-16 w-48 h-48 bg-teal-500/5 rounded-full blur-3xl" />
+        <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="relative z-10">
+          <div className="flex items-center justify-between mb-5">
+            <div>
+              <h3 className="text-lg font-bold text-white flex items-center gap-2.5">
+                <div className="p-2 bg-teal-500/20 rounded-lg border border-teal-500/30">
+                  <Server className="h-5 w-5 text-teal-400" />
+                </div>
+                Kurumsal Servis Mimarisi
+              </h3>
+              <p className="text-xs text-slate-400 mt-1 ml-11">Servis kataloğu, SLA izleme, API gateway yönetimi ve kiracı abonelik sistemi</p>
+            </div>
+            <button
+              onClick={() => setCorporateServiceOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white text-sm font-semibold rounded-xl transition-all shadow-lg shadow-teal-500/20"
+            >
+              <Server className="h-4 w-4" />
+              Tam Görünüm
+            </button>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { label: 'SOPON Servisleri', sublabel: 'Veri filtreleme & API Gateway', color: 'from-cyan-900/60 border-cyan-500/30 text-cyan-400', desc: 'Veri kalitesi, kuyruk yönetimi ve API gateway erişimi', badge: 'SOPON' },
+              { label: 'SUPON Servisleri', sublabel: 'Deepfake & SIEM analizi', color: 'from-purple-900/60 border-purple-500/30 text-purple-400', desc: 'Davranışsal AI analizi, deepfake tespiti ve güvenlik izleme', badge: 'SUPON' },
+              { label: 'SOFT 10 Servisleri', sublabel: 'Blockchain sertifikasyon', color: 'from-emerald-900/60 border-emerald-500/30 text-emerald-400', desc: 'JWT/JWS imzalama, blockchain kayıt ve kriptografik sertifika', badge: 'SOFT 10' },
+              { label: 'Çapraz Katman', sublabel: 'Zero-Trust & KYC', color: 'from-amber-900/60 border-amber-500/30 text-amber-400', desc: 'Katmanlar arası kimlik doğrulama ve Zero-Trust erişim kontrolü', badge: 'ALL', active: true },
+            ].map((step, i) => (
+              <div key={i} className={`p-4 rounded-xl border bg-gradient-to-br ${step.color} to-slate-900/40 relative`}>
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <div className={`text-xs font-bold ${step.color.split(' ')[2]}`}>{step.label}</div>
+                    <div className="text-[10px] text-slate-500">{step.sublabel}</div>
+                  </div>
+                  <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded border ${step.color.split(' ')[1]} ${step.color.split(' ')[2]} bg-slate-900/40`}>{step.badge}</span>
+                </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed">{step.desc}</p>
+                {step.active && <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Monitoring Panel */}
       <div className="mb-8">
         <MonitoringPanel />
@@ -716,6 +765,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           <HRPanel isOpen={hrPanelOpen} onClose={() => setHrPanelOpen(false)} />
           <PhysicalSecurityPanel isOpen={physicalSecurityOpen} onClose={() => setPhysicalSecurityOpen(false)} />
           <ITPanel isOpen={itPanelOpen} onClose={() => setItPanelOpen(false)} />
+          <CorporateServicePanel isOpen={corporateServiceOpen} onClose={() => setCorporateServiceOpen(false)} />
         </div>
       </div>
 
