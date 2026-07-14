@@ -14,6 +14,11 @@ import { SecurityMetricsModal } from './SecurityMetricsModal';
 import { MonitoringPanel } from './MonitoringPanel';
 import { TrackingPanel } from './TrackingPanel';
 import { CentralMonitoringHub } from './CentralMonitoringHub';
+import { CerebroNetworkPanel } from './CerebroNetworkPanel';
+import { HybridWalletHub } from './HybridWalletHub';
+import { EntityRegistryPanel } from './EntityRegistryPanel';
+import { SoponDeAIPanel } from './SoponDeAIPanel';
+import { CerebroCertificatePanel } from './CerebroCertificatePanel';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
@@ -228,6 +233,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   ];
   return (
     <div className="flex min-h-screen bg-slate-900 relative overflow-hidden">
+      <HybridWalletHub />
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/3 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
@@ -430,6 +436,26 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       {/* Central Monitoring Hub */}
       <div className="mb-8">
         <CentralMonitoringHub language={language} />
+      </div>
+
+      {/* Cerebro Network Architecture - 5 Layer */}
+      <div className="mb-8">
+        <CerebroNetworkPanel />
+      </div>
+
+      {/* Entity Registry - 5 Categories */}
+      <div className="mb-8">
+        <EntityRegistryPanel />
+      </div>
+
+      {/* Sopon DeAI Engine */}
+      <div className="mb-8">
+        <SoponDeAIPanel />
+      </div>
+
+      {/* Cerebro Certificate System */}
+      <div className="mb-8">
+        <CerebroCertificatePanel language={language} />
       </div>
 
       {/* Monitoring Panel */}
