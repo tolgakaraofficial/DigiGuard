@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, ChevronDown, ChevronRight, Terminal } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -20,7 +20,6 @@ import { EntityRegistryPanel } from './EntityRegistryPanel';
 import { SoponDeAIPanel } from './SoponDeAIPanel';
 import { CerebroCertificatePanel } from './CerebroCertificatePanel';
 import { Web4BridgePanel } from './Web4BridgePanel';
-import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
 import { generatePremiumCertificate } from '../services/certificateService';
@@ -41,7 +40,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [teamOpen, setTeamOpen] = useState(false);
   const [securityInfoOpen, setSecurityInfoOpen] = useState(false);
   const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeDepartment, setActiveDepartment] = useState<'overview' | 'cerebro' | 'security' | 'web4' | 'wallet' | 'tracking'>('overview');
   const [language, setLanguage] = useState<Language>('tr');
   const [certModalOpen, setCertModalOpen] = useState(false);
@@ -234,445 +232,327 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
     },
   ];
   return (
-    <div className="flex min-h-screen bg-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-[#020617] text-white relative overflow-x-hidden flex flex-col">
       <HybridWalletHub />
+
+      {/* Background effects */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/3 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/2 right-1/3 w-80 h-80 bg-purple-500/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-
-        <svg className="absolute top-20 left-20 w-32 h-32 opacity-[0.02]" viewBox="0 0 100 100">
-          <text x="50" y="50" fontSize="50" fill="currentColor" className="text-cyan-500" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">
-            DG
-          </text>
-        </svg>
-
-        <svg className="absolute bottom-32 right-32 w-40 h-40 opacity-[0.02]" viewBox="0 0 100 100">
-          <text x="50" y="50" fontSize="40" fill="currentColor" className="text-blue-500" textAnchor="middle" dominantBaseline="middle" fontWeight="bold">
-            Guard
-          </text>
-        </svg>
-
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.01] via-transparent to-blue-500/[0.01]"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse" style={{ background: 'rgba(0,229,255,0.03)' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse" style={{ background: 'rgba(57,255,20,0.03)', animationDelay: '1s' }} />
       </div>
 
-      <Sidebar
-        isOpen={sidebarOpen}
-        onToggle={() => setSidebarOpen(!sidebarOpen)}
-        onOpenUserScenarios={() => setUserScenariosOpen(true)}
-        onOpenGlobalReach={() => setGlobalReachOpen(true)}
-        onOpenIntegrations={() => setIntegrationsOpen(true)}
-        onOpenPublicBenefit={() => setPublicBenefitOpen(true)}
-        onOpenTurkeyCertificate={() => setTurkeyCertificateOpen(true)}
-        onOpenPricing={() => setPricingOpen(true)}
-        onOpenSecurityMetrics={() => setSecurityMetricsOpen(true)}
-      />
-
-      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-16'} relative z-10`}>
-        <div className="p-6">
-          <div className="bg-gradient-to-r from-slate-800/90 via-slate-700/90 to-slate-800/90 backdrop-blur-sm rounded-2xl p-6 border border-cyber-500/30 shadow-2xl mb-8 relative overflow-hidden">
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-cyber-500/10 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-matrix-500/10 rounded-full blur-3xl animate-pulse"></div>
-
-            <div className="flex items-center gap-6 relative z-10">
-              <div className="flex-shrink-0">
-                <div className="relative w-20 h-20">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyber-500 via-matrix-500 to-secure-500 rounded-full animate-spin-slow opacity-75"></div>
-                  <div className="absolute inset-1 bg-slate-800 rounded-full flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent">AI</div>
-                      <div className="text-xs text-slate-400">ALBIS</div>
-                    </div>
-                  </div>
-                  <div className="absolute -inset-2 bg-gradient-to-r from-cyber-500/20 via-matrix-500/20 to-secure-500/20 rounded-full blur-xl animate-pulse"></div>
-                </div>
+      {/* ====== TOP COMMAND BAR (Cilt 7 Harfiyen) ====== */}
+      <header className="relative z-20 border-b" style={{ background: 'rgba(2,6,23,0.95)', backdropFilter: 'blur(20px)', borderColor: 'rgba(0,229,255,0.15)' }}>
+        {/* Brand Row */}
+        <div className="flex items-center justify-between px-6 py-3 border-b" style={{ borderColor: 'rgba(0,229,255,0.08)' }}>
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="absolute inset-0 rounded-lg blur-md" style={{ background: 'linear-gradient(135deg, #00e5ff, #39ff14)' }} />
+              <div className="relative p-2 rounded-lg" style={{ background: 'linear-gradient(135deg, #00e5ff20, #39ff1420)' }}>
+                <Shield className="h-5 w-5" style={{ color: '#00e5ff' }} />
               </div>
-
-              <div className="flex-1">
-                <h3 className="text-lg font-bold text-white mb-1 flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-cyber-400 animate-pulse" />
-                  ALBIS Yapay Zeka Asistanı
-                </h3>
-                <p className="text-slate-300 text-sm mb-2">
-                  Tüm raporlar, bildirimler ve güvenlik uyarıları ALBIS tarafından izleniyor ve yönetiliyor.
-                </p>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <span className="flex items-center gap-1 px-2 py-1 bg-matrix-600/30 text-matrix-300 text-xs rounded-full border border-matrix-500/50">
-                    <CheckCircle className="h-3 w-3" />
-                    Aktif İzleme
-                  </span>
-                  <span className="flex items-center gap-1 px-2 py-1 bg-cyber-600/30 text-cyber-300 text-xs rounded-full border border-cyber-500/50 animate-pulse">
-                    <Activity className="h-3 w-3" />
-                    Gerçek Zamanlı Analiz
-                  </span>
-                  <span className="flex items-center gap-1 px-2 py-1 bg-secure-600/30 text-secure-300 text-xs rounded-full border border-secure-500/50">
-                    <Shield className="h-3 w-3" />
-                    7/24 Koruma
-                  </span>
-                </div>
-              </div>
+            </div>
+            <div>
+              <h1 className="text-lg font-bold tracking-tight">
+                <span style={{ color: '#00e5ff' }}>Digi</span><span style={{ color: '#39ff14' }}>Guard</span>
+                <span className="text-slate-600 font-normal text-xs ml-2">× Celebron</span>
+              </h1>
+              <p className="text-[10px] text-slate-500 font-mono">CEREBRO NETWORK // WEB4 AUTONOMOUS BRIDGE</p>
             </div>
           </div>
 
-          {/* Header */}
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
-        <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-cyber-400 via-matrix-400 to-secure-400 bg-clip-text text-transparent mb-2">
-            {t.welcome}
-          </h1>
-          <p className="text-slate-300 flex items-center flex-wrap gap-2">
-            <Fingerprint className="h-4 w-4 text-matrix-400 animate-fingerprint-pulse" />
-            {t.subtitle}
-            <span className="ml-2 px-2 py-1 bg-matrix-600/30 text-matrix-300 text-xs rounded-full border border-matrix-500/50 animate-pulse">
-              {t.live}
-            </span>
-            <span className={`px-2 py-1 bg-gradient-to-r ${getUserTypeColor()} bg-opacity-20 text-white text-xs rounded-full border border-white/30 font-semibold`}>
-              {getUserTypeLabel()}
-            </span>
-            <span className="px-2 py-1 bg-cyber-600/30 text-cyber-300 text-xs rounded-full border border-cyber-500/50">
-              AES-256
-            </span>
-          </p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <button
-            onClick={generateBlockchainCertificate}
-            className="bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-700 hover:to-amber-700 text-white font-bold py-2 px-4 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-yellow-500/30 text-sm border border-yellow-400/20"
-          >
-            <Award className="h-4 w-4" />
-            <span className="whitespace-nowrap">Sertifika İndir</span>
-          </button>
-          <button
-            onClick={() => setSecurityInfoOpen(true)}
-            className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-cyan-500/30 text-sm"
-          >
-            <Lock className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">SHA-256</span>
-          </button>
-          <button
-            onClick={() => setAboutOpen(true)}
-            className="bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-orange-500/30 text-sm"
-          >
-            <Info className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">Hakkında</span>
-          </button>
-          <button
-            onClick={() => setTeamOpen(true)}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-purple-500/30 text-sm"
-          >
-            <Users className="h-3.5 w-3.5" />
-            <span className="whitespace-nowrap">Ekip</span>
-          </button>
-          <button className="relative p-2 text-slate-400 hover:text-white transition-colors rounded-lg hover:bg-slate-800">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center animate-pulse text-[10px]">
-              3
-            </span>
-          </button>
-          <button
-            onClick={onLogout}
-            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-2 px-3.5 rounded-lg transition-all flex items-center space-x-1.5 shadow-lg shadow-red-500/30 text-sm"
-          >
-            <LogOut className="h-3.5 w-3.5" />
-            <span>{t.logout}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        {stats.map((stat, index) => (
-          <div key={index} className="bg-slate-800/80 backdrop-blur-sm rounded-lg p-4 border border-cyber-500/20 hover:border-cyber-500/50 transition-all shadow-lg hover:shadow-cyber-500/20 relative overflow-hidden group">
-            <div className="absolute -right-6 -top-6 w-20 h-20 bg-gradient-to-br from-cyber-500/10 to-matrix-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
-            <div className="flex items-center justify-between relative z-10">
-              <div>
-                <p className="text-slate-400 text-xs">{stat.label}</p>
-                <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
-                <p className="text-xs text-slate-500 mt-0.5">{stat.trend}</p>
-              </div>
-              <div className="relative">
-                <stat.icon className={`h-8 w-8 ${stat.color}`} />
-                <div className="absolute inset-0 blur-md opacity-50">
-                  <stat.icon className={`h-8 w-8 ${stat.color}`} />
-                </div>
-              </div>
+          <div className="flex items-center gap-3">
+            {/* User badge */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg" style={{ background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)' }}>
+              <Fingerprint className="h-3.5 w-3.5" style={{ color: '#39ff14' }} />
+              <span className="text-xs font-mono text-slate-300">{getUserTypeLabel()}</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded text-white font-bold" style={{ background: '#39ff1420', color: '#39ff14' }}>KYC 98%</span>
             </div>
-          </div>
-        ))}
-      </div>
 
-      {/* Security Alert */}
-      <div className="bg-gradient-to-r from-amber-600/20 to-orange-600/20 rounded-lg p-4 mb-6 border border-amber-500/30 hover:border-amber-400/50 transition-all shadow-lg shadow-amber-500/10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-3xl"></div>
-        <div className="flex items-start space-x-3 relative z-10">
-          <AlertTriangle className="h-5 w-5 text-amber-400 mt-0.5 animate-pulse" />
-          <div>
-            <h3 className="text-base font-semibold text-white mb-1.5 flex items-center flex-wrap gap-2">
-              Siber Güvenlik Bildirimi
-              <span className="px-2 py-0.5 bg-amber-600/30 text-amber-300 text-xs rounded-full border border-amber-500/50 animate-pulse">
-                YENİ
-              </span>
-            </h3>
-            <p className="text-slate-300 text-sm mb-2">
-              Son 24 saatte 3 sahte profil tespit edildi ve AI sistemimiz tarafından otomatik engellendi.
-            </p>
-            <div className="flex items-center flex-wrap gap-3 text-xs">
-              <span className="text-matrix-400 flex items-center">
-                <CheckCircle className="h-3 w-3 mr-1" />
-                AI Koruma Aktif
-              </span>
-              <span className="text-cyber-400 flex items-center">
-                <Lock className="h-3 w-3 mr-1" />
-                Veriler Şifreli
-              </span>
-              <span className="text-secure-400 flex items-center">
-                <Database className="h-3 w-3 mr-1" />
-                Blockchain Kayıtlı
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      {/* Department Navigation Tabs */}
-      <div className="mb-6">
-        <div className="flex flex-wrap gap-2 bg-slate-800/60 backdrop-blur-sm rounded-xl p-2 border border-cyber-500/20">
-          {[
-            { id: 'overview', label: 'Genel Bakis', icon: Activity, color: 'from-cyber-600 to-blue-600' },
-            { id: 'cerebro', label: 'Cerebro Agi', icon: Network, color: 'from-matrix-600 to-green-600' },
-            { id: 'security', label: 'Guvenlik & AI', icon: Shield, color: 'from-amber-600 to-orange-600' },
-            { id: 'web4', label: 'Web4 Kopru', icon: Globe2, color: 'from-cyan-600 to-teal-600' },
-            { id: 'wallet', label: 'Cuzdan & Sertifika', icon: Award, color: 'from-yellow-600 to-amber-600' },
-            { id: 'tracking', label: 'Takip & Izleme', icon: Eye, color: 'from-purple-600 to-pink-600' },
-          ].map((dept) => (
-            <button
-              key={dept.id}
-              onClick={() => setActiveDepartment(dept.id as typeof activeDepartment)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                activeDepartment === dept.id
-                  ? `bg-gradient-to-r ${dept.color} text-white shadow-lg`
-                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
-              }`}
-            >
-              <dept.icon className="h-4 w-4" />
-              {dept.label}
+            <button onClick={() => setAboutOpen(true)} className="p-2 rounded-lg hover:bg-slate-800 transition-colors">
+              <Info className="h-4 w-4 text-slate-400" />
             </button>
+            <button className="relative p-2 rounded-lg hover:bg-slate-800 transition-colors">
+              <Bell className="h-4 w-4 text-slate-400" />
+              <span className="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[9px] rounded-full h-3.5 w-3.5 flex items-center justify-center">3</span>
+            </button>
+            <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171' }}>
+              <LogOut className="h-3.5 w-3.5" /> {t.logout}
+            </button>
+          </div>
+        </div>
+
+        {/* 4-Group Dropdown Navigation */}
+        <nav className="flex items-center px-6 py-1.5 gap-1">
+          {[
+            {
+              id: 'network',
+              label: 'Cerebro Network',
+              icon: Network,
+              color: '#39ff14',
+              items: [
+                { label: '5 Katmanli Mimari', dept: 'cerebro' as const },
+                { label: 'Varlik Kayit (5 Kategori)', dept: 'cerebro' as const },
+                { label: 'NetMesh Durumu', dept: 'cerebro' as const },
+                { label: 'Kuantum Direnci', dept: 'cerebro' as const },
+              ],
+            },
+            {
+              id: 'security',
+              label: 'Guvenlik & AI',
+              icon: Shield,
+              color: '#00e5ff',
+              items: [
+                { label: 'Sopon DeAI Motoru', dept: 'security' as const },
+                { label: 'Kimlik Izleme', dept: 'security' as const },
+                { label: 'Ihlal Tespit Merkezi', dept: 'security' as const },
+                { label: 'PUKO Dongusu', dept: 'security' as const },
+              ],
+            },
+            {
+              id: 'bridge',
+              label: 'Web4 Kopru',
+              icon: Globe2,
+              color: '#00e5ff',
+              items: [
+                { label: 'Dagitik Kopru Durumu', dept: 'web4' as const },
+                { label: 'DAG Mutabakat (1402 Node)', dept: 'web4' as const },
+                { label: 'Dilithium + Kyber-1024', dept: 'web4' as const },
+                { label: 'Kuantum Tehdit Korumasi', dept: 'web4' as const },
+              ],
+            },
+            {
+              id: 'assets',
+              label: 'Varlik & Sertifika',
+              icon: Award,
+              color: '#f59e0b',
+              items: [
+                { label: 'dNFT Kimlik Sertifikasi', dept: 'wallet' as const },
+                { label: 'Hybrid Wallet (CLB/DGCT/BTC/ETH)', dept: 'wallet' as const },
+                { label: 'Sertifika Indir', dept: 'wallet' as const },
+                { label: 'Takip & Izleme', dept: 'tracking' as const },
+              ],
+            },
+          ].map((group) => (
+            <div key={group.id} className="relative group">
+              <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all">
+                <group.icon className="h-3.5 w-3.5" style={{ color: group.color }} />
+                {group.label}
+                <ChevronDown className="h-3 w-3 opacity-50" />
+              </button>
+              {/* Dropdown */}
+              <div className="absolute top-full left-0 mt-1 w-64 rounded-xl border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+                style={{ background: 'rgba(2,6,23,0.98)', backdropFilter: 'blur(20px)', borderColor: 'rgba(0,229,255,0.15)' }}>
+                <div className="p-2">
+                  {group.items.map((item, i) => (
+                    <button
+                      key={i}
+                      onClick={() => { setActiveDepartment(item.dept); }}
+                      className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-white hover:bg-slate-800/60 transition-all"
+                    >
+                      <ChevronRight className="h-3 w-3 opacity-30" />
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {/* Overview button */}
+          <button
+            onClick={() => setActiveDepartment('overview')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ml-auto ${
+              activeDepartment === 'overview'
+                ? 'text-white'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+            }`}
+            style={activeDepartment === 'overview' ? { background: 'rgba(0,229,255,0.12)', color: '#00e5ff' } : {}}
+          >
+            <Activity className="h-3.5 w-3.5" /> Genel Bakis
+          </button>
+        </nav>
+      </header>
+
+      {/* ====== MAIN CONTENT AREA ====== */}
+      <main className="relative z-10 flex-1 px-6 py-6 max-w-[1600px] w-full mx-auto">
+        {/* Welcome banner */}
+        <div className="mb-6 rounded-xl p-5 border glow-celebron" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(0,229,255,0.2)' }}>
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div>
+              <h2 className="text-xl font-bold mb-1">
+                <span style={{ color: '#00e5ff' }}>{t.welcome}</span>
+              </h2>
+              <p className="text-sm text-slate-400 flex items-center gap-2">
+                <Fingerprint className="h-3.5 w-3.5" style={{ color: '#39ff14' }} />
+                {t.subtitle}
+                <span className="px-2 py-0.5 text-[10px] rounded-full font-mono animate-pulse" style={{ background: '#39ff1420', color: '#39ff14' }}>{t.live}</span>
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button onClick={generateBlockchainCertificate} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all" style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b' }}>
+                <Award className="h-3.5 w-3.5" /> Sertifika Indir
+              </button>
+              <button onClick={() => setSecurityInfoOpen(true)} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all" style={{ background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.25)', color: '#00e5ff' }}>
+                <Lock className="h-3.5 w-3.5" /> AES-256
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+          {stats.map((stat, i) => (
+            <div key={i} className="rounded-xl p-4 border transition-all hover:scale-[1.02]" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(255,255,255,0.05)' }}>
+              <div className="flex items-center justify-between mb-1.5">
+                <stat.icon className="h-5 w-5" style={{ color: stat.color === 'text-matrix-400' ? '#39ff14' : stat.color === 'text-cyber-400' ? '#00e5ff' : stat.color === 'text-secure-400' ? '#1ac5ff' : '#94a3b8' }} />
+                <span className="text-[10px] text-slate-500 font-mono">{stat.trend}</span>
+              </div>
+              <p className="text-[10px] text-slate-500 mb-0.5">{stat.label}</p>
+              <p className="text-lg font-bold" style={{ color: stat.color === 'text-matrix-400' ? '#39ff14' : stat.color === 'text-cyber-400' ? '#00e5ff' : stat.color === 'text-secure-400' ? '#1ac5ff' : '#94a3b8' }}>{stat.value}</p>
+            </div>
           ))}
         </div>
-      </div>
 
-      {/* Department: Overview */}
-      {activeDepartment === 'overview' && (
-        <>
-          {/* Central Monitoring Hub */}
-          <div className="mb-8">
+        {/* ====== DEPARTMENT CONTENT ====== */}
+
+        {/* Overview */}
+        {activeDepartment === 'overview' && (
+          <div className="space-y-6">
             <CentralMonitoringHub language={language} />
-          </div>
 
-          {/* Main Content with Sidebar */}
-          <div className="flex gap-6 mb-8">
-        {/* Features Grid - Main Content */}
-        <div className="flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                onClick={feature.action}
-                className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 hover:border-cyber-500/50 transition-all duration-300 cursor-pointer group hover:shadow-xl hover:shadow-cyber-500/20 relative overflow-hidden"
-              >
-                <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-br from-cyber-500/10 to-matrix-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <div className={`${feature.color} p-3 rounded-lg w-fit mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg relative z-10`}>
-                  <feature.icon className="h-6 w-6 text-white" />
-                </div>
-                <div className="flex items-center justify-between mb-2 relative z-10">
-                  <h3 className="text-lg font-semibold text-white">{feature.title}</h3>
-                  <span className={`px-2 py-1 text-xs rounded-full border ${
-                    feature.status === 'Aktif' ? 'bg-matrix-600/30 text-matrix-300 border-matrix-500/50' :
-                    feature.status === 'Guncel' ? 'bg-cyber-600/30 text-cyber-300 border-cyber-500/50' :
-                    feature.status === 'Izleniyor' ? 'bg-red-600/30 text-red-300 border-red-500/50' :
-                    feature.status === 'Bilgilendirme' ? 'bg-blue-600/30 text-blue-300 border-blue-500/50' :
-                    feature.status === 'Global' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
-                    feature.status === 'Gelistirici' ? 'bg-purple-600/30 text-purple-300 border-purple-500/50' :
-                    feature.status === 'Sosyal' ? 'bg-pink-600/30 text-pink-300 border-pink-500/50' :
-                    feature.status === 'Kurumsal' ? 'bg-indigo-600/30 text-indigo-300 border-indigo-500/50' :
-                    feature.status === 'Egitim' ? 'bg-yellow-600/30 text-yellow-300 border-yellow-500/50' :
-                    feature.status === 'Premium' ? 'bg-green-600/30 text-green-300 border-green-500/50' :
-                    feature.status === 'Canli' ? 'bg-red-600/30 text-red-300 border-red-500/50 animate-pulse' :
-                    'bg-slate-600/30 text-slate-300 border-slate-500/50'
-                  }`}>
-                    {feature.status}
-                  </span>
-                </div>
-                <p className="text-slate-400 text-sm mb-3 relative z-10">{feature.description}</p>
-                <div className="flex items-center justify-between relative z-10">
-                  <span className="text-xs text-slate-500">Son: {feature.lastUsed}</span>
-                  <span className="text-cyber-400 text-sm font-medium group-hover:text-cyber-300 transition-colors">
-                    Ac →
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Recent Activities - Right Sidebar */}
-        <div className="w-80 flex-shrink-0">
-          <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-6 border border-cyber-500/20 sticky top-6">
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-              <Activity className="h-5 w-5 text-cyber-400 mr-2" />
-              Aktivite Geçmişi
-            </h3>
-            <div className="space-y-3">
-              {recentActivities.map((activity, index) => (
-                <div key={index} className="py-3 px-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 transition-colors border-l-2 border-l-transparent hover:border-l-cyber-400">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <div className={`w-2.5 h-2.5 rounded-full animate-pulse ${
-                      activity.type === 'success' ? 'bg-matrix-400' :
-                      activity.type === 'info' ? 'bg-cyber-400' :
-                      activity.type === 'warning' ? 'bg-amber-400' : 'bg-red-400'
-                    }`} />
-                    <span className="text-white text-sm leading-snug">{activity.action}</span>
+            {/* Full-width features grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {features.map((feature, i) => (
+                <div key={i} onClick={feature.action} className="rounded-xl p-5 border cursor-pointer group transition-all hover:scale-[1.01] relative overflow-hidden"
+                  style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(0,229,255,0.1)' }}>
+                  <div className="absolute -right-8 -top-8 w-24 h-24 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'rgba(0,229,255,0.06)' }} />
+                  <div className="p-2.5 rounded-lg w-fit mb-3" style={{ background: feature.color.includes('cyber') ? 'rgba(0,153,230,0.15)' : feature.color.includes('matrix') ? 'rgba(0,230,118,0.15)' : feature.color.includes('amber') ? 'rgba(245,158,11,0.15)' : 'rgba(100,116,139,0.15)' }}>
+                    <feature.icon className="h-5 w-5 text-white" />
                   </div>
-                  <span className="text-slate-400 text-xs ml-5 block">{activity.time}</span>
+                  <h3 className="text-sm font-bold text-white mb-1">{feature.title}</h3>
+                  <p className="text-xs text-slate-400 mb-2">{feature.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-slate-500">Son: {feature.lastUsed}</span>
+                    <span className="text-xs font-medium" style={{ color: '#00e5ff' }}>Ac →</span>
+                  </div>
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </div>
 
-          <div className="bg-gradient-to-r from-slate-800/90 via-slate-700/90 to-slate-800/90 backdrop-blur-sm rounded-lg p-5 border border-cyber-500/30 shadow-lg mt-6">
-            <h3 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-              <Heart className="h-5 w-5 text-pink-400" />
-              Sevdiklerinize Tavsiye Edin
-            </h3>
-            <p className="text-slate-300 text-sm mb-3">
-              DigiGuard'ı arkadaşlarınız ve ailenizle paylaşın. Her başarılı kayıt için özel avantajlar kazanın!
-            </p>
-            <div className="flex gap-3">
-              <input
-                type="text"
-                readOnly
-                value="https://digiguard.app/ref/DG-2024-USER"
-                className="flex-1 bg-slate-900/50 text-slate-300 px-4 py-2 rounded-lg border border-cyber-500/30 text-sm focus:outline-none focus:border-cyber-500/50"
-              />
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText('https://digiguard.app/ref/DG-2024-USER');
-                  alert('Referans linki kopyalandı!');
-                }}
-                className="bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-medium px-6 py-2 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-cyber-500/30"
-              >
-                <Award className="h-4 w-4" />
-                Kopyala
-              </button>
-            </div>
-            <div className="flex items-center gap-4 mt-3 text-xs text-slate-400">
-              <span className="flex items-center gap-1">
-                <CheckCircle className="h-3 w-3 text-matrix-400" />
-                0 Başarılı Referans
-              </span>
-              <span className="flex items-center gap-1">
-                <Award className="h-3 w-3 text-cyber-400" />
-                Premium Avantajlar
-              </span>
+            {/* Security Metrics */}
+            <div className="rounded-xl p-5 border" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(0,229,255,0.1)' }}>
+              <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                <BarChart3 className="h-4 w-4" style={{ color: '#00e5ff' }} /> Guvenlik Metrikleri
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                {securityMetrics.map((m, i) => (
+                  <div key={i}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs text-slate-400">{m.label}</span>
+                      <span className={`text-xs font-bold ${m.color}`}>{m.score}{m.inverse ? '%' : '/100'}</span>
+                    </div>
+                    <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className={`h-full ${m.bgColor} rounded-full transition-all duration-500`} style={{ width: `${m.inverse ? 100 - m.score : m.score}%` }} />
+                    </div>
+                    <p className="text-[10px] text-slate-500 mt-1">{m.status} ({m.trend})</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </>
-      )}
+        )}
 
-      {/* Department: Cerebro Network */}
-      {activeDepartment === 'cerebro' && (
-        <>
-          <div className="mb-8">
+        {/* Cerebro Network */}
+        {activeDepartment === 'cerebro' && (
+          <div className="space-y-6">
             <CerebroNetworkPanel />
-          </div>
-          <div className="mb-8">
             <EntityRegistryPanel />
           </div>
-        </>
-      )}
+        )}
 
-      {/* Department: Security & AI */}
-      {activeDepartment === 'security' && (
-        <>
-          <div className="mb-8">
+        {/* Security & AI */}
+        {activeDepartment === 'security' && (
+          <div className="space-y-6">
             <SoponDeAIPanel />
-          </div>
-          <div className="mb-8">
             <MonitoringPanel />
           </div>
-        </>
-      )}
+        )}
 
-      {/* Department: Web4 Bridge */}
-      {activeDepartment === 'web4' && (
-        <div className="mb-8">
+        {/* Web4 Bridge */}
+        {activeDepartment === 'web4' && (
           <Web4BridgePanel />
-        </div>
-      )}
+        )}
 
-      {/* Department: Wallet & Certificate */}
-      {activeDepartment === 'wallet' && (
-        <>
-          <div className="mb-8">
-            <CerebroCertificatePanel language={language} />
-          </div>
-        </>
-      )}
+        {/* Wallet & Certificate */}
+        {activeDepartment === 'wallet' && (
+          <CerebroCertificatePanel language={language} />
+        )}
 
-      {/* Department: Tracking & Monitoring */}
-      {activeDepartment === 'tracking' && (
-        <>
-          <div className="mb-8">
+        {/* Tracking */}
+        {activeDepartment === 'tracking' && (
+          <div className="space-y-6">
             <TrackingPanel language={language} />
-          </div>
-          <div className="mb-8">
             <CentralMonitoringHub language={language} />
           </div>
-        </>
-      )}
+        )}
+      </main>
 
-          <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
-          <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />
-          <IntegrationsModal isOpen={integrationsOpen} onClose={() => setIntegrationsOpen(false)} />
-          <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
-          <PricingModal isOpen={pricingOpen} onClose={() => setPricingOpen(false)} />
-          <TurkeyCertificateModal isOpen={turkeyCertificateOpen} onClose={() => setTurkeyCertificateOpen(false)} />
-          <AboutModal isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
-          <TeamModal isOpen={teamOpen} onClose={() => setTeamOpen(false)} />
-          <SecurityInfoModal isOpen={securityInfoOpen} onClose={() => setSecurityInfoOpen(false)} />
-          <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
+      {/* ====== TERMINAL (Cilt 7 Harfiyen) ====== */}
+      <footer className="relative z-10 border-t" style={{ background: '#010108', borderColor: 'rgba(0,229,255,0.1)' }}>
+        <div className="px-6 py-3">
+          <div className="flex items-center gap-2 mb-2">
+            <Terminal className="h-3.5 w-3.5" style={{ color: '#39ff14' }} />
+            <span className="text-[10px] font-mono text-slate-500">cerebro@digiguard:~$</span>
+            <div className="flex-1 h-[1px]" style={{ background: 'rgba(0,229,255,0.08)' }} />
+            <span className="text-[10px] font-mono" style={{ color: '#39ff14' }}>● ONLINE</span>
+            <span className="text-[10px] font-mono text-slate-600">|</span>
+            <span className="text-[10px] font-mono text-slate-500">1402 nodes</span>
+            <span className="text-[10px] font-mono text-slate-600">|</span>
+            <span className="text-[10px] font-mono text-slate-500">S_total: 99847.3K</span>
+          </div>
+          <div className="font-mono text-[11px] space-y-0.5 max-h-24 overflow-y-auto">
+            <div className="terminal-line" style={{ color: '#39ff14' }}>[OK] Cerebro Network initialized — 5/5 layers active</div>
+            <div className="terminal-line text-slate-400">[INFO] KYC verification: PASSED (score: 98/100)</div>
+            <div className="terminal-line text-slate-400">[INFO] Dilithium+Kyber-1024 quantum shield: ACTIVE</div>
+            <div className="terminal-line" style={{ color: '#00e5ff' }}>[BRIDGE] Web4 DAG consensus: 1402/1402 nodes synced</div>
+            <div className="terminal-line text-slate-400">[SOPON] DeAI threat scan: 0 critical / 2 monitored</div>
+            <div className="terminal-line" style={{ color: '#39ff14' }}>[PUKO] Proaktif → Uyari → Koruma → Onarim dongusu aktif</div>
+            <div className="terminal-line text-slate-500">[WALLET] CLB: 2,818,422.90 | DGCT: 12,450.75 | BTC: 0.0428 | ETH: 1.8472</div>
+            <div className="terminal-line terminal-cursor" style={{ color: '#39ff14' }}>cerebro@digiguard:~$</div>
+          </div>
         </div>
-      </div>
+      </footer>
+
+      {/* ====== MODALS ====== */}
+      <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
+      <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />
+      <IntegrationsModal isOpen={integrationsOpen} onClose={() => setIntegrationsOpen(false)} />
+      <PublicBenefitModal isOpen={publicBenefitOpen} onClose={() => setPublicBenefitOpen(false)} />
+      <PricingModal isOpen={pricingOpen} onClose={() => setPricingOpen(false)} />
+      <TurkeyCertificateModal isOpen={turkeyCertificateOpen} onClose={() => setTurkeyCertificateOpen(false)} />
+      <AboutModal isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
+      <TeamModal isOpen={teamOpen} onClose={() => setTeamOpen(false)} />
+      <SecurityInfoModal isOpen={securityInfoOpen} onClose={() => setSecurityInfoOpen(false)} />
+      <SecurityMetricsModal isOpen={securityMetricsOpen} onClose={() => setSecurityMetricsOpen(false)} />
 
       {/* Certificate Preview Modal */}
       {certModalOpen && certData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={() => setCertModalOpen(false)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4" onClick={() => setCertModalOpen(false)}>
           <div className="relative max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={() => setCertModalOpen(false)}
-              className="absolute -top-3 -right-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full p-1.5 border border-slate-600 z-10 transition-colors"
-            >
+            <button onClick={() => setCertModalOpen(false)} className="absolute -top-3 -right-3 bg-slate-800 hover:bg-slate-700 text-white rounded-full p-1.5 border border-slate-600 z-10 transition-colors">
               <X className="h-4 w-4" />
             </button>
-
-            {/* Police Card Style Certificate */}
-            <div ref={certCardRef} className="rounded-xl overflow-hidden shadow-2xl shadow-cyan-500/20 border border-cyan-500/40" style={{ aspectRatio: '1.48/1' }}>
-              {/* Card */}
+            <div ref={certCardRef} className="rounded-xl overflow-hidden shadow-2xl border" style={{ aspectRatio: '1.48/1', borderColor: 'rgba(0,229,255,0.4)' }}>
               <div className="bg-[#0a1220] w-full h-full relative flex flex-col">
-                {/* Top accent bar */}
-                <div className="h-1.5 bg-gradient-to-r from-cyan-500 to-cyan-400" />
-
-                {/* Header */}
+                <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #00e5ff, #39ff14)' }} />
                 <div className="bg-[#0f1e37] px-5 py-3 flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-cyan-500 flex items-center justify-center flex-shrink-0">
+                  <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: 'linear-gradient(135deg, #00e5ff, #39ff14)' }}>
                     <Shield className="h-6 w-6 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h2 className="text-white font-bold text-lg leading-tight">DigiGuard</h2>
-                    <p className="text-cyan-400 text-[10px] font-medium tracking-wider">DIGITAL IDENTITY VERIFICATION SYSTEM</p>
+                    <p className="text-[10px] font-medium tracking-wider" style={{ color: '#00e5ff' }}>DIGITAL IDENTITY VERIFICATION SYSTEM</p>
                     <p className="text-slate-500 text-[9px]">Karprime Technology INC.</p>
                   </div>
                   <div className="text-right flex-shrink-0">
@@ -680,87 +560,63 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
                     <p className="text-slate-600 text-[7px] font-mono">{`Block #${Math.floor(Math.random() * 10000000 + 15000000)}`}</p>
                   </div>
                 </div>
-
-                {/* Cyan divider */}
-                <div className="h-[2px] bg-cyan-500" />
-
-                {/* Body */}
+                <div className="h-[2px]" style={{ background: '#00e5ff' }} />
                 <div className="flex flex-1 px-5 py-3 gap-4">
-                  {/* Photo placeholder */}
                   <div className="flex-shrink-0">
-                    <div className="w-[85px] h-[105px] rounded-md bg-slate-800/80 border border-cyan-500/30 flex flex-col items-center justify-center">
+                    <div className="w-[85px] h-[105px] rounded-md bg-slate-800/80 border flex flex-col items-center justify-center" style={{ borderColor: 'rgba(0,229,255,0.3)' }}>
                       <div className="w-8 h-8 rounded-full bg-slate-700 mb-1" />
                       <div className="w-12 h-5 rounded-t-full bg-slate-700" />
                       <p className="text-[7px] text-slate-600 mt-1">BIYOMETRIK</p>
                     </div>
                   </div>
-
-                  {/* Info */}
                   <div className="flex-1 min-w-0 space-y-1.5">
                     <div>
-                      <h3 className="text-cyan-400 font-bold text-sm tracking-wide">KIMLIK DOGRULAMA KARTI</h3>
+                      <h3 className="font-bold text-sm tracking-wide" style={{ color: '#00e5ff' }}>KIMLIK DOGRULAMA KARTI</h3>
                       <p className="text-slate-500 text-[8px]">Identity Verification Card</p>
                     </div>
-
                     <div>
                       <p className="text-slate-500 text-[8px]">AD SOYAD / FULL NAME</p>
                       <p className="text-white font-bold text-sm truncate">{certData.userName}</p>
                     </div>
-
                     <div>
                       <p className="text-slate-500 text-[8px]">E-POSTA / EMAIL</p>
                       <p className="text-slate-300 text-[11px] truncate">{certData.userEmail}</p>
                     </div>
-
                     <div className="flex items-center gap-3">
                       <div>
                         <p className="text-slate-500 text-[8px]">KULLANICI TIPI</p>
-                        <span className={`inline-block px-2 py-0.5 rounded text-[9px] font-bold text-white ${
-                          userType === 'corporate' ? 'bg-purple-500' :
-                          userType === 'personnel' ? 'bg-orange-500' : 'bg-cyan-500'
-                        }`}>
+                        <span className="inline-block px-2 py-0.5 rounded text-[9px] font-bold text-white" style={{ background: userType === 'corporate' ? '#a855f7' : userType === 'personnel' ? '#f97316' : '#00e5ff' }}>
                           {userType === 'corporate' ? 'KURUMSAL' : userType === 'personnel' ? 'PERSONEL' : 'BIREYSEL'}
                         </span>
                       </div>
                       <div>
                         <p className="text-slate-500 text-[8px]">KAYIT TARIHI</p>
-                        <p className="text-slate-300 text-[10px]">
-                          {certData.registrationDate ? new Date(certData.registrationDate).toLocaleDateString('tr-TR') : new Date().toLocaleDateString('tr-TR')}
-                        </p>
+                        <p className="text-slate-300 text-[10px]">{certData.registrationDate ? new Date(certData.registrationDate).toLocaleDateString('tr-TR') : new Date().toLocaleDateString('tr-TR')}</p>
                       </div>
                     </div>
-
-                    {/* Blockchain box */}
-                    <div className="bg-[#0f1e37] border border-cyan-500/20 rounded p-2 space-y-1">
-                      <p className="text-cyan-400 font-bold text-[9px]">BLOCKCHAIN DOGRULAMA</p>
+                    <div className="bg-[#0f1e37] border rounded p-2 space-y-1" style={{ borderColor: 'rgba(0,229,255,0.2)' }}>
+                      <p className="font-bold text-[9px]" style={{ color: '#00e5ff' }}>BLOCKCHAIN DOGRULAMA</p>
                       <div className="flex items-center gap-1 text-[7px]">
                         <span className="text-slate-500">Ag:</span>
-                        <span className="text-green-400 font-medium">Ethereum</span>
+                        <span className="font-medium" style={{ color: '#39ff14' }}>Ethereum + Cerebro</span>
                         <span className="text-slate-600 mx-1">|</span>
                         <span className="text-slate-500">Sifreleme:</span>
-                        <span className="text-cyan-400 font-medium">AES-256</span>
+                        <span className="font-medium" style={{ color: '#00e5ff' }}>AES-256 + Kyber-1024</span>
                       </div>
                       <div className="text-[6px] font-mono text-violet-400 leading-tight break-all">
                         {`0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`}
                       </div>
-                      <p className="text-[7px] text-slate-500">
-                        Zaman Damgasi: <span className="text-green-400">{new Date().toLocaleString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Istanbul' })}</span>
-                      </p>
+                      <p className="text-[7px] text-slate-500">Zaman Damgasi: <span style={{ color: '#39ff14' }}>{new Date().toLocaleString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Istanbul' })}</span></p>
                     </div>
                   </div>
                 </div>
-
-                {/* Verified bar */}
                 <div className="mx-5 mb-2">
-                  <div className="bg-green-500 rounded py-1 text-center">
+                  <div className="rounded py-1 text-center" style={{ background: 'linear-gradient(90deg, #39ff14, #00e5ff)' }}>
                     <p className="text-white font-bold text-[10px] tracking-wider">DOGRLANDI - KYC TAMAMLANDI - VERIFIED</p>
                   </div>
                 </div>
-
-                {/* Bottom section */}
                 <div className="px-5 pb-2 flex items-end justify-between">
                   <div className="flex gap-3">
-                    {/* QR placeholder */}
                     <div className="w-12 h-12 bg-white rounded p-0.5">
                       <div className="w-full h-full grid grid-cols-8 grid-rows-8 gap-[1px]">
                         {Array.from({ length: 64 }, (_, i) => (
@@ -773,34 +629,25 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
                         <p className="text-slate-600 text-[7px]">Uyum:</p>
                         <div className="flex gap-1">
                           {['KVKK', 'GDPR', 'ISO'].map((b) => (
-                            <span key={b} className="px-1 py-[1px] bg-slate-800 text-cyan-400 text-[6px] rounded font-bold">{b}</span>
+                            <span key={b} className="px-1 py-[1px] bg-slate-800 text-[6px] rounded font-bold" style={{ color: '#00e5ff' }}>{b}</span>
                           ))}
                         </div>
                       </div>
                       <p className="text-slate-600 text-[6px] italic">Blockchain guvenceli, degistirilemez kayit</p>
                     </div>
                   </div>
-
                   <div className="text-right">
-                    <div className="w-[1px] border-t border-cyan-500/40 mb-1" style={{ width: '80px' }} />
-                    <p className="text-cyan-400 text-[8px] font-bold">Karprime Technology INC.</p>
+                    <div className="border-t mb-1" style={{ width: '80px', borderColor: 'rgba(0,229,255,0.4)' }} />
+                    <p className="text-[8px] font-bold" style={{ color: '#00e5ff' }}>Karprime Technology INC.</p>
                     <p className="text-slate-600 text-[7px] italic">Yetkili Imza</p>
                   </div>
                 </div>
-
-                {/* Bottom accent bar */}
-                <div className="h-1.5 bg-gradient-to-r from-cyan-500 to-cyan-400" />
+                <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #39ff14, #00e5ff)' }} />
               </div>
             </div>
-
-            {/* Download button */}
             <div className="mt-4 flex justify-center">
-              <button
-                onClick={handleCertDownload}
-                className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/30 text-sm"
-              >
-                <Download className="h-5 w-5" />
-                PDF Olarak Indir
+              <button onClick={handleCertDownload} className="flex items-center gap-2 font-bold py-3 px-8 rounded-lg transition-all" style={{ background: 'linear-gradient(90deg, #00e5ff, #39ff14)', color: '#020617' }}>
+                <Download className="h-5 w-5" /> PDF Olarak Indir
               </button>
             </div>
           </div>
