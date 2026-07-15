@@ -19,6 +19,7 @@ import { HybridWalletHub } from './HybridWalletHub';
 import { EntityRegistryPanel } from './EntityRegistryPanel';
 import { SoponDeAIPanel } from './SoponDeAIPanel';
 import { CerebroCertificatePanel } from './CerebroCertificatePanel';
+import { Web4BridgePanel } from './Web4BridgePanel';
 import { Sidebar } from './Sidebar';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
@@ -41,6 +42,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [securityInfoOpen, setSecurityInfoOpen] = useState(false);
   const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activeDepartment, setActiveDepartment] = useState<'overview' | 'cerebro' | 'security' | 'web4' | 'wallet' | 'tracking'>('overview');
   const [language, setLanguage] = useState<Language>('tr');
   const [certModalOpen, setCertModalOpen] = useState(false);
   const [certData, setCertData] = useState<{
@@ -433,43 +435,43 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
       </div>
 
 
-      {/* Central Monitoring Hub */}
-      <div className="mb-8">
-        <CentralMonitoringHub language={language} />
+      {/* Department Navigation Tabs */}
+      <div className="mb-6">
+        <div className="flex flex-wrap gap-2 bg-slate-800/60 backdrop-blur-sm rounded-xl p-2 border border-cyber-500/20">
+          {[
+            { id: 'overview', label: 'Genel Bakis', icon: Activity, color: 'from-cyber-600 to-blue-600' },
+            { id: 'cerebro', label: 'Cerebro Agi', icon: Network, color: 'from-matrix-600 to-green-600' },
+            { id: 'security', label: 'Guvenlik & AI', icon: Shield, color: 'from-amber-600 to-orange-600' },
+            { id: 'web4', label: 'Web4 Kopru', icon: Globe2, color: 'from-cyan-600 to-teal-600' },
+            { id: 'wallet', label: 'Cuzdan & Sertifika', icon: Award, color: 'from-yellow-600 to-amber-600' },
+            { id: 'tracking', label: 'Takip & Izleme', icon: Eye, color: 'from-purple-600 to-pink-600' },
+          ].map((dept) => (
+            <button
+              key={dept.id}
+              onClick={() => setActiveDepartment(dept.id as typeof activeDepartment)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+                activeDepartment === dept.id
+                  ? `bg-gradient-to-r ${dept.color} text-white shadow-lg`
+                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+              }`}
+            >
+              <dept.icon className="h-4 w-4" />
+              {dept.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Cerebro Network Architecture - 5 Layer */}
-      <div className="mb-8">
-        <CerebroNetworkPanel />
-      </div>
+      {/* Department: Overview */}
+      {activeDepartment === 'overview' && (
+        <>
+          {/* Central Monitoring Hub */}
+          <div className="mb-8">
+            <CentralMonitoringHub language={language} />
+          </div>
 
-      {/* Entity Registry - 5 Categories */}
-      <div className="mb-8">
-        <EntityRegistryPanel />
-      </div>
-
-      {/* Sopon DeAI Engine */}
-      <div className="mb-8">
-        <SoponDeAIPanel />
-      </div>
-
-      {/* Cerebro Certificate System */}
-      <div className="mb-8">
-        <CerebroCertificatePanel language={language} />
-      </div>
-
-      {/* Monitoring Panel */}
-      <div className="mb-8">
-        <MonitoringPanel />
-      </div>
-
-      {/* Tracking Panel */}
-      <div className="mb-8">
-        <TrackingPanel language={language} />
-      </div>
-
-      {/* Main Content with Sidebar */}
-      <div className="flex gap-6 mb-8">
+          {/* Main Content with Sidebar */}
+          <div className="flex gap-6 mb-8">
         {/* Features Grid - Main Content */}
         <div className="flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -577,6 +579,60 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
               </span>
             </div>
           </div>
+        </>
+      )}
+
+      {/* Department: Cerebro Network */}
+      {activeDepartment === 'cerebro' && (
+        <>
+          <div className="mb-8">
+            <CerebroNetworkPanel />
+          </div>
+          <div className="mb-8">
+            <EntityRegistryPanel />
+          </div>
+        </>
+      )}
+
+      {/* Department: Security & AI */}
+      {activeDepartment === 'security' && (
+        <>
+          <div className="mb-8">
+            <SoponDeAIPanel />
+          </div>
+          <div className="mb-8">
+            <MonitoringPanel />
+          </div>
+        </>
+      )}
+
+      {/* Department: Web4 Bridge */}
+      {activeDepartment === 'web4' && (
+        <div className="mb-8">
+          <Web4BridgePanel />
+        </div>
+      )}
+
+      {/* Department: Wallet & Certificate */}
+      {activeDepartment === 'wallet' && (
+        <>
+          <div className="mb-8">
+            <CerebroCertificatePanel language={language} />
+          </div>
+        </>
+      )}
+
+      {/* Department: Tracking & Monitoring */}
+      {activeDepartment === 'tracking' && (
+        <>
+          <div className="mb-8">
+            <TrackingPanel language={language} />
+          </div>
+          <div className="mb-8">
+            <CentralMonitoringHub language={language} />
+          </div>
+        </>
+      )}
 
           <UserScenariosModal isOpen={userScenariosOpen} onClose={() => setUserScenariosOpen(false)} />
           <GlobalReachModal isOpen={globalReachOpen} onClose={() => setGlobalReachOpen(false)} />

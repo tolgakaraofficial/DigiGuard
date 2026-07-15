@@ -62,8 +62,9 @@ const layers: Layer[] = [
     status: 'active',
     description: 'AES-256 + SHA-256 çift katmanlı şifreleme koruması',
     metrics: [
-      { label: 'Şifreleme', value: 'AES-256' },
-      { label: 'Hash', value: 'SHA-256' },
+      { label: 'Şifreleme', value: 'AES-256 + Kyber-1024' },
+      { label: 'Hash', value: 'SHA-3 + Dilithium' },
+      { label: 'Kuantum Direnci', value: 'Tam' },
       { label: 'Zırh Durumu', value: 'Aktif' },
     ],
   },
@@ -78,9 +79,10 @@ const layers: Layer[] = [
     status: 'active',
     description: 'Otononom yapay zeka tehdit tespit ve müdahale sistemi',
     metrics: [
-      { label: 'AI Model', value: 'Sopon v4.2' },
+      { label: 'AI Model', value: 'Sopon v4.2 DeAI' },
+      { label: 'NetMesh', value: 'Aktif' },
       { label: 'Tehdit Tarama', value: '7/24' },
-      { label: 'Müdahale', value: 'Otomatik' },
+      { label: 'Müdahale', value: 'Otonom' },
     ],
   },
   {
@@ -95,8 +97,9 @@ const layers: Layer[] = [
     description: 'Web3 → Web4 geçiş protokolü ve evrensel kimlik köprüsü',
     metrics: [
       { label: 'Köprü Durumu', value: 'Senkronize' },
+      { label: 'DAG Node', value: '1,402' },
       { label: 'Ağ Geçişi', value: 'Web3 → Web4' },
-      { label: 'Uyumluluk', value: 'Çoklu-EV' },
+      { label: 'Donanım', value: 'Gereksiz' },
     ],
   },
 ];
@@ -230,6 +233,47 @@ export const CerebroNetworkPanel: React.FC = () => {
             )}
           </div>
         ))}
+      </div>
+
+      {/* Quantum Resistance & NetMesh */}
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="bg-slate-900/50 rounded-xl p-4 border border-[#00e5ff]/20">
+          <h4 className="text-xs font-semibold text-white mb-2 flex items-center gap-2">
+            <Zap className="h-3.5 w-3.5 text-amber-400" /> Kuantum Direnci
+          </h4>
+          <div className="space-y-1.5">
+            {[
+              { algo: 'Shor Algoritması', status: 'Etkisiz', color: 'text-matrix-400' },
+              { algo: 'Grover Algoritması', status: 'Etkisiz', color: 'text-matrix-400' },
+              { algo: 'Dilithium Imza', status: 'Aktif', color: 'text-cyber-400' },
+              { algo: 'Kyber-1024 Anahtar', status: 'Aktif', color: 'text-cyber-400' },
+            ].map((q, i) => (
+              <div key={i} className="flex items-center justify-between text-[10px]">
+                <span className="text-slate-400">{q.algo}</span>
+                <span className={`font-semibold ${q.color}`}>{q.status}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-slate-900/50 rounded-xl p-4 border border-matrix-500/20">
+          <h4 className="text-xs font-semibold text-white mb-2 flex items-center gap-2">
+            <Network className="h-3.5 w-3.5 text-matrix-400" /> Cerebro NetMesh
+          </h4>
+          <div className="space-y-1.5">
+            {[
+              { label: 'Mesh Düğüm', value: '1,402', color: 'text-matrix-400' },
+              { label: 'İzleme Protokolü', value: 'Aktif', color: 'text-cyber-400' },
+              { label: 'Otonom Onarım', value: 'Seviye 4', color: 'text-amber-400' },
+              { label: 'Çoklu Evrensel Köprü', value: 'Uyumlu', color: 'text-blue-400' },
+            ].map((m, i) => (
+              <div key={i} className="flex items-center justify-between text-[10px]">
+                <span className="text-slate-400">{m.label}</span>
+                <span className={`font-semibold ${m.color}`}>{m.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Architecture Flow */}
