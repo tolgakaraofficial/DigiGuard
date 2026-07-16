@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Scale, Shield, Layers, Gavel, FileText, Lock, Eye, Server, Cloud, Cpu, Users, ChevronDown, ChevronRight, CheckCircle, AlertTriangle } from 'lucide-react';
+import { BookOpen, Scale, Shield, Layers, Gavel, FileText, Lock, Eye, Server, Cloud, Cpu, Users, ChevronDown, ChevronRight, CheckCircle, AlertTriangle, Database } from 'lucide-react';
 
 interface LayerDef {
   id: number;
