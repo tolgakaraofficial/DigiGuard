@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, ChevronDown, ChevronRight, Terminal } from 'lucide-react';
+import { Shield, Settings, LogOut, CheckCircle, AlertTriangle, Bell, Activity, TrendingUp, Lock, Eye, Fingerprint, Scan, Database, Users, Globe as Globe2, Heart, BookOpen, CreditCard, BarChart3, AlertCircle, Award, Workflow, Network, Info, Download, X, ChevronDown, ChevronRight, Terminal, Scale, Siren } from 'lucide-react';
 import { supabase } from '../services/supabaseClient';
 import { UserScenariosModal } from './UserScenariosModal';
 import { GlobalReachModal } from './GlobalReachModal';
@@ -20,6 +20,9 @@ import { EntityRegistryPanel } from './EntityRegistryPanel';
 import { SoponDeAIPanel } from './SoponDeAIPanel';
 import { CerebroCertificatePanel } from './CerebroCertificatePanel';
 import { Web4BridgePanel } from './Web4BridgePanel';
+import { SovereignBridgePanel } from './SovereignBridgePanel';
+import { GhostIDFlowPanel } from './GhostIDFlowPanel';
+import { SystemConstitutionPanel } from './SystemConstitutionPanel';
 import { AlbisChatBot } from './AlbisChatBot';
 import { detectLanguage, translations, type Language } from '../utils/i18n';
 import { generatePremiumCertificate } from '../services/certificateService';
@@ -40,7 +43,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
   const [teamOpen, setTeamOpen] = useState(false);
   const [securityInfoOpen, setSecurityInfoOpen] = useState(false);
   const [securityMetricsOpen, setSecurityMetricsOpen] = useState(false);
-  const [activeDepartment, setActiveDepartment] = useState<'overview' | 'cerebro' | 'security' | 'web4' | 'wallet' | 'tracking'>('overview');
+  const [activeDepartment, setActiveDepartment] = useState<'overview' | 'cerebro' | 'security' | 'web4' | 'wallet' | 'tracking' | 'bridge' | 'ghost' | 'constitution'>('overview');
+  const [panicActive, setPanicActive] = useState(false);
   const [language, setLanguage] = useState<Language>('tr');
   const [certModalOpen, setCertModalOpen] = useState(false);
   const [certData, setCertData] = useState<{
@@ -307,14 +311,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
                 { label: 'Kimlik Izleme', dept: 'security' as const },
                 { label: 'Ihlal Tespit Merkezi', dept: 'security' as const },
                 { label: 'PUKO Dongusu', dept: 'security' as const },
+                { label: 'Ghost ID / SPON / SOFTON', dept: 'ghost' as const },
               ],
             },
             {
               id: 'bridge',
-              label: 'Web4 Kopru',
+              label: 'Kopru & Web4',
               icon: Globe2,
               color: '#00e5ff',
               items: [
+                { label: 'Sovereign Bridge', dept: 'bridge' as const },
                 { label: 'Dagitik Kopru Durumu', dept: 'web4' as const },
                 { label: 'DAG Mutabakat (1402 Node)', dept: 'web4' as const },
                 { label: 'Dilithium + Kyber-1024', dept: 'web4' as const },
@@ -331,6 +337,17 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
                 { label: 'Hybrid Wallet (CLB/DGCT/BTC/ETH)', dept: 'wallet' as const },
                 { label: 'Sertifika Indir', dept: 'wallet' as const },
                 { label: 'Takip & Izleme', dept: 'tracking' as const },
+              ],
+            },
+            {
+              id: 'constitution',
+              label: 'Sistem Anayasasi',
+              icon: Scale,
+              color: '#f59e0b',
+              items: [
+                { label: '5 Katmanli Mimari', dept: 'constitution' as const },
+                { label: 'Anayasa Maddeleri', dept: 'constitution' as const },
+                { label: 'Protokol Onaylari', dept: 'constitution' as const },
               ],
             },
           ].map((group) => (
@@ -416,6 +433,50 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
 
         {/* ====== DEPARTMENT CONTENT ====== */}
 
+        {/* Scrolling Constitution Ticker */}
+        <div className="rounded-lg border overflow-hidden" style={{ background: 'rgba(2,6,23,0.8)', borderColor: 'rgba(0,229,255,0.1)' }}>
+          <div className="flex items-center gap-2 px-3 py-2">
+            <Scale className="h-3.5 w-3.5 flex-shrink-0" style={{ color: '#00e5ff' }} />
+            <div className="flex-1 overflow-hidden">
+              <div className="flex gap-8 animate-[scroll_25s_linear_infinite] whitespace-nowrap text-[10px] font-mono text-slate-400">
+                <span style={{ color: '#39ff14' }}>[A1] Kimlik Egemenligi</span>
+                <span style={{ color: '#00e5ff' }}>[A2] Biyometrik Koruma</span>
+                <span style={{ color: '#a855f7' }}>[A8] DAG Mutabakat 1402 Node</span>
+                <span style={{ color: '#f59e0b' }}>[A10] Sovereign Bridge v2</span>
+                <span style={{ color: '#39ff14' }}>[A5] PUKO Dongusu</span>
+                <span style={{ color: '#ec4899' }}>[A14] Web4 Otonom Tuzuk</span>
+                <span style={{ color: '#00e5ff' }}>[A3] Ghost ID Anonimligi</span>
+                <span style={{ color: '#39ff14' }}>[A6] Kuantum Direnci</span>
+              </div>
+            </div>
+            <Siren
+              className="h-4 w-4 flex-shrink-0 cursor-pointer transition-all hover:scale-110"
+              style={{ color: panicActive ? '#ef4444' : '#64748b' }}
+              onClick={() => setPanicActive(!panicActive)}
+            />
+          </div>
+        </div>
+
+        {/* Panic Button Alert */}
+        {panicActive && (
+          <div className="rounded-lg p-4 border-2 animate-pulse" style={{ background: 'rgba(239,68,68,0.1)', borderColor: 'rgba(239,68,68,0.5)' }}>
+            <div className="flex items-center gap-3">
+              <Siren className="h-5 w-5" style={{ color: '#ef4444' }} />
+              <div className="flex-1">
+                <p className="text-sm font-bold text-red-400">PANIK MODU AKTIF</p>
+                <p className="text-[10px] text-slate-400">Tum kimlikler kilitlendi. Cerebro Network izole modda. Ihlal tespit ekibi bilgilendirildi.</p>
+              </div>
+              <button
+                onClick={() => setPanicActive(false)}
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+                style={{ background: 'rgba(239,68,68,0.2)', border: '1px solid rgba(239,68,68,0.4)', color: '#ef4444' }}
+              >
+                Kapat
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Overview */}
         {activeDepartment === 'overview' && (
           <div className="space-y-6">
@@ -479,9 +540,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onLogout, userType = 'indi
           </div>
         )}
 
+        {/* Ghost ID Flow */}
+        {activeDepartment === 'ghost' && (
+          <GhostIDFlowPanel />
+        )}
+
+        {/* Sovereign Bridge */}
+        {activeDepartment === 'bridge' && (
+          <SovereignBridgePanel />
+        )}
+
         {/* Web4 Bridge */}
         {activeDepartment === 'web4' && (
           <Web4BridgePanel />
+        )}
+
+        {/* System Constitution */}
+        {activeDepartment === 'constitution' && (
+          <SystemConstitutionPanel />
         )}
 
         {/* Wallet & Certificate */}
