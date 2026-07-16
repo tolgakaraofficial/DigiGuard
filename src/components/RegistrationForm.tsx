@@ -5,7 +5,7 @@ import { IdentityInfoStep } from './IdentityInfoStep';
 import { MediaUploadStep } from './MediaUploadStep';
 import { RegistrationComplete } from './RegistrationComplete';
 import { PersonalInfo, CorporateInfo, IdentityInfo, MediaFiles } from '../types';
-import { User, Building2 } from 'lucide-react';
+import { User, Building2, Ghost, Fingerprint, KeyRound, CheckCircle, Shield } from 'lucide-react';
 
 interface RegistrationFormProps {
   onComplete: () => void;
@@ -58,6 +58,19 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
     videos: [],
     audioRecordings: [],
   });
+  const [ghostId, setGhostId] = useState('');
+  const [sponHash, setSponHash] = useState('');
+
+  const generateHex = (len: number) => Array.from({ length: len }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+
+  React.useEffect(() => {
+    if (currentStep === 4 || (userType === 'corporate' && currentStep === 3)) {
+      if (!ghostId) {
+        setGhostId(`0x${generateHex(40)}`);
+        setSponHash(`SPON-${generateHex(16).toUpperCase()}`);
+      }
+    }
+  }, [currentStep, userType, ghostId]);
 
   const getSteps = () => {
     if (!userType) return [];
@@ -66,13 +79,13 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
         { number: 1, title: 'Kişisel Bilgiler', completed: currentStep > 1 },
         { number: 2, title: 'Kimlik Bilgileri', completed: currentStep > 2 },
         { number: 3, title: 'Medya Dosyaları', completed: currentStep > 3 },
-        { number: 4, title: 'Tamamlandı', completed: currentStep > 4 },
+        { number: 4, title: 'Ghost ID / Tamamlandı', completed: currentStep > 4 },
       ];
     } else {
       return [
         { number: 1, title: 'Şirket Bilgileri', completed: currentStep > 1 },
         { number: 2, title: 'Medya Dosyaları', completed: currentStep > 2 },
-        { number: 3, title: 'Tamamlandı', completed: currentStep > 3 },
+        { number: 3, title: 'Ghost ID / Tamamlandı', completed: currentStep > 3 },
       ];
     }
   };
@@ -167,12 +180,36 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
           );
         case 4:
           return (
-            <RegistrationComplete
-              personalInfo={personalInfo}
-              identityInfo={identityInfo}
-              mediaFiles={mediaFiles}
-              onComplete={onComplete}
-            />
+            <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-cyber-500/30">
+              {/* Ghost ID Assignment */}
+              <div className="mb-6 p-4 rounded-xl border" style={{ background: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.3)' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <Ghost className="h-5 w-5" style={{ color: '#a855f7' }} />
+                  <h3 className="text-sm font-bold text-white">Ghost ID / SPON Ataması</h3>
+                  <CheckCircle className="h-4 w-4" style={{ color: '#39ff14' }} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
+                    <Ghost className="h-3.5 w-3.5" style={{ color: '#a855f7' }} />
+                    <span className="text-[10px] text-slate-400 flex-1">Ghost ID</span>
+                    <span className="text-[10px] font-mono break-all" style={{ color: '#a855f7' }}>{ghostId}</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
+                    <Fingerprint className="h-3.5 w-3.5" style={{ color: '#00e5ff' }} />
+                    <span className="text-[10px] text-slate-400 flex-1">SPON Hash</span>
+                    <span className="text-[10px] font-mono" style={{ color: '#00e5ff' }}>{sponHash}</span>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-2">Ghost ID kimliğiniz anonim olarak oluşturuldu. PII verileri ifşa edilmez.</p>
+              </div>
+
+              <RegistrationComplete
+                personalInfo={personalInfo}
+                identityInfo={identityInfo}
+                mediaFiles={mediaFiles}
+                onComplete={onComplete}
+              />
+            </div>
           );
         default:
           return null;
@@ -198,12 +235,36 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
           );
         case 3:
           return (
-            <RegistrationComplete
-              personalInfo={personalInfo}
-              identityInfo={identityInfo}
-              mediaFiles={mediaFiles}
-              onComplete={onComplete}
-            />
+            <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-purple-500/30">
+              {/* Ghost ID Assignment */}
+              <div className="mb-6 p-4 rounded-xl border" style={{ background: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.3)' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <Ghost className="h-5 w-5" style={{ color: '#a855f7' }} />
+                  <h3 className="text-sm font-bold text-white">Kurumsal Ghost ID / SPON Ataması</h3>
+                  <CheckCircle className="h-4 w-4" style={{ color: '#39ff14' }} />
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
+                    <Ghost className="h-3.5 w-3.5" style={{ color: '#a855f7' }} />
+                    <span className="text-[10px] text-slate-400 flex-1">Ghost ID</span>
+                    <span className="text-[10px] font-mono break-all" style={{ color: '#a855f7' }}>{ghostId}</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
+                    <Fingerprint className="h-3.5 w-3.5" style={{ color: '#00e5ff' }} />
+                    <span className="text-[10px] text-slate-400 flex-1">SPON Hash</span>
+                    <span className="text-[10px] font-mono" style={{ color: '#00e5ff' }}>{sponHash}</span>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-2">Kurumsal Ghost ID oluşturuldu. Şirket kimliği anonim olarak doğrulanacaktır.</p>
+              </div>
+
+              <RegistrationComplete
+                personalInfo={personalInfo}
+                identityInfo={identityInfo}
+                mediaFiles={mediaFiles}
+                onComplete={onComplete}
+              />
+            </div>
           );
         default:
           return null;

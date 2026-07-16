@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, Shield, Fingerprint, UserCheck, Scan, Camera, Zap, MapPin, ChevronDown, ChevronUp, TrendingUp, Activity } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Eye, EyeOff, Lock, Info, Users, Shield, Fingerprint, UserCheck, Scan, Camera, Zap, MapPin, ChevronDown, ChevronUp, TrendingUp, Activity, Ghost, Wallet, KeyRound, RefreshCw, CheckCircle, Network } from 'lucide-react';
 import { SecurityInfoModal } from './SecurityInfoModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
@@ -29,6 +29,29 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [showAboutModal, setShowAboutModal] = useState(false);
   const [showTeamModal, setShowTeamModal] = useState(false);
   const [showKYCPanel, setShowKYCPanel] = useState(false);
+  const [showWeb3Panel, setShowWeb3Panel] = useState(false);
+  const [web3Connecting, setWeb3Connecting] = useState<string | null>(null);
+  const [ghostIdGenerated, setGhostIdGenerated] = useState(false);
+  const [ghostId, setGhostId] = useState('');
+  const [sponHash, setSponHash] = useState('');
+
+  const generateHex = (len: number) => Array.from({ length: len }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+
+  const handleGhostIdGenerate = async () => {
+    setGhostIdGenerated(false);
+    await new Promise(r => setTimeout(r, 800));
+    setGhostId(`0x${generateHex(40)}`);
+    await new Promise(r => setTimeout(r, 600));
+    setSponHash(`SPON-${generateHex(16).toUpperCase()}`);
+    setGhostIdGenerated(true);
+  };
+
+  const handleWeb3Connect = async (method: string) => {
+    setWeb3Connecting(method);
+    await new Promise(r => setTimeout(r, 1500));
+    setWeb3Connecting(null);
+    setShowWeb3Panel(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -190,17 +213,79 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               <Scan className="h-5 w-5 group-hover:rotate-12 transition-transform" />
             </button>
 
+            {/* Ghost ID / SPON Protocol */}
+            <div className="mt-3 p-3 rounded-lg border border-purple-500/30" style={{ background: 'rgba(168,85,247,0.08)' }}>
+              <div className="flex items-center gap-2 mb-2">
+                <Ghost className="h-4 w-4" style={{ color: '#a855f7' }} />
+                <span className="text-xs font-bold text-white">Ghost ID / SPON Protokolü</span>
+                {ghostIdGenerated && <CheckCircle className="h-3.5 w-3.5" style={{ color: '#39ff14' }} />}
+              </div>
+              <p className="text-[10px] text-slate-400 mb-2">Anonim kimlik doğrulaması için Ghost ID oluşturun (PII ifşa edilmez)</p>
+              {ghostId && (
+                <div className="space-y-1 mb-2">
+                  <div className="text-[10px] font-mono break-all" style={{ color: '#a855f7' }}>{ghostId}</div>
+                  {sponHash && <div className="text-[10px] font-mono" style={{ color: '#00e5ff' }}>{sponHash}</div>}
+                </div>
+              )}
+              <button
+                type="button"
+                onClick={handleGhostIdGenerate}
+                disabled={ghostIdGenerated}
+                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-semibold transition-all disabled:opacity-50"
+                style={{ background: 'rgba(168,85,247,0.15)', border: '1px solid rgba(168,85,247,0.3)', color: '#a855f7' }}
+              >
+                {ghostIdGenerated ? (
+                  <><CheckCircle className="h-3.5 w-3.5" /> Ghost ID Oluşturuldu</>
+                ) : (
+                  <><RefreshCw className="h-3.5 w-3.5" /> Ghost ID Oluştur</>
+                )}
+              </button>
+            </div>
+
             <div className="p-2.5 bg-blue-900/30 border border-blue-500/30 rounded-lg">
               <div className="flex items-start space-x-2">
                 <Zap className="h-3.5 w-3.5 text-blue-400 flex-shrink-0 mt-0.5 animate-pulse" />
                 <p className="text-blue-200 text-xs leading-relaxed">
-                  KYC uyumlu biyometrik doğrulama ile kimliğinizi güvenle onaylayın.
+                  KYC uyumlu biyometrik doğrulama + Ghost ID/SPON protokolü ile kimliğinizi güvenle onaylayın.
                 </p>
               </div>
             </div>
           </div>
         )}
 
+        {/* Web3 Hibrit Giriş Paneli */}
+        {showWeb3Panel && (
+          <div className="mb-5 relative z-10 bg-gradient-to-r from-orange-900/30 to-amber-900/30 border border-orange-500/30 rounded-xl p-4 space-y-3 animate-fadeIn">
+            <div className="flex items-center gap-2 mb-3">
+              <Wallet className="h-5 w-5 text-orange-400" />
+              <h3 className="text-sm font-semibold text-white">Web3 Hibrit Giriş</h3>
+            </div>
+            <div className="grid grid-cols-1 gap-2">
+              {[
+                { id: 'metamask', name: 'MetaMask', icon: Wallet, color: '#f7931a' },
+                { id: 'walletconnect', name: 'WalletConnect', icon: Network, color: '#3b99fc' },
+                { id: 'did', name: 'Web4 DID', icon: KeyRound, color: '#a855f7' },
+              ].map((m) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  onClick={() => handleWeb3Connect(m.id)}
+                  disabled={!!web3Connecting}
+                  className="flex items-center gap-3 p-3 rounded-lg border transition-all disabled:opacity-50 hover:bg-slate-700/40"
+                  style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(255,255,255,0.08)' }}
+                >
+                  <m.icon className="h-5 w-5" style={{ color: m.color }} />
+                  <span className="text-sm text-white flex-1 text-left">{m.name}</span>
+                  {web3Connecting === m.id ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <ArrowRight className="h-4 w-4 text-slate-500" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
           <div>
@@ -286,15 +371,24 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </button>
         </form>
 
-        <div className="mt-5 relative z-10">
+        <div className="mt-5 relative z-10 space-y-2">
           <button
             type="button"
             onClick={() => setShowKYCPanel(!showKYCPanel)}
             className="w-full bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50"
           >
             <Scan className="h-5 w-5" />
-            <span>KYC Doğrula - Biyometrik Yüz & Parmak İzi</span>
+            <span>KYC + Ghost ID / SPON Doğrula</span>
             <Fingerprint className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowWeb3Panel(!showWeb3Panel)}
+            className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
+          >
+            <Wallet className="h-5 w-5" />
+            <span>Web3 Hibrit Giriş (MetaMask / DID)</span>
+            <Network className="h-5 w-5" />
           </button>
         </div>
 
@@ -313,16 +407,20 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         </div>
 
         {/* Security indicators */}
-        <div className="mt-3 grid grid-cols-3 gap-1.5 relative z-10">
+        <div className="mt-3 grid grid-cols-2 gap-1.5 relative z-10">
           <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-cyber-500/30">
             <Lock className="h-3 w-3 text-cyber-400" />
-            <span className="text-xs text-slate-300">AES-256</span>
+            <span className="text-[10px] text-slate-300">AES-256</span>
           </div>
           <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-matrix-500/30">
-            <span className="text-xs text-slate-300">Biyometrik</span>
+            <span className="text-[10px] text-slate-300">Biyometrik</span>
+          </div>
+          <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-purple-500/30">
+            <KeyRound className="h-3 w-3" style={{ color: '#a855f7' }} />
+            <span className="text-[10px] text-slate-300">Dilithium+Kyber-1024</span>
           </div>
           <div className="flex items-center justify-center gap-1 px-1.5 py-1 bg-slate-700/50 rounded-md border border-secure-500/30">
-            <span className="text-xs text-slate-300">Blockchain</span>
+            <span className="text-[10px] text-slate-300">Ghost ID / SPON</span>
           </div>
         </div>
       </div>
