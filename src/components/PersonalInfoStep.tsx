@@ -83,7 +83,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
     onChange({ ...data, [field]: value });
     // Hata mesajını temizle
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((prev: Partial<PersonalInfo>) => ({ ...prev, [field]: undefined }));
     }
   };
 

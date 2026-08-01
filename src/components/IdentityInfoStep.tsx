@@ -55,7 +55,7 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
   const handleChange = (field: keyof IdentityInfo, value: string | IdentityInfo['idType']) => {
     onChange({ ...data, [field]: value });
     if (errors[field as keyof Partial<IdentityInfo>]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((prev: Partial<IdentityInfo>) => ({ ...prev, [field]: undefined }));
     }
   };
 

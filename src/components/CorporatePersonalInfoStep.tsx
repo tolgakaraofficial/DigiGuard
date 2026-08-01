@@ -88,7 +88,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
   const handleChange = (field: keyof CorporateInfo, value: string) => {
     onChange({ ...data, [field]: value });
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((prev: Partial<CorporateInfo>) => ({ ...prev, [field]: undefined }));
     }
   };
 

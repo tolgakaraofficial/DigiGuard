@@ -78,7 +78,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
   };
 
   const removeFile = (type: keyof MediaFiles, index: number) => {
-    const updatedFiles = data[type].filter((_, i) => i !== index);
+    const updatedFiles = data[type].filter((_file: File, i: number) => i !== index);
     onChange({
       ...data,
       [type]: updatedFiles,
@@ -190,7 +190,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           />
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {data.photos.map((file, index) => (
+            {data.photos.map((file: File, index: number) => (
               <div key={index} className="relative bg-slate-700 rounded-lg p-4">
                 <button
                   onClick={() => removeFile('photos', index)}
@@ -243,7 +243,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {data.videos.map((file, index) => (
+            {data.videos.map((file: File, index: number) => (
               <div key={index} className="relative bg-slate-700 rounded-lg p-4">
                 <button
                   onClick={() => removeFile('videos', index)}
@@ -298,7 +298,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {data.audioRecordings.map((file, index) => (
+            {data.audioRecordings.map((file: File, index: number) => (
               <div key={index} className="relative bg-slate-700 rounded-lg p-4">
                 <button
                   onClick={() => removeFile('audioRecordings', index)}

@@ -144,7 +144,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     pdf.setFont('helvetica', 'bold');
     pdf.text('E-posta:', 45, infoY + lineHeight * 4);
     pdf.setFont('helvetica', 'normal');
-    pdf.text(personalInfo.email, 110, infoY + lineHeight * 4);
+    pdf.text(personalInfo.email || '', 110, infoY + lineHeight * 4);
 
     pdf.setFontSize(11);
     pdf.setTextColor(148, 163, 184);

@@ -84,7 +84,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
   const handleChange = (field: keyof PersonalInfo, value: string) => {
     onChange({ ...data, [field]: value });
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((prev: Partial<PersonalInfo>) => ({ ...prev, [field]: undefined }));
     }
   };
 

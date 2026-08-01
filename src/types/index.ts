@@ -51,3 +51,52 @@ export interface ProtocolStep {
   description: string;
   status: 'pending' | 'active' | 'complete';
 }
+
+export interface PersonalInfo {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  nationality: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface CorporateInfo {
+  companyName: string;
+  companyType: string;
+  taxNumber: string;
+  tradeRegistryNumber: string;
+  foundationDate: string;
+  mersisNumber: string;
+  companyAddress: string;
+  companyCity: string;
+  companyPostalCode: string;
+  authorizedPersonFirstName: string;
+  authorizedPersonLastName: string;
+  authorizedPersonTitle: string;
+  authorizedPersonIdNumber: string;
+  authorizedPersonPhone: string;
+  authorizedPersonEmail: string;
+  companyPhone: string;
+  companyEmail: string;
+  employeeCount: string;
+  sector: string;
+  website: string;
+}
+
+export interface IdentityInfo {
+  idNumber: string;
+  idType: 'tc' | 'passport' | 'other';
+  issueDate: string;
+  expiryDate: string;
+  issuingAuthority: string;
+}
+
+export interface MediaFiles {
+  photos: File[];
+  videos: File[];
+  audioRecordings: File[];
+}

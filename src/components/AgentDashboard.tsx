@@ -150,7 +150,7 @@ export const AgentDashboard: React.FC = () => {
               <div key={alert.id} className="bg-slate-700/30 rounded p-2">
                 <p className="text-sm text-slate-200">{alert.message}</p>
                 <p className="text-xs text-slate-500 mt-1">
-                  {new Date(alert.created_at).toLocaleString('tr-TR')}
+                  {new Date(alert.createdAt).toLocaleString('tr-TR')}
                 </p>
               </div>
             ))}

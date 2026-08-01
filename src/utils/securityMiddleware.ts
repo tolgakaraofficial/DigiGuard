@@ -67,7 +67,7 @@ export class SecurityMiddleware {
 
   static preventClickjacking(): void {
     if (typeof window !== 'undefined' && window.self !== window.top) {
-      window.top!.location = window.self.location;
+      window.top!.location.href = window.self.location.href;
     }
   }
 
