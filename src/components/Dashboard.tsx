@@ -3,16 +3,18 @@ import {
   Shield, Ghost, Network, Cpu, Activity, Lock, KeyRound, Zap, CheckCircle,
   AlertTriangle, AlertCircle, FileText, Wallet, Gavel, Layers, RefreshCw,
   TrendingUp, ArrowRight, LogOut, Eye, EyeOff, Copy, Award, Users, Scan,
+  FileStack,
 } from 'lucide-react';
 import type { DashboardData } from '../lib/dashboardData';
 import { shortHash } from '../lib/crypto';
+import { DocumentLibrary } from './DocumentLibrary';
 
 interface DashboardProps {
   data: DashboardData;
   onLogout: () => void;
 }
 
-type Tab = 'overview' | 'protocol' | 'dag' | 'sentinel' | 'assets' | 'constitution' | 'wallet';
+type Tab = 'overview' | 'protocol' | 'dag' | 'sentinel' | 'assets' | 'constitution' | 'wallet' | 'documents';
 
 export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
   const [tab, setTab] = useState<Tab>('overview');
@@ -45,6 +47,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
     { id: 'assets', label: 'Varliklar', icon: Award, color: '#f59e0b' },
     { id: 'constitution', label: 'Anayasa', icon: Gavel, color: '#ef4444' },
     { id: 'wallet', label: 'Cuzdan', icon: Wallet, color: '#00e5ff' },
+    { id: 'documents', label: 'Belgeler', icon: FileStack, color: '#06b6d4' },
   ];
 
   const completedSteps = data.protocolSteps.filter((s) => s.status === 'complete').length;
@@ -103,6 +106,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
         {tab === 'assets' && <AssetsTab data={data} copy={copy} copied={copied} />}
         {tab === 'constitution' && <ConstitutionTab data={data} />}
         {tab === 'wallet' && <WalletTab data={data} />}
+        {tab === 'documents' && <DocumentLibrary />}
       </main>
     </div>
   );
