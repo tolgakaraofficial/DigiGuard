@@ -28,14 +28,14 @@ export const initDashboard = (email: string, phone: string, userType: 'individua
     { step: 1, name: 'Ghost ID Olusturma', description: 'Anonim kimlik katmani', status: 'complete' as const },
     { step: 2, name: 'SPON KYC Hash', description: 'Biyometrik KYC dogrulama', status: 'complete' as const },
     { step: 3, name: 'SOFTON Token', description: 'Oturum tokeni olusturma', status: 'complete' as const },
-    { step: 4, name: 'DAG Dugum Kaydi', description: 'Sovereign Bridge DAG kaydi', status: 'active' as const },
-    { step: 5, name: 'Cerebro Sentinel', description: 'AI tehdit tespiti', status: 'active' as const },
-    { step: 6, name: 'PUKO Dongusu', description: 'Proaktif savunma döngüsü', status: 'active' as const },
-    { step: 7, name: 'Anayasa Onayi', description: '6 madde dijital anayasa', status: 'pending' as const },
-    { step: 8, name: 'MESAM Telif', description: 'Telif hakki kaydi', status: 'pending' as const },
-    { step: 9, name: 'Akıllı Sozlesme', description: 'Otomatik ödeme dağitim', status: 'pending' as const },
-    { step: 10, name: 'Marka Suistimal', description: 'Polimorfik kimlik korumasi', status: 'pending' as const },
-    { step: 11, name: 'Egemenlik', description: 'Tam teşekküllü dönüşüm', status: 'pending' as const },
+    { step: 4, name: 'DAG Dugum Kaydi', description: 'Sovereign Bridge DAG kaydi', status: 'complete' as const },
+    { step: 5, name: 'Cerebro Sentinel', description: 'AI tehdit tespiti', status: 'complete' as const },
+    { step: 6, name: 'PUKO Dongusu', description: 'Proaktif savunma döngüsü', status: 'complete' as const },
+    { step: 7, name: 'Anayasa Onayi', description: '6 madde dijital anayasa', status: 'complete' as const },
+    { step: 8, name: 'MESAM Telif', description: 'Telif hakki kaydi', status: 'complete' as const },
+    { step: 9, name: 'Akıllı Sozlesme', description: 'Otomatik ödeme dağitim', status: 'complete' as const },
+    { step: 10, name: 'Marka Suistimal', description: 'Polimorfik kimlik korumasi', status: 'complete' as const },
+    { step: 11, name: 'Egemenlik', description: 'Tam teşekküllü dönüşüm', status: 'complete' as const },
   ];
 
   const dagNodes = Array.from({ length: 12 }, (_, i) => ({
@@ -73,9 +73,9 @@ export const initDashboard = (email: string, phone: string, userType: 'individua
     { article: 1, title: 'Egemenlik', text: 'Kullanici kendi verisinin egemenidir. Onay olmadan islenemez.', status: 'active' as const },
     { article: 2, title: 'Anonimlik', text: 'Ghost ID ile PII ifşa edilmeden kimlik dogrulanir.', status: 'active' as const },
     { article: 3, title: 'Kuantum Direnci', text: 'Dilithium+Kyber-1024 ve AES-256-GCM zorunludur.', status: 'active' as const },
-    { article: 4, title: 'Telif Hakki', text: 'MESAM uyumlu akıllı sozlesmeler ile telif dagitimi.', status: 'pending' as const },
+    { article: 4, title: 'Telif Hakki', text: 'MESAM uyumlu akıllı sozlesmeler ile telif dagitimi.', status: 'active' as const },
     { article: 5, title: 'Savunma', text: 'PUKO döngüsü ile proaktif tehdit savunmasi.', status: 'active' as const },
-    { article: 6, title: 'Donusum', text: 'Tam teşekküllü dönüşüm protokolü 11 adimda tamamlanir.', status: 'pending' as const },
+    { article: 6, title: 'Donusum', text: 'Tam teşekküllü dönüşüm protokolü 11 adimda tamamlanir.', status: 'active' as const },
   ];
 
   const tokenomics = {
