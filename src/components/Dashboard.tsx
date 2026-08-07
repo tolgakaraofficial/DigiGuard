@@ -3,23 +3,57 @@ import {
   Shield, Ghost, Network, Cpu, Activity, Lock, KeyRound, Zap, CheckCircle,
   AlertTriangle, AlertCircle, FileText, Wallet, Gavel, Layers, RefreshCw,
   TrendingUp, ArrowRight, LogOut, Eye, EyeOff, Copy, Award, Users, Scan,
-  FileStack,
+  FileStack, BarChart3, Radar, Globe, Boxes, BookOpen, Bell, Brain,
+  Fingerprint, Building2, User,
 } from 'lucide-react';
 import type { DashboardData } from '../lib/dashboardData';
 import { shortHash } from '../lib/crypto';
 import { DocumentLibrary } from './DocumentLibrary';
+import { IntroAnimation } from './IntroAnimation';
+import { AgentDashboard } from './AgentDashboard';
+import { AnalyticsDashboard } from './AnalyticsDashboard';
+import { CentralMonitoringHub } from './CentralMonitoringHub';
+import { CerebroNetworkPanel } from './CerebroNetworkPanel';
+import { GhostIDFlowPanel } from './GhostIDFlowPanel';
+import { HybridWalletHub } from './HybridWalletHub';
+import { MonitoringPanel } from './MonitoringPanel';
+import { SecurityDashboard } from './SecurityDashboard';
+import { SoponDeAIPanel } from './SoponDeAIPanel';
+import { SovereignBridgePanel } from './SovereignBridgePanel';
+import { SystemConstitutionPanel } from './SystemConstitutionPanel';
+import { TrackingPanel } from './TrackingPanel';
+import { Web4BridgePanel } from './Web4BridgePanel';
+import { CerebroCertificatePanel } from './CerebroCertificatePanel';
+import { EntityRegistryPanel } from './EntityRegistryPanel';
+import { NotificationCenter } from './NotificationCenter';
+import { AlbisChatBot } from './AlbisChatBot';
+import { UserScenariosModal } from './UserScenariosModal';
+import { GlobalReachModal } from './GlobalReachModal';
+import { IntegrationsModal } from './IntegrationsModal';
+import { PublicBenefitModal } from './PublicBenefitModal';
+import { TurkeyCertificateModal } from './TurkeyCertificateModal';
+import { PricingModal } from './PricingModal';
+import { SecurityMetricsModal } from './SecurityMetricsModal';
+import { AboutModal } from './AboutModal';
+import { TeamModal } from './TeamModal';
 
 interface DashboardProps {
   data: DashboardData;
   onLogout: () => void;
 }
 
-type Tab = 'overview' | 'protocol' | 'dag' | 'sentinel' | 'assets' | 'constitution' | 'wallet' | 'documents';
+type Tab =
+  | 'overview' | 'protocol' | 'dag' | 'sentinel' | 'assets' | 'constitution' | 'wallet' | 'documents'
+  | 'ghostflow' | 'cerebro' | 'sovereign' | 'web4' | 'monitoring' | 'security' | 'tracking'
+  | 'analytics' | 'agents' | 'sopon' | 'hybridwallet' | 'certificates' | 'entities' | 'notifications';
 
 export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
   const [tab, setTab] = useState<Tab>('overview');
   const [pukoPhase, setPukoPhase] = useState(0);
   const [copied, setCopied] = useState('');
+  const [showIntro, setShowIntro] = useState(true);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [modal, setModal] = useState<string | null>(null);
 
   const pukoPhases = [
     { label: 'Proaktif', color: '#39ff14', icon: Shield },
@@ -42,17 +76,34 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
   const tabs: { id: Tab; label: string; icon: React.ElementType; color: string }[] = [
     { id: 'overview', label: 'Genel', icon: Activity, color: '#00e5ff' },
     { id: 'protocol', label: 'Protokol', icon: Layers, color: '#a855f7' },
+    { id: 'ghostflow', label: 'Ghost ID', icon: Ghost, color: '#a855f7' },
     { id: 'dag', label: 'DAG', icon: Network, color: '#f97316' },
     { id: 'sentinel', label: 'Sentinel', icon: Cpu, color: '#39ff14' },
+    { id: 'sopon', label: 'SoponDe AI', icon: Brain, color: '#39ff14' },
+    { id: 'cerebro', label: 'Cerebro Net', icon: Network, color: '#00e5ff' },
+    { id: 'sovereign', label: 'Sovereign', icon: Boxes, color: '#f97316' },
+    { id: 'web4', label: 'Web4', icon: Globe, color: '#00e5ff' },
     { id: 'assets', label: 'Varliklar', icon: Award, color: '#f59e0b' },
+    { id: 'certificates', label: 'Sertifikalar', icon: Award, color: '#39ff14' },
+    { id: 'entities', label: 'Varlik Kayit', icon: Building2, color: '#00e5ff' },
     { id: 'constitution', label: 'Anayasa', icon: Gavel, color: '#ef4444' },
     { id: 'wallet', label: 'Cuzdan', icon: Wallet, color: '#00e5ff' },
+    { id: 'hybridwallet', label: 'Hibrit Cuzdan', icon: Wallet, color: '#f59e0b' },
+    { id: 'monitoring', label: 'Izleme', icon: Radar, color: '#ef4444' },
+    { id: 'security', label: 'Guvenlik', icon: Shield, color: '#39ff14' },
+    { id: 'tracking', label: 'Konum', icon: Scan, color: '#f97316' },
+    { id: 'analytics', label: 'Analitik', icon: BarChart3, color: '#00e5ff' },
+    { id: 'agents', label: 'Ajanlar', icon: Zap, color: '#a855f7' },
     { id: 'documents', label: 'Belgeler', icon: FileStack, color: '#06b6d4' },
   ];
 
   const completedSteps = data.protocolSteps.filter((s) => s.status === 'complete').length;
   const activeSteps = data.protocolSteps.filter((s) => s.status === 'active').length;
   const progress = (completedSteps / data.protocolSteps.length) * 100;
+
+  if (showIntro) {
+    return <IntroAnimation userType={data.user.userType} onComplete={() => setShowIntro(false)} />;
+  }
 
   return (
     <div className="min-h-screen w-full hex-grid">
@@ -74,6 +125,27 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
               <div className="w-1.5 h-1.5 rounded-full bg-matrix-400 animate-pulse" />
               <span className="text-[10px] font-mono text-slate-400">Cerebro Online</span>
             </div>
+            <button onClick={() => setShowIntro(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
+              <Activity className="h-3.5 w-3.5" /> Animasyon
+            </button>
+            <div className="hidden md:flex items-center gap-1">
+              <button onClick={() => setModal('scenarios')} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
+                <Users className="h-3.5 w-3.5" /> Senaryolar
+              </button>
+              <button onClick={() => setModal('global')} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
+                <Globe className="h-3.5 w-3.5" /> Erisim
+              </button>
+              <button onClick={() => setModal('pricing')} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
+                <Wallet className="h-3.5 w-3.5" /> Fiyat
+              </button>
+              <button onClick={() => setModal('about')} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
+                <Shield className="h-3.5 w-3.5" /> Hakkinda
+              </button>
+            </div>
+            <button onClick={() => setShowNotifications(true)} className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
+              <Bell className="h-3.5 w-3.5" /> Bildirimler
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-[9px] font-bold text-white flex items-center justify-center">3</span>
+            </button>
             <button onClick={onLogout} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
               <LogOut className="h-3.5 w-3.5" /> Cikis
             </button>
@@ -99,21 +171,61 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {tab === 'overview' && <OverviewTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} progress={progress} completedSteps={completedSteps} activeSteps={activeSteps} copy={copy} copied={copied} />}
+        {tab === 'overview' && <OverviewTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} progress={progress} completedSteps={completedSteps} activeSteps={activeSteps} copy={copy} copied={copied} onReplay={() => setShowIntro(true)} />}
         {tab === 'protocol' && <ProtocolTab data={data} />}
+        {tab === 'ghostflow' && <GhostIDFlowPanel />}
         {tab === 'dag' && <DAGTab data={data} />}
         {tab === 'sentinel' && <SentinelTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} />}
+        {tab === 'sopon' && <SoponDeAIPanel />}
+        {tab === 'cerebro' && <CerebroNetworkPanel />}
+        {tab === 'sovereign' && <SovereignBridgePanel />}
+        {tab === 'web4' && <Web4BridgePanel />}
         {tab === 'assets' && <AssetsTab data={data} copy={copy} copied={copied} />}
+        {tab === 'certificates' && <CerebroCertificatePanel />}
+        {tab === 'entities' && <EntityRegistryPanel />}
         {tab === 'constitution' && <ConstitutionTab data={data} />}
         {tab === 'wallet' && <WalletTab data={data} />}
+        {tab === 'hybridwallet' && <HybridWalletHub />}
+        {tab === 'monitoring' && <MonitoringPanel />}
+        {tab === 'security' && <SecurityDashboard userId={data.user.ghostId} />}
+        {tab === 'tracking' && <TrackingPanel />}
+        {tab === 'analytics' && <AnalyticsDashboard />}
+        {tab === 'agents' && <AgentDashboard />}
         {tab === 'documents' && <DocumentLibrary />}
       </main>
+
+      {/* Floating notification center */}
+      {showNotifications && (
+        <div className="fixed inset-0 z-40 flex justify-end" onClick={() => setShowNotifications(false)}>
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="relative w-full max-w-sm h-full bg-slate-900/95 border-l border-cyan-500/30 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <NotificationCenter userId={data.user.ghostId} />
+            <button onClick={() => setShowNotifications(false)} className="absolute top-4 right-4 p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+              <AlertCircle className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Floating chat bot */}
+      <AlbisChatBot language="tr" />
+
+      {/* Modals */}
+      <UserScenariosModal isOpen={modal === 'scenarios'} onClose={() => setModal(null)} />
+      <GlobalReachModal isOpen={modal === 'global'} onClose={() => setModal(null)} />
+      <IntegrationsModal isOpen={modal === 'integrations'} onClose={() => setModal(null)} />
+      <PublicBenefitModal isOpen={modal === 'public'} onClose={() => setModal(null)} />
+      <TurkeyCertificateModal isOpen={modal === 'turkey'} onClose={() => setModal(null)} />
+      <PricingModal isOpen={modal === 'pricing'} onClose={() => setModal(null)} />
+      <SecurityMetricsModal isOpen={modal === 'metrics'} onClose={() => setModal(null)} />
+      <AboutModal isOpen={modal === 'about'} onClose={() => setModal(null)} />
+      <TeamModal isOpen={modal === 'team'} onClose={() => setModal(null)} />
     </div>
   );
 };
 
 /* ---------- Overview ---------- */
-const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, completedSteps, activeSteps, copy, copied }) => (
+const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, completedSteps, activeSteps, copy, copied, onReplay }) => (
   <div className="space-y-4 animate-fade-in">
     {/* Hero stats */}
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -126,13 +238,18 @@ const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, com
     {/* Progress */}
     <div className="card p-4 cyber-border">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm font-semibold text-white">Tam Teşekküllü Dönüşüm Protokolü</span>
+        <span className="text-sm font-semibold text-white">Tam Tesekküllü Dönüşüm Protokolü</span>
         <span className="text-xs font-mono text-cyber-400">%{Math.round(progress)}</span>
       </div>
       <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
         <div className="h-full rounded-full transition-all duration-700" style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #a855f7, #00e5ff, #39ff14)' }} />
       </div>
-      <p className="text-[10px] text-slate-500 mt-2">11 adimlik protokolun {completedSteps} adimi tamamlandi, {activeSteps} adim aktif calisiyor.</p>
+      <div className="flex items-center justify-between mt-2">
+        <p className="text-[10px] text-slate-500">11 adimlik protokolun {completedSteps} adimi tamamlandi, {activeSteps} adim aktif calisiyor.</p>
+        <button onClick={onReplay} className="flex items-center gap-1 text-[10px] text-cyber-400 hover:text-cyber-300 transition">
+          <RefreshCw className="h-3 w-3" /> Animasyonu Tekrar Oynat
+        </button>
+      </div>
     </div>
 
     {/* PUKO + Ghost ID */}
@@ -198,7 +315,7 @@ const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, com
 /* ---------- Protocol ---------- */
 const ProtocolTab: React.FC<any> = ({ data }) => (
   <div className="space-y-3 animate-fade-in">
-    <h2 className="text-lg font-bold text-white">11 Adimli Tam Teşekküllü Dönüşüm Protokolü</h2>
+    <h2 className="text-lg font-bold text-white">11 Adimli Tam Tesekküllü Dönüşüm Protokolü</h2>
     <div className="space-y-2">
       {data.protocolSteps.map((s: any) => (
         <div key={s.step} className={`card p-4 flex items-center gap-4 ${s.status === 'complete' ? 'matrix-border' : s.status === 'active' ? 'cyber-border' : ''}`}>
