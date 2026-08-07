@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight, Users, Globe as Globe2, Workflow, Heart, Network, BookOpen, Shield, Info, Menu, Award, CreditCard, BarChart3 } from 'lucide-react';
+import { playTransitionSound } from '../lib/transitionSound';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -128,7 +129,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               {menuItems.map((item, index) => (
                 <button
                   key={index}
-                  onClick={item.action}
+                  onClick={() => { playTransitionSound(); item.action(); }}
                   className="w-full group relative"
                 >
                   <div

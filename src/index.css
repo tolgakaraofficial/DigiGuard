@@ -128,3 +128,40 @@ body {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(12px) scale(0.985); filter: blur(6px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes pageExit {
+  from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  to { opacity: 0; transform: translateY(-12px) scale(1.015); filter: blur(6px); }
+}
+@keyframes panelSwap {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter { animation: pageEnter 0.32s cubic-bezier(0.22, 1, 0.36, 1); }
+.page-exit { animation: pageExit 0.22s ease-in forwards; }
+.panel-swap { animation: panelSwap 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+
+.transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 229, 255, 0.18) 48%,
+    rgba(57, 255, 20, 0.12) 52%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: sweep 0.45s ease-out forwards;
+}
+@keyframes sweep {
+  from { transform: translateX(-100%); opacity: 0.9; }
+  to { transform: translateX(100%); opacity: 0; }
+}

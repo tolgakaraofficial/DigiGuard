@@ -36,6 +36,7 @@ import { PricingModal } from './PricingModal';
 import { SecurityMetricsModal } from './SecurityMetricsModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
+import { playTransitionSound } from '../lib/transitionSound';
 
 interface DashboardProps {
   data: DashboardData;
@@ -157,7 +158,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
           {tabs.map((t) => (
             <button
               key={t.id}
-              onClick={() => setTab(t.id)}
+              onClick={() => { if (tab !== t.id) { playTransitionSound(); setTab(t.id); } }}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition ${
                 tab === t.id ? 'bg-slate-800 text-white' : 'text-slate-500 hover:text-slate-300'
               }`}
@@ -171,6 +172,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-6">
+        <div key={tab} className="panel-swap">
         {tab === 'overview' && <OverviewTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} progress={progress} completedSteps={completedSteps} activeSteps={activeSteps} copy={copy} copied={copied} onReplay={() => setShowIntro(true)} />}
         {tab === 'protocol' && <ProtocolTab data={data} />}
         {tab === 'ghostflow' && <GhostIDFlowPanel />}
@@ -192,6 +194,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
         {tab === 'analytics' && <AnalyticsDashboard />}
         {tab === 'agents' && <AgentDashboard />}
         {tab === 'documents' && <DocumentLibrary />}
+        </div>
       </main>
 
       {/* Floating notification center */}
