@@ -4,6 +4,7 @@ import { Login } from './components/Login';
 import { Register } from './components/Register';
 import { Verify } from './components/Verify';
 import { Dashboard } from './components/Dashboard';
+import { GifCurtain } from './components/GifCurtain';
 import { initDashboard, type DashboardData } from './lib/dashboardData';
 import { playTransitionSound } from './lib/transitionSound';
 
@@ -12,6 +13,7 @@ type Page = 'splash' | 'login' | 'register' | 'verify' | 'dashboard';
 export default function App() {
   const [page, setPage] = useState<Page>('splash');
   const [displayedPage, setDisplayedPage] = useState<Page>('splash');
+  const [booting, setBooting] = useState(true);
   const [transitioning, setTransitioning] = useState(false);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -25,8 +27,8 @@ export default function App() {
     window.setTimeout(() => {
       setPage(next);
       setDisplayedPage(next);
-      setTransitioning(false);
-    }, 220);
+    }, 2000);
+    window.setTimeout(() => setTransitioning(false), 2000);
   }, [page]);
 
   const handleEnter = () => navigateTo('login');
@@ -61,10 +63,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (!transitioning) return;
-    const t = window.setTimeout(() => setTransitioning(false), 500);
+    if (!booting) return;
+    const t = window.setTimeout(() => setBooting(false), 4000);
     return () => window.clearTimeout(t);
-  }, [transitioning]);
+  }, [booting]);
 
   const renderPage = () => {
     switch (displayedPage) {
@@ -84,8 +86,9 @@ export default function App() {
   };
 
   return (
-    <div className={`relative min-h-screen w-full ${transitioning ? 'page-exit' : 'page-enter'}`} key={displayedPage}>
-      {transitioning && <div className="transition-overlay" />}
+    <div className="relative min-h-screen w-full">
+      {booting && <GifCurtain opening onComplete={() => setBooting(false)} />}
+      {transitioning && <GifCurtain onComplete={() => setTransitioning(false)} />}
       {renderPage()}
     </div>
   );

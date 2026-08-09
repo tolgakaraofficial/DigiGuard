@@ -9,7 +9,6 @@ import {
 import type { DashboardData } from '../lib/dashboardData';
 import { shortHash } from '../lib/crypto';
 import { DocumentLibrary } from './DocumentLibrary';
-import { IntroAnimation } from './IntroAnimation';
 import { AgentDashboard } from './AgentDashboard';
 import { AnalyticsDashboard } from './AnalyticsDashboard';
 import { CentralMonitoringHub } from './CentralMonitoringHub';
@@ -52,7 +51,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
   const [tab, setTab] = useState<Tab>('overview');
   const [pukoPhase, setPukoPhase] = useState(0);
   const [copied, setCopied] = useState('');
-  const [showIntro, setShowIntro] = useState(true);
   const [showNotifications, setShowNotifications] = useState(false);
   const [modal, setModal] = useState<string | null>(null);
 
@@ -102,10 +100,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
   const activeSteps = data.protocolSteps.filter((s) => s.status === 'active').length;
   const progress = (completedSteps / data.protocolSteps.length) * 100;
 
-  if (showIntro) {
-    return <IntroAnimation userType={data.user.userType} onComplete={() => setShowIntro(false)} />;
-  }
-
   return (
     <div className="min-h-screen w-full hex-grid">
       {/* Header */}
@@ -126,9 +120,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
               <div className="w-1.5 h-1.5 rounded-full bg-matrix-400 animate-pulse" />
               <span className="text-[10px] font-mono text-slate-400">Cerebro Online</span>
             </div>
-            <button onClick={() => setShowIntro(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
-              <Activity className="h-3.5 w-3.5" /> Animasyon
-            </button>
             <div className="hidden md:flex items-center gap-1">
               <button onClick={() => setModal('scenarios')} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
                 <Users className="h-3.5 w-3.5" /> Senaryolar
@@ -173,7 +164,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
 
       <main className="max-w-7xl mx-auto px-4 py-6">
         <div key={tab} className="panel-swap">
-        {tab === 'overview' && <OverviewTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} progress={progress} completedSteps={completedSteps} activeSteps={activeSteps} copy={copy} copied={copied} onReplay={() => setShowIntro(true)} />}
+        {tab === 'overview' && <OverviewTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} progress={progress} completedSteps={completedSteps} activeSteps={activeSteps} copy={copy} copied={copied} />}
         {tab === 'protocol' && <ProtocolTab data={data} />}
         {tab === 'ghostflow' && <GhostIDFlowPanel />}
         {tab === 'dag' && <DAGTab data={data} />}
@@ -228,7 +219,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
 };
 
 /* ---------- Overview ---------- */
-const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, completedSteps, activeSteps, copy, copied, onReplay }) => (
+const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, completedSteps, activeSteps, copy, copied }) => (
   <div className="space-y-4 animate-fade-in">
     {/* Hero stats */}
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -249,9 +240,9 @@ const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, com
       </div>
       <div className="flex items-center justify-between mt-2">
         <p className="text-[10px] text-slate-500">11 adimlik protokolun {completedSteps} adimi tamamlandi, {activeSteps} adim aktif calisiyor.</p>
-        <button onClick={onReplay} className="flex items-center gap-1 text-[10px] text-cyber-400 hover:text-cyber-300 transition">
-          <RefreshCw className="h-3 w-3" /> Animasyonu Tekrar Oynat
-        </button>
+        <div className="flex items-center gap-1 text-[10px] text-cyber-400">
+          <RefreshCw className="h-3 w-3" /> Cerebro Sentinel Aktif
+        </div>
       </div>
     </div>
 
