@@ -40,7 +40,7 @@ export interface DigitalAsset {
   creator: string;
   category: string;
   certified: boolean;
-  mesam: boolean;
+  license: boolean;
   timestamp: string;
   royalties: { stakeholder: string; share: number }[];
 }

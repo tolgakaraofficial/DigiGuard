@@ -13,7 +13,7 @@ export interface DashboardData {
   pukoPhase: 'proactive' | 'apply' | 'control' | 'measure';
   dagNodes: { id: string; x: number; y: number; active: boolean; type: 'validator' | 'relay' | 'sentinel' }[];
   threats: { id: string; type: string; severity: 'low' | 'medium' | 'high' | 'critical'; blocked: boolean; vector: string; timestamp: string }[];
-  assets: { id: string; title: string; hash: string; creator: string; category: string; certified: boolean; mesam: boolean; royalties: { stakeholder: string; share: number }[]; timestamp: string }[];
+  assets: { id: string; title: string; hash: string; creator: string; category: string; certified: boolean; license: boolean; royalties: { stakeholder: string; share: number }[]; timestamp: string }[];
   constitution: { article: number; title: string; text: string; status: 'active' | 'pending' }[];
   tokenomics: { token: string; balance: number; staked: number; rewards: number; apy: number };
   invoices: { id: string; amount: number; currency: string; status: 'pending' | 'paid' | 'overdue'; due: string }[];
@@ -32,7 +32,7 @@ export const initDashboard = (email: string, phone: string, userType: 'individua
     { step: 5, name: 'Cerebro Sentinel', description: 'AI tehdit tespiti', status: 'complete' as const },
     { step: 6, name: 'PUKO Dongusu', description: 'Proaktif savunma döngüsü', status: 'complete' as const },
     { step: 7, name: 'Anayasa Onayi', description: '6 madde dijital anayasa', status: 'complete' as const },
-    { step: 8, name: 'MESAM Telif', description: 'Telif hakki kaydi', status: 'complete' as const },
+    { step: 8, name: 'Varlik Kaydi', description: 'Evrensel varlik ve telif kaydi', status: 'complete' as const },
     { step: 9, name: 'Akıllı Sozlesme', description: 'Otomatik ödeme dağitim', status: 'complete' as const },
     { step: 10, name: 'Marka Suistimal', description: 'Polimorfik kimlik korumasi', status: 'complete' as const },
     { step: 11, name: 'Egemenlik', description: 'Tam teşekküllü dönüşüm', status: 'complete' as const },
@@ -56,16 +56,52 @@ export const initDashboard = (email: string, phone: string, userType: 'individua
 
   const assets = [
     {
-      id: 'A1', title: 'Mavi Saatler (Müzik)', hash: generateAssetHash(), creator: 'Ayse Y.',
-      category: 'Müzik', certified: true, mesam: true,
-      royalties: [{ stakeholder: 'Besteci', share: 60 }, { stakeholder: 'Söz Yazarı', share: 25 }, { stakeholder: 'DigiGuard', share: 15 }],
+      id: 'A1', title: 'Mavi Saatler (Müzik Eseri)', hash: generateAssetHash(), creator: 'Ayse Y.',
+      category: 'Dijital Icerik', certified: true, license: true,
+      royalties: [{ stakeholder: 'Besteci', share: 60 }, { stakeholder: 'Soz Yazari', share: 25 }, { stakeholder: 'DigiGuard', share: 15 }],
       timestamp: '2026-07-18',
     },
     {
-      id: 'A2', title: 'Sehir Nefesi (Foto)', hash: generateAssetHash(), creator: 'Mehmet K.',
-      category: 'Gorsel', certified: true, mesam: false,
+      id: 'A2', title: 'Sehir Nefesi (Fotograf)', hash: generateAssetHash(), creator: 'Mehmet K.',
+      category: 'Dijital Icerik', certified: true, license: false,
       royalties: [{ stakeholder: 'Fotografci', share: 85 }, { stakeholder: 'DigiGuard', share: 15 }],
       timestamp: '2026-07-17',
+    },
+    {
+      id: 'A3', title: 'Zeytin Agaci #A-2847', hash: generateAssetHash(), creator: 'Tarla Sahibi Hasan T.',
+      category: 'Bitki', certified: true, license: true,
+      royalties: [{ stakeholder: 'Uretici', share: 90 }, { stakeholder: 'DigiGuard', share: 10 }],
+      timestamp: '2026-07-15',
+    },
+    {
+      id: 'A4', title: 'Max (Golden Retriever)', hash: generateAssetHash(), creator: 'Sahibi Elif D.',
+      category: 'Hayvan', certified: true, license: true,
+      royalties: [{ stakeholder: 'Sahip', share: 95 }, { stakeholder: 'DigiGuard', share: 5 }],
+      timestamp: '2026-07-12',
+    },
+    {
+      id: 'A5', title: 'Karprime Teknoloji A.S.', hash: generateAssetHash(), creator: 'Kurum Kaydi',
+      category: 'Kurumsal', certified: true, license: true,
+      royalties: [{ stakeholder: 'Kurum', share: 92 }, { stakeholder: 'DigiGuard', share: 8 }],
+      timestamp: '2026-07-08',
+    },
+    {
+      id: 'A6', title: 'Tolga Kara (Bireysel)', hash: generateAssetHash(), creator: 'Kisisel Kayit',
+      category: 'Bireysel', certified: true, license: false,
+      royalties: [{ stakeholder: 'Sahis', share: 95 }, { stakeholder: 'DigiGuard', share: 5 }],
+      timestamp: '2026-07-01',
+    },
+    {
+      id: 'A7', title: 'iPhone 15 Pro Max', hash: generateAssetHash(), creator: 'Uretici Apple Inc.',
+      category: 'Urun', certified: true, license: true,
+      royalties: [{ stakeholder: 'Uretici', share: 88 }, { stakeholder: 'DigiGuard', share: 12 }],
+      timestamp: '2026-06-28',
+    },
+    {
+      id: 'A8', title: 'Akıllı Tarim Sensoru #42', hash: generateAssetHash(), creator: 'Kocaeli Serasi',
+      category: 'Urun', certified: false, license: false,
+      royalties: [{ stakeholder: 'Uretici', share: 90 }, { stakeholder: 'DigiGuard', share: 10 }],
+      timestamp: '2026-06-20',
     },
   ];
 
@@ -73,7 +109,7 @@ export const initDashboard = (email: string, phone: string, userType: 'individua
     { article: 1, title: 'Egemenlik', text: 'Kullanici kendi verisinin egemenidir. Onay olmadan islenemez.', status: 'active' as const },
     { article: 2, title: 'Anonimlik', text: 'Ghost ID ile PII ifşa edilmeden kimlik dogrulanir.', status: 'active' as const },
     { article: 3, title: 'Kuantum Direnci', text: 'Dilithium+Kyber-1024 ve AES-256-GCM zorunludur.', status: 'active' as const },
-    { article: 4, title: 'Telif Hakki', text: 'MESAM uyumlu akıllı sozlesmeler ile telif dagitimi.', status: 'active' as const },
+    { article: 4, title: 'Varlik Hakki', text: 'Evrensel varlik kaydi ve akıllı sozlesmeler ile hak dagitimi.', status: 'active' as const },
     { article: 5, title: 'Savunma', text: 'PUKO döngüsü ile proaktif tehdit savunmasi.', status: 'active' as const },
     { article: 6, title: 'Donusum', text: 'Tam teşekküllü dönüşüm protokolü 11 adimda tamamlanir.', status: 'active' as const },
   ];

@@ -4,7 +4,7 @@ import {
   AlertTriangle, AlertCircle, FileText, Wallet, Gavel, Layers, RefreshCw,
   TrendingUp, ArrowRight, LogOut, Eye, EyeOff, Copy, Award, Users, Scan,
   FileStack, BarChart3, Radar, Globe, Boxes, BookOpen, Bell, Brain,
-  Fingerprint, Building2, User,
+  Fingerprint, Building2, User, PawPrint, Leaf, Package, Database, XCircle, ArrowRightLeft,
 } from 'lucide-react';
 import type { DashboardData } from '../lib/dashboardData';
 import { shortHash } from '../lib/crypto';
@@ -443,56 +443,114 @@ const SentinelTab: React.FC<any> = ({ data, pukoPhase, pukoPhases }) => (
 );
 
 /* ---------- Assets ---------- */
-const AssetsTab: React.FC<any> = ({ data, copy, copied }) => (
-  <div className="space-y-4 animate-fade-in">
-    <h2 className="text-lg font-bold text-white">Dijital Varliklar — MESAM Telif</h2>
-    <div className="space-y-3">
-      {data.assets.map((a: any) => (
-        <div key={a.id} className="card p-4 border border-amber-500/20">
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-sm font-bold text-white">{a.title}</p>
-              <p className="text-[10px] text-slate-500">Olusturan: {a.creator} · {a.category}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              {a.certified && (
-                <span className="flex items-center gap-1 px-2 py-1 rounded bg-matrix-900/30 border border-matrix-500/30 text-[10px] text-matrix-400 font-mono">
-                  <CheckCircle className="h-3 w-3" /> Sertifikali
-                </span>
-              )}
-              {a.mesam && (
-                <span className="flex items-center gap-1 px-2 py-1 rounded bg-cyber-900/30 border border-cyber-500/30 text-[10px] text-cyber-400 font-mono">
-                  <Award className="h-3 w-3" /> MESAM
-                </span>
-              )}
-            </div>
-          </div>
+const categoryConfig: Record<string, { color: string; icon: React.ElementType; label: string }> = {
+  'Bireysel': { color: '#00e5ff', icon: User, label: 'Bireysel' },
+  'Kurumsal': { color: '#39ff14', icon: Building2, label: 'Kurumsal' },
+  'Hayvan': { color: '#fbbf24', icon: PawPrint, label: 'Hayvan' },
+  'Bitki': { color: '#22c55e', icon: Leaf, label: 'Bitki' },
+  'Urun': { color: '#3b82f6', icon: Package, label: 'Urun' },
+  'Dijital Icerik': { color: '#a855f7', icon: FileText, label: 'Dijital Icerik' },
+};
 
-          <div className="flex items-center gap-2 p-2 rounded bg-slate-900/60 mb-3">
-            <KeyRound className="h-3.5 w-3.5 text-ghost-400" />
-            <span className="text-[10px] font-mono text-slate-400 flex-1 break-all">{shortHash(a.hash, 16)}</span>
-            <button onClick={() => copy(a.hash, a.id)} className="text-slate-500 hover:text-white">
-              {copied === a.id ? <CheckCircle className="h-3.5 w-3.5 text-matrix-400" /> : <Copy className="h-3.5 w-3.5" />}
+const AssetsTab: React.FC<any> = ({ data, copy, copied }) => {
+  const [assetFilter, setAssetFilter] = useState<string>('all');
+  const categories = Object.keys(categoryConfig);
+  const filtered = assetFilter === 'all' ? data.assets : data.assets.filter((a: any) => a.category === assetFilter);
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      <div className="flex items-center gap-2">
+        <Database className="h-5 w-5 text-amber-400" />
+        <h2 className="text-lg font-bold text-white">Evrensel Varlik Kayit Defteri</h2>
+      </div>
+      <p className="text-xs text-slate-400">Tum canli, cansiz, dijital ve fiziksel varliklarin kayit, sertifika ve lisans takip sistemi</p>
+
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-2">
+        <button
+          onClick={() => setAssetFilter('all')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${assetFilter === 'all' ? 'bg-amber-500/20 border border-amber-500/50 text-amber-300' : 'bg-slate-900/40 border border-slate-700/50 text-slate-400 hover:border-slate-600'}`}
+        >
+          Tumu ({data.assets.length})
+        </button>
+        {categories.map((cat) => {
+          const cc = categoryConfig[cat];
+          const count = data.assets.filter((a: any) => a.category === cat).length;
+          const active = assetFilter === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => setAssetFilter(cat)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+              style={{
+                background: active ? `${cc.color}20` : 'rgba(2,6,23,0.4)',
+                border: `1px solid ${active ? `${cc.color}60` : 'rgba(255,255,255,0.06)'}`,
+                color: active ? cc.color : '#94a3b8',
+              }}
+            >
+              <cc.icon className="h-3.5 w-3.5" /> {cc.label} ({count})
             </button>
-          </div>
+          );
+        })}
+      </div>
 
-          <div className="space-y-1">
-            <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Telif Dagilimi</p>
-            {a.royalties.map((r: any, i: number) => (
-              <div key={i} className="flex items-center gap-2">
-                <span className="text-xs text-slate-300 flex-1">{r.stakeholder}</span>
-                <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: `${r.share}%`, background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }} />
+      {/* Asset Cards */}
+      <div className="space-y-3">
+        {filtered.map((a: any) => {
+          const cc = categoryConfig[a.category] || categoryConfig['Urun'];
+          return (
+            <div key={a.id} className="card p-4 border border-amber-500/20 hover:border-amber-500/40 transition-all">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-lg" style={{ background: `${cc.color}15`, border: `1px solid ${cc.color}30` }}>
+                    <cc.icon className="h-4 w-4" style={{ color: cc.color }} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-white">{a.title}</p>
+                    <p className="text-[10px] text-slate-500">Olusturan: {a.creator} · {a.category}</p>
+                  </div>
                 </div>
-                <span className="text-[10px] font-mono text-amber-400 w-10 text-right">%{r.share}</span>
+                <div className="flex items-center gap-2">
+                  {a.certified && (
+                    <span className="flex items-center gap-1 px-2 py-1 rounded bg-matrix-900/30 border border-matrix-500/30 text-[10px] text-matrix-400 font-mono">
+                      <CheckCircle className="h-3 w-3" /> Sertifikali
+                    </span>
+                  )}
+                  {a.license && (
+                    <span className="flex items-center gap-1 px-2 py-1 rounded bg-amber-900/30 border border-amber-500/30 text-[10px] text-amber-400 font-mono">
+                      <Award className="h-3 w-3" /> Lisansli
+                    </span>
+                  )}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      ))}
+
+              <div className="flex items-center gap-2 p-2 rounded bg-slate-900/60 mb-3">
+                <KeyRound className="h-3.5 w-3.5 text-ghost-400" />
+                <span className="text-[10px] font-mono text-slate-400 flex-1 break-all">{shortHash(a.hash, 16)}</span>
+                <button onClick={() => copy(a.hash, a.id)} className="text-slate-500 hover:text-white">
+                  {copied === a.id ? <CheckCircle className="h-3.5 w-3.5 text-matrix-400" /> : <Copy className="h-3.5 w-3.5" />}
+                </button>
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Hak Dagilimi</p>
+                {a.royalties.map((r: any, i: number) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <span className="text-xs text-slate-300 flex-1">{r.stakeholder}</span>
+                    <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-full rounded-full" style={{ width: `${r.share}%`, background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }} />
+                    </div>
+                    <span className="text-[10px] font-mono text-amber-400 w-10 text-right">%{r.share}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ---------- Constitution ---------- */
 const ConstitutionTab: React.FC<any> = ({ data }) => (
