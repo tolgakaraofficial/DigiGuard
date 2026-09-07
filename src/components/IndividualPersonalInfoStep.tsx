@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, User, Calendar, MapPin, Globe, Phone, Mail } from 'lucide-react';
+import { ArrowRight, User, Calendar, MapPin, Globe, Phone, Mail, Link, Twitter, Linkedin, Instagram, Facebook, Youtube, Send, Share2 } from 'lucide-react';
 import { PersonalInfo } from '../types';
 
 interface IndividualPersonalInfoStepProps {
@@ -86,6 +86,10 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
     if (errors[field]) {
       setErrors((prev: Partial<PersonalInfo>) => ({ ...prev, [field]: undefined }));
     }
+  };
+
+  const handleSocialChange = (field: string, value: string) => {
+    onChange({ ...data, socialLinks: { ...data.socialLinks, [field]: value } });
   };
 
   const turkishCities = [
@@ -286,6 +290,100 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
               maxLength={5}
             />
             {errors.postalCode && <p className="text-red-400 text-sm mt-1">{errors.postalCode}</p>}
+          </div>
+        </div>
+
+        {/* Social Links */}
+        <div className="border-t border-slate-700 pt-6">
+          <label className="block text-sm font-medium text-slate-300 mb-4 flex items-center">
+            <Share2 className="inline h-4 w-4 mr-1 text-cyber-400" />
+            Sosyal Medya Linkleri (Opsiyonel)
+          </label>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Twitter className='h-3 w-3' /> Twitter/X
+              </label>
+              <input
+                type='text'
+                value={data.socialLinks?.twitter || ''}
+                onChange={(e) => handleSocialChange('twitter', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
+                placeholder='@kullanici'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Linkedin className='h-3 w-3' /> LinkedIn
+              </label>
+              <input
+                type='text'
+                value={data.socialLinks?.linkedin || ''}
+                onChange={(e) => handleSocialChange('linkedin', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
+                placeholder='linkedin.com/in/kullanici'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Instagram className='h-3 w-3' /> Instagram
+              </label>
+              <input
+                type='text'
+                value={data.socialLinks?.instagram || ''}
+                onChange={(e) => handleSocialChange('instagram', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
+                placeholder='@kullanici'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Facebook className='h-3 w-3' /> Facebook
+              </label>
+              <input
+                type='text'
+                value={data.socialLinks?.facebook || ''}
+                onChange={(e) => handleSocialChange('facebook', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
+                placeholder='facebook.com/kullanici'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Youtube className='h-3 w-3' /> YouTube
+              </label>
+              <input
+                type='text'
+                value={data.socialLinks?.youtube || ''}
+                onChange={(e) => handleSocialChange('youtube', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
+                placeholder='youtube.com/@kanal'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Send className='h-3 w-3' /> Telegram
+              </label>
+              <input
+                type='text'
+                value={data.socialLinks?.telegram || ''}
+                onChange={(e) => handleSocialChange('telegram', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
+                placeholder='@kullanici'
+              />
+            </div>
+            <div className='md:col-span-2'>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Link className='h-3 w-3' /> Web Sitesi
+              </label>
+              <input
+                type='text'
+                value={data.socialLinks?.website || ''}
+                onChange={(e) => handleSocialChange('website', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
+                placeholder='https://www.siteadi.com'
+              />
+            </div>
           </div>
         </div>
 

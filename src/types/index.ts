@@ -52,6 +52,16 @@ export interface ProtocolStep {
   status: 'pending' | 'active' | 'complete';
 }
 
+export interface SocialLinks {
+  twitter?: string;
+  linkedin?: string;
+  instagram?: string;
+  facebook?: string;
+  youtube?: string;
+  telegram?: string;
+  website?: string;
+}
+
 export interface PersonalInfo {
   firstName: string;
   lastName: string;
@@ -62,6 +72,7 @@ export interface PersonalInfo {
   postalCode: string;
   phone?: string;
   email?: string;
+  socialLinks?: SocialLinks;
 }
 
 export interface CorporateInfo {
