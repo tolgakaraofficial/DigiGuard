@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
   Shield, Ghost, Network, Cpu, Activity, Lock, KeyRound, Zap, CheckCircle,
-  AlertTriangle, AlertCircle, FileText, Wallet, Gavel, Layers, RefreshCw,
-  TrendingUp, ArrowRight, LogOut, Eye, EyeOff, Copy, Award, Users, Scan,
+  AlertTriangle, AlertCircle, FileText, Wallet, Layers, RefreshCw,
+  TrendingUp, ArrowRight, LogOut, Eye, EyeOff, Copy, Award, Users,
   FileStack, BarChart3, Radar, Globe, Boxes, BookOpen, Bell, Brain,
-  Fingerprint, Building2, User, PawPrint, Leaf, Package, Database, XCircle, ArrowRightLeft,
+  Fingerprint, Building2, User, XCircle, ArrowRightLeft,
   ShoppingBag, Bitcoin, Coins, Download, ExternalLink, ChevronDown, ChevronUp,
 } from 'lucide-react';
 import type { DashboardData } from '../lib/dashboardData';
@@ -12,7 +12,6 @@ import { shortHash } from '../lib/crypto';
 import { DocumentLibrary } from './DocumentLibrary';
 import { AgentDashboard } from './AgentDashboard';
 import { AnalyticsDashboard } from './AnalyticsDashboard';
-import { CentralMonitoringHub } from './CentralMonitoringHub';
 import { CerebroNetworkPanel } from './CerebroNetworkPanel';
 import { GhostIDFlowPanel } from './GhostIDFlowPanel';
 
@@ -300,35 +299,6 @@ const OverviewTab: React.FC<any> = ({ data, pukoPhase, pukoPhases, progress, com
   </div>
 );
 
-/* ---------- Protocol ---------- */
-const ProtocolTab: React.FC<any> = ({ data }) => (
-  <div className="space-y-3 animate-fade-in">
-    <h2 className="text-lg font-bold text-white">11 Adimli Tam Tesekküllü Dönüşüm Protokolü</h2>
-    <div className="space-y-2">
-      {data.protocolSteps.map((s: any) => (
-        <div key={s.step} className={`card p-4 flex items-center gap-4 ${s.status === 'complete' ? 'matrix-border' : s.status === 'active' ? 'cyber-border' : ''}`}>
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 ${
-            s.status === 'complete' ? 'bg-matrix-900/30 text-matrix-400 border-2 border-matrix-500/40' :
-            s.status === 'active' ? 'bg-cyber-900/30 text-cyber-400 border-2 border-cyber-500/40 animate-pulse' :
-            'bg-slate-800 text-slate-500 border-2 border-slate-700'
-          }`}>
-            {s.status === 'complete' ? <CheckCircle className="h-5 w-5" /> : s.step}
-          </div>
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-white">{s.step}. {s.name}</p>
-            <p className="text-xs text-slate-500">{s.description}</p>
-          </div>
-          <span className={`text-[10px] font-mono uppercase ${
-            s.status === 'complete' ? 'text-matrix-400' : s.status === 'active' ? 'text-cyber-400' : 'text-slate-600'
-          }`}>
-            {s.status === 'complete' ? 'Tamam' : s.status === 'active' ? 'Aktif' : 'Bekliyor'}
-          </span>
-        </div>
-      ))}
-    </div>
-  </div>
-);
-
 /* ---------- DAG ---------- */
 const DAGTab: React.FC<any> = ({ data }) => (
   <div className="space-y-4 animate-fade-in">
@@ -432,148 +402,6 @@ const SentinelTab: React.FC<any> = ({ data, pukoPhase, pukoPhases }) => (
           </div>
         ))}
       </div>
-    </div>
-  </div>
-);
-
-/* ---------- Assets ---------- */
-const categoryConfig: Record<string, { color: string; icon: React.ElementType; label: string }> = {
-  'Bireysel': { color: '#00e5ff', icon: User, label: 'Bireysel' },
-  'Kurumsal': { color: '#39ff14', icon: Building2, label: 'Kurumsal' },
-  'Hayvan': { color: '#fbbf24', icon: PawPrint, label: 'Hayvan' },
-  'Bitki': { color: '#22c55e', icon: Leaf, label: 'Bitki' },
-  'Urun': { color: '#3b82f6', icon: Package, label: 'Urun' },
-  'Dijital Icerik': { color: '#a855f7', icon: FileText, label: 'Dijital Icerik' },
-};
-
-const AssetsTab: React.FC<any> = ({ data, copy, copied }) => {
-  const [assetFilter, setAssetFilter] = useState<string>('all');
-  const categories = Object.keys(categoryConfig);
-  const filtered = assetFilter === 'all' ? data.assets : data.assets.filter((a: any) => a.category === assetFilter);
-
-  return (
-    <div className="space-y-4 animate-fade-in">
-      <div className="flex items-center gap-2">
-        <Database className="h-5 w-5 text-amber-400" />
-        <h2 className="text-lg font-bold text-white">Evrensel Varlik Kayit Defteri</h2>
-      </div>
-      <p className="text-xs text-slate-400">Tum canli, cansiz, dijital ve fiziksel varliklarin kayit, sertifika ve lisans takip sistemi</p>
-
-      {/* Category Filter */}
-      <div className="flex flex-wrap gap-2">
-        <button
-          onClick={() => setAssetFilter('all')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${assetFilter === 'all' ? 'bg-amber-500/20 border border-amber-500/50 text-amber-300' : 'bg-slate-900/40 border border-slate-700/50 text-slate-400 hover:border-slate-600'}`}
-        >
-          Tumu ({data.assets.length})
-        </button>
-        {categories.map((cat) => {
-          const cc = categoryConfig[cat];
-          const count = data.assets.filter((a: any) => a.category === cat).length;
-          const active = assetFilter === cat;
-          return (
-            <button
-              key={cat}
-              onClick={() => setAssetFilter(cat)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
-              style={{
-                background: active ? `${cc.color}20` : 'rgba(2,6,23,0.4)',
-                border: `1px solid ${active ? `${cc.color}60` : 'rgba(255,255,255,0.06)'}`,
-                color: active ? cc.color : '#94a3b8',
-              }}
-            >
-              <cc.icon className="h-3.5 w-3.5" /> {cc.label} ({count})
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Asset Cards */}
-      <div className="space-y-3">
-        {filtered.map((a: any) => {
-          const cc = categoryConfig[a.category] || categoryConfig['Urun'];
-          return (
-            <div key={a.id} className="card p-4 border border-amber-500/20 hover:border-amber-500/40 transition-all">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg" style={{ background: `${cc.color}15`, border: `1px solid ${cc.color}30` }}>
-                    <cc.icon className="h-4 w-4" style={{ color: cc.color }} />
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-white">{a.title}</p>
-                    <p className="text-[10px] text-slate-500">Olusturan: {a.creator} · {a.category}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  {a.certified && (
-                    <span className="flex items-center gap-1 px-2 py-1 rounded bg-matrix-900/30 border border-matrix-500/30 text-[10px] text-matrix-400 font-mono">
-                      <CheckCircle className="h-3 w-3" /> Sertifikali
-                    </span>
-                  )}
-                  {a.license && (
-                    <span className="flex items-center gap-1 px-2 py-1 rounded bg-amber-900/30 border border-amber-500/30 text-[10px] text-amber-400 font-mono">
-                      <Award className="h-3 w-3" /> Lisansli
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 p-2 rounded bg-slate-900/60 mb-3">
-                <KeyRound className="h-3.5 w-3.5 text-ghost-400" />
-                <span className="text-[10px] font-mono text-slate-400 flex-1 break-all">{shortHash(a.hash, 16)}</span>
-                <button onClick={() => copy(a.hash, a.id)} className="text-slate-500 hover:text-white">
-                  {copied === a.id ? <CheckCircle className="h-3.5 w-3.5 text-matrix-400" /> : <Copy className="h-3.5 w-3.5" />}
-                </button>
-              </div>
-
-              <div className="space-y-1">
-                <p className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Hak Dagilimi</p>
-                {a.royalties.map((r: any, i: number) => (
-                  <div key={i} className="flex items-center gap-2">
-                    <span className="text-xs text-slate-300 flex-1">{r.stakeholder}</span>
-                    <div className="flex-1 h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                      <div className="h-full rounded-full" style={{ width: `${r.share}%`, background: 'linear-gradient(90deg, #f59e0b, #fbbf24)' }} />
-                    </div>
-                    <span className="text-[10px] font-mono text-amber-400 w-10 text-right">%{r.share}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-/* ---------- Constitution ---------- */
-const ConstitutionTab: React.FC<any> = ({ data }) => (
-  <div className="space-y-4 animate-fade-in">
-    <div className="flex items-center gap-2">
-      <Gavel className="h-5 w-5 text-red-400" />
-      <h2 className="text-lg font-bold text-white">6 Madde Dijital Anayasa</h2>
-    </div>
-    <div className="space-y-3">
-      {data.constitution.map((c: any) => (
-        <div key={c.article} className={`card p-4 ${c.status === 'active' ? 'matrix-border' : 'border border-slate-800'}`}>
-          <div className="flex items-start gap-3">
-            <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0 ${
-              c.status === 'active' ? 'bg-matrix-900/30 text-matrix-400 border border-matrix-500/30' : 'bg-slate-800 text-slate-500 border border-slate-700'
-            }`}>
-              {c.article}
-            </div>
-            <div className="flex-1">
-              <div className="flex items-center justify-between mb-1">
-                <p className="text-sm font-bold text-white">{c.title}</p>
-                <span className={`text-[10px] font-mono uppercase ${c.status === 'active' ? 'text-matrix-400' : 'text-slate-600'}`}>
-                  {c.status === 'active' ? 'Yururlukte' : 'Beklemede'}
-                </span>
-              </div>
-              <p className="text-xs text-slate-400 leading-relaxed">{c.text}</p>
-            </div>
-          </div>
-        </div>
-      ))}
     </div>
   </div>
 );
