@@ -5,6 +5,7 @@ import {
   TrendingUp, ArrowRight, LogOut, Eye, EyeOff, Copy, Award, Users, Scan,
   FileStack, BarChart3, Radar, Globe, Boxes, BookOpen, Bell, Brain,
   Fingerprint, Building2, User, PawPrint, Leaf, Package, Database, XCircle, ArrowRightLeft,
+  ShoppingBag, Bitcoin, Coins, Download, ExternalLink, ChevronDown, ChevronUp,
 } from 'lucide-react';
 import type { DashboardData } from '../lib/dashboardData';
 import { shortHash } from '../lib/crypto';
@@ -14,15 +15,16 @@ import { AnalyticsDashboard } from './AnalyticsDashboard';
 import { CentralMonitoringHub } from './CentralMonitoringHub';
 import { CerebroNetworkPanel } from './CerebroNetworkPanel';
 import { GhostIDFlowPanel } from './GhostIDFlowPanel';
-import { HybridWalletHub } from './HybridWalletHub';
+
 import { MonitoringPanel } from './MonitoringPanel';
 import { SecurityDashboard } from './SecurityDashboard';
 import { SoponDeAIPanel } from './SoponDeAIPanel';
 import { SovereignBridgePanel } from './SovereignBridgePanel';
-import { SystemConstitutionPanel } from './SystemConstitutionPanel';
-import { TrackingPanel } from './TrackingPanel';
+
+
 import { Web4BridgePanel } from './Web4BridgePanel';
 import { CerebroCertificatePanel } from './CerebroCertificatePanel';
+import { MarketplacePanel } from './MarketplacePanel';
 import { EntityRegistryPanel } from './EntityRegistryPanel';
 import { NotificationCenter } from './NotificationCenter';
 import { AlbisChatBot } from './AlbisChatBot';
@@ -43,9 +45,9 @@ interface DashboardProps {
 }
 
 type Tab =
-  | 'overview' | 'protocol' | 'dag' | 'sentinel' | 'assets' | 'constitution' | 'wallet' | 'documents'
-  | 'ghostflow' | 'cerebro' | 'sovereign' | 'web4' | 'monitoring' | 'security' | 'tracking'
-  | 'analytics' | 'agents' | 'sopon' | 'hybridwallet' | 'certificates' | 'entities' | 'notifications';
+  | 'overview' | 'dag' | 'sentinel' | 'documents'
+  | 'ghostflow' | 'cerebro' | 'sovereign' | 'web4' | 'monitoring' | 'security'
+  | 'analytics' | 'agents' | 'sopon' | 'wallet' | 'certificates' | 'entities' | 'marketplace' | 'notifications';
 
 export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
   const [tab, setTab] = useState<Tab>('overview');
@@ -74,7 +76,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
 
   const tabs: { id: Tab; label: string; icon: React.ElementType; color: string }[] = [
     { id: 'overview', label: 'Genel', icon: Activity, color: '#00e5ff' },
-    { id: 'protocol', label: 'Protokol', icon: Layers, color: '#a855f7' },
     { id: 'ghostflow', label: 'Ghost ID', icon: Ghost, color: '#a855f7' },
     { id: 'dag', label: 'DAG', icon: Network, color: '#f97316' },
     { id: 'sentinel', label: 'Sentinel', icon: Cpu, color: '#39ff14' },
@@ -82,15 +83,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
     { id: 'cerebro', label: 'Cerebro Net', icon: Network, color: '#00e5ff' },
     { id: 'sovereign', label: 'Sovereign', icon: Boxes, color: '#f97316' },
     { id: 'web4', label: 'Web4', icon: Globe, color: '#00e5ff' },
-    { id: 'assets', label: 'Varliklar', icon: Award, color: '#f59e0b' },
-    { id: 'certificates', label: 'Sertifikalar', icon: Award, color: '#39ff14' },
     { id: 'entities', label: 'Varlik Kayit', icon: Building2, color: '#00e5ff' },
-    { id: 'constitution', label: 'Anayasa', icon: Gavel, color: '#ef4444' },
+    { id: 'certificates', label: 'Sertifikalar', icon: Award, color: '#39ff14' },
     { id: 'wallet', label: 'Cuzdan', icon: Wallet, color: '#00e5ff' },
-    { id: 'hybridwallet', label: 'Hibrit Cuzdan', icon: Wallet, color: '#f59e0b' },
     { id: 'monitoring', label: 'Izleme', icon: Radar, color: '#ef4444' },
     { id: 'security', label: 'Guvenlik', icon: Shield, color: '#39ff14' },
-    { id: 'tracking', label: 'Konum', icon: Scan, color: '#f97316' },
+    { id: 'marketplace', label: 'Pazar', icon: ShoppingBag, color: '#f59e0b' },
     { id: 'analytics', label: 'Analitik', icon: BarChart3, color: '#00e5ff' },
     { id: 'agents', label: 'Ajanlar', icon: Zap, color: '#a855f7' },
     { id: 'documents', label: 'Belgeler', icon: FileStack, color: '#06b6d4' },
@@ -165,7 +163,6 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
       <main className="max-w-7xl mx-auto px-4 py-6">
         <div key={tab} className="panel-swap">
         {tab === 'overview' && <OverviewTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} progress={progress} completedSteps={completedSteps} activeSteps={activeSteps} copy={copy} copied={copied} />}
-        {tab === 'protocol' && <ProtocolTab data={data} />}
         {tab === 'ghostflow' && <GhostIDFlowPanel />}
         {tab === 'dag' && <DAGTab data={data} />}
         {tab === 'sentinel' && <SentinelTab data={data} pukoPhase={pukoPhase} pukoPhases={pukoPhases} />}
@@ -173,15 +170,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
         {tab === 'cerebro' && <CerebroNetworkPanel />}
         {tab === 'sovereign' && <SovereignBridgePanel />}
         {tab === 'web4' && <Web4BridgePanel />}
-        {tab === 'assets' && <AssetsTab data={data} copy={copy} copied={copied} />}
-        {tab === 'certificates' && <CerebroCertificatePanel />}
         {tab === 'entities' && <EntityRegistryPanel />}
-        {tab === 'constitution' && <ConstitutionTab data={data} />}
+        {tab === 'certificates' && <CerebroCertificatePanel />}
         {tab === 'wallet' && <WalletTab data={data} />}
-        {tab === 'hybridwallet' && <HybridWalletHub />}
         {tab === 'monitoring' && <MonitoringPanel />}
         {tab === 'security' && <SecurityDashboard userId={data.user.ghostId} />}
-        {tab === 'tracking' && <TrackingPanel />}
+        {tab === 'marketplace' && <MarketplacePanel />}
         {tab === 'analytics' && <AnalyticsDashboard />}
         {tab === 'agents' && <AgentDashboard />}
         {tab === 'documents' && <DocumentLibrary />}
@@ -584,46 +578,157 @@ const ConstitutionTab: React.FC<any> = ({ data }) => (
   </div>
 );
 
-/* ---------- Wallet ---------- */
-const WalletTab: React.FC<any> = ({ data }) => (
-  <div className="space-y-4 animate-fade-in">
-    <h2 className="text-lg font-bold text-white">DGU Cuzdan</h2>
+/* ---------- Wallet (merged with Hybrid Wallet) ---------- */
+const WalletTab: React.FC<any> = ({ data }) => {
+  const [showBalance, setShowBalance] = useState(true);
+  const [expanded, setShowExpanded] = useState(false);
+  const [quantumSigning, setQuantumSigning] = useState(false);
 
-    <div className="card p-6 cyber-border cyber-glow text-center">
-      <p className="text-xs text-slate-400 mb-1">{data.tokenomics.token}</p>
-      <p className="text-4xl font-bold text-white font-mono">{data.tokenomics.balance.toLocaleString('tr')}</p>
-      <p className="text-[10px] text-slate-500 mt-2">Bakiye</p>
-    </div>
+  const hybridAssets = [
+    { symbol: 'CLB', name: 'Celebron Token', balance: '2,818,422.90', usdValue: '$8,455,268.70', color: '#00e5ff', icon: Globe },
+    { symbol: 'DGCT', name: 'DigiGuard Token', balance: '12,450.75', usdValue: '$24,901.50', color: '#39ff14', icon: Shield },
+    { symbol: 'BTC', name: 'Bitcoin', balance: '0.0428', usdValue: '$2,847.20', color: '#f59e0b', icon: Bitcoin },
+    { symbol: 'ETH', name: 'Ethereum', balance: '1.8472', usdValue: '$6,292.80', color: '#60a5fa', icon: Coins },
+  ];
 
-    <div className="grid grid-cols-3 gap-3">
-      <StatCard label="Staked" value={data.tokenomics.staked.toLocaleString('tr')} icon={Lock} color="#a855f7" />
-      <StatCard label="Odul" value={`+${data.tokenomics.rewards}`} icon={TrendingUp} color="#39ff14" />
-      <StatCard label="APY" value={`%${data.tokenomics.apy}`} icon={Zap} color="#f59e0b" />
-    </div>
+  const totalUsd = hybridAssets.reduce((sum, a) => {
+    const val = parseFloat(a.usdValue.replace(/[$,]/g, ''));
+    return sum + val;
+  }, 0);
 
-    <div className="card p-4 border border-slate-800">
-      <div className="flex items-center gap-2 mb-3">
-        <FileText className="h-4 w-4 text-cyber-400" />
-        <span className="text-sm font-bold text-white">Faturalar</span>
+  const handleQuantumTransfer = () => {
+    setQuantumSigning(true);
+    setTimeout(() => setQuantumSigning(false), 2000);
+  };
+
+  return (
+    <div className="space-y-4 animate-fade-in">
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-bold text-white">Hibrit Cuzdan</h2>
+        <button onClick={() => setShowBalance(!showBalance)} className="p-2 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-slate-700 transition">
+          {showBalance ? <Eye className="h-4 w-4 text-slate-400" /> : <EyeOff className="h-4 w-4 text-slate-400" />}
+        </button>
       </div>
-      <div className="space-y-2">
-        {data.invoices.map((inv: any) => (
-          <div key={inv.id} className="flex items-center gap-3 p-2 rounded bg-slate-900/60">
-            <span className="text-[10px] font-mono text-slate-500 flex-1">{inv.id}</span>
-            <span className="text-sm text-white font-mono">{inv.amount.toLocaleString('tr')} {inv.currency}</span>
-            <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded ${
-              inv.status === 'paid' ? 'bg-matrix-900/30 text-matrix-400' :
-              inv.status === 'pending' ? 'bg-cyber-900/30 text-cyber-400' :
-              'bg-red-900/30 text-red-400'
-            }`}>
-              {inv.status === 'paid' ? 'Odendi' : inv.status === 'pending' ? 'Bekliyor' : 'Gecikmis'}
-            </span>
-          </div>
-        ))}
+
+      {/* DGU Balance Card */}
+      <div className="card p-6 cyber-border cyber-glow text-center">
+        <p className="text-xs text-slate-400 mb-1">{data.tokenomics.token}</p>
+        <p className="text-4xl font-bold text-white font-mono">{showBalance ? data.tokenomics.balance.toLocaleString('tr') : '••••••'}</p>
+        <p className="text-[10px] text-slate-500 mt-2">DGU Bakiye</p>
+      </div>
+
+      {/* DGU Stats */}
+      <div className="grid grid-cols-3 gap-3">
+        <StatCard label="Staked" value={showBalance ? data.tokenomics.staked.toLocaleString('tr') : '••••'} icon={Lock} color="#a855f7" />
+        <StatCard label="Odul" value={`+${data.tokenomics.rewards}`} icon={TrendingUp} color="#39ff14" />
+        <StatCard label="APY" value={`%${data.tokenomics.apy}`} icon={Zap} color="#f59e0b" />
+      </div>
+
+      {/* Hybrid Portfolio Total */}
+      <div className="card p-4 border border-cyber-500/20">
+        <p className="text-[10px] text-slate-500 mb-1">Toplam Hibrit Portfoy (USD)</p>
+        <div className="flex items-baseline gap-2">
+          <p className="text-2xl font-bold" style={{ background: 'linear-gradient(90deg, #00e5ff, #39ff14)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            {showBalance ? `${totalUsd.toLocaleString('en-US', { minimumFractionDigits: 2 })}` : '••••••••'}
+          </p>
+          <span className="flex items-center gap-0.5 text-[10px] font-semibold text-matrix-400">
+            <TrendingUp className="h-2.5 w-2.5" /> +18.7%
+          </span>
+        </div>
+      </div>
+
+      {/* Hybrid Assets List */}
+      <div className="card p-4 border border-slate-800">
+        <div className="flex items-center gap-2 mb-3">
+          <Wallet className="h-4 w-4 text-cyber-400" />
+          <span className="text-sm font-bold text-white">Kripto Varliklar</span>
+        </div>
+        <div className="space-y-2">
+          {(expanded ? hybridAssets : hybridAssets.slice(0, 2)).map((asset, i) => {
+            const AIcon = asset.icon;
+            return (
+              <div key={i} className="rounded-xl p-2.5 transition-all" style={{ background: `${asset.color}10`, border: `1px solid ${asset.color}25` }}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 rounded-lg bg-slate-900/60">
+                      <AIcon className="h-4 w-4" style={{ color: asset.color }} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">{asset.symbol}</p>
+                      <p className="text-[9px] text-slate-400">{asset.name}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs font-semibold text-white">{showBalance ? asset.balance : '••••'}</p>
+                    <p className="text-[9px] text-slate-400">{showBalance ? asset.usdValue : '••••'}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        {hybridAssets.length > 2 && (
+          <button onClick={() => setShowExpanded(!expanded)} className="w-full flex items-center justify-center gap-1 py-1.5 text-[10px] text-slate-400 hover:text-slate-200 transition-colors">
+            {expanded ? <><ChevronUp className="h-3 w-3" /> Daha az</> : <><ChevronDown className="h-3 w-3" /> +{hybridAssets.length - 2} varlik daha</>}
+          </button>
+        )}
+      </div>
+
+      {/* Quantum Transfer */}
+      <div className="card p-4 border border-slate-800">
+        <button
+          onClick={handleQuantumTransfer}
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg font-semibold text-xs transition-all"
+          style={{
+            background: quantumSigning ? 'linear-gradient(135deg, #39ff1440, #00e5ff40)' : 'linear-gradient(135deg, rgba(0,229,255,0.15), rgba(57,255,20,0.15))',
+            border: `1px solid ${quantumSigning ? '#39ff14' : 'rgba(0,229,255,0.3)'}`,
+            color: quantumSigning ? '#39ff14' : '#00e5ff',
+          }}
+        >
+          {quantumSigning ? (
+            <><Lock className="h-3.5 w-3.5 animate-pulse" /> Kuantum Imza Uygulaniyor...</>
+          ) : (
+            <><Zap className="h-3.5 w-3.5" /> Kuantum Guvenli Transfer Imzala</>
+          )}
+        </button>
+        <div className="grid grid-cols-3 gap-1.5 mt-2">
+          <button className="flex flex-col items-center gap-1 py-2 rounded-lg transition-all text-[9px]" style={{ background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)', color: '#00e5ff' }}>
+            <ArrowRightLeft className="h-3.5 w-3.5" /> Transfer
+          </button>
+          <button className="flex flex-col items-center gap-1 py-2 rounded-lg transition-all text-[9px]" style={{ background: 'rgba(57,255,20,0.08)', border: '1px solid rgba(57,255,20,0.2)', color: '#39ff14' }}>
+            <Download className="h-3.5 w-3.5" /> Al
+          </button>
+          <button className="flex flex-col items-center gap-1 py-2 rounded-lg transition-all text-[9px]" style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', color: '#f59e0b' }}>
+            <ExternalLink className="h-3.5 w-3.5" /> Gonder
+          </button>
+        </div>
+      </div>
+
+      {/* Invoices */}
+      <div className="card p-4 border border-slate-800">
+        <div className="flex items-center gap-2 mb-3">
+          <FileText className="h-4 w-4 text-cyber-400" />
+          <span className="text-sm font-bold text-white">Faturalar</span>
+        </div>
+        <div className="space-y-2">
+          {data.invoices.map((inv: any) => (
+            <div key={inv.id} className="flex items-center gap-3 p-2 rounded bg-slate-900/60">
+              <span className="text-[10px] font-mono text-slate-500 flex-1">{inv.id}</span>
+              <span className="text-sm text-white font-mono">{inv.amount.toLocaleString('tr')} {inv.currency}</span>
+              <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded ${
+                inv.status === 'paid' ? 'bg-matrix-900/30 text-matrix-400' :
+                inv.status === 'pending' ? 'bg-cyber-900/30 text-cyber-400' :
+                'bg-red-900/30 text-red-400'
+              }`}>
+                {inv.status === 'paid' ? 'Odendi' : inv.status === 'pending' ? 'Bekliyor' : 'Gecikmis'}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ---------- Helpers ---------- */
 const StatCard: React.FC<any> = ({ label, value, icon: Icon, color }) => (
