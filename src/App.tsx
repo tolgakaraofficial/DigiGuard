@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Splash } from './components/Splash';
 import { Login } from './components/Login';
-import { Register } from './components/Register';
+import { RegistrationForm } from './components/RegistrationForm';
+import { DigitalContract } from './components/DigitalContract';
 import { Verify } from './components/Verify';
 import { Dashboard } from './components/Dashboard';
 import { GifCurtain } from './components/GifCurtain';
 import { initDashboard, type DashboardData } from './lib/dashboardData';
 import { playTransitionSound } from './lib/transitionSound';
 
-type Page = 'splash' | 'login' | 'register' | 'verify' | 'dashboard';
+type Page = 'splash' | 'login' | 'register' | 'contract' | 'verify' | 'dashboard';
 
 export default function App() {
   const [page, setPage] = useState<Page>('splash');
@@ -46,6 +47,10 @@ export default function App() {
     setEmail(regEmail);
     setPhone(regPhone);
     setUserType(type);
+    navigateTo('contract');
+  };
+
+  const handleContractAccept = () => {
     navigateTo('verify');
   };
 
@@ -75,7 +80,9 @@ export default function App() {
       case 'login':
         return <Login onLogin={handleLogin} onSwitchToRegister={() => navigateTo('register')} />;
       case 'register':
-        return <Register onComplete={handleRegisterComplete} onBack={() => navigateTo('login')} />;
+        return <RegistrationForm onComplete={() => navigateTo('contract')} />;
+      case 'contract':
+        return <DigitalContract userType={userType} onAccept={handleContractAccept} onBack={() => navigateTo('register')} />;
       case 'verify':
         return <Verify email={email} phone={phone} onVerify={handleVerify} onBack={() => navigateTo('register')} />;
       case 'dashboard':
