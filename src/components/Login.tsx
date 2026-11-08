@@ -213,6 +213,13 @@ export const Login: React.FC<LoginProps> = ({ onLogin, onSwitchToRegister }) => 
           </button>
         </div>
 
+        <div className="mt-2 text-center">
+          <a href="/admin" className="inline-flex items-center gap-1.5 text-[11px] text-slate-500 hover:text-slate-300 transition">
+            <Shield className="h-3 w-3" />
+            Yonetici Paneli
+          </a>
+        </div>
+
         <div className="mt-3 flex items-start gap-2 p-2.5 rounded-lg bg-blue-900/20 border border-blue-500/20">
           <AlertCircle className="h-3.5 w-3.5 text-blue-400 flex-shrink-0 mt-0.5" />
           <p className="text-[10px] text-blue-200/80 leading-relaxed">
