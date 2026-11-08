@@ -1,61 +1,61 @@
-# DigiGuard - Dijital Kimlik Koruma Uygulaması
+# DigiGuard - Digital Identity Protection App
 
-DigiGuard, yapay zeka tabanlı sahte içeriklere karşı kişilerin dijital kimliklerini koruyan mobil uygulamadır.
+DigiGuard is a mobile application that protects people's digital identities against AI-generated fake content.
 
-## Özellikler
+## Features
 
-- 📱 **Güvenli Giriş**: E-posta ve telefon doğrulaması
-- 👤 **Kişisel Bilgiler**: Detaylı profil oluşturma
-- 🆔 **Kimlik Doğrulama**: T.C. Kimlik, Pasaport desteği
-- 📸 **Medya Yükleme**: Fotoğraf, video ve ses kayıtları
-- 🔒 **End-to-End Şifreleme**: Güvenli veri saklama
-- 📊 **Kontrol Paneli**: Kimlik durumu takibi
+- 📱 **Secure Login**: Email and phone verification
+- 👤 **Personal Information**: Detailed profile creation
+- 🆔 **Identity Verification**: National ID and Passport support
+- 📸 **Media Upload**: Photos, videos, and voice recordings
+- 🔒 **End-to-End Encryption**: Secure data storage
+- 📊 **Dashboard**: Identity status tracking
 
-## Kurulum
+## Setup
 
-### Gereksinimler
+### Requirements
 - Node.js 16+
 - Expo CLI
-- Android Studio (Android için)
-- Xcode (iOS için)
+- Android Studio (for Android)
+- Xcode (for iOS)
 
-### Geliştirme Ortamı
+### Development Environment
 ```bash
-# Bağımlılıkları yükle
+# Install dependencies
 npm install
 
-# Geliştirme sunucusunu başlat
+# Start development server
 npm start
 
-# Android'de çalıştır
+# Run on Android
 npm run android
 
-# iOS'ta çalıştır
+# Run on iOS
 npm run ios
 ```
 
-### APK Oluşturma
+### Build APK
 ```bash
-# EAS Build ile APK oluştur
+# Build APK with EAS Build
 npm run build:android
 ```
 
-## Teknolojiler
+## Technologies
 
-- **React Native**: Mobil uygulama framework'ü
-- **Expo**: Geliştirme ve dağıtım platformu
-- **TypeScript**: Tip güvenliği
-- **Expo Image Picker**: Medya seçimi
-- **Expo AV**: Ses/video işleme
-- **React Native Safe Area**: Güvenli alan yönetimi
+- **React Native**: Mobile app framework
+- **Expo**: Development and distribution platform
+- **TypeScript**: Type safety
+- **Expo Image Picker**: Media selection
+- **Expo AV**: Audio/video processing
+- **React Native Safe Area**: Safe area management
 
-## Güvenlik
+## Security
 
-- Tüm veriler end-to-end şifreleme ile korunur
-- Medya dosyaları güvenli şekilde saklanır
-- Kişisel bilgiler üçüncü taraflarla paylaşılmaz
-- KVKK ve GDPR uyumlu veri işleme
+- All data is protected with end-to-end encryption
+- Media files are stored securely
+- Personal information is not shared with third parties
+- KVKK and GDPR compliant data processing
 
-## Lisans
+## License
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+This project is licensed under the MIT License.

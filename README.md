@@ -1,232 +1,232 @@
-# DigiGuard - Dijital Kimlik Koruma Platformu
+# DigiGuard - Digital Identity Protection Platform
 
-DigiGuard, deepfake ve dijital kimlik hırsızlığına karşı AI destekli, blockchain tabanlı dijital kimlik doğrulama ve koruma platformudur.
+DigiGuard is an AI-powered, blockchain-based digital identity verification and protection platform that defends against deepfakes and digital identity theft.
 
-## 🚀 Özellikler
+## 🚀 Features
 
-### 1. Gelişmiş Kimlik Doğrulama
-- AI destekli yüz tanıma sistemi
-- Ses analizi ve davranış tanıma
-- Çok faktörlü kimlik doğrulama
-- Gerçek zamanlı güvenlik kontrolü
+### 1. Advanced Identity Verification
+- AI-powered facial recognition system
+- Voice analysis and behavior recognition
+- Multi-factor authentication
+- Real-time security checks
 
-### 2. Dijital Güvenlik Sertifikası
-- Blockchain tabanlı sertifika sistemi
-- NFT teknolojisi ile benzersiz kimlik kanıtı
-- QR kod ile hızlı doğrulama
-- İndirilebilir ve paylaşılabilir sertifikalar
+### 2. Digital Security Certificate
+- Blockchain-based certificate system
+- Unique identity proof via NFT technology
+- Quick verification with QR codes
+- Downloadable and shareable certificates
 
-### 3. Akıllı Profil Yönetimi
-- Kişisel bilgi yönetimi
-- Güvenlik ayarları kontrol paneli
-- Gizlilik tercihleri özelleştirme
-- Çoklu cihaz senkronizasyonu
+### 3. Smart Profile Management
+- Personal information management
+- Security settings control panel
+- Privacy preference customization
+- Multi-device synchronization
 
-### 4. Tehdit İzleme ve Koruma
-- İnternette sahte içerik taraması
-- Deepfake tespit sistemi
-- Otomatik tehdit engelleme
-- 24/7 aktif koruma
+### 4. Threat Monitoring and Protection
+- Fake content scanning across the internet
+- Deepfake detection system
+- Automatic threat blocking
+- 24/7 active protection
 
-### 5. Güvenlik Raporları
-- Detaylı güvenlik analizleri
-- Kimlik koruma raporları
-- Risk değerlendirme skoru
-- Trend analizi ve öneriler
+### 5. Security Reports
+- Detailed security analyses
+- Identity protection reports
+- Risk assessment scoring
+- Trend analysis and recommendations
 
-### 6. Acil Durum Koruması
-- Kimlik hırsızlığı tespit sistemi
-- Anında müdahale protokolleri
-- Acil destek hattı
-- Yasal süreç desteği
+### 6. Emergency Protection
+- Identity theft detection system
+- Instant response protocols
+- Emergency support line
+- Legal process support
 
-## 📱 Kullanıcı Akışı
+## 📱 User Flow
 
-### 1. Giriş ve Doğrulama
+### 1. Sign-in and Verification
 ```
-Kullanıcı Girişi → E-posta/Telefon Girişi → OTP Doğrulama
+User Login → Email/Phone Entry → OTP Verification
 ```
-- Kullanıcı e-posta ve telefon numarası ile giriş yapar
-- Sistem her iki kanala da 6 haneli OTP kodu gönderir
-- Kullanıcı her iki kodu da doğru girmesi gerekir
-- Başarılı doğrulama sonrası kayıt formuna yönlendirilir
+- The user logs in with email and phone number
+- The system sends a 6-digit OTP code to both channels
+- The user must enter both codes correctly
+- After successful verification, the user is redirected to the registration form
 
-### 2. Kimlik Kaydı (4 Adımlı Süreç)
+### 2. Identity Registration (4-Step Process)
 
-#### Adım 1: Kişisel Bilgiler
-- Ad, Soyad
-- Doğum Tarihi
-- Uyruk
-- Adres Bilgileri (Adres, Şehir, Posta Kodu)
+#### Step 1: Personal Information
+- First name, last name
+- Date of birth
+- Nationality
+- Address details (address, city, postal code)
 
-#### Adım 2: Kimlik Bilgileri
-- Kimlik Türü (TC Kimlik, Pasaport, Ehliyet)
-- Kimlik Numarası
-- Geçerlilik Tarihleri (Düzenleme/Son Kullanım)
-- Düzenleyen Kurum
+#### Step 2: Identity Information
+- Identity type (National ID, Passport, Driver's License)
+- Identity number
+- Validity dates (issue/expiry)
+- Issuing authority
 
-#### Adım 3: Medya Dosyaları
-- **Fotoğraflar**: Farklı açılardan yüz fotoğrafları (min 3)
-- **Videolar**: Canlılık testi için video kayıtları (min 1)
-- **Ses Kayıtları**: Ses tanıma için ses örnekleri (min 2)
+#### Step 3: Media Files
+- **Photos**: Face photos from different angles (min 3)
+- **Videos**: Video recordings for liveness detection (min 1)
+- **Voice recordings**: Voice samples for voice recognition (min 2)
 
-#### Adım 4: Kayıt Tamamlama
-- Tüm bilgilerin özeti
-- Veri işleme onayı
-- Güvenlik sertifikası oluşturma
-- Dashboard'a yönlendirme
+#### Step 4: Registration Complete
+- Summary of all information
+- Data processing consent
+- Security certificate creation
+- Redirect to dashboard
 
-### 3. Kontrol Merkezi (Dashboard)
+### 3. Control Center (Dashboard)
 
-#### Ana İstatistikler
-- **Kimlik Durumu**: Doğrulama durumu ve yüzdesi
-- **Güvenlik Skoru**: 0-100 arası güvenlik puanı
-- **Aktif Koruma**: 24/7 koruma durumu
-- **Son Kontrol**: En son sistem kontrolü
+#### Key Statistics
+- **Identity Status**: Verification status and percentage
+- **Security Score**: Security score from 0-100
+- **Active Protection**: 24/7 protection status
+- **Last Check**: Most recent system check
 
-#### Güvenlik Bildirimleri
-- Tespit edilen tehditler
-- Engellenen sahte profiller
-- Sistem güncellemeleri
-- Önemli uyarılar
+#### Security Notifications
+- Detected threats
+- Blocked fake profiles
+- System updates
+- Important alerts
 
-#### Son Aktiviteler
-- Kimlik doğrulama işlemleri
-- Güvenlik taramaları
-- Profil güncellemeleri
-- Cihaz giriş logları
+#### Recent Activity
+- Identity verification operations
+- Security scans
+- Profile updates
+- Device login logs
 
-## 🛠 Teknoloji Stack
+## 🛠 Tech Stack
 
 ### Frontend
-- **React 18** - Modern UI kütüphanesi
-- **TypeScript** - Tip güvenli geliştirme
+- **React 18** - Modern UI library
+- **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first CSS framework
-- **Vite** - Hızlı build tool
-- **Lucide React** - İkon kütüphanesi
+- **Vite** - Fast build tool
+- **Lucide React** - Icon library
 
-### Backend (Planlanan)
+### Backend
 - **Supabase** - Backend-as-a-Service
-- **PostgreSQL** - İlişkisel veritabanı
-- **Edge Functions** - Serverless fonksiyonlar
-- **Row Level Security** - Veri güvenliği
+- **PostgreSQL** - Relational database
+- **Edge Functions** - Serverless functions
+- **Row Level Security** - Data security
 
-### AI & Blockchain (Planlanan)
-- **TensorFlow.js** - Yüz ve ses tanıma
-- **OpenCV** - Görüntü işleme
-- **Ethereum/Polygon** - Blockchain altyapısı
-- **IPFS** - Dağıtık dosya depolama
+### AI & Blockchain (Planned)
+- **TensorFlow.js** - Face and voice recognition
+- **OpenCV** - Image processing
+- **Ethereum/Polygon** - Blockchain infrastructure
+- **IPFS** - Distributed file storage
 
-## 📦 Kurulum
+## 📦 Setup
 
 ```bash
-# Bağımlılıkları yükle
+# Install dependencies
 npm install
 
-# Geliştirme sunucusunu başlat
+# Start development server
 npm run dev
 
 # Production build
 npm run build
 
-# Build'i önizle
+# Preview build
 npm run preview
 ```
 
 ## 🌐 Deployment
 
-### Netlify Drop (En Kolay)
-1. Projeyi build et: `npm run build`
-2. https://app.netlify.com/drop adresine git
-3. `dist` klasörünü sürükle bırak
+### Netlify Drop (Easiest)
+1. Build the project: `npm run build`
+2. Go to https://app.netlify.com/drop
+3. Drag and drop the `dist` folder
 
 ### Netlify CLI
 ```bash
-# Netlify'a giriş yap
+# Log in to Netlify
 npx netlify-cli login
 
-# Deploy et
+# Deploy
 npx netlify-cli deploy --prod --dir=dist
 ```
 
 ### GitHub Integration
-1. Kodu GitHub'a push et: https://github.com/digiguard/digiguard-platform
-2. https://app.netlify.com/start adresine git
-3. Repository'yi seçip otomatik deploy başlat
+1. Push the code to GitHub: https://github.com/digiguard/digiguard-platform
+2. Go to https://app.netlify.com/start
+3. Select the repository and start automatic deployment
 
 ### Live Demo
 - **Production**: https://digiguard.app
 - **Netlify**: https://digiguard.netlify.app
 - **GitHub**: https://github.com/digiguard/digiguard-platform
 
-## 📋 Proje Yapısı
+## 📋 Project Structure
 
 ```
 DigiGuardApp/
 ├── src/
 │   ├── components/
-│   │   ├── Layout.tsx              # Ana layout bileşeni
-│   │   ├── BetaBanner.tsx          # Beta uyarı banner'ı
-│   │   ├── LoginForm.tsx           # Giriş formu
-│   │   ├── VerificationForm.tsx    # OTP doğrulama
-│   │   ├── RegistrationForm.tsx    # Ana kayıt formu
-│   │   ├── PersonalInfoStep.tsx    # Kişisel bilgiler adımı
-│   │   ├── IdentityInfoStep.tsx    # Kimlik bilgileri adımı
-│   │   ├── MediaUploadStep.tsx     # Medya yükleme adımı
-│   │   ├── RegistrationComplete.tsx # Kayıt tamamlama
-│   │   └── Dashboard.tsx           # Kontrol merkezi
+│   │   ├── Layout.tsx              # Main layout component
+│   │   ├── BetaBanner.tsx          # Beta warning banner
+│   │   ├── LoginForm.tsx           # Login form
+│   │   ├── VerificationForm.tsx    # OTP verification
+│   │   ├── RegistrationForm.tsx    # Main registration form
+│   │   ├── PersonalInfoStep.tsx    # Personal information step
+│   │   ├── IdentityInfoStep.tsx    # Identity information step
+│   │   ├── MediaUploadStep.tsx     # Media upload step
+│   │   ├── RegistrationComplete.tsx # Registration complete
+│   │   └── Dashboard.tsx           # Control center
 │   ├── types/
-│   │   └── index.ts                # TypeScript tip tanımları
-│   ├── App.tsx                     # Ana uygulama
-│   ├── main.tsx                    # Giriş noktası
-│   └── index.css                   # Global stiller
-├── public/                         # Statik dosyalar
-└── package.json                    # Proje bağımlılıkları
+│   │   └── index.ts                # TypeScript type definitions
+│   ├── App.tsx                     # Main application
+│   ├── main.tsx                    # Entry point
+│   └── index.css                   # Global styles
+├── public/                         # Static files
+└── package.json                    # Project dependencies
 ```
 
-## 🔐 Güvenlik Özellikleri
+## 🔐 Security Features
 
-### Veri Güvenliği
-- End-to-end şifreleme
-- Güvenli veri saklama
-- GDPR uyumlu
+### Data Security
+- End-to-end encryption
+- Secure data storage
+- GDPR compliant
 - Regular security audits
 
-### Kimlik Doğrulama
-- Çok faktörlü doğrulama (MFA)
-- Biyometrik kimlik doğrulama
-- Davranış analizi
-- Canlılık testi
+### Identity Verification
+- Multi-factor authentication (MFA)
+- Biometric identity verification
+- Behavior analysis
+- Liveness detection
 
-### Blockchain Güvenliği
-- Değiştirilemez kayıtlar
-- Merkeziyetsiz doğrulama
-- Şeffaf işlem geçmişi
-- Smart contract koruması
+### Blockchain Security
+- Immutable records
+- Decentralized verification
+- Transparent transaction history
+- Smart contract protection
 
-## 🎯 Gelecek Özellikler
+## 🎯 Future Features
 
-- [ ] Mobil uygulama (React Native)
-- [ ] API entegrasyonu
-- [ ] Blockchain sertifika sistemi
-- [ ] AI model eğitimi
-- [ ] Çoklu dil desteği
-- [ ] Premium üyelik sistemi
-- [ ] İşletme çözümleri
+- [ ] Mobile app (React Native)
+- [ ] API integration
+- [ ] Blockchain certificate system
+- [ ] AI model training
+- [ ] Multi-language support
+- [ ] Premium membership system
+- [ ] Business solutions
 - [ ] Developer API
 
-## 📄 Lisans
+## 📄 License
 
-Bu proje DigiGuard tarafından geliştirilmiştir. Tüm hakları saklıdır.
+This project is developed by DigiGuard. All rights reserved.
 
-## 🤝 Destek
+## 🤝 Support
 
-Sorularınız için:
-- E-posta: support@digiguard.app
+For questions:
+- Email: support@digiguard.app
 - Web: https://digiguard.app
 - LinkedIn: https://www.linkedin.com/company/digiguard-official
 - GitHub: https://github.com/digiguard/digiguard-platform
 
-## ⚠️ Beta Sürümü
+## ⚠️ Beta Version
 
-Bu uygulama şu anda beta aşamasındadır. Gerçek kimlik doğrulama ve blockchain entegrasyonu geliştirme aşamasındadır.
+This application is currently in beta. Real identity verification and blockchain integration are under development.
