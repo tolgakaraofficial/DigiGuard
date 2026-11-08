@@ -26,6 +26,7 @@ body {
 ::-webkit-scrollbar-track { background: #0a0f1e; }
 ::-webkit-scrollbar-thumb { background: var(--cyber); border-radius: 2px; }
 
+.font-display { font-family: 'Sora', system-ui, sans-serif; }
 .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
 
 .cyber-border { border: 1px solid rgba(0, 229, 255, 0.25); }
@@ -166,6 +167,115 @@ body {
   to { transform: translateX(100%); opacity: 0; }
 }
 
+/* Professional intro background */
+.intro-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.intro-aurora::before,
+.intro-aurora::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.35;
+  animation: auroraDrift 16s ease-in-out infinite;
+}
+.intro-aurora::before {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #00e5ff, transparent 70%);
+  top: -20%; left: -10%;
+}
+.intro-aurora::after {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #f97316, transparent 70%);
+  bottom: -15%; right: -5%;
+  animation-delay: -8s;
+  opacity: 0.25;
+}
+@keyframes auroraDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.08); }
+  66% { transform: translate(-30px, 20px) scale(0.96); }
+}
+
+.intro-grid {
+  background-image:
+    linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black, transparent);
+}
+
+.intro-orb {
+  position: relative;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.intro-orb-core {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(0,229,255,0.3) 60deg, transparent 120deg, rgba(57,255,20,0.2) 180deg, transparent 240deg, rgba(249,115,22,0.2) 300deg, transparent 360deg);
+  animation: orbSpin 6s linear infinite;
+  filter: blur(2px);
+}
+.intro-orb-ring {
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,229,255,0.4);
+  box-shadow: 0 0 30px rgba(0,229,255,0.2), inset 0 0 30px rgba(0,229,255,0.08);
+}
+.intro-orb-glow {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,255,0.15), transparent 70%);
+  animation: orbPulse 3s ease-in-out infinite;
+}
+@keyframes orbSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes orbPulse { 0%, 100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+
+.intro-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+@keyframes dotPulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.4); } }
+
+@keyframes textShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.text-shimmer {
+  background: linear-gradient(90deg, #e2e8f0 0%, #00e5ff 30%, #39ff14 50%, #00e5ff 70%, #e2e8f0 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: textShimmer 5s linear infinite;
+}
+
+/* Premium input styling */
+.prem-input {
+  background: rgba(2,6,23,0.7);
+  border: 1px solid rgba(148,163,184,0.15);
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+.prem-input:focus-within {
+  border-color: rgba(0,229,255,0.5);
+  box-shadow: 0 0 0 3px rgba(0,229,255,0.08);
+}
+
+/* GIF curtain */
 .gif-curtain {
   position: fixed;
   inset: 0;
@@ -217,4 +327,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .gif-curtain,
   .gif-curtain-image-wrap { animation-duration: 0.01ms; animation-iteration-count: 1; }
+  .intro-aurora::before, .intro-aurora::after,
+  .intro-orb-core, .intro-orb-glow, .intro-dot { animation: none; }
 }
