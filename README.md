@@ -1,232 +1,118 @@
-# DigiGuard - Digital Identity Protection Platform
+🛡️ DigiGuard & Cerebro Protocol
+​Next-Generation Serverless Post-Quantum Cybersecurity & Decentralized Digital Identity Architecture
 
-DigiGuard is an AI-powered, blockchain-based digital identity verification and protection platform that defends against deepfakes and digital identity theft.
+​📋 Table of Contents
+​1. Executive Summary & Overview
+​2. Beta Release Notice
+​3. Core Architectural Pillars
+​4. ALBIS Engine Infrastructure (Modules 1–6)
+​5. System Topology & Data Flow
+​6. Cryptographic Specifications & Threat Mitigation
+​7. Ghost ID & Zero-Knowledge Identity Protocol
+​8. Repository Structure
+​9. Getting Started & Installation
+​10. Developer API Reference
+​11. Development Roadmap
+​12. Security Auditing & Contribution Guidelines
+​13. License & Intellectual Property
+​14. Support & Official Channels
+​📖 Executive Summary & Overview
+DigiGuard & Cerebro Protocol is an enterprise-grade, serverless cybersecurity and digital identity framework engineered to protect digital assets, communication channels, and identity records against both classical and emerging quantum computing threats.
+​Traditional security infrastructures rely heavily on centralized servers and legacy public-key cryptography (such as RSA and ECC), which remain vulnerable to single points of failure and future quantum cryptanalysis. DigiGuard resolves these systemic flaws by integrating:
+​Directed Acyclic Graph (DAG) topologies for asynchronous, high-throughput consensus.
+​Post-Quantum Cryptography (PQC) designed to neutralize Shor's and Grover's quantum algorithms.
+​Zero-Knowledge Proofs (ZKP) via the Ghost ID protocol for mathematically verifiable, privacy-preserving authentication.
+​ALBIS Engine Architecture, a modular six-stage cryptographic and security validation pipeline.
+​⚠️ Beta Release Notice
+​Important: This protocol, platform interface, and accompanying developer SDKs are currently in the active Beta phase. Core cryptographic modules, real-time Ghost ID verification circuits, and distributed DAG ledger integrations are undergoing continuous development, stress-testing, and optimization. Production deployment should follow formal security audit milestones.
+​🏗️ Core Architectural Pillars
+​1. Serverless Decentralized Edge Execution
+DigiGuard eliminates reliance on centralized cloud providers or monolithic backend databases. Validation logic executes across distributed edge nodes, rendering traditional DDoS attacks and centralized server breaches obsolete.
+​2. Directed Acyclic Graph (DAG) Consensus
+​Instead of sequential, bottleneck-prone linear blocks, transactions and identity state updates are structured as an asynchronous DAG. Every new state event validates prior unconfirmed events, enabling parallel execution, near-zero confirmation latency, and horizontal scalability.
+​3. Post-Quantum Cryptographic Shield
+​All data payloads, key exchanges, and digital signatures are encapsulated within lattice-based and hash-based cryptographic primitives engineered to remain computationally infeasible to break even with large-scale fault-tolerant quantum computers.
+​4. Sovereign Digital Identity (Ghost ID)
+​Users maintain complete cryptographic ownership over their credentials. Identity attributes are never stored in plaintext or transmitted across the network; instead, cryptographic proofs confirm authorization without revealing underlying personal data.
+​⚙️ ALBIS Engine Infrastructure (Modules 1–6)
+​The computational core of DigiGuard & Cerebro is driven by the proprietary ALBIS Engine, segmented into six specialized, isolated micro-engines:
 
-## 🚀 Features
+Engine Module Primary Function Security & Operational Role
+ALBIS-1 Ingress & Entropy Harvester Collects hardware/environmental entropy and sanitizes incoming edge requests against malformed payloads.
+ALBIS-2 Post-Quantum Key Encapsulation Manages lattice-based key generation, rotation, and quantum-resistant session establishment.
+ALBIS-3 Zero-Knowledge Proof Verifier Evaluates Ghost ID cryptographic circuits to verify user/node claims without exposing metadata.
+ALBIS-4 DAG State & Topology Router Maps validated events onto the asynchronous Directed Acyclic Graph and resolves tip selection.
+ALBIS-5 Behavioral Anomaly & Threat AI Performs real-time heuristic and Cerebro-protocol threat scoring to isolate malicious nodes.
+ALBIS-6 Forensic Watermarking & Audit Applies cryptographic integrity seals and lattice-based asset watermarking for tamper-proof verification.
 
-### 1. Advanced Identity Verification
-- AI-powered facial recognition system
-- Voice analysis and behavior recognition
-- Multi-factor authentication
-- Real-time security checks
+📐 System Topology & Data Flow
+​Layer 1 — Client / Edge Node Layer: User Device / IoT / Enterprise Client generates a local Ghost ID Zero-Knowledge Proof.
+​Layer 2 — Serverless Edge Gateway: Encrypted Post-Quantum Tunnel routes traffic through ALBIS-1 (Entropy & Sanitization) and ALBIS-2 (PQC Key Exchange).
+​Layer 3 — Cerebro & ALBIS Validation Core: ALBIS-3 (ZKP Circuit Check) and ALBIS-5 (Threat Intelligence) validate authenticity, passing state to ALBIS-6 (Cryptographic Integrity Sealing).
+​Layer 4 — Distributed DAG Ledger Layer: ALBIS-4 executes asynchronous consensus and parallel state finalization.
+​🔐 Cryptographic Specifications & Threat Mitigation
+Threat Vector Legacy Vulnerability DigiGuard Mitigation Mechanism
+Quantum Factorization Shor's Algorithm breaks RSA/ECC Lattice-based Key Encapsulation & Quantum-Resistant Signatures
+Quantum Brute-Force Grover's Algorithm halves symmetric key strength Expanded symmetric bit-security & quantum-hardened hash functions
+Identity Harvesting Centralized KYC databases leak PII Ghost ID Zero-Knowledge Proofs (zero plaintext storage)
+Single Point of Failure Centralized cloud outages / DDoS Serverless edge distribution + Asynchronous DAG topology
+Tampering & Forgery Unauthorized media/document alteration 
 
-### 2. Digital Security Certificate
-- Blockchain-based certificate system
-- Unique identity proof via NFT technology
-- Quick verification with QR codes
-- Downloadable and shareable certificates
+🪪 Ghost ID & Zero-Knowledge Identity Protocol
+​Ghost ID enables passwordless, document-free authentication across decentralized and enterprise environments:
+​1. Local Proof Generation: The client generates a cryptographic witness locally using their private secret.
+​2. Zero-Knowledge Challenge: The verifier (ALBIS-3) issues a randomized cryptographic challenge.
+​3. Mathematical Verification: The protocol confirms that the user possesses valid credentials (e.g., age, clearance level, membership, or asset ownership) with zero disclosure of the user's underlying identity parameters.
+​📂 Repository Structure
+​core/albis-engine/ — Modular ALBIS 1–6 engine specifications & logic
+​core/cerebro-protocol/ — Threat scoring & distributed consensus rules
+​core/dag-topology/ — Asynchronous graph routing & tip validation
+​crypto/post-quantum/ — Quantum-resistant key exchange & signature primitives
+​crypto/zkp-circuits/ — Ghost ID zero-knowledge proof circuits
+​crypto/watermarking/ — Forensic integrity & ownership verification
+​api/gateway/ — Serverless edge endpoints & middleware
+​api/sdk/ — Developer integration kits & client wrappers
+​docs/architecture/ — System blueprints & constitutional framework
+​docs/whitepaper/ — Technical specifications & cryptographic proofs
+​tests/ — Unit, integration, and cryptographic benchmark suites
+​🚀 Getting Started & Installation
+​Prerequisites
+​Node.js v20.x or higher / Rust 1.75+ (for cryptographic core modules)
+​Git & Docker (optional for containerized local node simulation)
+​Quick Setup (Local Development Environment)
+​1. Clone the official repository: git clone https://github.com/tolgakaraofficial/digiguard-platform.git
+​2. Navigate into the project directory: cd digiguard-platform
+​3. Install dependencies: npm install
+​4. Configure environment variables: cp .env.example .env
+​5. Start the local ALBIS validation node in development mode: npm run dev
+​🔌 Developer API Reference
+​DigiGuard provides a clean REST/WebSocket Edge API for integrating Ghost ID authentication and Post-Quantum encryption into third-party applications.
+​1. Verify a Ghost ID Zero-Knowledge Proof
+​Endpoint: POST /api/v1/identity/verify-zkp
+​Parameters: protocolVersion (1.0-beta), proofPayload (hex string), publicSignals (array), albisModule (ALBIS-3)
+​Success Response (200 OK): Returns status: "VERIFIED", sessionToken, dagNodeRef, and UTC timestamp.
+​2. Query DAG Node Health & ALBIS Engine Status
+​Endpoint: GET /api/v1/system/status
+​Success Response (200 OK): Returns network identifier (DigiGuard-Cerebro-Testnet), operational status of modules ALBIS-1 through ALBIS-6, and quantumShield: "ACTIVE".
+​🗺️ Development Roadmap
 
-### 3. Smart Profile Management
-- Personal information management
-- Security settings control panel
-- Privacy preference customization
-- Multi-device synchronization
-
-### 4. Threat Monitoring and Protection
-- Fake content scanning across the internet
-- Deepfake detection system
-- Automatic threat blocking
-- 24/7 active protection
-
-### 5. Security Reports
-- Detailed security analyses
-- Identity protection reports
-- Risk assessment scoring
-- Trend analysis and recommendations
-
-### 6. Emergency Protection
-- Identity theft detection system
-- Instant response protocols
-- Emergency support line
-- Legal process support
-
-## 📱 User Flow
-
-### 1. Sign-in and Verification
-```
-User Login → Email/Phone Entry → OTP Verification
-```
-- The user logs in with email and phone number
-- The system sends a 6-digit OTP code to both channels
-- The user must enter both codes correctly
-- After successful verification, the user is redirected to the registration form
-
-### 2. Identity Registration (4-Step Process)
-
-#### Step 1: Personal Information
-- First name, last name
-- Date of birth
-- Nationality
-- Address details (address, city, postal code)
-
-#### Step 2: Identity Information
-- Identity type (National ID, Passport, Driver's License)
-- Identity number
-- Validity dates (issue/expiry)
-- Issuing authority
-
-#### Step 3: Media Files
-- **Photos**: Face photos from different angles (min 3)
-- **Videos**: Video recordings for liveness detection (min 1)
-- **Voice recordings**: Voice samples for voice recognition (min 2)
-
-#### Step 4: Registration Complete
-- Summary of all information
-- Data processing consent
-- Security certificate creation
-- Redirect to dashboard
-
-### 3. Control Center (Dashboard)
-
-#### Key Statistics
-- **Identity Status**: Verification status and percentage
-- **Security Score**: Security score from 0-100
-- **Active Protection**: 24/7 protection status
-- **Last Check**: Most recent system check
-
-#### Security Notifications
-- Detected threats
-- Blocked fake profiles
-- System updates
-- Important alerts
-
-#### Recent Activity
-- Identity verification operations
-- Security scans
-- Profile updates
-- Device login logs
-
-## 🛠 Tech Stack
-
-### Frontend
-- **React 18** - Modern UI library
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first CSS framework
-- **Vite** - Fast build tool
-- **Lucide React** - Icon library
-
-### Backend
-- **Supabase** - Backend-as-a-Service
-- **PostgreSQL** - Relational database
-- **Edge Functions** - Serverless functions
-- **Row Level Security** - Data security
-
-### AI & Blockchain (Planned)
-- **TensorFlow.js** - Face and voice recognition
-- **OpenCV** - Image processing
-- **Ethereum/Polygon** - Blockchain infrastructure
-- **IPFS** - Distributed file storage
-
-## 📦 Setup
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Production build
-npm run build
-
-# Preview build
-npm run preview
-```
-
-## 🌐 Deployment
-
-### Netlify Drop (Easiest)
-1. Build the project: `npm run build`
-2. Go to https://app.netlify.com/drop
-3. Drag and drop the `dist` folder
-
-### Netlify CLI
-```bash
-# Log in to Netlify
-npx netlify-cli login
-
-# Deploy
-npx netlify-cli deploy --prod --dir=dist
-```
-
-### GitHub Integration
-1. Push the code to GitHub: https://github.com/digiguard/digiguard-platform
-2. Go to https://app.netlify.com/start
-3. Select the repository and start automatic deployment
-
-### Live Demo
-- **Production**: https://digiguard.app
-- **Netlify**: https://digiguard.netlify.app
-- **GitHub**: https://github.com/digiguard/digiguard-platform
-
-## 📋 Project Structure
-
-```
-DigiGuardApp/
-├── src/
-│   ├── components/
-│   │   ├── Layout.tsx              # Main layout component
-│   │   ├── BetaBanner.tsx          # Beta warning banner
-│   │   ├── LoginForm.tsx           # Login form
-│   │   ├── VerificationForm.tsx    # OTP verification
-│   │   ├── RegistrationForm.tsx    # Main registration form
-│   │   ├── PersonalInfoStep.tsx    # Personal information step
-│   │   ├── IdentityInfoStep.tsx    # Identity information step
-│   │   ├── MediaUploadStep.tsx     # Media upload step
-│   │   ├── RegistrationComplete.tsx # Registration complete
-│   │   └── Dashboard.tsx           # Control center
-│   ├── types/
-│   │   └── index.ts                # TypeScript type definitions
-│   ├── App.tsx                     # Main application
-│   ├── main.tsx                    # Entry point
-│   └── index.css                   # Global styles
-├── public/                         # Static files
-└── package.json                    # Project dependencies
-```
-
-## 🔐 Security Features
-
-### Data Security
-- End-to-end encryption
-- Secure data storage
-- GDPR compliant
-- Regular security audits
-
-### Identity Verification
-- Multi-factor authentication (MFA)
-- Biometric identity verification
-- Behavior analysis
-- Liveness detection
-
-### Blockchain Security
-- Immutable records
-- Decentralized verification
-- Transparent transaction history
-- Smart contract protection
-
-## 🎯 Future Features
-
-- [ ] Mobile app (React Native)
-- [ ] API integration
-- [ ] Blockchain certificate system
-- [ ] AI model training
-- [ ] Multi-language support
-- [ ] Premium membership system
-- [ ] Business solutions
-- [ ] Developer API
-
-## 📄 License
-
-This project is developed by DigiGuard. All rights reserved.
-
-## 🤝 Support
-
-For questions:
-- Email: support@digiguard.app
-- Web: https://digiguard.app
-- LinkedIn: https://www.linkedin.com/company/digiguard-official
-- GitHub: https://github.com/digiguard/digiguard-platform
-
-## ⚠️ Beta Version
-
-This application is currently in beta. Real identity verification and blockchain integration are under development.
+​[x] Phase 1: Architectural Foundation — Core protocol design, constitutional governance model, and DAG topology specification.
+​[x] Phase 2: ALBIS Engine Blueprint — Modular specification of ALBIS 1–6 security and cryptographic pipelines.
+​[x] Phase 3: Open-Source Initialization — Public repository launch, developer documentation, and Beta API framework.
+​[ ] Phase 4: Ghost ID ZKP Circuit Implementation — Deployment of optimized zero-knowledge circuits for client-side proof generation.
+​[ ] Phase 5: Public Testnet & Benchmarking — Open stress-testing of parallel DAG consensus and post-quantum latency metrics.
+​[ ] Phase 6: Formal Verification & External Audit — Mathematical verification of cryptographic protocols and third-party security certification.
+​🤝 Security Auditing & Contribution Guidelines
+​We welcome peer reviews, cryptographic analysis, and technical feedback from security researchers, mathematicians, and distributed systems engineers.
+​1. Reporting Vulnerabilities: If you discover a cryptographic flaw or security vulnerability, please do not disclose it publicly until our team has reviewed it. Contact us directly via support@digiguard.app.
+​2. Pull Requests & Issues: For architectural enhancements or documentation improvements, please open a detailed Issue first to discuss the proposed changes with the Lead Architect.
+​📄 License & Intellectual Property
+​Developed by DigiGuard. All rights reserved.
+The architectural concepts, ALBIS Engine specifications, Cerebro Protocol, and Ghost ID frameworks are the intellectual property of DigiGuard and Lead Architect Tolga Kara. Unauthorized commercial reproduction or proprietary redistribution without explicit licensing is prohibited. For enterprise licensing or research partnerships, please contact our team.
+​📞 Support & Official Channels
+For technical inquiries, developer API onboarding, investor relations, or research collaboration:
+​Official Website: https://digiguard.app
+​Support & Security Desk: support@digiguard.app
+​Lead Architect: Tolga Kara (LinkedIn)
+​Official GitHub: github.com/tolgakaraofficial
+​Technology Academy & Media: Karprime Technology Academy (YouTube)
