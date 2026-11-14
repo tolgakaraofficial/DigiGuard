@@ -116,3 +116,71 @@ For technical inquiries, developer API onboarding, investor relations, or resear
 ​Lead Architect: Tolga Kara (LinkedIn)
 ​Official GitHub: github.com/tolgakaraofficial
 ​Technology Academy & Media: Karprime Technology Academy (YouTube)
+
+---
+
+## 👤 Founder & Lead Architect — Professional CV
+
+### Tolga Kara
+**Lead Architect · Founder · Karprime Technology Inc.**
+
+Post-quantum cybersecurity architect and decentralized identity pioneer. Creator of the DigiGuard & Cerebro Protocol — a serverless, quantum-resistant digital sovereignty framework designed for nations, enterprises, and individuals navigating the post-quantum threat landscape.
+
+#### Vision & Mission
+
+DigiGuard & Cerebro Protocol is the culmination of years of research into post-quantum cybersecurity, decentralized identity, and sovereign digital infrastructure. The mission: to provide nations, institutions, and individuals with a cryptographic identity framework that remains unbreakable even in the quantum era — while preserving absolute privacy through Zero-Knowledge Proofs.
+
+#### Architectural Achievements
+
+- **ALBIS Engine** — Designed and specified a 6-module post-quantum cryptographic pipeline (ALBIS-1 through ALBIS-6), covering entropy harvesting, lattice-based key encapsulation, ZKP verification, DAG state routing, AI threat detection, and forensic watermarking
+- **Ghost ID Protocol** — Architected a Zero-Knowledge identity protocol enabling passwordless, document-free authentication with zero plaintext storage
+- **Sovereign Bridge DAG** — Engineered a Directed Acyclic Graph topology for parallel, miner-free, asynchronous consensus with near-zero confirmation latency
+- **Cerebro Sentinel AI** — Implemented an AI-driven proactive defense system using the PUKO cycle (Proactive → Warning → Protection → Recovery)
+- **Post-Quantum Cryptography** — Specified lattice-based cryptographic primitives (Kyber-1024, Dilithium) resistant to Shor's and Grover's quantum algorithms
+
+#### Mathematical & Cryptographic Foundation
+
+| Domain | Implementation |
+|---|---|
+| Key Encapsulation | CRYSTALS-Kyber (NIST PQC standard) — lattice-based, quantum-resistant |
+| Digital Signatures | CRYSTALS-Dilithium (NIST PQC standard) — lattice-based, quantum-resistant |
+| Zero-Knowledge Proofs | zk-SNARK circuits for privacy-preserving identity verification |
+| Consensus Complexity | O(n log n) tip selection in DAG topology |
+| Symmetric Encryption | AES-256-GCM with expanded key schedules for quantum resistance |
+| Asset Integrity | Lattice-based forensic watermarking for tamper-proof verification |
+
+#### Institutional & Strategic Impact
+
+- Designed for **national-scale digital identity infrastructure** for governments and public institutions
+- **KVKK, GDPR, and ISO 27001** compliant architecture for enterprise and regulatory adoption
+- **Web3/Web4/Web5** integration framework for cross-platform decentralized identity portability
+- **Hybrid wallet infrastructure** supporting both cryptographic tokens (DGU, CLB) and traditional crypto assets (BTC, ETH)
+- **Marketplace ecosystem** with quantum-secured digital asset trading and certificate issuance
+
+#### Research & Publications
+
+- 18-volume **Cerebro Constitution** — comprehensive governance and constitutional framework
+- **DigiGuard Master Specification** — complete architectural blueprint
+- **Post-Quantum Cryptographic Integration Blueprint**
+- **Cerebro Network Universal Language Specification**
+- **Quantum Integration Architecture Whitepaper**
+- **Digital Identity Bridge Framework** for National KYC Systems
+- Published technical articles on **Medium** covering cybersecurity, quantum threats, and decentralized identity
+
+#### Institution — Karprime Technology Inc.
+
+Karprime Technology Inc. is the institutional home of the DigiGuard & Cerebro Protocol. Under the leadership of Founder and Lead Architect Tolga Kara, the organization drives research, development, and deployment of post-quantum cybersecurity infrastructure for governments, enterprises, and individuals worldwide. The Karprime Technology Academy serves as the educational arm, producing technical content and training the next generation of quantum-aware security engineers.
+
+- **Status:** Active Beta — 6-phase development roadmap in progress
+- **Open to:** Investor relations and strategic partnerships
+
+#### Contact & Professional Links
+
+| Channel | Link |
+|---|---|
+| ✉️ Email | tlgkr66@gmail.com |
+| 🐙 GitHub | https://github.com/tolgakaraofficial |
+| 💼 LinkedIn | https://www.linkedin.com/in/tolga-kara-53b953323/ |
+| 📝 Medium | https://medium.com/@tolgakaraofficiall |
+| 🎥 YouTube | https://www.youtube.com/@karprimetechnology |
+| 📄 GitHub README | https://github.com/tolgakaraofficial/DigiGuard/blob/main/README.md |

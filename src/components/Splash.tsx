@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Ghost, Network, Cpu, ArrowRight, Lock, Zap, Fingerprint } from 'lucide-react';
+import { FounderProfileBar, FounderCVModal } from './FounderProfileBar';
 
 interface SplashProps {
   onEnter: () => void;
@@ -39,6 +40,7 @@ const scenes = [
 export const Splash: React.FC<SplashProps> = ({ onEnter }) => {
   const [scene, setScene] = useState(0);
   const [progress, setProgress] = useState(0);
+  const [showCV, setShowCV] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -163,7 +165,14 @@ export const Splash: React.FC<SplashProps> = ({ onEnter }) => {
         <p className="mt-5 text-[10px] font-mono text-slate-700 tracking-wider">
           v1.0.0 · Karprime Technology Inc.
         </p>
+
+        {/* Founder contact bar */}
+        <div className="mt-6 pt-5 border-t border-slate-800/50">
+          <FounderProfileBar variant="compact" onOpenCV={() => setShowCV(true)} />
+        </div>
       </div>
+
+      <FounderCVModal isOpen={showCV} onClose={() => setShowCV(false)} />
     </div>
   );
 };

@@ -36,6 +36,7 @@ import { PricingModal } from './PricingModal';
 import { SecurityMetricsModal } from './SecurityMetricsModal';
 import { AboutModal } from './AboutModal';
 import { TeamModal } from './TeamModal';
+import { FounderProfileBar, FounderCVModal } from './FounderProfileBar';
 import { playTransitionSound } from '../lib/transitionSound';
 
 interface DashboardProps {
@@ -53,6 +54,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
   const [pukoPhase, setPukoPhase] = useState(0);
   const [copied, setCopied] = useState('');
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showCV, setShowCV] = useState(false);
   const [modal, setModal] = useState<string | null>(null);
 
   const pukoPhases = [
@@ -131,6 +133,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
                 <Shield className="h-3.5 w-3.5" /> Hakkinda
               </button>
             </div>
+            <div className="hidden lg:block">
+              <FounderProfileBar variant="compact" onOpenCV={() => setShowCV(true)} />
+            </div>
             <button onClick={() => setShowNotifications(true)} className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition text-xs">
               <Bell className="h-3.5 w-3.5" /> Bildirimler
               <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-[9px] font-bold text-white flex items-center justify-center">3</span>
@@ -207,6 +212,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
       <SecurityMetricsModal isOpen={modal === 'metrics'} onClose={() => setModal(null)} />
       <AboutModal isOpen={modal === 'about'} onClose={() => setModal(null)} />
       <TeamModal isOpen={modal === 'team'} onClose={() => setModal(null)} />
+      <FounderCVModal isOpen={showCV} onClose={() => setShowCV(false)} />
     </div>
   );
 };

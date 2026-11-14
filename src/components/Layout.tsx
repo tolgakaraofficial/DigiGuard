@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Shield, Fingerprint, Lock } from 'lucide-react';
+import { FounderProfileBar, FounderCVModal } from './FounderProfileBar';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const [showCV, setShowCV] = useState(false);
+
   return (
     <div className="min-h-screen text-white relative overflow-x-hidden flex flex-col" style={{ background: '#020617' }}>
       {/* Cyber background effects */}
@@ -45,6 +48,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <div className="font-bold" style={{ color: '#39ff14' }}>AES-256 + Kyber-1024</div>
                 </div>
               </div>
+              <FounderProfileBar variant="compact" onOpenCV={() => setShowCV(true)} />
             </div>
           </div>
         </div>
@@ -78,6 +82,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
       </footer>
+
+      <FounderCVModal isOpen={showCV} onClose={() => setShowCV(false)} />
     </div>
   );
 };
