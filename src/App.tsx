@@ -36,9 +36,9 @@ export default function App() {
 
   const handleLogin = (loginEmail: string) => {
     setEmail(loginEmail);
-    setPhone('+90 5xx xxx xx xx');
+    setPhone('+1 (555) 000-0000');
     setUserType('individual');
-    const data = initDashboard(loginEmail, '+90 5xx xxx xx xx', 'individual');
+    const data = initDashboard(loginEmail, '+1 (555) 000-0000', 'individual');
     setDashboardData(data);
     navigateTo('dashboard');
   };

@@ -4,6 +4,7 @@ import {
   KeyRound, Wallet, Network, RefreshCw, CheckCircle, Zap, AlertCircle,
 } from 'lucide-react';
 import { generateGhostId as generateGhostID, generateSponHash } from '../lib/crypto';
+import { FounderProfileBar, FounderCVModal } from './FounderProfileBar';
 
 interface LoginProps {
   onLogin: (email: string) => void;
@@ -19,6 +20,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin, onSwitchToRegister }) => 
   const [ghostId, setGhostId] = useState('');
   const [sponHash, setSponHash] = useState('');
   const [web3Connecting, setWeb3Connecting] = useState<string | null>(null);
+  const [showCV, setShowCV] = useState(false);
 
   const handleGhost = async () => {
     await new Promise((r) => setTimeout(r, 600));
@@ -128,7 +130,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin, onSwitchToRegister }) => 
           {showGhost && (
             <div className="mt-3 space-y-2 animate-fade-in">
               <p className="text-[11px] text-slate-500 leading-relaxed">
-                Enter anonymously without exposing personal identifiable information.
+                Enter anonymously without exposing personally identifiable information.
               </p>
               {ghostId && (
                 <div className="space-y-1 p-2.5 rounded-lg bg-slate-900/60">
@@ -237,7 +239,14 @@ export const Login: React.FC<LoginProps> = ({ onLogin, onSwitchToRegister }) => 
             <Zap className="inline h-3 w-3" /> Demo mode: sign in with any email and password.
           </p>
         </div>
+
+        {/* Founder contact bar */}
+        <div className="mt-5 pt-4 border-t border-slate-800/50">
+          <FounderProfileBar variant="compact" onOpenCV={() => setShowCV(true)} />
+        </div>
       </div>
+
+      <FounderCVModal isOpen={showCV} onClose={() => setShowCV(false)} />
     </div>
   );
 };

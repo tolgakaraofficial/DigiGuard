@@ -150,7 +150,7 @@ export const Splash: React.FC<SplashProps> = ({ onEnter }) => {
           className="group inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl btn-cyber font-display font-semibold text-sm tracking-wide"
         >
           <Zap className="h-4 w-4" />
-          <span>Enter the Platform</span>
+          <span>Enter Command Center</span>
           <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
         </button>
 
