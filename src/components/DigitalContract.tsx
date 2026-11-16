@@ -12,34 +12,34 @@ interface DigitalContractProps {
 
 const countries = [
   {
-    code: 'CH', name: 'Isvicre', nameEn: 'Switzerland',
+    code: 'CH', name: 'Switzerland', nameEn: 'Switzerland',
     law: 'Crypto Valley Zug - Blockchain Act',
-    desc: 'Dijital varliklar ve blockchain tabanli kimlik sistemleri icin dunya lideri hukuk cercevesi',
+    desc: 'World-leading legal framework for digital assets and blockchain-based identity systems',
   },
   {
-    code: 'SG', name: 'Singapur', nameEn: 'Singapore',
+    code: 'SG', name: 'Singapore', nameEn: 'Singapore',
     law: 'Smart Nation Initiative - Digital Identity Act',
-    desc: 'Asya-Pasifik dijital kimlik ve veri koruma merkezi, PDPA uyumlu',
+    desc: 'Asia-Pacific digital identity and data protection hub, PDPA compliant',
   },
   {
-    code: 'EE', name: 'Estonya', nameEn: 'Estonia',
+    code: 'EE', name: 'Estonia', nameEn: 'Estonia',
     law: 'e-Residency Program - Digital Identity Law',
-    desc: 'Dunyanin ilk dijital vatandaslik programi, X-Road altyapisi ile guvenli kimlik',
+    desc: 'World\'s first digital citizenship program, secure identity via X-Road infrastructure',
   },
   {
-    code: 'TR', name: 'Turkiye', nameEn: 'Turkey',
-    law: 'KVKK - Kişisel Verilerin Korunması Kanunu',
-    desc: 'Turkiye dijital kimlik koruma ve veri isleme mevzuati',
+    code: 'TR', name: 'Turkey', nameEn: 'Turkey',
+    law: 'KVKK - Personal Data Protection Law',
+    desc: 'Turkey digital identity protection and data processing legislation',
   },
   {
-    code: 'EU', name: 'Avrupa Birligi', nameEn: 'European Union',
+    code: 'EU', name: 'European Union', nameEn: 'European Union',
     law: 'GDPR - General Data Protection Regulation',
-    desc: 'AB genel veri koruma regulasyonu, dijital kimlik haklari',
+    desc: 'EU general data protection regulation, digital identity rights',
   },
   {
-    code: 'US', name: 'ABD', nameEn: 'United States',
+    code: 'US', name: 'United States', nameEn: 'United States',
     law: 'CCPA / State Privacy Laws',
-    desc: 'Amerika Birlilik Devletleri eyalet bazli veri koruma kanunlari',
+    desc: 'United States state-level data protection laws',
   },
 ];
 
@@ -75,9 +75,9 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
           <div className="inline-flex p-3 rounded-2xl cyber-border cyber-glow mb-3">
             <Scale className="h-8 w-8 text-cyber-400" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Kuresel Dijital Sozlesme</h1>
+          <h1 className="text-2xl font-bold text-white">Global Digital Contract</h1>
           <p className="text-xs text-slate-400 mt-1 font-mono">
-            {userType === 'individual' ? 'Bireysel' : 'Kurumsal'} uyelik - Uluslararasi dijital hukuk sozlesmesi
+            {userType === 'individual' ? 'Individual' : 'Corporate'} membership - International digital law contract
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
         <div className="mb-4 flex items-center justify-center gap-2">
           <div className={`flex items-center gap-2 px-4 py-2 rounded-lg border ${userType === 'individual' ? 'bg-cyber-900/30 border-cyber-500/30 text-cyber-300' : 'bg-purple-900/30 border-purple-500/30 text-purple-300'}`}>
             {userType === 'individual' ? <User className="h-4 w-4" /> : <Building2 className="h-4 w-4" />}
-            <span className="text-sm font-semibold">{userType === 'individual' ? 'Bireysel Uyelik' : 'Kurumsal Uyelik'}</span>
+            <span className="text-sm font-semibold">{userType === 'individual' ? 'Individual Membership' : 'Corporate Membership'}</span>
           </div>
         </div>
 
@@ -94,11 +94,11 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
           <div className="flex items-start gap-3">
             <Globe className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
             <div className="text-xs text-blue-200/80 leading-relaxed">
-              <p className="font-semibold text-blue-300 mb-1">Cok Uluslu Dijital Kimlik Sozlesmesi</p>
+              <p className="font-semibold text-blue-300 mb-1">Multinational Digital Identity Contract</p>
               <p>
-                DigiGuard & Cerebro Network, dunyanin farkli ulkelerindeki dijital hukuk sistemleriyle uyumlu calisir.
-                Asagidaki ulkelerin dijital hukuk sozlesmelerini kabul etmeniz gerekmektedir.
-                Bu sozlesmeler, kimlik verilerinizin korunmasi ve dijital haklarinizin guvence altina alinmasi icin hazirlanmistir.
+                DigiGuard & Cerebro Network operates in compliance with digital legal systems across different countries.
+                You must accept the digital law contracts of the countries listed below.
+                These contracts are designed to protect your identity data and safeguard your digital rights.
               </p>
             </div>
           </div>
@@ -158,17 +158,17 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
                       {/* Contract terms */}
                       <div className="space-y-1.5">
                         {userType === 'individual' ? [
-                          'Kimlik verilerimin AES-256 ile sifrelenerek saklanmasini kabul ediyorum',
-                          'Ghost ID / SPON anonim kimlik sistemini kabul ediyorum',
-                          'Biyometrik verilerimin blockchain uzerinde guvenli saklanmasini onayliyorum',
-                          `${country.name} dijital hukuk mevzuatina uymayi kabul ediyorum`,
-                          'Veri ihlali durumunda ilgili mercilere bildirim yapilmasini onayliyorum',
+                          'I agree that my identity data will be stored encrypted with AES-256',
+                          'I accept the Ghost ID / SPON anonymous identity system',
+                          'I consent to my biometric data being securely stored on the blockchain',
+                          `I agree to comply with ${country.name} digital legal regulations`,
+                          'I authorize notification to relevant authorities in the event of a data breach',
                         ] : [
-                          'Sirket verilerinin AES-256 ile sifrelenerek saklanmasini kabul ediyorum',
-                          'Kurumsal Ghost ID / SPON anonim kimlik sistemini kabul ediyorum',
-                          'Sirket yetkilisi biyometrik verilerinin guvenli saklanmasini onayliyorum',
-                          `${country.name} sirket dijital hukuk mevzuatina uymayi kabul ediyorum`,
-                          'KVKK/GDPR kapsaminda veri isleme onayi veriyorum',
+                          'I agree that company data will be stored encrypted with AES-256',
+                          'I accept the corporate Ghost ID / SPON anonymous identity system',
+                          'I consent to the company representative\'s biometric data being securely stored',
+                          `I agree to comply with ${country.name} corporate digital legal regulations`,
+                          'I consent to data processing under KVKK/GDPR regulations',
                         ].map((term, i) => (
                           <div key={i} className="flex items-start gap-2 text-[10px] text-slate-500">
                             <CheckCircle className={`h-3 w-3 mt-0.5 flex-shrink-0 ${accepted ? 'text-matrix-400' : 'text-slate-600'}`} />
@@ -187,10 +187,10 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
           <div className="pt-2">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] text-slate-500 font-mono">
-                {acceptedCountries.size} / {countries.length} ulke kabul edildi
+                {acceptedCountries.size} / {countries.length} countries accepted
               </span>
               <span className="text-[10px] font-mono" style={{ color: allAccepted ? '#39ff14' : '#f59e0b' }}>
-                {allAccepted ? 'TAMAM' : `${Math.round((acceptedCountries.size / countries.length) * 100)}%`}
+                {allAccepted ? 'DONE' : `${Math.round((acceptedCountries.size / countries.length) * 100)}%`}
               </span>
             </div>
             <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -206,7 +206,7 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
           {/* Buttons */}
           <div className="flex gap-2 pt-2">
             <button onClick={onBack} className="px-4 py-2.5 rounded-lg bg-slate-800 text-slate-300 text-sm font-medium flex items-center gap-2 hover:bg-slate-700 transition">
-              <ArrowLeft className="h-4 w-4" /> Geri
+              <ArrowLeft className="h-4 w-4" /> Back
             </button>
             <button
               onClick={handleFinalAccept}
@@ -216,12 +216,12 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
               {processing ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Sozlesme Islemleniyor...
+                  Processing Contract...
                 </>
               ) : (
                 <>
                   <Shield className="h-4 w-4" />
-                  Tum Sozlesmeleri Kabul Et ve Devam Et
+                  Accept All Contracts and Continue
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}
@@ -232,7 +232,7 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
         {/* Security badges */}
         <div className="mt-4 flex items-center justify-center gap-3 text-[10px] text-slate-600">
           <span className="flex items-center gap-1"><Lock className="h-3 w-3" /> AES-256-GCM</span>
-          <span className="flex items-center gap-1"><Shield className="h-3 w-3" /> KVKK / GDPR</span>
+          <span className="flex items-center gap-1"><Shield className="h-3 w-3" /> PDPA / GDPR</span>
           <span className="flex items-center gap-1"><Scale className="h-3 w-3" /> ISO 27001</span>
         </div>
       </div>

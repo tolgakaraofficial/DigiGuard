@@ -25,12 +25,12 @@ interface Product {
 }
 
 const categories = [
-  { key: 'prototype', label: 'Prototip', icon: Cpu, color: '#00e5ff' },
-  { key: 'software', label: 'Yazilim', icon: Code, color: '#39ff14' },
-  { key: 'algorithm', label: 'Matematik/Algoritma', icon: Calculator, color: '#a855f7' },
+  { key: 'prototype', label: 'Prototype', icon: Cpu, color: '#00e5ff' },
+  { key: 'software', label: 'Software', icon: Code, color: '#39ff14' },
+  { key: 'algorithm', label: 'Math/Algorithm', icon: Calculator, color: '#a855f7' },
   { key: 'ai_model', label: 'AI Model', icon: Brain, color: '#f59e0b' },
-  { key: 'template', label: 'Sablon', icon: FileCode, color: '#06b6d4' },
-  { key: 'certificate', label: 'Sertifika', icon: Award, color: '#ef4444' },
+  { key: 'template', label: 'Template', icon: FileCode, color: '#06b6d4' },
+  { key: 'certificate', label: 'Certificate', icon: Award, color: '#ef4444' },
 ];
 
 export const MarketplacePanel: React.FC = () => {
@@ -56,7 +56,7 @@ export const MarketplacePanel: React.FC = () => {
       if (error) throw error;
       setProducts(data || []);
     } catch (err) {
-      console.error('Urunler yuklenirken hata:', err);
+      console.error('Error loading products:', err);
       setProducts([]);
     } finally {
       setLoading(false);
@@ -79,14 +79,14 @@ export const MarketplacePanel: React.FC = () => {
             <ShoppingBag className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white">GOST ID Pazar Yeri</h2>
-            <p className="text-xs text-slate-400">Yazilimcilar, muhendisler ve bilim adamlari icin urun pazar platformu</p>
+            <h2 className="text-lg font-bold text-white">GOST ID Marketplace</h2>
+            <p className="text-xs text-slate-400">Product marketplace for developers, engineers, and scientists</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-matrix-900/30 border border-matrix-500/30">
             <TrendingUp className="h-3.5 w-3.5 text-matrix-400" />
-            <span className="text-xs text-matrix-300 font-mono">50/50 Gelir Paylasimi</span>
+            <span className="text-xs text-matrix-300 font-mono">50/50 Revenue Split</span>
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@ export const MarketplacePanel: React.FC = () => {
               : 'bg-slate-900/60 text-slate-400 border border-slate-700 hover:text-white'
           }`}
         >
-          <ShoppingBag className="h-4 w-4" /> Pazar Yeri
+          <ShoppingBag className="h-4 w-4" /> Marketplace
         </button>
         <button
           onClick={() => setActiveTab('upload')}
@@ -111,7 +111,7 @@ export const MarketplacePanel: React.FC = () => {
               : 'bg-slate-900/60 text-slate-400 border border-slate-700 hover:text-white'
           }`}
         >
-          <Upload className="h-4 w-4" /> Urun Yukle
+          <Upload className="h-4 w-4" /> Upload Product
         </button>
       </div>
 
@@ -126,7 +126,7 @@ export const MarketplacePanel: React.FC = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Urun ara..."
+                placeholder="Search products..."
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-slate-900/80 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50 transition"
               />
             </div>
@@ -139,7 +139,7 @@ export const MarketplacePanel: React.FC = () => {
                     : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-slate-300'
                 }`}
               >
-                Tumu
+                All
               </button>
               {categories.map((cat) => (
                 <button
@@ -163,17 +163,17 @@ export const MarketplacePanel: React.FC = () => {
           {loading ? (
             <div className="text-center py-12">
               <div className="inline-block w-8 h-8 border-2 border-slate-600 border-t-amber-400 rounded-full animate-spin" />
-              <p className="text-sm text-slate-500 mt-3">Yukleniyor...</p>
+              <p className="text-sm text-slate-500 mt-3">Loading...</p>
             </div>
           ) : filteredProducts.length === 0 ? (
             <div className="text-center py-12">
               <ShoppingBag className="h-12 w-12 text-slate-700 mx-auto mb-3" />
-              <p className="text-sm text-slate-500">Henuz urun bulunmuyor</p>
+              <p className="text-sm text-slate-500">No products yet</p>
               <button
                 onClick={() => setActiveTab('upload')}
                 className="mt-4 text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 mx-auto"
               >
-                Ilk urunu yukleyin <ArrowRight className="h-3 w-3" />
+                Upload first product <ArrowRight className="h-3 w-3" />
               </button>
             </div>
           ) : (
@@ -206,7 +206,7 @@ export const MarketplacePanel: React.FC = () => {
 
                     <div className="flex items-center gap-2 mb-3 text-[10px] text-slate-500">
                       <Shield className="h-3 w-3" />
-                      <span className="font-mono">{product.creator_ghost_id?.slice(0, 12) || 'Anonim'}...</span>
+                      <span className="font-mono">{product.creator_ghost_id?.slice(0, 12) || 'Anonymous'}...</span>
                       <span className="ml-auto flex items-center gap-0.5">
                         <Download className="h-3 w-3" /> {product.downloads || 0}
                       </span>
@@ -217,10 +217,10 @@ export const MarketplacePanel: React.FC = () => {
                         <p className="text-lg font-bold text-amber-400">
                           ${product.price}
                         </p>
-                        <p className="text-[9px] text-slate-500">Uretici: ${((product.price || 0) * 0.5).toFixed(2)} | Hazine: ${((product.price || 0) * 0.5).toFixed(2)}</p>
+                        <p className="text-[9px] text-slate-500">Creator: ${((product.price || 0) * 0.5).toFixed(2)} | Treasury: ${((product.price || 0) * 0.5).toFixed(2)}</p>
                       </div>
                       <button className="flex items-center gap-1.5 px-3 py-2 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-xs font-semibold rounded-lg transition-all">
-                        <ShoppingBag className="h-3.5 w-3.5" /> Satin Al
+                        <ShoppingBag className="h-3.5 w-3.5" /> Purchase
                       </button>
                     </div>
                   </div>
@@ -256,7 +256,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
     setError('');
 
     if (!formData.title.trim() || !formData.description.trim() || !formData.price) {
-      setError('Lutfen tum zorunlu alanlari doldurun');
+      setError('Please fill in all required fields');
       return;
     }
 
@@ -264,7 +264,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
 
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('Kullanici bulunamadi');
+      if (!user) throw new Error('User not found');
 
       let fileUrl = '';
       if (file) {
@@ -303,7 +303,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
         onUploaded();
       }, 2000);
     } catch (err: any) {
-      setError(err.message || 'Yukleme sirasinda hata olustu');
+      setError(err.message || 'An error occurred during upload');
     } finally {
       setUploading(false);
     }
@@ -317,8 +317,8 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
             <Upload className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Urun Yukleme Formu</h3>
-            <p className="text-xs text-slate-400">Prototip, yazilim, kod veya matematik algoritmasi yukleyin</p>
+            <h3 className="text-lg font-bold text-white">Product Upload Form</h3>
+            <p className="text-xs text-slate-400">Upload a prototype, software, code, or math algorithm</p>
           </div>
         </div>
 
@@ -329,8 +329,8 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
               <Zap className="h-4 w-4 text-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">Gelir Paylasimi: %50 / %50</p>
-              <p className="text-xs text-slate-400">Her satisin %50'si ureticiye, %50'si proje hazinesine</p>
+              <p className="text-sm font-semibold text-white">Revenue Split: 50% / 50%</p>
+              <p className="text-xs text-slate-400">50% of each sale goes to the creator, 50% to the project treasury</p>
             </div>
           </div>
         </div>
@@ -338,7 +338,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
         {success && (
           <div className="bg-matrix-900/30 border border-matrix-500/50 rounded-lg p-4 mb-4 flex items-center gap-2">
             <CheckCircle className="h-5 w-5 text-matrix-400" />
-            <p className="text-sm text-matrix-300">Urun basariyla yuklendi! Onay sonrasi pazar yerinde yayinlanacak.</p>
+            <p className="text-sm text-matrix-300">Product uploaded successfully! It will be published in the marketplace after approval.</p>
           </div>
         )}
 
@@ -353,7 +353,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Tag className="inline h-4 w-4 mr-1" />
-              Urun Adi *
+              Product Name *
             </label>
             <input
               type="text"
@@ -361,13 +361,13 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="w-full px-4 py-2.5 bg-slate-900/60 border border-slate-700 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm"
-              placeholder="Orn: Kuantum Direnc Algoritmasi v2.0"
+              placeholder="e.g. Quantum Resistance Algorithm v2.0"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Aciklama *
+              Description *
             </label>
             <textarea
               required
@@ -375,14 +375,14 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={3}
               className="w-full px-4 py-2.5 bg-slate-900/60 border border-slate-700 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm resize-none"
-              placeholder="Urununuzun ne yaptigini ve nasil calistigini aciklayin..."
+              placeholder="Describe what your product does and how it works..."
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
-                Kategori *
+                Category *
               </label>
               <select
                 value={formData.category}
@@ -398,7 +398,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
                 <DollarSign className="inline h-4 w-4 mr-1" />
-                Fiyat (USD) *
+                Price (USD) *
               </label>
               <input
                 type="number"
@@ -416,7 +416,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <FileCode className="inline h-4 w-4 mr-1" />
-              Dosya Yukle
+              Upload File
             </label>
             <div className="border-2 border-dashed border-slate-700 rounded-lg p-6 text-center hover:border-cyber-500/50 transition-colors">
               <input
@@ -428,7 +428,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
               <label htmlFor="file-upload" className="cursor-pointer">
                 <Upload className="h-8 w-8 text-slate-500 mx-auto mb-2" />
                 <p className="text-sm text-slate-400">
-                  {file ? file.name : 'Dosya secmek icin tiklayin'}
+                  {file ? file.name : 'Click to select a file'}
                 </p>
                 <p className="text-[10px] text-slate-600 mt-1">.zip, .py, .js, .ts, .cpp, .pdf, .ipynb</p>
               </label>
@@ -438,15 +438,15 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
           {/* Revenue Preview */}
           {formData.price && parseFloat(formData.price) > 0 && (
             <div className="bg-slate-900/60 rounded-lg p-4 border border-slate-700">
-              <p className="text-xs text-slate-500 mb-2">Gelir Paylasimi Onizleme</p>
+              <p className="text-xs text-slate-500 mb-2">Revenue Split Preview</p>
               <div className="grid grid-cols-2 gap-3">
                 <div className="text-center">
                   <p className="text-lg font-bold text-matrix-400">${(parseFloat(formData.price) * 0.5).toFixed(2)}</p>
-                  <p className="text-[10px] text-slate-500">Uretici (%50)</p>
+                  <p className="text-[10px] text-slate-500">Creator (50%)</p>
                 </div>
                 <div className="text-center">
                   <p className="text-lg font-bold text-amber-400">${(parseFloat(formData.price) * 0.5).toFixed(2)}</p>
-                  <p className="text-[10px] text-slate-500">Proje Hazinesi (%50)</p>
+                  <p className="text-[10px] text-slate-500">Project Treasury (50%)</p>
                 </div>
               </div>
             </div>
@@ -460,11 +460,11 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
             {uploading ? (
               <>
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Yukleniyor...
+                Uploading...
               </>
             ) : (
               <>
-                <Upload className="h-4 w-4" /> Urunu Yukle
+                <Upload className="h-4 w-4" /> Upload Product
               </>
             )}
           </button>

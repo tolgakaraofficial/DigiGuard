@@ -61,7 +61,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleString('tr-TR');
+    return new Date(dateString).toLocaleString('en-US');
   };
 
   const criticalEvents = securityEvents.filter(e => e.severity === 'critical').length;
@@ -75,7 +75,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
             <Shield className="h-8 w-8 text-cyan-400" />
             <span className="text-2xl font-bold text-white">{auditLogs.length}</span>
           </div>
-          <p className="text-slate-400 text-sm">Toplam İşlem</p>
+          <p className="text-slate-400 text-sm">Total Operations</p>
         </div>
 
         <div className="bg-slate-800 rounded-xl p-6 border border-slate-700">
@@ -83,7 +83,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
             <AlertTriangle className="h-8 w-8 text-yellow-400" />
             <span className="text-2xl font-bold text-white">{securityEvents.length}</span>
           </div>
-          <p className="text-slate-400 text-sm">Güvenlik Olayı</p>
+          <p className="text-slate-400 text-sm">Security Events</p>
         </div>
 
         <div className="bg-slate-800 rounded-xl p-6 border border-red-700">
@@ -91,7 +91,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
             <XCircle className="h-8 w-8 text-red-400" />
             <span className="text-2xl font-bold text-red-400">{criticalEvents}</span>
           </div>
-          <p className="text-slate-400 text-sm">Kritik Olay</p>
+          <p className="text-slate-400 text-sm">Critical Events</p>
         </div>
 
         <div className="bg-slate-800 rounded-xl p-6 border border-orange-700">
@@ -99,7 +99,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
             <AlertTriangle className="h-8 w-8 text-orange-400" />
             <span className="text-2xl font-bold text-orange-400">{highEvents}</span>
           </div>
-          <p className="text-slate-400 text-sm">Yüksek Risk</p>
+          <p className="text-slate-400 text-sm">High Risk</p>
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
         <div className="bg-gradient-to-r from-red-600 to-orange-600 p-4">
           <h3 className="text-xl font-bold text-white flex items-center gap-2">
             <Shield className="h-6 w-6" />
-            Güvenlik Olayları
+            Security Events
           </h3>
         </div>
 
@@ -115,13 +115,13 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
           {loading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-cyan-500 border-t-transparent"></div>
-              <p className="text-slate-400 mt-4">Yükleniyor...</p>
+              <p className="text-slate-400 mt-4">Loading...</p>
             </div>
           ) : securityEvents.length === 0 ? (
             <div className="text-center py-12">
               <Shield className="h-16 w-16 text-green-500 mx-auto mb-4" />
-              <p className="text-slate-400">Güvenlik olayı bulunamadı</p>
-              <p className="text-sm text-slate-500 mt-2">Sisteminiz güvenli görünüyor</p>
+              <p className="text-slate-400">No security events found</p>
+              <p className="text-sm text-slate-500 mt-2">Your system appears to be secure</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -163,7 +163,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
 
                   {showDetails === event.id && event.metadata && (
                     <div className="mt-4 pt-4 border-t border-slate-700">
-                      <p className="text-sm text-slate-400 mb-2">Detaylar:</p>
+                      <p className="text-sm text-slate-400 mb-2">Details:</p>
                       <pre className="text-xs text-slate-300 bg-slate-950 p-3 rounded overflow-x-auto">
                         {JSON.stringify(event.metadata, null, 2)}
                       </pre>
@@ -180,7 +180,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
         <div className="bg-gradient-to-r from-cyan-600 to-blue-600 p-4">
           <h3 className="text-xl font-bold text-white flex items-center gap-2">
             <Activity className="h-6 w-6" />
-            Denetim Günlükleri
+            Audit Logs
           </h3>
         </div>
 
@@ -188,12 +188,12 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
           {loading ? (
             <div className="text-center py-12">
               <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-cyan-500 border-t-transparent"></div>
-              <p className="text-slate-400 mt-4">Yükleniyor...</p>
+              <p className="text-slate-400 mt-4">Loading...</p>
             </div>
           ) : auditLogs.length === 0 ? (
             <div className="text-center py-12">
               <Activity className="h-16 w-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">Henüz işlem geçmişi yok</p>
+              <p className="text-slate-400">No activity history yet</p>
             </div>
           ) : (
             <div className="space-y-3">
