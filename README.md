@@ -180,7 +180,7 @@ Karprime Technology Inc. is the institutional home of the DigiGuard & Cerebro Pr
 |---|---|
 | ✉️ Email | tlgkr66@gmail.com |
 | 🐙 GitHub | https://github.com/tolgakaraofficial |
-| 💼 LinkedIn | https://www.linkedin.com/in/tolga-kara-53b953323/ |
+| 💼 LinkedIn | https://www.linkedin.com/in/tolgakaraofficial/ |
 | 📝 Medium | https://medium.com/@tolgakaraofficiall |
 | 🎥 YouTube | https://www.youtube.com/@karprimetechnology |
 | 📄 GitHub README | https://github.com/tolgakaraofficial/DigiGuard/blob/main/README.md |
