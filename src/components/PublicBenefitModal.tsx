@@ -17,7 +17,7 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
             <div className="bg-gradient-to-r from-pink-500 to-rose-500 p-2.5 rounded-lg">
               <Heart className="h-6 w-6 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">Kamu Yarari ve Sosyal Etki</h2>
+            <h2 className="text-2xl font-bold text-white">Public Benefiti ve Social ki</h2>
           </div>
           <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
             <X className="h-6 w-6" />
@@ -31,14 +31,14 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
             </h3>
             <p className="text-slate-200 leading-relaxed">
               DigiGuard, sadece bir teknoloji platformu degil, ayni zamanda toplumsal fayda yaratan bir sosyal sorumluluk projesidir.
-              Kimlik hirsizligi, sahtecilik ve veri ihlallerine karsi toplumu korumak icin calısiyoruz.
+              Identity hirsizligi, sahtecilik ve veri ihlallerine karsi toplumu korumak icin calisiyoruz.
             </p>
           </div>
 
           <div className="space-y-4">
             <h3 className="text-xl font-semibold text-white flex items-center">
               <Users className="h-5 w-5 text-blue-400 mr-2" />
-              Toplumsal Fayda Alanlari
+              Toplumsal Fayda Getanlari
             </h3>
 
             <div className="grid md:grid-cols-2 gap-4">
@@ -47,15 +47,15 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
                   <div className="bg-blue-600 p-2 rounded-lg">
                     <Shield className="h-5 w-5 text-white" />
                   </div>
-                  <h4 className="font-semibold text-white">Kimlik Hirsizliginin Onlenmesi</h4>
+                  <h4 className="font-semibold text-white">Identity Hirsizliginin Onlenmesi</h4>
                 </div>
                 <p className="text-slate-300 text-sm leading-relaxed mb-3">
-                  Her yil milyonlarca insan kimlik hirsizliginin magduru oluyor. DigiGuard, biyometrik dogrulama
+                  Her yil milyonlarca insan kimlik hirsizliginin magduru oluyor. DigiGuard, biyometrik verification
                   ve blockchain teknolojisi ile kimliklerinizi koruyor, sahtecilik oranlarini %95 oraninda azaltiyor.
                 </p>
                 <div className="flex items-center text-xs text-blue-400">
                   <TrendingUp className="h-3 w-3 mr-1" />
-                  <span>Yillik 2M+ kimlik hirsizligi onleniyor</span>
+                  <span>Annual 2M+ kimlik hirsizligi onleniyor</span>
                 </div>
               </div>
 
@@ -64,10 +64,10 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
                   <div className="bg-green-600 p-2 rounded-lg">
                     <Heart className="h-5 w-5 text-white" />
                   </div>
-                  <h4 className="font-semibold text-white">Sosyal Yardimlarda Seffaflik</h4>
+                  <h4 className="font-semibold text-white">Social Helplarda Seffaflik</h4>
                 </div>
                 <p className="text-slate-300 text-sm leading-relaxed mb-3">
-                  Devlet yardimlari ve hayir kurumlari, DigiGuard ile dogru ihtiyac sahiplerine ulasabiliyor.
+                  Government yardimlari ve hayir institutionlari, DigiGuard ile dogru ihtiyac ownlerine ulasabiliyor.
                   Cift kayit ve sahtecilik engelleniyor, kaynaklar verimli kullaniliyor.
                 </p>
                 <div className="flex items-center text-xs text-green-400">
@@ -84,7 +84,7 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
                   <h4 className="font-semibold text-white">Dijital Esitlik ve Kapsayicilik</h4>
                 </div>
                 <p className="text-slate-300 text-sm leading-relaxed mb-3">
-                  Herkes icin erisilebilir dijital kimlik hizmetleri sunuyoruz. Engelli bireylere ozel arayuzler,
+                  Herkes icin erisilebilir dijital kimlik services sunuyoruz. Engelli bireylere ozel arayuzler,
                   dusuk gelirli kesimler icin ucretsiz temel hizmetler ve yaslilara teknik destek.
                 </p>
                 <div className="flex items-center text-xs text-purple-400">
@@ -98,11 +98,11 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
                   <div className="bg-orange-600 p-2 rounded-lg">
                     <Users className="h-5 w-5 text-white" />
                   </div>
-                  <h4 className="font-semibold text-white">Multeci ve Gocmenlere Destek</h4>
+                  <h4 className="font-semibold text-white">Multeci ve Gocmenlere Support</h4>
                 </div>
                 <p className="text-slate-300 text-sm leading-relaxed mb-3">
-                  Kimlik belgelerini kaybetmis multeci ve gocmenler, DigiGuard ile yeni yasam alanlarina
-                  entegre olabiliyor. Biyometrik kimlik, saglik, egitim ve istihdam hizmetlerine erisimi kolaylastiriyor.
+                  Identity belgelerini kaybetmis multeci ve gocmenler, DigiGuard ile yeni yasam alanlarina
+                  entegre olabiliyor. Biyometrik kimlik, saglik, egitim ve istihdam servicesne erisimi kolaylastiriyor.
                 </p>
                 <div className="flex items-center text-xs text-orange-400">
                   <TrendingUp className="h-3 w-3 mr-1" />
@@ -115,31 +115,31 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
           <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-500/30 rounded-xl p-6">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center">
               <CheckCircle className="h-5 w-5 mr-2 text-green-400" />
-              Ekonomik ve Sosyal Etkiler
+              Ekonomik ve Social kiler
             </h3>
 
             <div className="space-y-3">
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2">Ekonomik Buyumeye Katki</h4>
                 <p className="text-slate-300 text-sm">
-                  Dijital kimlik altyapisi, online ticaretin buyumesini hizlandiriyor. Guvenlı KYC sureciyle
-                  e-ticaret hacmi artıyor, ekonomiye yillik $50B+ katki saglanıyor.
+                  Dijital kimlik altyapisi, online ticaretin buyumesini hizlandiriyor. Guvenli KYC sureciyle
+                  e-ticaret hacmi artiyor, ekonomiye yillik $50B+ katki saglaniyor.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
-                <h4 className="font-semibold text-white mb-2">Isgucu Piyasasina Erisim</h4>
+                <h4 className="font-semibold text-white mb-2">Isgucu Piyasasina Reach</h4>
                 <p className="text-slate-300 text-sm">
                   Dogrulanmis dijital kimlik profilleri, ise basvuru sureclerini hizlandiriyor. Issizlik orani
-                  azaliyor, kalifiye elemanlara erisim kolaylasıyor.
+                  azaliyor, kalifiye elemanlara erisim kolaylasiyor.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
-                <h4 className="font-semibold text-white mb-2">Egitim ve Saglik Hizmetlerine Erisim</h4>
+                <h4 className="font-semibold text-white mb-2">Egitim ve Saglik Servicelerine Reach</h4>
                 <p className="text-slate-300 text-sm">
-                  Kimlik dogrulamasi ile online egitim platformlarina kayit, hasta randevulari ve teletip
-                  hizmetleri daha guvenlı hale geliyor. Herkese esit erişim saglanıyor.
+                  Identity verification ile online egitim platformlarina kayit, hasta randevulari ve teletip
+                  services daha guvenli hale geliyor. Herkese esit erisim saglaniyor.
                 </p>
               </div>
 
@@ -147,7 +147,7 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
                 <h4 className="font-semibold text-white mb-2">Kadin ve Cocuk Haklari</h4>
                 <p className="text-slate-300 text-sm">
                   Kadinlarin ve cocuklarin kimlik haklari DigiGuard ile korunuyor. Zorla evlilik, insan ticareti
-                  ve cocuk istismari vakalarinda kimlik dogrulamasi kritik rol oynuyor.
+                  ve cocuk istismari vakalarinda identity verification kritik rol oynuyor.
                 </p>
               </div>
             </div>
@@ -156,16 +156,16 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
           <div className="bg-gradient-to-r from-blue-900/30 to-cyan-900/30 border border-blue-500/30 rounded-xl p-5">
             <h4 className="font-semibold text-white mb-3 flex items-center">
               <Sparkles className="h-5 w-5 mr-2 text-cyan-400" />
-              Sosyal Sorumluluk Projelerimiz
+              Social Questionmluluk Projelerimiz
             </h4>
             <div className="space-y-2 text-sm text-slate-300">
               <p className="flex items-start">
                 <CheckCircle className="h-4 w-4 mr-2 mt-0.5 text-green-400 flex-shrink-0" />
-                <span>Gelisim guzergahindaki ulkelerde ucretsiz temel kimlik hizmetleri</span>
+                <span>Gelisim guzergahindaki ulkelerde ucretsiz temel kimlik services</span>
               </p>
               <p className="flex items-start">
                 <CheckCircle className="h-4 w-4 mr-2 mt-0.5 text-green-400 flex-shrink-0" />
-                <span>Okullarda dijital okuryazarlik ve siber guvenlik egitim programlari</span>
+                <span>Okullarda dijital okuryazarlik ve siber security egitim programlari</span>
               </p>
               <p className="flex items-start">
                 <CheckCircle className="h-4 w-4 mr-2 mt-0.5 text-green-400 flex-shrink-0" />
@@ -173,17 +173,17 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
               </p>
               <p className="flex items-start">
                 <CheckCircle className="h-4 w-4 mr-2 mt-0.5 text-green-400 flex-shrink-0" />
-                <span>Acil durum ve dogal afetlerde hizli kimlik kurtarma sistemleri</span>
+                <span>Openil durum ve dogal afetlerde fast kimlik kurtarma sistemleri</span>
               </p>
               <p className="flex items-start">
                 <CheckCircle className="h-4 w-4 mr-2 mt-0.5 text-green-400 flex-shrink-0" />
-                <span>STK ve hayir kurumlarina %50 indirimli kurumsal paketler</span>
+                <span>STK ve hayir institutionlarina %50 indirimli institutionsal paketler</span>
               </p>
             </div>
           </div>
 
           <div className="bg-slate-700/30 rounded-lg p-5 border border-slate-600">
-            <h4 className="font-semibold text-white mb-3">Toplumsal Etki Raporlari</h4>
+            <h4 className="font-semibold text-white mb-3">Toplumsal ki Reportlari</h4>
             <p className="text-slate-300 text-sm mb-3">
               Her yil toplumsal etki raporlarimizi yayinliyoruz. Seffaflik ilkemiz geregi, ne kadar insana
               ulastigimizi, hangi alanlarda fayda sagladigimizi ve gelecek hedeflerimizi acik acik paylasiyoruz.
@@ -191,15 +191,15 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
             <div className="grid grid-cols-3 gap-3">
               <div className="bg-slate-800/50 rounded p-3 text-center">
                 <div className="text-2xl font-bold text-blue-400 mb-1">15M+</div>
-                <p className="text-xs text-slate-400">Korunan Kimlik</p>
+                <p className="text-xs text-slate-400">Korunan Identity</p>
               </div>
               <div className="bg-slate-800/50 rounded p-3 text-center">
                 <div className="text-2xl font-bold text-green-400 mb-1">98%</div>
-                <p className="text-xs text-slate-400">Sahtecilik Onleme</p>
+                <p className="text-xs text-slate-400">Fakecilik Onleme</p>
               </div>
               <div className="bg-slate-800/50 rounded p-3 text-center">
                 <div className="text-2xl font-bold text-purple-400 mb-1">120+</div>
-                <p className="text-xs text-slate-400">Ulke ve Bolge</p>
+                <p className="text-xs text-slate-400">Country ve Region</p>
               </div>
             </div>
           </div>
@@ -210,7 +210,7 @@ export const PublicBenefitModal: React.FC<PublicBenefitModalProps> = ({ isOpen, 
             onClick={onClose}
             className="w-full bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-medium py-3 px-4 rounded-lg transition-all"
           >
-            Kapat
+            Close
           </button>
         </div>
       </div>

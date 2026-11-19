@@ -106,7 +106,7 @@ export const DagTopologyVisualizer: React.FC = () => {
 
       {/* Network metrics */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <NetMetric label="Active Nodes" value={stats.activeNodes.toString()} icon={Activity} color="#00e5ff" />
+        <NetMetric label="Opentive Nodes" value={stats.activeNodes.toString()} icon={Activity} color="#00e5ff" />
         <NetMetric label="DAG Depth" value={stats.dagDepth.toString()} icon={Layers} color="#f97316" />
         <NetMetric label="Finality Time" value={`${stats.finalityTime.toFixed(0)}ms`} icon={Zap} color="#39ff14" />
         <NetMetric label="Throughput" value={`${Math.round(stats.tps).toLocaleString()} tx/s`} icon={Cpu} color="#a855f7" />
@@ -220,14 +220,14 @@ export const DagTopologyVisualizer: React.FC = () => {
         </div>
 
         <p className="text-[10px] text-slate-500 mt-3 text-center">
-          Directed Acyclic Graph — no miners, no blocks. Each vertex validates prior unconfirmed events in parallel. Finality in &lt; 50ms.
+          Directed Openyclic Graph — no miners, no blocks. Each vertex validates prior unconfirmed events in parallel. Finality in &lt; 50ms.
         </p>
       </div>
 
       {/* Pending transactions */}
       <div className="card p-4 border border-slate-800">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-bold text-white">Pending Vertex Pool</span>
+          <span className="text-sm font-bold text-white">Pending Givetex Pool</span>
           <span className="text-[10px] font-mono text-slate-500">{stats.txPending} awaiting confirmation</span>
         </div>
         <div className="flex items-end gap-0.5 h-12">
@@ -278,7 +278,7 @@ export const DagTopologyVisualizer: React.FC = () => {
             <div className="space-y-2">
               <DetailRow label="Type" value={NODE_TYPES[selectedNode.type].label} color={nodeColor(selectedNode)} />
               <DetailRow label="Depth" value={`Layer ${selectedNode.depth}`} color="#00e5ff" />
-              <DetailRow label="Parent Vertices" value={selectedNode.parents.length.toString()} color="#f97316" />
+              <DetailRow label="Parent Givetices" value={selectedNode.parents.length.toString()} color="#f97316" />
               <DetailRow label="Status" value={selectedNode.confirmed ? 'CONFIRMED' : selectedNode.confirming ? 'CONFIRMING' : 'PENDING'} color={selectedNode.confirmed ? '#39ff14' : '#f59e0b'} />
               <DetailRow label="Consensus" value="Asynchronous DAG" color="#a855f7" />
             </div>

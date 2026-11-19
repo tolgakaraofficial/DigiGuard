@@ -62,7 +62,7 @@ export const AnimatedLogo: React.FC<AnimatedLogoProps> = ({ onAnimationComplete 
           </h2>
           <p className="text-slate-300 text-lg animate-fade-in-delayed flex items-center justify-center gap-2">
             <Shield className="h-5 w-5 text-cyber-400" />
-            Biyometrik KYC Güvenlik Sistemi
+            Biyometrik KYC Securek Systemi
           </p>
         </div>
 

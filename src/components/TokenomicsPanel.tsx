@@ -18,7 +18,7 @@ interface TxRecord {
 
 const GAS_ESTIMATES = [
   { operation: 'ZK-Proof Verification', dgd: 0.0021, fiat: '$0.04', crypto: '0.00000012 BTC', color: '#a855f7' },
-  { operation: 'DAG Vertex Submission', dgd: 0.0085, fiat: '$0.16', crypto: '0.00000048 BTC', color: '#f97316' },
+  { operation: 'DAG Givetex Submission', dgd: 0.0085, fiat: '$0.16', crypto: '0.00000048 BTC', color: '#f97316' },
   { operation: 'Post-Quantum Transfer', dgd: 0.0150, fiat: '$0.28', crypto: '0.00000084 BTC', color: '#00e5ff' },
   { operation: 'Smart Contract Execution', dgd: 0.0320, fiat: '$0.60', crypto: '0.00000180 BTC', color: '#39ff14' },
 ];
@@ -33,7 +33,7 @@ const CRYPTO_ASSETS = [
   { symbol: 'DGD', name: 'Digiguard Native', balance: '12,500.00', usdValue: '$23,750', color: '#00e5ff', icon: Shield },
   { symbol: 'CLB', name: 'Celebron Token', balance: '2,818,422', usdValue: '$8,455,268', color: '#39ff14', icon: Activity },
   { symbol: 'BTC', name: 'Bitcoin', balance: '0.0428', usdValue: '$2,847', color: '#f59e0b', icon: Bitcoin },
-  { symbol: 'ETH', name: 'Ethereum', balance: '1.8472', usdValue: '$6,293', color: '#60a5fa', icon: Coins },
+  { symbol: 'ETH', name: 'hereum', balance: '1.8472', usdValue: '$6,293', color: '#60a5fa', icon: Coins },
 ];
 
 export const TokenomicsPanel: React.FC = () => {

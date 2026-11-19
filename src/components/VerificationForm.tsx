@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, CheckCircle, RotateCcw, AlertCircle, Camera, Scan, Fingerprint, UserCheck, Ghost, KeyRound, Lock, RefreshCw, Activity, ShieldCheck, Zap, AlertTriangle, Layers } from 'lucide-react';
 
-interface VerificationFormProps {
+interface DataficationFormProps {
   email: string;
   phone: string;
-  onVerify: () => void;
+  onDatafy: () => void;
 }
 
 type PUKOPhase = 'proactive' | 'warning' | 'protection' | 'repair';
 
-export const VerificationForm: React.FC<VerificationFormProps> = ({
+export const DataficationForm: React.FC<DataficationFormProps> = ({
   email,
   phone,
-  onVerify,
+  onDatafy,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [kycStatus, setKycStatus] = useState({
-    faceVerification: false,
-    documentVerification: false,
+    faceDatafication: false,
+    documentDatafication: false,
     biometricScan: false,
   });
   const [ghostId, setGhostId] = useState('');
@@ -27,7 +27,7 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
   const [pukoPhase, setPukoPhase] = useState<PUKOPhase>('proactive');
 
   const generateHex = (len: number) => Array.from({ length: len }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-  const allVerified = kycStatus.faceVerification && kycStatus.documentVerification && kycStatus.biometricScan;
+  const allDatafied = kycStatus.faceDatafication && kycStatus.documentDatafication && kycStatus.biometricScan;
 
   // PUKO cycle animation
   useEffect(() => {
@@ -42,7 +42,7 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
 
   // Ghost ID / SPON / SOFTON flow
   useEffect(() => {
-    if (allVerified && ghostStep === 0) {
+    if (allDatafied && ghostStep === 0) {
       setGhostStep(1);
       const runFlow = async () => {
         await new Promise(r => setTimeout(r, 800));
@@ -57,19 +57,19 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
       };
       runFlow();
     }
-  }, [allVerified, ghostStep]);
+  }, [allDatafied, ghostStep]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!allVerified) {
-      alert('Lütfen tüm doğrulama adımlarını tamamlayın.');
+    if (!allDatafied) {
+      alert('Please tum verification adimlarini tamamlayin.');
       return;
     }
 
     setIsLoading(true);
     await new Promise(resolve => setTimeout(resolve, 1500));
-    onVerify();
+    onDatafy();
     setIsLoading(false);
   };
 
@@ -90,10 +90,10 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
             </div>
           </div>
           <h2 className="text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent mb-2">
-            KYC Kimlik Doğrulama
+            KYC Identity Verification
           </h2>
           <p className="text-slate-300 text-sm">
-            Biyometrik doğrulama + Ghost ID / SPON / SOFTON protokolü
+            Biyometrik verification + Ghost ID / SPON / SOFTON protokolu
           </p>
         </div>
 
@@ -102,38 +102,38 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
             <AlertCircle className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
             <div>
               <p className="text-blue-200 text-sm">
-                <span className="font-semibold">Kullanıcı Bilgileri:</span>
+                <span className="font-semibold">User Informationleri:</span>
               </p>
-              <p className="text-blue-300 text-xs mt-1">E-posta: {email}</p>
-              <p className="text-blue-300 text-xs">Telefon: {phone}</p>
+              <p className="text-blue-300 text-xs mt-1">Email: {email}</p>
+              <p className="text-blue-300 text-xs">Phone: {phone}</p>
             </div>
           </div>
         </div>
 
-        {/* PUKO Dongusu Status */}
+        {/* PUKO Cycle Status */}
         <div className="mb-6 p-3 rounded-lg border" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(0,229,255,0.15)' }}>
           <div className="flex items-center gap-2 mb-2">
             <Activity className="h-4 w-4" style={{ color: '#00e5ff' }} />
-            <span className="text-xs font-bold text-white">PUKO Dongusu (Proaktif-Uyari-Koruma-Onarim)</span>
+            <span className="text-xs font-bold text-white">PUKO Cycle (Proaktif-Uyari-Koruma-Onarim)</span>
           </div>
           <div className="flex items-center justify-between gap-1">
             {pukoPhases.map((p) => {
-              const isActive = pukoPhase === p.phase;
+              const isOpentive = pukoPhase === p.phase;
               return (
                 <div key={p.phase} className="flex flex-col items-center gap-1 flex-1">
                   <div
                     className="p-2 rounded-lg transition-all"
                     style={{
-                      background: isActive ? `${p.color}20` : 'rgba(2,6,23,0.8)',
-                      border: `1px solid ${isActive ? `${p.color}60` : 'rgba(255,255,255,0.05)'}`,
+                      background: isOpentive ? `${p.color}20` : 'rgba(2,6,23,0.8)',
+                      border: `1px solid ${isOpentive ? `${p.color}60` : 'rgba(255,255,255,0.05)'}`,
                     }}
                   >
                     <p.icon
-                      className={`h-4 w-4 ${isActive ? 'animate-pulse' : ''}`}
-                      style={{ color: isActive ? p.color : '#475569' }}
+                      className={`h-4 w-4 ${isOpentive ? 'animate-pulse' : ''}`}
+                      style={{ color: isOpentive ? p.color : '#475569' }}
                     />
                   </div>
-                  <span className="text-[9px] font-mono" style={{ color: isActive ? p.color : '#475569' }}>{p.label}</span>
+                  <span className="text-[9px] font-mono" style={{ color: isOpentive ? p.color : '#475569' }}>{p.label}</span>
                 </div>
               );
             })}
@@ -142,50 +142,50 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-3">
-            {/* Face Verification */}
-            <div className={`flex items-center justify-between p-4 rounded-lg transition-all ${kycStatus.faceVerification ? 'bg-green-900/30 border-2 border-green-500/50' : 'bg-slate-700/50 border-2 border-slate-600 hover:border-slate-500'}`}>
+            {/* Face Datafication */}
+            <div className={`flex items-center justify-between p-4 rounded-lg transition-all ${kycStatus.faceDatafication ? 'bg-green-900/30 border-2 border-green-500/50' : 'bg-slate-700/50 border-2 border-slate-600 hover:border-slate-500'}`}>
               <div className="flex items-center space-x-3">
-                <Camera className={`h-6 w-6 ${kycStatus.faceVerification ? 'text-green-400' : 'text-slate-400'}`} />
+                <Camera className={`h-6 w-6 ${kycStatus.faceDatafication ? 'text-green-400' : 'text-slate-400'}`} />
                 <div>
-                  <p className={`text-sm font-semibold ${kycStatus.faceVerification ? 'text-green-300' : 'text-slate-200'}`}>
-                    Yüz Tarama ve Canlılık Tespiti
+                  <p className={`text-sm font-semibold ${kycStatus.faceDatafication ? 'text-green-300' : 'text-slate-200'}`}>
+                    Face Scan ve Canlilik Detectioni
                   </p>
-                  <p className="text-xs text-slate-400">Kamera ile yüz doğrulama ve canlılık kontrolü</p>
+                  <p className="text-xs text-slate-400">Kamera ile yuz verification ve canlilik kontrolu</p>
                 </div>
               </div>
-              {kycStatus.faceVerification ? (
+              {kycStatus.faceDatafication ? (
                 <CheckCircle className="h-6 w-6 text-green-400" />
               ) : (
                 <button
                   type="button"
-                  onClick={() => setKycStatus({...kycStatus, faceVerification: true})}
+                  onClick={() => setKycStatus({...kycStatus, faceDatafication: true})}
                   className="text-sm bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white px-4 py-2 rounded-lg transition-all font-semibold"
                 >
-                  Başlat
+                  Start
                 </button>
               )}
             </div>
 
-            {/* Document Verification */}
-            <div className={`flex items-center justify-between p-4 rounded-lg transition-all ${kycStatus.documentVerification ? 'bg-green-900/30 border-2 border-green-500/50' : 'bg-slate-700/50 border-2 border-slate-600 hover:border-slate-500'}`}>
+            {/* Document Datafication */}
+            <div className={`flex items-center justify-between p-4 rounded-lg transition-all ${kycStatus.documentDatafication ? 'bg-green-900/30 border-2 border-green-500/50' : 'bg-slate-700/50 border-2 border-slate-600 hover:border-slate-500'}`}>
               <div className="flex items-center space-x-3">
-                <Scan className={`h-6 w-6 ${kycStatus.documentVerification ? 'text-green-400' : 'text-slate-400'}`} />
+                <Scan className={`h-6 w-6 ${kycStatus.documentDatafication ? 'text-green-400' : 'text-slate-400'}`} />
                 <div>
-                  <p className={`text-sm font-semibold ${kycStatus.documentVerification ? 'text-green-300' : 'text-slate-200'}`}>
-                    Kimlik Belgesi Tarama
+                  <p className={`text-sm font-semibold ${kycStatus.documentDatafication ? 'text-green-300' : 'text-slate-200'}`}>
+                    Identity Documentsi Scan
                   </p>
-                  <p className="text-xs text-slate-400">TC Kimlik, Pasaport veya Ehliyet doğrulama</p>
+                  <p className="text-xs text-slate-400">TC Identity, Passport veya Ehliyet verification</p>
                 </div>
               </div>
-              {kycStatus.documentVerification ? (
+              {kycStatus.documentDatafication ? (
                 <CheckCircle className="h-6 w-6 text-green-400" />
               ) : (
                 <button
                   type="button"
-                  onClick={() => setKycStatus({...kycStatus, documentVerification: true})}
+                  onClick={() => setKycStatus({...kycStatus, documentDatafication: true})}
                   className="text-sm bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white px-4 py-2 rounded-lg transition-all font-semibold"
                 >
-                  Tarayın
+                  Tarayin
                 </button>
               )}
             </div>
@@ -196,9 +196,9 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
                 <Fingerprint className={`h-6 w-6 ${kycStatus.biometricScan ? 'text-green-400' : 'text-slate-400'}`} />
                 <div>
                   <p className={`text-sm font-semibold ${kycStatus.biometricScan ? 'text-green-300' : 'text-slate-200'}`}>
-                    Biyometrik Veri Tarama
+                    Biyometrik Data Scan
                   </p>
-                  <p className="text-xs text-slate-400">Parmak izi veya retina taraması</p>
+                  <p className="text-xs text-slate-400">Parmak izi veya retina taramasi</p>
                 </div>
               </div>
               {kycStatus.biometricScan ? (
@@ -209,18 +209,18 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
                   onClick={() => setKycStatus({...kycStatus, biometricScan: true})}
                   className="text-sm bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white px-4 py-2 rounded-lg transition-all font-semibold"
                 >
-                  Tarayın
+                  Tarayin
                 </button>
               )}
             </div>
           </div>
 
           {/* Ghost ID / SPON / SOFTON Flow */}
-          {allVerified && (
+          {allDatafied && (
             <div className="p-4 rounded-lg border-2 animate-fadeIn" style={{ background: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.3)' }}>
               <div className="flex items-center gap-2 mb-3">
                 <Ghost className="h-5 w-5" style={{ color: '#a855f7' }} />
-                <h3 className="text-sm font-bold text-white">Ghost ID / SPON / SOFTON Akışı</h3>
+                <h3 className="text-sm font-bold text-white">Ghost ID / SPON / SOFTON Akisi</h3>
                 {ghostStep === 4 && <CheckCircle className="h-4 w-4" style={{ color: '#39ff14' }} />}
               </div>
 
@@ -274,15 +274,15 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
             </div>
           )}
 
-          {allVerified && ghostStep === 4 && (
+          {allDatafied && ghostStep === 4 && (
             <div className="mt-4 p-4 bg-gradient-to-r from-green-900/40 to-emerald-900/40 border-2 border-green-500/50 rounded-lg animate-pulse">
               <div className="flex items-center space-x-3">
                 <CheckCircle className="h-6 w-6 text-green-400" />
                 <div>
                   <p className="text-sm text-green-300 font-bold">
-                    KYC + Ghost ID Doğrulama Tamamlandı!
+                    KYC + Ghost ID Verification Completed!
                   </p>
-                  <p className="text-xs text-green-400">Tüm biyometrik kontroller başarılı - SOFTON tokenı oluşturuldu</p>
+                  <p className="text-xs text-green-400">Tum biyometrik kontroller successful - SOFTON tokeni generated</p>
                 </div>
               </div>
             </div>
@@ -290,18 +290,18 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
 
           <button
             type="submit"
-            disabled={isLoading || !allVerified || ghostStep < 4}
+            disabled={isLoading || !allDatafied || ghostStep < 4}
             className="w-full bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 disabled:from-slate-600 disabled:to-slate-700 text-white font-bold py-3 px-6 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <>
                 <RotateCcw className="h-5 w-5 animate-spin" />
-                <span>Doğrulanıyor...</span>
+                <span>Verifyniyor...</span>
               </>
             ) : (
               <>
                 <Shield className="h-5 w-5" />
-                <span>Doğrulamayı Tamamla</span>
+                <span>Verificationyi Complete</span>
               </>
             )}
           </button>
@@ -314,20 +314,20 @@ export const VerificationForm: React.FC<VerificationFormProps> = ({
             </div>
             <div className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg border" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(0,229,255,0.2)' }}>
               <Lock className="h-3.5 w-3.5" style={{ color: '#00e5ff' }} />
-              <span className="text-[10px] text-slate-400">AES-256 Şifreleme</span>
+              <span className="text-[10px] text-slate-400">AES-256 Passwordleme</span>
             </div>
             <div className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg border" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(57,255,20,0.2)' }}>
               <ShieldCheck className="h-3.5 w-3.5" style={{ color: '#39ff14' }} />
-              <span className="text-[10px] text-slate-400">PUKO Dongusu Aktif</span>
+              <span className="text-[10px] text-slate-400">PUKO Cycle Opentive</span>
             </div>
             <div className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg border" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(245,158,11,0.2)' }}>
               <Layers className="h-3.5 w-3.5" style={{ color: '#f59e0b' }} />
-              <span className="text-[10px] text-slate-400">5 Katmanlı Mimari</span>
+              <span className="text-[10px] text-slate-400">5 Layer Architecture</span>
             </div>
           </div>
 
           <div className="text-center text-xs text-slate-400 mt-4">
-            <p>KYC + Ghost ID/SPON/SOFTON doğrulama tamamlandıktan sonra Dashboard'a yönlendirileceksiniz.</p>
+            <p>KYC + Ghost ID/SPON/SOFTON verification completedktan sonra Dashboard'a yonlendirileceksiniz.</p>
           </div>
         </form>
       </div>

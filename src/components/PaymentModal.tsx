@@ -151,7 +151,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
       <div className="bg-slate-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/30 shadow-2xl">
         <div className="sticky top-0 bg-slate-900 border-b border-slate-700 p-6 flex justify-between items-center">
           <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-            Ödeme Yap
+            Make Payment
           </h2>
           <button
             onClick={onClose}
@@ -167,8 +167,8 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
               <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/20 rounded-full mb-4">
                 <Check className="h-8 w-8 text-green-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Ödeme Başarılı!</h3>
-              <p className="text-slate-400">Faturanız e-posta ve SMS ile gönderildi.</p>
+              <h3 className="text-xl font-bold text-white mb-2">Payment Success!</h3>
+              <p className="text-slate-400">Your invoice has been sent via email and SMS.</p>
             </div>
           ) : (
             <>
@@ -178,7 +178,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                   <span className="text-white font-semibold">{planType}</span>
                 </div>
                 <div className="flex justify-between items-center mt-2">
-                  <span className="text-slate-400">Toplam:</span>
+                  <span className="text-slate-400">Total:</span>
                   <span className="text-2xl font-bold text-cyan-400">
                     {amount} {currency}
                   </span>
@@ -195,7 +195,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                   }`}
                 >
                   <CreditCard className="h-8 w-8 mx-auto mb-2 text-cyan-400" />
-                  <span className="text-white font-semibold">Kredi Kartı</span>
+                  <span className="text-white font-semibold">Credit Card</span>
                 </button>
 
                 <button
@@ -222,7 +222,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Kart Numarası
+                      Card Number
                     </label>
                     <input
                       type="text"
@@ -236,13 +236,13 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 
                   <div>
                     <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Kart Sahibi
+                      Cardholder Name
                     </label>
                     <input
                       type="text"
                       value={cardData.cardholderName}
                       onChange={(e) => setCardData({ ...cardData, cardholderName: e.target.value.toUpperCase() })}
-                      placeholder="AD SOYAD"
+                      placeholder="FIRST NAME LASTNAME"
                       className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-cyan-500"
                     />
                   </div>
@@ -250,7 +250,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                   <div className="grid grid-cols-3 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Ay
+                        Month
                       </label>
                       <input
                         type="text"
@@ -267,7 +267,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 
                     <div>
                       <label className="block text-sm font-medium text-slate-300 mb-2">
-                        Yıl
+                        Year
                       </label>
                       <input
                         type="text"
@@ -305,7 +305,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                     disabled={isProcessing}
                     className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-semibold py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isProcessing ? 'İşleniyor...' : `${amount} ${currency} Öde`}
+                    {isProcessing ? 'Isleniyor...' : `${amount} ${currency} Ode`}
                   </button>
                 </div>
               )}
@@ -319,12 +319,12 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                       className="w-full bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-semibold py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       <Wallet className="h-5 w-5" />
-                      {isProcessing ? 'Bağlanıyor...' : 'MetaMask Bağla'}
+                      {isProcessing ? 'Connectiyor...' : 'MetaMask Bagla'}
                     </button>
                   ) : (
                     <>
                       <div className="bg-slate-800 rounded-lg p-4">
-                        <p className="text-sm text-slate-400 mb-1">Bağlı Cüzdan</p>
+                        <p className="text-sm text-slate-400 mb-1">Bagli Wallet</p>
                         <p className="text-white font-mono text-sm break-all">{walletAddress}</p>
                       </div>
 
@@ -333,7 +333,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                         disabled={isProcessing}
                         className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white font-semibold py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        {isProcessing ? 'İşleniyor...' : `${(amount / 1000).toFixed(4)} ETH Öde`}
+                        {isProcessing ? 'Isleniyor...' : `${(amount / 1000).toFixed(4)} ETH Ode`}
                       </button>
                     </>
                   )}
@@ -342,7 +342,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
 
               <div className="mt-6 text-center">
                 <p className="text-xs text-slate-500">
-                  Ödemeniz 256-bit SSL şifreleme ile korunmaktadır
+                  Paymentniz 256-bit SSL sifreleme ile korunmaktadir
                 </p>
               </div>
             </>

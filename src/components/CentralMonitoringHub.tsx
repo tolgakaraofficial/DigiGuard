@@ -38,7 +38,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
 
       const statuses: SystemStatus[] = [
         {
-          name: 'Kimlik Doğrulama',
+          name: 'Identity Verification',
           status: 'operational',
           uptime: 99.98,
           lastCheck: new Date().toISOString(),
@@ -49,7 +49,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           },
         },
         {
-          name: 'Kişi Takip Sistemi',
+          name: 'Person Tracking Systemi',
           status: 'operational',
           uptime: 99.95,
           lastCheck: new Date().toISOString(),
@@ -60,7 +60,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           },
         },
         {
-          name: 'Çipli Varlık Takibi',
+          name: 'Cipli Varlik Takibi',
           status: 'operational',
           uptime: 99.92,
           lastCheck: new Date().toISOString(),
@@ -71,7 +71,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           },
         },
         {
-          name: 'Blockchain Sertifika',
+          name: 'Blockchain Certificate',
           status: 'operational',
           uptime: 100,
           lastCheck: new Date().toISOString(),
@@ -82,7 +82,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           },
         },
         {
-          name: 'Bildirim Sistemi',
+          name: 'Notification Systemi',
           status: notificationData.count && notificationData.count > 0 ? 'operational' : 'warning',
           uptime: 99.87,
           lastCheck: new Date().toISOString(),
@@ -93,7 +93,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           },
         },
         {
-          name: 'İhlal Raporlama',
+          name: 'Violation Reportlama',
           status: 'operational',
           uptime: 99.94,
           lastCheck: new Date().toISOString(),
@@ -107,7 +107,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
 
       setSystemStatuses(statuses);
     } catch (error) {
-      console.error('Sistem durumları yüklenirken hata:', error);
+      console.error('System durumlari yuklenirken hata:', error);
     } finally {
       setLoading(false);
     }
@@ -140,7 +140,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-slate-400">Sistemler kontrol ediliyor...</p>
+          <p className="mt-4 text-slate-400">Systemler kontrol ediliyor...</p>
         </div>
       </div>
     );
@@ -161,7 +161,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
               <Activity className="w-5 h-5 text-blue-400 animate-pulse" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white">Merkezi İzleme</h2>
+              <h2 className="text-lg font-bold text-white">Center Monitoring</h2>
               <p className="text-xs text-slate-400">ALBIS 7/24</p>
             </div>
           </div>
@@ -175,7 +175,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           <div className="bg-green-500/10 rounded-lg p-2 border border-green-500/30">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[10px] text-green-300">Çalışıyor</p>
+                <p className="text-[10px] text-green-300">Calisiyor</p>
                 <p className="text-xl font-bold text-green-400">{operationalSystems}</p>
               </div>
               <CheckCircle className="h-5 w-5 text-green-400" />
@@ -184,7 +184,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           <div className="bg-yellow-500/10 rounded-lg p-2 border border-yellow-500/30">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[10px] text-yellow-300">Uyarı</p>
+                <p className="text-[10px] text-yellow-300">Uyari</p>
                 <p className="text-xl font-bold text-yellow-400">{warningSystems}</p>
               </div>
               <AlertTriangle className="h-5 w-5 text-yellow-400" />
@@ -193,7 +193,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           <div className="bg-red-500/10 rounded-lg p-2 border border-red-500/30">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[10px] text-red-300">Hata</p>
+                <p className="text-[10px] text-red-300">Error</p>
                 <p className="text-xl font-bold text-red-400">{errorSystems}</p>
               </div>
               <AlertTriangle className="h-5 w-5 text-red-400" />
@@ -232,7 +232,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-500">
-                  {new Date(system.lastCheck).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
+                  {new Date(system.lastCheck).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
             </div>
@@ -243,19 +243,19 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
       <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg p-3 border border-blue-500/30">
         <div className="flex items-center gap-2 mb-2">
           <Shield className="h-4 w-4 text-blue-400" />
-          <h3 className="text-sm font-bold text-white">ALBIS AI Yönetimi</h3>
+          <h3 className="text-sm font-bold text-white">ALBIS AI Yonetimi</h3>
         </div>
         <p className="text-slate-400 text-xs mb-3">
-          Sürekli izleme ve otomatik müdahale sistemi aktif.
+          Surekli izleme ve otomatik mudahale sistemi aktif.
         </p>
         <div className="grid grid-cols-2 gap-2">
           <div className="flex items-center gap-1 text-xs">
             <CheckCircle className="h-3 w-3 text-green-400" />
-            <span className="text-slate-400">Güvenlik</span>
+            <span className="text-slate-400">Securek</span>
           </div>
           <div className="flex items-center gap-1 text-xs">
             <CheckCircle className="h-3 w-3 text-green-400" />
-            <span className="text-slate-400">Tehdit Analizi</span>
+            <span className="text-slate-400">Threat Analizi</span>
           </div>
           <div className="flex items-center gap-1 text-xs">
             <CheckCircle className="h-3 w-3 text-green-400" />
@@ -263,7 +263,7 @@ export const CentralMonitoringHub: React.FC<{ language?: string }> = ({ language
           </div>
           <div className="flex items-center gap-1 text-xs">
             <CheckCircle className="h-3 w-3 text-green-400" />
-            <span className="text-slate-400">Raporlama</span>
+            <span className="text-slate-400">Reportlama</span>
           </div>
         </div>
       </div>

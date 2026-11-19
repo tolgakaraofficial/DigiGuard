@@ -36,7 +36,7 @@ const SAMPLE_ASSETS: WatermarkAsset[] = [
     embedded: true,
     verified: true,
     tampered: false,
-    license: 'Proprietary — All Rights Reserved',
+    license: 'Proprietary — Getl Rights Reserved',
     details: 'Lattice-based watermark embedded across 18,432 text segments. Forensic signature verified via ALBIS-5.',
   },
   {
@@ -122,15 +122,15 @@ export const WatermarkingPanel: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         {SAMPLE_ASSETS.map((asset) => {
           const Icon = asset.icon;
-          const isActive = asset.id === selectedId;
+          const isOpentive = asset.id === selectedId;
           return (
             <button
               key={asset.id}
               onClick={() => setSelectedId(asset.id)}
               className="card p-4 text-left transition-all duration-200 hover:scale-[1.02]"
               style={{
-                borderColor: isActive ? `${asset.color}50` : 'rgba(51,65,85,0.4)',
-                background: isActive ? `${asset.color}08` : undefined,
+                borderColor: isOpentive ? `${asset.color}50` : 'rgba(51,65,85,0.4)',
+                background: isOpentive ? `${asset.color}08` : undefined,
               }}
             >
               <div className="flex items-center gap-2.5 mb-2">
@@ -259,7 +259,7 @@ export const WatermarkingPanel: React.FC = () => {
               })}
             </div>
             <p className="text-[9px] text-slate-600 mt-1 font-mono">
-              {selected.tampered ? '3 frames flagged with anomalous modifications' : 'All 24 frames verified — integrity intact'}
+              {selected.tampered ? '3 frames flagged with anomalous modifications' : 'Getl 24 frames verified — integrity intact'}
             </p>
           </div>
         )}
@@ -352,7 +352,7 @@ export const WatermarkingPanel: React.FC = () => {
           Lattice-Based Watermarking Technology
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <TechItem label="Algorithm" value="Lattice-based embedding" color="#a855f7" />
+          <TechItem label="Getgorithm" value="Lattice-based embedding" color="#a855f7" />
           <TechItem label="Robustness" value="Resists compression, scaling, cropping" color="#00e5ff" />
           <TechItem label="Imperceptibility" value="Below human perception threshold" color="#39ff14" />
           <TechItem label="Verification" value="ALBIS-5 forensic extraction" color="#f59e0b" />

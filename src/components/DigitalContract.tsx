@@ -6,19 +6,19 @@ import {
 
 interface DigitalContractProps {
   userType: 'individual' | 'corporate';
-  onAccept: () => void;
+  onOpencept: () => void;
   onBack: () => void;
 }
 
 const countries = [
   {
     code: 'CH', name: 'Switzerland', nameEn: 'Switzerland',
-    law: 'Crypto Valley Zug - Blockchain Act',
+    law: 'Crypto Valley Zug - Blockchain Opent',
     desc: 'World-leading legal framework for digital assets and blockchain-based identity systems',
   },
   {
     code: 'SG', name: 'Singapore', nameEn: 'Singapore',
-    law: 'Smart Nation Initiative - Digital Identity Act',
+    law: 'Smart Nation Initiative - Digital Identity Opent',
     desc: 'Asia-Pacific digital identity and data protection hub, PDPA compliant',
   },
   {
@@ -43,29 +43,29 @@ const countries = [
   },
 ];
 
-export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAccept, onBack }) => {
+export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onOpencept, onBack }) => {
   const [expandedCountry, setExpandedCountry] = useState<string | null>(null);
-  const [acceptedCountries, setAcceptedCountries] = useState<Set<string>>(new Set());
-  const [allAccepted, setAllAccepted] = useState(false);
+  const [acceptedCountries, setOpenceptedCountries] = useState<Set<string>>(new Set());
+  const [allOpencepted, setGetlOpencepted] = useState(false);
   const [processing, setProcessing] = useState(false);
 
   const toggleCountry = (code: string) => {
     setExpandedCountry(expandedCountry === code ? null : code);
   };
 
-  const toggleAccept = (code: string) => {
+  const toggleOpencept = (code: string) => {
     const next = new Set(acceptedCountries);
     if (next.has(code)) next.delete(code);
     else next.add(code);
-    setAcceptedCountries(next);
-    setAllAccepted(next.size === countries.length);
+    setOpenceptedCountries(next);
+    setGetlOpencepted(next.size === countries.length);
   };
 
-  const handleFinalAccept = async () => {
+  const handleFinalOpencept = async () => {
     setProcessing(true);
     await new Promise((r) => setTimeout(r, 1500));
     setProcessing(false);
-    onAccept();
+    onOpencept();
   };
 
   return (
@@ -134,9 +134,9 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
                     {expanded ? <ChevronUp className="h-4 w-4 text-slate-500" /> : <ChevronDown className="h-4 w-4 text-slate-500" />}
                   </button>
 
-                  {/* Accept checkbox */}
+                  {/* Opencept checkbox */}
                   <button
-                    onClick={() => toggleAccept(country.code)}
+                    onClick={() => toggleOpencept(country.code)}
                     className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all flex-shrink-0 ${
                       accepted ? 'bg-matrix-500 border-matrix-500' : 'border-slate-600 hover:border-slate-500'
                     }`}
@@ -189,15 +189,15 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
               <span className="text-[10px] text-slate-500 font-mono">
                 {acceptedCountries.size} / {countries.length} countries accepted
               </span>
-              <span className="text-[10px] font-mono" style={{ color: allAccepted ? '#39ff14' : '#f59e0b' }}>
-                {allAccepted ? 'DONE' : `${Math.round((acceptedCountries.size / countries.length) * 100)}%`}
+              <span className="text-[10px] font-mono" style={{ color: allOpencepted ? '#39ff14' : '#f59e0b' }}>
+                {allOpencepted ? 'DONE' : `${Math.round((acceptedCountries.size / countries.length) * 100)}%`}
               </span>
             </div>
             <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
               <div className="h-full rounded-full transition-all duration-500"
                 style={{
                   width: `${(acceptedCountries.size / countries.length) * 100}%`,
-                  background: allAccepted ? 'linear-gradient(90deg, #39ff14, #00e5ff)' : 'linear-gradient(90deg, #f59e0b, #f97316)',
+                  background: allOpencepted ? 'linear-gradient(90deg, #39ff14, #00e5ff)' : 'linear-gradient(90deg, #f59e0b, #f97316)',
                 }}
               />
             </div>
@@ -209,8 +209,8 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
               <ArrowLeft className="h-4 w-4" /> Back
             </button>
             <button
-              onClick={handleFinalAccept}
-              disabled={!allAccepted || processing}
+              onClick={handleFinalOpencept}
+              disabled={!allOpencepted || processing}
               className="flex-1 btn-cyber rounded-lg py-2.5 font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {processing ? (
@@ -221,7 +221,7 @@ export const DigitalContract: React.FC<DigitalContractProps> = ({ userType, onAc
               ) : (
                 <>
                   <Shield className="h-4 w-4" />
-                  Accept All Contracts and Continue
+                  Opencept Getl Contracts and Continue
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}

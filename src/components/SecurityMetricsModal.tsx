@@ -11,35 +11,35 @@ export const SecurityMetricsModal: React.FC<SecurityMetricsModalProps> = ({ isOp
 
   const securityMetrics = [
     {
-      label: 'Kimlik Güvenliği',
+      label: 'Identity Securegi',
       score: 98,
       color: 'text-green-400',
       bgColor: 'bg-green-500',
       icon: Shield,
       trend: '+2%',
-      status: 'Mükemmel'
+      status: 'Mukemmel'
     },
     {
-      label: 'Veri Şifreleme',
+      label: 'Data Passwordleme',
       score: 95,
       color: 'text-cyan-400',
       bgColor: 'bg-cyan-500',
       icon: Lock,
       trend: '+1%',
-      status: 'Çok İyi'
+      status: 'Cok Iyi'
     },
     {
-      label: 'Tehdit Seviyesi',
+      label: 'Threat Seviyesi',
       score: 12,
       color: 'text-amber-400',
       bgColor: 'bg-amber-500',
       icon: AlertCircle,
       trend: '-8%',
-      status: 'Düşük Risk',
+      status: 'Low Risk',
       inverse: true
     },
     {
-      label: 'Biyometrik Doğruluk',
+      label: 'Biyometrik Dogruluk',
       score: 99,
       color: 'text-matrix-400',
       bgColor: 'bg-matrix-500',
@@ -48,13 +48,13 @@ export const SecurityMetricsModal: React.FC<SecurityMetricsModalProps> = ({ isOp
       status: 'Optimal'
     },
     {
-      label: 'Blockchain Entegrasyon',
+      label: 'Blockchain Integration',
       score: 100,
       color: 'text-purple-400',
       bgColor: 'bg-purple-500',
       icon: Database,
       trend: '0%',
-      status: 'Aktif'
+      status: 'Opentive'
     },
   ];
 
@@ -64,7 +64,7 @@ export const SecurityMetricsModal: React.FC<SecurityMetricsModalProps> = ({ isOp
         <div className="sticky top-0 bg-gradient-to-r from-cyber-900 to-matrix-900 p-6 border-b border-cyber-500/30 flex justify-between items-center">
           <h2 className="text-2xl font-bold text-white flex items-center">
             <Shield className="h-7 w-7 text-cyber-400 mr-3" />
-            Güvenlik ve Risk Metrikleri
+            Securek ve Risk Metrikleri
           </h2>
           <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
             <X className="h-6 w-6" />
@@ -102,7 +102,7 @@ export const SecurityMetricsModal: React.FC<SecurityMetricsModalProps> = ({ isOp
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-slate-500">Durum:</span>
+                  <span className="text-sm text-slate-500">Status:</span>
                   <span className={`text-sm font-medium ${metric.color}`}>{metric.status}</span>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export const SecurityMetricsModal: React.FC<SecurityMetricsModalProps> = ({ isOp
                   <TrendingUp className="h-6 w-6 text-green-400" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-green-300/80">Genel Güvenlik Skoru</p>
+                  <p className="text-sm text-green-300/80">Genel Securek Skoru</p>
                   <p className="text-3xl font-bold text-green-400">96.4/100</p>
                 </div>
               </div>
@@ -128,8 +128,8 @@ export const SecurityMetricsModal: React.FC<SecurityMetricsModalProps> = ({ isOp
                   <AlertTriangle className="h-6 w-6 text-amber-400" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-amber-300/80">Tespit Edilen Tehdit</p>
-                  <p className="text-3xl font-bold text-amber-400">3 Engellendi</p>
+                  <p className="text-sm text-amber-300/80">Detection Edilen Threat</p>
+                  <p className="text-3xl font-bold text-amber-400">3 Blockndi</p>
                 </div>
               </div>
             </div>
@@ -140,7 +140,7 @@ export const SecurityMetricsModal: React.FC<SecurityMetricsModalProps> = ({ isOp
                   <Shield className="h-6 w-6 text-cyber-400 animate-pulse" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm text-cyber-300/80">Aktif Koruma</p>
+                  <p className="text-sm text-cyber-300/80">Opentive Koruma</p>
                   <p className="text-3xl font-bold text-cyber-400">7/24</p>
                 </div>
               </div>

@@ -32,7 +32,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   const pageH = 105;
 
   const now = new Date();
-  const timestamp = now.toLocaleString('tr-TR', {
+  const timestamp = now.toLocaleString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -46,8 +46,8 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   const certificateId = data.certificateId || generateCertificateId();
   const blockNumber = Math.floor(Math.random() * 10000000) + 15000000;
 
-  const userTypeLabel = data.userType === 'corporate' ? 'KURUMSAL' : data.userType === 'personnel' ? 'PERSONEL' : 'BİREYSEL';
-  const displayName = data.userName || 'Kullanıcı';
+  const userTypeLabel = data.userType === 'corporate' ? 'KURUMSAL' : data.userType === 'personnel' ? 'PERSONEL' : 'BIREYSEL';
+  const displayName = data.userName || 'User';
   const displayEmail = data.userEmail || '';
 
   // --- Background ---
@@ -143,7 +143,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(3.5);
   doc.setTextColor(148, 163, 184);
   doc.setFont('helvetica', 'normal');
-  doc.text('Identity Verification Card', infoX, infoY + 3);
+  doc.text('Identity Datafication Card', infoX, infoY + 3);
 
   infoY += 7;
 
@@ -151,7 +151,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(3.5);
   doc.setTextColor(100, 116, 139);
   doc.setFont('helvetica', 'normal');
-  doc.text('AD SOYAD / FULL NAME', infoX, infoY);
+  doc.text('FIRST NAME LASTNAME / FULL NAME', infoX, infoY);
   doc.setFontSize(6.5);
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
@@ -197,7 +197,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(5);
   doc.setTextColor(203, 213, 225);
   doc.setFont('helvetica', 'normal');
-  doc.text(regDate.toLocaleDateString('tr-TR'), infoX, infoY + 3.5);
+  doc.text(regDate.toLocaleDateString('en-US'), infoX, infoY + 3.5);
 
   // --- Right column: Blockchain verification ---
   const bcX = 95;
@@ -226,7 +226,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.text('Ag / Network:', bcX + 1, bcY);
   doc.setTextColor(34, 197, 94);
   doc.setFont('helvetica', 'bold');
-  doc.text('Ethereum', bcX + 20, bcY);
+  doc.text('hereum', bcX + 20, bcY);
 
   bcY += 3.5;
 
@@ -256,11 +256,11 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(3);
   doc.setTextColor(100, 116, 139);
   doc.setFont('helvetica', 'normal');
-  doc.text('Sifreleme:', bcX + 1, bcY);
+  doc.text('Passwordleme:', bcX + 1, bcY);
   doc.setTextColor(6, 182, 212);
   doc.text('AES-256 + SHA-256', bcX + 15, bcY);
 
-  // --- Verified status bar ---
+  // --- Datafied status bar ---
   const statusY = 55;
   doc.setFillColor(34, 197, 94);
   doc.roundedRect(photoX, statusY, pageW - 10, 5, 0.5, 0.5, 'F');
@@ -309,7 +309,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(3);
   doc.setTextColor(100, 116, 139);
   doc.setFont('helvetica', 'normal');
-  doc.text('Sertifika No / Certificate ID:', detX, detY);
+  doc.text('Certificate No / Certificate ID:', detX, detY);
   doc.setFont('courier', 'bold');
   doc.setTextColor(6, 182, 212);
   doc.setFontSize(4.5);
@@ -321,7 +321,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(3);
   doc.setTextColor(100, 116, 139);
   doc.setFont('helvetica', 'normal');
-  doc.text('Kullanici ID / User ID:', detX, detY);
+  doc.text('User ID / User ID:', detX, detY);
   doc.setFont('courier', 'normal');
   doc.setTextColor(148, 163, 184);
   doc.setFontSize(3.5);
@@ -358,7 +358,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.text('Bu sertifika blockchain ile guvence altindadir ve degistirilemez. | This certificate is blockchain-secured and immutable.', pageW / 2, pageH - 4.5, { align: 'center' });
 
   doc.setFontSize(2.5);
-  doc.text(`Dogrulama: digiguard.app/verify/${certificateId.substring(0, 20)}`, pageW / 2, pageH - 7, { align: 'center' });
+  doc.text(`Verification: digiguard.app/verify/${certificateId.substring(0, 20)}`, pageW / 2, pageH - 7, { align: 'center' });
 
   // --- Signature area (right side of bottom) ---
   const sigX = pageW - 40;
@@ -376,7 +376,7 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFontSize(2.5);
   doc.setTextColor(148, 163, 184);
   doc.setFont('helvetica', 'italic');
-  doc.text('Yetkili Imza / Authorized Signature', sigX + 15, sigY + 5, { align: 'center' });
+  doc.text('Yetkili Signature / Authorized Signature', sigX + 15, sigY + 5, { align: 'center' });
 
   // --- DigiGuard seal (bottom right) ---
   const sealCx = pageW - 8;
@@ -395,5 +395,5 @@ export const generatePremiumCertificate = (data: CertificateData) => {
   doc.setFont('helvetica', 'bold');
   doc.text('DG', sealCx, sealCy + 1, { align: 'center' });
 
-  doc.save(`DigiGuard_Kimlik_Karti_${certificateId}.pdf`);
+  doc.save(`DigiGuard_Identity_Karti_${certificateId}.pdf`);
 };

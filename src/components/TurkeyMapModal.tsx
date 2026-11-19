@@ -79,11 +79,11 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
               </div>
               <div>
                 <h2 className="text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent">
-                  Türkiye Sertifika Haritası
+                  Typekiye Certificate Mapsi
                 </h2>
                 <p className="text-sm text-slate-400 flex items-center gap-2">
                   <Activity className="h-3.5 w-3.5 text-green-400 animate-pulse" />
-                  Canlı İstatistikler
+                  Canli Statisticsler
                 </p>
               </div>
             </div>
@@ -103,11 +103,11 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                   <Activity className="h-4 w-4 text-green-400 animate-pulse" />
                 </div>
                 <div className="text-2xl font-bold text-white mb-1 tabular-nums">
-                  {userTypeStats.find(s => s.user_type === 'individual')?.total_users.toLocaleString('tr-TR') || '0'}
+                  {userTypeStats.find(s => s.user_type === 'individual')?.total_users.toLocaleString('en-US') || '0'}
                 </div>
-                <div className="text-xs text-slate-400">Bireysel Kullanıcı</div>
+                <div className="text-xs text-slate-400">Individual User</div>
                 <div className="mt-2 text-[10px] text-blue-300">
-                  {userTypeStats.find(s => s.user_type === 'individual')?.verified_users.toLocaleString('tr-TR') || '0'} Doğrulanmış
+                  {userTypeStats.find(s => s.user_type === 'individual')?.verified_users.toLocaleString('en-US') || '0'} Verifynmis
                 </div>
               </div>
 
@@ -117,11 +117,11 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                   <Activity className="h-4 w-4 text-green-400 animate-pulse" />
                 </div>
                 <div className="text-2xl font-bold text-white mb-1 tabular-nums">
-                  {userTypeStats.find(s => s.user_type === 'corporate')?.total_users.toLocaleString('tr-TR') || '0'}
+                  {userTypeStats.find(s => s.user_type === 'corporate')?.total_users.toLocaleString('en-US') || '0'}
                 </div>
-                <div className="text-xs text-slate-400">Kurumsal Kullanıcı</div>
+                <div className="text-xs text-slate-400">Corporate User</div>
                 <div className="mt-2 text-[10px] text-purple-300">
-                  {userTypeStats.find(s => s.user_type === 'corporate')?.verified_users.toLocaleString('tr-TR') || '0'} Doğrulanmış
+                  {userTypeStats.find(s => s.user_type === 'corporate')?.verified_users.toLocaleString('en-US') || '0'} Verifynmis
                 </div>
               </div>
 
@@ -131,11 +131,11 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                   <Activity className="h-4 w-4 text-green-400 animate-pulse" />
                 </div>
                 <div className="text-2xl font-bold text-white mb-1 tabular-nums">
-                  {userTypeStats.find(s => s.user_type === 'personnel')?.total_users.toLocaleString('tr-TR') || '0'}
+                  {userTypeStats.find(s => s.user_type === 'personnel')?.total_users.toLocaleString('en-US') || '0'}
                 </div>
-                <div className="text-xs text-slate-400">Personel Kullanıcı</div>
+                <div className="text-xs text-slate-400">Personel User</div>
                 <div className="mt-2 text-[10px] text-orange-300">
-                  {userTypeStats.find(s => s.user_type === 'personnel')?.verified_users.toLocaleString('tr-TR') || '0'} Doğrulanmış
+                  {userTypeStats.find(s => s.user_type === 'personnel')?.verified_users.toLocaleString('en-US') || '0'} Verifynmis
                 </div>
               </div>
 
@@ -145,11 +145,11 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                   <Sparkles className="h-4 w-4 text-yellow-400 animate-pulse" />
                 </div>
                 <div className="text-2xl font-bold text-white mb-1 tabular-nums">
-                  {totalUsers.toLocaleString('tr-TR')}
+                  {totalUsers.toLocaleString('en-US')}
                 </div>
-                <div className="text-xs text-slate-400">Toplam Sertifikalı</div>
+                <div className="text-xs text-slate-400">Total Certificateli</div>
                 <div className="mt-2 text-[10px] text-green-300">
-                  {cityStats.length} Şehir • {regions.length} Bölge
+                  {cityStats.length} City • {regions.length} Region
                 </div>
               </div>
             </div>
@@ -159,7 +159,7 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-white flex items-center">
                     <TrendingUp className="h-5 w-5 text-cyber-400 mr-2" />
-                    En Çok Sertifika Alan 10 Şehir
+                    En Cok Certificate Getan 10 City
                   </h3>
                 </div>
 
@@ -194,7 +194,7 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                           </div>
                           <div className="text-right">
                             <div className="text-lg font-bold text-cyber-400 tabular-nums">
-                              {city.certified_users.toLocaleString('tr-TR')}
+                              {city.certified_users.toLocaleString('en-US')}
                             </div>
                             <div className="text-xs text-slate-500">
                               %{percentage.toFixed(1)}
@@ -217,7 +217,7 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-white flex items-center">
                     <MapPin className="h-5 w-5 text-matrix-400 mr-2" />
-                    Bölgesel Dağılım
+                    Regionsel Dagilim
                   </h3>
                 </div>
 
@@ -232,11 +232,11 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                         <div className="flex items-center justify-between mb-3">
                           <div>
                             <div className="font-semibold text-white">{region}</div>
-                            <div className="text-xs text-slate-400">{cityCount} şehir</div>
+                            <div className="text-xs text-slate-400">{cityCount} sehir</div>
                           </div>
                           <div className="text-right">
                             <div className="text-lg font-bold text-matrix-400 tabular-nums">
-                              {total.toLocaleString('tr-TR')}
+                              {total.toLocaleString('en-US')}
                             </div>
                             <div className="text-xs text-slate-500">
                               %{percentage.toFixed(1)}
@@ -257,7 +257,7 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                 {selectedCity && (
                   <div className="bg-gradient-to-br from-cyber-900/50 to-matrix-900/50 border border-cyber-500/50 rounded-xl p-6 mt-4">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-semibold text-white">Seçili Şehir Detayları</h4>
+                      <h4 className="text-lg font-semibold text-white">Selectili City Detaylari</h4>
                       <button
                         onClick={() => setSelectedCity(null)}
                         className="text-slate-400 hover:text-white transition-colors"
@@ -267,27 +267,27 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                     </div>
                     <div className="space-y-3">
                       <div className="flex justify-between">
-                        <span className="text-slate-400">Şehir:</span>
+                        <span className="text-slate-400">City:</span>
                         <span className="text-white font-semibold">{selectedCity.city_name}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-slate-400">Plaka Kodu:</span>
+                        <span className="text-slate-400">Plaka Code:</span>
                         <span className="text-white font-semibold">{selectedCity.city_code}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-slate-400">Bölge:</span>
+                        <span className="text-slate-400">Region:</span>
                         <span className="text-white font-semibold">{selectedCity.region}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-slate-400">Sertifikalı Kullanıcı:</span>
+                        <span className="text-slate-400">Certificateli User:</span>
                         <span className="text-cyber-400 font-bold tabular-nums">
-                          {selectedCity.certified_users.toLocaleString('tr-TR')}
+                          {selectedCity.certified_users.toLocaleString('en-US')}
                         </span>
                       </div>
                       <div className="pt-3 border-t border-slate-700">
                         <div className="flex items-center justify-center space-x-2 text-xs text-slate-500">
                           <Activity className="h-3 w-3 text-green-400 animate-pulse" />
-                          <span>Son güncelleme: {new Date(selectedCity.last_updated).toLocaleString('tr-TR')}</span>
+                          <span>Son guncelleme: {new Date(selectedCity.last_updated).toLocaleString('en-US')}</span>
                         </div>
                       </div>
                     </div>
@@ -301,8 +301,8 @@ export const TurkeyMapModal: React.FC<TurkeyMapModalProps> = ({ isOpen, onClose,
                 <Activity className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5 animate-pulse" />
                 <div className="flex-1">
                   <p className="text-blue-200 text-sm leading-relaxed">
-                    <span className="font-semibold">Canlı İstatistikler:</span> Bu veriler her 5 saniyede bir otomatik olarak güncellenmektedir.
-                    DigiGuard platformu üzerinden sertifika alan tüm kullanıcılar anlık olarak bu haritaya yansıtılmaktadır.
+                    <span className="font-semibold">Canli Statisticsler:</span> Bu veriler her 5 saniyede bir otomatik olarak guncellenmektedir.
+                    DigiGuard platformu uzerinden sertifika alan tum userlar anlik olarak bu haritaya yansitilmaktadir.
                   </p>
                 </div>
               </div>

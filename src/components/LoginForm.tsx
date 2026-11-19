@@ -56,25 +56,25 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Form doğrulama
+    // Form verification
     const newErrors: {email?: string, phone?: string, password?: string} = {};
 
     if (!email) {
-      newErrors.email = 'E-posta adresi gereklidir';
+      newErrors.email = 'Email adresi gereklidir';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Geçerli bir e-posta adresi girin';
+      newErrors.email = 'Please enter a valid email address';
     }
 
     if (!phone) {
-      newErrors.phone = 'Telefon numarası gereklidir';
+      newErrors.phone = 'Phone numarasi gereklidir';
     } else if (!/^(\+90|0)?[5][0-9]{9}$/.test(phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Geçerli bir Türkiye telefon numarası girin';
+      newErrors.phone = 'Valid bir Typekiye telefon numarasi girin';
     }
 
     if (!password) {
-      newErrors.password = 'Şifre gereklidir';
+      newErrors.password = 'Password gereklidir';
     } else if (password.length < 6) {
-      newErrors.password = 'Şifre en az 6 karakter olmalıdır';
+      newErrors.password = 'Password en az 6 karakter olmalidir';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -85,7 +85,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     setErrors({});
     setIsLoading(true);
 
-    // API çağrısı simülasyonu
+    // API cagrisi simulasyonu
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     onLogin(email, phone);
@@ -154,7 +154,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-green-500/50 hover:shadow-green-500/70 whitespace-nowrap"
         >
           <Info className="h-4 w-4 flex-shrink-0" />
-          <span className="text-sm">Hakkında</span>
+          <span className="text-sm">About</span>
         </button>
         <button
           onClick={() => setShowTeamModal(true)}
@@ -179,11 +179,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           </div>
           <div className="flex-1 text-left">
             <h2 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent">
-              Biyometrik Giriş
+              Biyometrik Login
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 flex items-center gap-1.5">
               <UserCheck className="h-3.5 w-3.5 text-cyber-400" />
-              KYC Kimlik Doğrulama
+              KYC Identity Verification
             </p>
           </div>
         </div>
@@ -192,7 +192,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
           <div className="mb-5 relative z-10 bg-gradient-to-r from-matrix-900/50 to-cyber-900/50 border border-matrix-500/40 rounded-xl p-4 space-y-3 animate-fadeIn">
             <div className="flex items-center gap-2 mb-3">
               <Shield className="h-5 w-5 text-matrix-400" />
-              <h3 className="text-sm font-semibold text-white">KYC Biyometrik Doğrulama</h3>
+              <h3 className="text-sm font-semibold text-white">KYC Biyometrik Verification</h3>
             </div>
 
             <button
@@ -200,7 +200,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               className="w-full bg-gradient-to-r from-matrix-600 to-cyber-600 hover:from-matrix-700 hover:to-cyber-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-matrix-500/30 hover:shadow-matrix-500/50 group"
             >
               <Fingerprint className="h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
-              <span>Yüz Tanıma ile Doğrula</span>
+              <span>Verify with Face Recognition</span>
               <Camera className="h-5 w-5 group-hover:scale-110 transition-transform" />
             </button>
 
@@ -209,7 +209,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               className="w-full bg-gradient-to-r from-cyber-600 to-purple-600 hover:from-cyber-700 hover:to-purple-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50 group"
             >
               <Fingerprint className="h-5 w-5 group-hover:scale-110 transition-transform" />
-              <span>Parmak İzi ile Doğrula</span>
+              <span>Verify with Fingerprint</span>
               <Scan className="h-5 w-5 group-hover:rotate-12 transition-transform" />
             </button>
 
@@ -217,10 +217,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             <div className="mt-3 p-3 rounded-lg border border-purple-500/30" style={{ background: 'rgba(168,85,247,0.08)' }}>
               <div className="flex items-center gap-2 mb-2">
                 <Ghost className="h-4 w-4" style={{ color: '#a855f7' }} />
-                <span className="text-xs font-bold text-white">Ghost ID / SPON Protokolü</span>
+                <span className="text-xs font-bold text-white">Ghost ID / SPON Protocolu</span>
                 {ghostIdGenerated && <CheckCircle className="h-3.5 w-3.5" style={{ color: '#39ff14' }} />}
               </div>
-              <p className="text-[10px] text-slate-400 mb-2">Anonim kimlik doğrulaması için Ghost ID oluşturun (PII ifşa edilmez)</p>
+              <p className="text-[10px] text-slate-400 mb-2">Anonymous identity verification icin Ghost ID olusturun (PII ifsa edilmez)</p>
               {ghostId && (
                 <div className="space-y-1 mb-2">
                   <div className="text-[10px] font-mono break-all" style={{ color: '#a855f7' }}>{ghostId}</div>
@@ -235,9 +235,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 style={{ background: 'rgba(168,85,247,0.15)', border: '1px solid rgba(168,85,247,0.3)', color: '#a855f7' }}
               >
                 {ghostIdGenerated ? (
-                  <><CheckCircle className="h-3.5 w-3.5" /> Ghost ID Oluşturuldu</>
+                  <><CheckCircle className="h-3.5 w-3.5" /> Ghost ID Created</>
                 ) : (
-                  <><RefreshCw className="h-3.5 w-3.5" /> Ghost ID Oluştur</>
+                  <><RefreshCw className="h-3.5 w-3.5" /> Ghost ID Create</>
                 )}
               </button>
             </div>
@@ -246,19 +246,19 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               <div className="flex items-start space-x-2">
                 <Zap className="h-3.5 w-3.5 text-blue-400 flex-shrink-0 mt-0.5 animate-pulse" />
                 <p className="text-blue-200 text-xs leading-relaxed">
-                  KYC uyumlu biyometrik doğrulama + Ghost ID/SPON protokolü ile kimliğinizi güvenle onaylayın.
+                  KYC uyumlu biyometrik verification + Ghost ID/SPON protokolu ile kimliginizi guvenle onaylayin.
                 </p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Web3 Hibrit Giriş Paneli */}
+        {/* Web3 Hibrit Login Paneli */}
         {showWeb3Panel && (
           <div className="mb-5 relative z-10 bg-gradient-to-r from-orange-900/30 to-amber-900/30 border border-orange-500/30 rounded-xl p-4 space-y-3 animate-fadeIn">
             <div className="flex items-center gap-2 mb-3">
               <Wallet className="h-5 w-5 text-orange-400" />
-              <h3 className="text-sm font-semibold text-white">Web3 Hibrit Giriş</h3>
+              <h3 className="text-sm font-semibold text-white">Web3 Hibrit Login</h3>
             </div>
             <div className="grid grid-cols-1 gap-2">
               {[
@@ -290,7 +290,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
         <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              E-posta Adresi
+              Email First Nameresi
             </label>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
@@ -310,7 +310,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Telefon Numarası
+              Phone Numarasi
             </label>
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
@@ -330,7 +330,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Şifre
+              Password
             </label>
             <div className="relative">
               <Shield className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
@@ -342,7 +342,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 className={`w-full pl-10 pr-12 py-2 sm:py-2.5 text-sm bg-slate-700/80 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white placeholder-slate-400 transition-all relative z-10 ${
                   errors.password ? 'border-red-500' : 'border-slate-600'
                 }`}
-                placeholder="Şifrenizi girin"
+                placeholder="Passwordnizi girin"
               />
               <button
                 type="button"
@@ -364,7 +364,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
-                <span>Doğrulama Kodu Gönder</span>
+                <span>Submit Verification Code</span>
                 <ArrowRight className="h-5 w-5" />
               </>
             )}
@@ -378,7 +378,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             className="w-full bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-cyber-500/30 hover:shadow-cyber-500/50"
           >
             <Scan className="h-5 w-5" />
-            <span>KYC + Ghost ID / SPON Doğrula</span>
+            <span>KYC + Ghost ID / SPON Verification</span>
             <Fingerprint className="h-5 w-5" />
           </button>
           <button
@@ -387,22 +387,22 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-4 text-sm rounded-lg transition-all flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50"
           >
             <Wallet className="h-5 w-5" />
-            <span>Web3 Hibrit Giriş (MetaMask / DID)</span>
+            <span>Web3 Hibrit Login (MetaMask / DID)</span>
             <Network className="h-5 w-5" />
           </button>
         </div>
 
         <div className="mt-4 text-center relative z-10">
           <p className="text-xs text-slate-400">
-            Giriş yaparak{' '}
+            Login yaparak{' '}
             <a href="#" className="text-cyber-400 hover:text-cyber-300">
-              Kullanım Koşulları
+              Usage Kosullari
             </a>{' '}
             ve{' '}
             <a href="#" className="text-cyber-400 hover:text-cyber-300">
-              Gizlilik Politikası
+              Privacy Politikasi
             </a>
-            'nı kabul etmiş olursunuz.
+            'ni kabul etmis olursunuz.
           </p>
         </div>
 
@@ -433,15 +433,15 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 <Shield className="h-5 w-5 text-emerald-400" />
               </div>
               <div>
-                <p className="text-xs text-emerald-300/80 font-medium">Türkiye Sertifikalı Kullanıcı</p>
-                <p className="text-emerald-400 text-xl font-bold">{totalUsers.toLocaleString('tr-TR')}</p>
+                <p className="text-xs text-emerald-300/80 font-medium">Typekiye Certificateli User</p>
+                <p className="text-emerald-400 text-xl font-bold">{totalUsers.toLocaleString('en-US')}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-emerald-500/20 px-3 py-1 rounded-full">
                 <span className="text-xs text-emerald-300 font-semibold flex items-center gap-1">
                   <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
-                  Canlı
+                  Canli
                 </span>
               </div>
               <button
@@ -461,7 +461,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
             <div className="mt-3 pt-3 border-t border-emerald-500/20 space-y-3 animate-fadeIn">
               <div className="flex items-center gap-2 mb-2">
                 <MapPin className="h-4 w-4 text-emerald-400" />
-                <h4 className="text-sm font-semibold text-emerald-300">İl Bazlı Dağılım</h4>
+                <h4 className="text-sm font-semibold text-emerald-300">Il Bazli Dagilim</h4>
               </div>
 
               <div className="space-y-2 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
@@ -481,7 +481,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-bold text-emerald-400">{city.certified_users.toLocaleString('tr-TR')}</p>
+                        <p className="text-sm font-bold text-emerald-400">{city.certified_users.toLocaleString('en-US')}</p>
                         <div className="flex items-center gap-1">
                           <TrendingUp className="h-3 w-3 text-emerald-500" />
                           <span className="text-xs text-emerald-500">+{Math.floor(Math.random() * 5 + 1)}%</span>
@@ -496,9 +496,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 <div className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1 text-emerald-300/80">
                     <Activity className="h-3 w-3" />
-                    <span>Toplam {cityStats.length} il</span>
+                    <span>Total {cityStats.length} il</span>
                   </div>
-                  <span className="text-emerald-400 font-semibold">Türkiye Geneli</span>
+                  <span className="text-emerald-400 font-semibold">Typekiye Geneli</span>
                 </div>
               </div>
             </div>

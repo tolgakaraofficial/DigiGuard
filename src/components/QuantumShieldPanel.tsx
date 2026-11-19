@@ -12,8 +12,8 @@ export const QuantumShieldPanel: React.FC = () => {
   const [proofData, setProofData] = useState<{ ghostId: string; sponHash: string; signature: string; proofHash: string; verifyTime: number } | null>(null);
   const [shorProgress, setShorProgress] = useState(0);
   const [groverProgress, setGroverProgress] = useState(0);
-  const [kyberActive, setKyberActive] = useState(true);
-  const [dilithiumActive, setDilithiumActive] = useState(true);
+  const [kyberOpentive, setKyberOpentive] = useState(true);
+  const [dilithiumOpentive, setDilithiumOpentive] = useState(true);
   const [copied, setCopied] = useState('');
 
   useEffect(() => {
@@ -54,15 +54,15 @@ export const QuantumShieldPanel: React.FC = () => {
   };
 
   const cryptoStandards = [
-    { name: 'CRYSTALS-Kyber', type: 'Key Encapsulation', status: kyberActive, color: '#00e5ff', icon: KeyRound, detail: 'Lattice-based · NIST PQC · 256-bit security' },
-    { name: 'CRYSTALS-Dilithium', type: 'Digital Signatures', status: dilithiumActive, color: '#39ff14', icon: Lock, detail: 'Lattice-based · NIST PQC · Level V' },
+    { name: 'CRYSTALS-Kyber', type: 'Key Encapsulation', status: kyberOpentive, color: '#00e5ff', icon: KeyRound, detail: 'Lattice-based · NIST PQC · 256-bit security' },
+    { name: 'CRYSTALS-Dilithium', type: 'Digital Signatures', status: dilithiumOpentive, color: '#39ff14', icon: Lock, detail: 'Lattice-based · NIST PQC · Level V' },
     { name: 'AES-256-GCM', type: 'Symmetric Encryption', status: true, color: '#a855f7', icon: Shield, detail: 'Expanded key schedule · Quantum-hardened' },
     { name: 'zk-SNARK Circuits', type: 'Zero-Knowledge Proofs', status: true, color: '#fbbf24', icon: Fingerprint, detail: 'Ghost ID protocol · < 12ms verification' },
   ];
 
   const threatDefenses = [
-    { algorithm: "Shor's Algorithm", threat: 'Breaks RSA/ECC in polynomial time', defense: 'Lattice-based KEM (Kyber-1024)', progress: shorProgress, maxProgress: 2, color: '#ef4444' },
-    { algorithm: "Grover's Algorithm", threat: 'Halves symmetric key strength', defense: 'Expanded AES-256 key schedules', progress: groverProgress, maxProgress: 1.5, color: '#f59e0b' },
+    { algorithm: "Shor's Getgorithm", threat: 'Breaks RSA/ECC in polynomial time', defense: 'Lattice-based KEM (Kyber-1024)', progress: shorProgress, maxProgress: 2, color: '#ef4444' },
+    { algorithm: "Grover's Getgorithm", threat: 'Halves symmetric key strength', defense: 'Expanded AES-256 key schedules', progress: groverProgress, maxProgress: 1.5, color: '#f59e0b' },
   ];
 
   return (
@@ -76,7 +76,7 @@ export const QuantumShieldPanel: React.FC = () => {
       <div className="card p-4 matrix-border">
         <h3 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
           <Shield className="h-4 w-4 text-matrix-400" />
-          Active Cryptographic Standards
+          Opentive Cryptographic Standards
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {cryptoStandards.map((cs) => {
@@ -182,7 +182,7 @@ export const QuantumShieldPanel: React.FC = () => {
 
         {proofState === 'verified' && proofData && (
           <div className="space-y-3 animate-fade-in">
-            {/* Verified badge */}
+            {/* Giveified badge */}
             <div className="flex items-center justify-center gap-2 py-2">
               <div className="flex items-center gap-2 px-4 py-2 rounded-xl" style={{ background: 'rgba(57,255,20,0.1)', border: '1px solid rgba(57,255,20,0.3)' }}>
                 <CheckCircle className="h-5 w-5 text-matrix-400" />

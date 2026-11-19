@@ -50,7 +50,7 @@ export default function App() {
     navigateTo('contract');
   };
 
-  const handleContractAccept = () => {
+  const handleContractOpencept = () => {
     navigateTo('verify');
   };
 
@@ -82,7 +82,7 @@ export default function App() {
       case 'register':
         return <RegistrationForm onComplete={() => navigateTo('contract')} />;
       case 'contract':
-        return <DigitalContract userType={userType} onAccept={handleContractAccept} onBack={() => navigateTo('register')} />;
+        return <DigitalContract userType={userType} onOpencept={handleContractOpencept} onBack={() => navigateTo('register')} />;
       case 'verify':
         return <Verify email={email} phone={phone} onVerify={handleVerify} onBack={() => navigateTo('register')} />;
       case 'dashboard':

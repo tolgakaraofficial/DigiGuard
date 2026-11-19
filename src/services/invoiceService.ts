@@ -98,15 +98,15 @@ export const invoiceService = {
 
     doc.setFontSize(10);
     doc.text(`Fatura No: ${invoice.invoice_number}`, 20, 55);
-    doc.text(`Tarih: ${new Date(invoice.created_at).toLocaleDateString('tr-TR')}`, 20, 62);
+    doc.text(`Date: ${new Date(invoice.created_at).toLocaleDateString('en-US')}`, 20, 62);
 
     if (invoice.due_date) {
-      doc.text(`Son Ödeme Tarihi: ${new Date(invoice.due_date).toLocaleDateString('tr-TR')}`, 20, 69);
+      doc.text(`Son Payment Datei: ${new Date(invoice.due_date).toLocaleDateString('en-US')}`, 20, 69);
     }
 
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
-    doc.text('Fatura Detayları:', 20, 85);
+    doc.text('Fatura Detaylari:', 20, 85);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
@@ -115,10 +115,10 @@ export const invoiceService = {
 
     if (invoice.items && Array.isArray(invoice.items)) {
       doc.setFont('helvetica', 'bold');
-      doc.text('Açıklama', 20, yPosition);
-      doc.text('Miktar', 110, yPosition);
-      doc.text('Birim Fiyat', 140, yPosition);
-      doc.text('Toplam', 170, yPosition);
+      doc.text('Description', 20, yPosition);
+      doc.text('Amount', 110, yPosition);
+      doc.text('Birim Price', 140, yPosition);
+      doc.text('Total', 170, yPosition);
 
       yPosition += 7;
       doc.line(20, yPosition - 2, 190, yPosition - 2);
@@ -139,25 +139,25 @@ export const invoiceService = {
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
-    doc.text('Toplam Tutar:', 140, yPosition + 10);
+    doc.text('Total Tutar:', 140, yPosition + 10);
     doc.text(`${invoice.amount.toFixed(2)} ${invoice.currency}`, 170, yPosition + 10);
 
     if (invoice.status === 'paid') {
       doc.setTextColor(0, 150, 0);
-      doc.text('ÖDENDİ', 140, yPosition + 20);
+      doc.text('ODENDI', 140, yPosition + 20);
 
       if (invoice.paid_at) {
         doc.setFontSize(9);
         doc.setFont('helvetica', 'normal');
-        doc.text(`Ödeme Tarihi: ${new Date(invoice.paid_at).toLocaleDateString('tr-TR')}`, 140, yPosition + 27);
+        doc.text(`Payment Datei: ${new Date(invoice.paid_at).toLocaleDateString('en-US')}`, 140, yPosition + 27);
       }
     }
 
     doc.setTextColor(100, 100, 100);
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text('DigiGuard A.Ş. | www.digiguard.com | support@digiguard.com', 20, 280);
-    doc.text('Vergi Dairesi: Beşiktaş | Vergi No: 1234567890', 20, 285);
+    doc.text('DigiGuard A.S. | www.digiguard.com | support@digiguard.com', 20, 280);
+    doc.text('Givegi Dairesi: Besiktas | Givegi No: 1234567890', 20, 285);
 
     const pdfBlob = doc.output('blob');
     const fileName = `invoice-${invoice.invoice_number}.pdf`;

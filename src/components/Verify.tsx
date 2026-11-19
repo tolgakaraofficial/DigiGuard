@@ -24,7 +24,7 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
   const [pukoPhase, setPukoPhase] = useState<PUKOPhase>('proactive');
   const [loading, setLoading] = useState(false);
 
-  const allVerified = kyc.face && kyc.document && kyc.biometric;
+  const allDatafied = kyc.face && kyc.document && kyc.biometric;
 
   useEffect(() => {
     const phases: PUKOPhase[] = ['proactive', 'warning', 'protection', 'repair'];
@@ -37,7 +37,7 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
   }, []);
 
   useEffect(() => {
-    if (allVerified && ghostStep === 0) {
+    if (allDatafied && ghostStep === 0) {
       setGhostStep(1);
       const run = async () => {
         await new Promise((r) => setTimeout(r, 700));
@@ -52,11 +52,11 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
       };
       run();
     }
-  }, [allVerified, ghostStep]);
+  }, [allDatafied, ghostStep]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!allVerified || ghostStep < 4) return;
+    if (!allDatafied || ghostStep < 4) return;
     setLoading(true);
     await new Promise((r) => setTimeout(r, 1200));
     setLoading(false);
@@ -64,16 +64,16 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
   };
 
   const pukoPhases: { phase: PUKOPhase; label: string; color: string; icon: React.ElementType }[] = [
-    { phase: 'proactive', label: 'Proaktif', color: '#39ff14', icon: Shield },
-    { phase: 'warning', label: 'Uyari', color: '#f59e0b', icon: AlertTriangle },
-    { phase: 'protection', label: 'Koruma', color: '#00e5ff', icon: Lock },
-    { phase: 'repair', label: 'Onarim', color: '#a855f7', icon: RefreshCw },
+    { phase: 'proactive', label: 'Proactive', color: '#39ff14', icon: Shield },
+    { phase: 'warning', label: 'Warning', color: '#f59e0b', icon: AlertTriangle },
+    { phase: 'protection', label: 'Protection', color: '#00e5ff', icon: Lock },
+    { phase: 'repair', label: 'Repair', color: '#a855f7', icon: RefreshCw },
   ];
 
   const kycSteps = [
-    { key: 'face', label: 'Yuz Tarama', desc: 'Canlilik tespiti', icon: Camera, val: kyc.face },
-    { key: 'document', label: 'Belge Tarama', desc: 'TC Kimlik / Pasaport', icon: Scan, val: kyc.document },
-    { key: 'biometric', label: 'Biyometrik', desc: 'Parmak izi / Retina', icon: Fingerprint, val: kyc.biometric },
+    { key: 'face', label: 'Face Scan', desc: 'Liveness detection', icon: Camera, val: kyc.face },
+    { key: 'document', label: 'Document Scan', desc: 'National ID / Passport', icon: Scan, val: kyc.document },
+    { key: 'biometric', label: 'Biometric', desc: 'Fingerprint / Retina', icon: Fingerprint, val: kyc.biometric },
   ] as const;
 
   return (
@@ -83,24 +83,24 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
           <div className="inline-flex p-3 rounded-2xl cyber-border cyber-glow mb-3">
             <UserCheck className="h-8 w-8 text-cyber-400" />
           </div>
-          <h1 className="text-2xl font-bold text-white">KYC Kimlik Dogrulama</h1>
-          <p className="text-xs text-slate-400 mt-1 font-mono">Biyometrik + Ghost ID / SPON / SOFTON</p>
+          <h1 className="text-2xl font-bold text-white">KYC Identity Verification</h1>
+          <p className="text-xs text-slate-400 mt-1 font-mono">Biometric + Ghost ID / SPON / SOFTON</p>
         </div>
 
         {/* User info */}
         <div className="mb-4 p-3 rounded-lg bg-blue-900/20 border border-blue-500/20 flex items-start gap-2">
           <AlertCircle className="h-4 w-4 text-blue-400 flex-shrink-0 mt-0.5" />
           <div className="text-xs">
-            <p className="text-blue-200"><span className="font-semibold">E-posta:</span> {email}</p>
-            <p className="text-blue-200"><span className="font-semibold">Telefon:</span> {phone}</p>
+            <p className="text-blue-200"><span className="font-semibold">Email:</span> {email}</p>
+            <p className="text-blue-200"><span className="font-semibold">Phone:</span> {phone}</p>
           </div>
         </div>
 
-        {/* PUKO Dongusu */}
+        {/* PUKO Cycle */}
         <div className="mb-4 card p-3 border border-cyan-500/20">
           <div className="flex items-center gap-2 mb-2">
             <Activity className="h-4 w-4 text-cyber-400" />
-            <span className="text-xs font-bold text-white">PUKO Dongusu</span>
+            <span className="text-xs font-bold text-white">PUKO Cycle</span>
           </div>
           <div className="flex items-center justify-between gap-1">
             {pukoPhases.map((p) => {
@@ -153,7 +153,7 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
                     onClick={() => setKyc({ ...kyc, [s.key]: true })}
                     className="text-xs btn-cyber px-3 py-1.5 rounded-lg font-semibold"
                   >
-                    Baslat
+                    Start
                   </button>
                 )}
               </div>
@@ -161,11 +161,11 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
           </div>
 
           {/* Ghost ID flow */}
-          {allVerified && (
+          {allDatafied && (
             <div className="p-4 rounded-lg border-2 animate-fade-in" style={{ background: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.3)' }}>
               <div className="flex items-center gap-2 mb-3">
                 <Ghost className="h-5 w-5 text-ghost-400" />
-                <h3 className="text-sm font-bold text-white">Ghost ID / SPON / SOFTON Akisi</h3>
+                <h3 className="text-sm font-bold text-white">Ghost ID / SPON / SOFTON Flow</h3>
                 {ghostStep === 4 && <CheckCircle className="h-4 w-4 text-matrix-400" />}
               </div>
 
@@ -215,8 +215,8 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
               <div className="flex items-center gap-3">
                 <CheckCircle className="h-5 w-5 text-matrix-400" />
                 <div>
-                  <p className="text-sm text-matrix-300 font-bold">KYC + Ghost ID Dogrulama Tamamlandi!</p>
-                  <p className="text-[10px] text-matrix-400">SOFTON tokeni olusturuldu</p>
+                  <p className="text-sm text-matrix-300 font-bold">KYC + Ghost ID Verification Completed!</p>
+                  <p className="text-[10px] text-matrix-400">SOFTON token generated</p>
                 </div>
               </div>
             </div>
@@ -224,17 +224,17 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
 
           <div className="flex gap-2">
             <button type="button" onClick={onBack} className="px-4 py-2.5 rounded-lg bg-slate-800 text-slate-300 text-sm font-medium">
-              Geri
+              Back
             </button>
             <button
               type="submit"
-              disabled={loading || !allVerified || ghostStep < 4}
+              disabled={loading || !allDatafied || ghostStep < 4}
               className="flex-1 btn-cyber rounded-lg py-2.5 font-semibold text-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
-                <><RotateCcw className="h-4 w-4 animate-spin" /> Dogrulaniyor...</>
+                <><RotateCcw className="h-4 w-4 animate-spin" /> Verifying...</>
               ) : (
-                <><Shield className="h-4 w-4" /> Dogrulamayi Tamamla <ArrowRight className="h-4 w-4" /></>
+                <><Shield className="h-4 w-4" /> Complete Verification <ArrowRight className="h-4 w-4" /></>
               )}
             </button>
           </div>
@@ -244,8 +244,8 @@ export const Verify: React.FC<VerifyProps> = ({ email, phone, onVerify, onBack }
             {[
               { label: 'Dilithium+Kyber-1024', icon: KeyRound, color: '#a855f7' },
               { label: 'AES-256-GCM', icon: Lock, color: '#00e5ff' },
-              { label: 'PUKO Dongusu', icon: ShieldCheck, color: '#39ff14' },
-              { label: '5 Katmanli Mimari', icon: Layers, color: '#f97316' },
+              { label: 'PUKO Cycle', icon: ShieldCheck, color: '#39ff14' },
+              { label: '5-Layer Architectureure', icon: Layers, color: '#f97316' },
             ].map((b) => (
               <div key={b.label} className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
                 <b.icon className="h-3 w-3" style={{ color: b.color }} />

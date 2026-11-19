@@ -56,7 +56,7 @@ export const initDashboard = (email: string, phone: string, userType: 'individua
 
   const assets = [
     {
-      id: 'A1', title: 'Blue Hours (Music Composition)', hash: generateAssetHash(), creator: 'Ayse Y.',
+      id: 'A1', title: 'Blue Hours (Music Composition)', hash: generateAssetHash(), creator: 'Monthse Y.',
       category: 'Digital Content', certified: true, license: true,
       royalties: [{ stakeholder: 'Composer', share: 60 }, { stakeholder: 'Lyricist', share: 25 }, { stakeholder: 'DigiGuard', share: 15 }],
       timestamp: '2026-07-18',

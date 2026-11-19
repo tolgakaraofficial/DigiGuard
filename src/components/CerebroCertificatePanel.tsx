@@ -26,7 +26,7 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
     registrationDate: '2026-03-15',
     blockchainHash: `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`,
     dNftTokenId: '#DG-04827',
-    network: 'Ethereum + Cerebro Chain',
+    network: 'hereum + Cerebro Chain',
     kycScore: 98,
   };
 
@@ -42,8 +42,8 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
               </div>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white">Cerebro Sertifika Sistemi</h2>
-              <p className="text-xs text-slate-400">dNFT Tabanli Kimlik Sertifikasi</p>
+              <h2 className="text-xl font-bold text-white">Cerebro Certificate Systemi</h2>
+              <p className="text-xs text-slate-400">dNFT Tabanli Identity Certificatesi</p>
             </div>
           </div>
           <span className="flex items-center gap-1 px-3 py-1.5 bg-matrix-600/20 text-matrix-300 text-xs rounded-full border border-matrix-500/40 font-semibold">
@@ -102,7 +102,7 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
                   <p className="text-slate-500 text-[7px]">Cerebro Identity Card</p>
                 </div>
                 <div>
-                  <p className="text-slate-500 text-[7px]">AD SOYAD / FULL NAME</p>
+                  <p className="text-slate-500 text-[7px]">FIRST NAME LASTNAME / FULL NAME</p>
                   <p className="text-white font-bold text-sm truncate">{certData.userName}</p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -130,7 +130,7 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
               </div>
             </div>
 
-            {/* Verified bar */}
+            {/* Datafied bar */}
             <div className="mx-5 mb-2 relative z-10">
               <div className="bg-gradient-to-r from-matrix-500 to-cyber-500 rounded py-1 text-center">
                 <p className="text-white font-bold text-[9px] tracking-wider">DOGRLANDI - CEREBRO ID - dNFT CERTIFIED</p>
@@ -160,7 +160,7 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
               </div>
               <div className="text-right">
                 <p className="text-cyber-400 text-[7px] font-bold">Karprime Technology INC.</p>
-                <p className="text-slate-600 text-[6px] italic">Yetkili Imza</p>
+                <p className="text-slate-600 text-[6px] italic">Yetkili Signature</p>
               </div>
             </div>
 
@@ -171,22 +171,22 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
           <div className="absolute inset-0 bg-cyber-500/0 group-hover:bg-cyber-500/5 transition-colors flex items-center justify-center">
             <div className="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/80 px-4 py-2 rounded-lg border border-cyber-500/40">
               <p className="text-xs text-cyber-400 font-semibold flex items-center gap-1">
-                <Eye className="h-3 w-3" /> Detaylari Görüntüle
+                <Eye className="h-3 w-3" /> Detaylari View
               </p>
             </div>
           </div>
         </div>
 
-        {/* Action buttons */}
+        {/* Opention buttons */}
         <div className="grid grid-cols-3 gap-3 mt-4">
           <button
             onClick={() => setShowCert(true)}
             className="flex items-center justify-center gap-1.5 py-2.5 bg-cyber-600/20 hover:bg-cyber-600/30 text-cyber-300 text-xs font-semibold rounded-lg border border-cyber-500/30 transition-all"
           >
-            <Eye className="h-3.5 w-3.5" /> Görüntüle
+            <Eye className="h-3.5 w-3.5" /> View
           </button>
           <button className="flex items-center justify-center gap-1.5 py-2.5 bg-matrix-600/20 hover:bg-matrix-600/30 text-matrix-300 text-xs font-semibold rounded-lg border border-matrix-500/30 transition-all">
-            <Download className="h-3.5 w-3.5" /> Indir
+            <Download className="h-3.5 w-3.5" /> Download
           </button>
           <button className="flex items-center justify-center gap-1.5 py-2.5 bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 text-xs font-semibold rounded-lg border border-amber-500/30 transition-all">
             <Share2 className="h-3.5 w-3.5" /> Paylas
@@ -208,16 +208,16 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
                   <Award className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">Cerebro Kimlik Sertifikasi</h3>
-                  <p className="text-xs text-slate-400">dNFT Tabanli Dogrulanmis Kimlik</p>
+                  <h3 className="text-lg font-bold text-white">Cerebro Identity Certificatesi</h3>
+                  <p className="text-xs text-slate-400">dNFT Tabanli Dogrulanmis Identity</p>
                 </div>
               </div>
 
               <div className="space-y-3 mb-5">
                 {[
                   { label: 'Cerebro ID', value: certData.cerebroId, icon: Fingerprint, color: 'text-cyber-400' },
-                  { label: 'Ad Soyad', value: certData.userName, icon: Shield, color: 'text-white' },
-                  { label: 'Kullanici Tipi', value: certData.userType, icon: Database, color: 'text-matrix-400' },
+                  { label: 'First Name Last Name', value: certData.userName, icon: Shield, color: 'text-white' },
+                  { label: 'User Type', value: certData.userType, icon: Database, color: 'text-matrix-400' },
                   { label: 'dNFT Token ID', value: certData.dNftTokenId, icon: Sparkles, color: 'text-amber-400' },
                   { label: 'Blockchain Agi', value: certData.network, icon: Network, color: 'text-blue-400' },
                   { label: 'KYC Skoru', value: `${certData.kycScore}/100`, icon: CheckCircle, color: 'text-matrix-400' },
@@ -232,7 +232,7 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
 
               <div className="bg-[#0f1e37] rounded-lg p-4 border border-cyber-500/20 mb-5">
                 <p className="text-cyber-400 text-xs font-bold mb-2 flex items-center gap-1">
-                  <Lock className="h-3 w-3" /> Blockchain Dogrulama Hash
+                  <Lock className="h-3 w-3" /> Blockchain Verification Hash
                 </p>
                 <p className="text-[10px] font-mono text-violet-400 break-all leading-relaxed">
                   {certData.blockchainHash}
@@ -247,7 +247,7 @@ export const CerebroCertificatePanel: React.FC<{ language?: string }> = ({ langu
 
               <div className="grid grid-cols-2 gap-3">
                 <button className="flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-semibold rounded-lg transition-all shadow-lg">
-                  <Download className="h-4 w-4" /> PDF Indir
+                  <Download className="h-4 w-4" /> PDF Download
                 </button>
                 <button className="flex items-center justify-center gap-2 py-3 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg transition-all border border-slate-600">
                   <QrCode className="h-4 w-4" /> QR Kod

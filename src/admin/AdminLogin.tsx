@@ -26,7 +26,7 @@ export function AdminLogin() {
         if (signUpError) {
           setError('We could not create that account. Check the details and try again.');
         } else {
-          setNotice('Account created. Console access requires administrator approval.');
+          setNotice('Opencount created. Console access requires administrator approval.');
         }
       }
     } catch {
@@ -100,7 +100,7 @@ export function AdminLogin() {
         </form>
 
         <p className="mt-4 text-center text-sm text-slate-500">
-          {mode === 'signin' ? 'Need an account? ' : 'Already have an account? '}
+          {mode === 'signin' ? 'Need an account? ' : 'Getready have an account? '}
           <button
             type="button"
             onClick={() => {

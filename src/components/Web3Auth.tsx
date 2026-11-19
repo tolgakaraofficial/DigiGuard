@@ -12,23 +12,23 @@ export const Web3Auth: React.FC<Web3AuthProps> = ({ onAuthenticate }) => {
   const authMethods = [
     {
       id: 'web3-wallet',
-      name: 'Web3 Cüzdan',
-      description: 'MetaMask, WalletConnect ile bağlan',
+      name: 'Web3 Wallet',
+      description: 'MetaMask, WalletConnect ile baglan',
       icon: Wallet,
       color: 'from-orange-500 to-yellow-500',
       version: 'Web3',
     },
     {
       id: 'web4-did',
-      name: 'Merkezi Olmayan Kimlik (DID)',
-      description: 'Web4 DID protokolü ile kimlik doğrula',
+      name: 'Center Olmayan Identity (DID)',
+      description: 'Web4 DID protokolu ile kimlik dogrula',
       icon: Fingerprint,
       color: 'from-purple-500 to-pink-500',
       version: 'Web4',
     },
     {
       id: 'web5-decentralized',
-      name: 'Web5 Kişisel Veri',
+      name: 'Web5 Personsel Data',
       description: 'Kendi verilerinizi kontrol edin',
       icon: Smartphone,
       color: 'from-green-500 to-emerald-500',
@@ -36,8 +36,8 @@ export const Web3Auth: React.FC<Web3AuthProps> = ({ onAuthenticate }) => {
     },
     {
       id: 'biometric',
-      name: 'Biyometrik Doğrulama',
-      description: 'Parmak izi veya yüz tanıma',
+      name: 'Biyometrik Verification',
+      description: 'Parmak izi veya yuz tanima',
       icon: Globe,
       color: 'from-cyan-500 to-blue-500',
       version: 'Biometric',
@@ -65,10 +65,10 @@ export const Web3Auth: React.FC<Web3AuthProps> = ({ onAuthenticate }) => {
       <div className="bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl border border-slate-700">
         <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-            Gelişmiş Kimlik Doğrulama
+            Gelismis Identity Verification
           </h2>
           <p className="text-slate-300 text-sm sm:text-base">
-            Web3, Web4, Web5 ve Biyometrik teknolojiler ile güvenli giriş
+            Web3, Web4, Web5 ve Biyometrik teknolojiler ile guvenli giris
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export const Web3Auth: React.FC<Web3AuthProps> = ({ onAuthenticate }) => {
                   <div className="absolute inset-0 bg-slate-800/80 rounded-xl flex items-center justify-center">
                     <div className="flex items-center space-x-2">
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      <span className="text-white text-sm">Bağlanıyor...</span>
+                      <span className="text-white text-sm">Connectiyor...</span>
                     </div>
                   </div>
                 )}
@@ -126,11 +126,11 @@ export const Web3Auth: React.FC<Web3AuthProps> = ({ onAuthenticate }) => {
             <Globe className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <h4 className="text-blue-300 font-medium text-sm mb-1">
-                Yeni Nesil Web Teknolojileri
+                New Nesil Web Teknolojileri
               </h4>
               <p className="text-blue-200/80 text-xs">
-                Web3, Web4 ve Web5 protokolleri ile merkezi olmayan, güvenli ve
-                kullanıcı odaklı kimlik doğrulama deneyimi yaşayın.
+                Web3, Web4 ve Web5 protokolleri ile decentralized, guvenli ve
+                user odakli kimlik verification deneyimi yasayin.
               </p>
             </div>
           </div>

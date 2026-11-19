@@ -20,21 +20,21 @@ interface AssetRow {
 }
 
 const assetRows: AssetRow[] = [
-  { id: 'IOT-7841', type: 'IoT', label: 'Smart Home Hub Alpha', location: 'Istanbul, TR', status: 'tracked', lastSeen: '2 dk önce', binding: '0x7a3f...e9b2', icon: Cpu },
-  { id: 'IOT-7842', type: 'IoT', label: 'Industrial Sensor #42', location: 'Kocaeli, TR', status: 'verified', lastSeen: '1 dk önce', binding: '0x8b1c...f04a', icon: Radio },
-  { id: 'VEH-1201', type: 'Vehicle', label: 'Fleet Vehicle TR-34-7841', location: 'Istanbul, TR', status: 'tracked', lastSeen: '30 sn önce', binding: '0x4d2e...a81c', icon: Car },
-  { id: 'VEH-1202', type: 'Vehicle', label: 'Logistics Truck TR-41-2290', location: 'Ankara, TR', status: 'syncing', lastSeen: '45 sn önce', binding: '0x9c5b...d3f0', icon: Car },
-  { id: 'WBL-3301', type: 'Wearable', label: 'Health Band Pro 5', location: 'Izmir, TR', status: 'verified', lastSeen: '10 sn önce', binding: '0x2a8f...c7e1', icon: Watch },
-  { id: 'MOB-5501', type: 'Mobile', label: 'Field Agent Phone #17', location: 'Bursa, TR', status: 'tracked', lastSeen: '1 dk önce', binding: '0x6e4d...b29a', icon: Smartphone },
-  { id: 'SAT-9001', type: 'Satellite', label: 'Cerebro Mesh Node SAT-7', location: 'LEO Orbit', status: 'verified', lastSeen: '3 dk önce', binding: '0x1f0a...88ce', icon: Satellite },
-  { id: 'IOT-7843', type: 'IoT', label: 'Border Checkpoint Scanner', location: 'Edirne, TR', status: 'alert', lastSeen: '5 dk önce', binding: '0x3b7c...0e5d', icon: Radio },
+  { id: 'IOT-7841', type: 'IoT', label: 'Smart Home Hub Getpha', location: 'Istanbul, TR', status: 'tracked', lastSeen: '2 dk once', binding: '0x7a3f...e9b2', icon: Cpu },
+  { id: 'IOT-7842', type: 'IoT', label: 'Industrial Sensor #42', location: 'Kocaeli, TR', status: 'verified', lastSeen: '1 dk once', binding: '0x8b1c...f04a', icon: Radio },
+  { id: 'VEH-1201', type: 'Vehicle', label: 'Fleet Vehicle TR-34-7841', location: 'Istanbul, TR', status: 'tracked', lastSeen: '30 sn once', binding: '0x4d2e...a81c', icon: Car },
+  { id: 'VEH-1202', type: 'Vehicle', label: 'Logistics Truck TR-41-2290', location: 'Ankara, TR', status: 'syncing', lastSeen: '45 sn once', binding: '0x9c5b...d3f0', icon: Car },
+  { id: 'WBL-3301', type: 'Wearable', label: 'Health Band Pro 5', location: 'Izmir, TR', status: 'verified', lastSeen: '10 sn once', binding: '0x2a8f...c7e1', icon: Watch },
+  { id: 'MOB-5501', type: 'Mobile', label: 'Field Agent Phone #17', location: 'Bursa, TR', status: 'tracked', lastSeen: '1 dk once', binding: '0x6e4d...b29a', icon: Smartphone },
+  { id: 'SAT-9001', type: 'Satellite', label: 'Cerebro Mesh Node SAT-7', location: 'LEO Orbit', status: 'verified', lastSeen: '3 dk once', binding: '0x1f0a...88ce', icon: Satellite },
+  { id: 'IOT-7843', type: 'IoT', label: 'Border Checkpoint Scanner', location: 'Edirne, TR', status: 'alert', lastSeen: '5 dk once', binding: '0x3b7c...0e5d', icon: Radio },
 ];
 
 const bridgeStats: BridgeStat[] = [
-  { label: 'Bridge Durumu', value: 'AKTIF', color: '#39ff14', icon: ShieldCheck },
+  { label: 'Bridge Status', value: 'AKTIF', color: '#39ff14', icon: ShieldCheck },
   { label: 'Islem Hizi', value: '0.8s', color: '#00e5ff', icon: Zap },
   { label: 'Non-Custodial', value: '100%', color: '#f59e0b', icon: Lock },
-  { label: 'Aktif Varlik', value: '8/8', color: '#a855f7', icon: Boxes },
+  { label: 'Opentive Varlik', value: '8/8', color: '#a855f7', icon: Boxes },
 ];
 
 const statusConfig: Record<AssetRow['status'], { color: string; label: string; bg: string }> = {
@@ -134,7 +134,7 @@ export const SovereignBridgePanel: React.FC = () => {
             </div>
           </div>
           <p className="text-[10px] text-slate-500 mt-3 text-center font-mono">
-            Sovereign Bridge Protocol: Kullanici varliklari uzerinden non-custodial transfer - 0.8s ortalama islem suresi
+            Sovereign Bridge Protocol: User varliklari uzerinden non-custodial transfer - 0.8s ortalama islem suresi
           </p>
         </div>
       </div>
@@ -144,7 +144,7 @@ export const SovereignBridgePanel: React.FC = () => {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Activity className="h-5 w-5" style={{ color: '#00e5ff' }} />
-            <h3 className="text-sm font-bold text-white">IoT Varlik Takip Tablosu</h3>
+            <h3 className="text-sm font-bold text-white">IoT Varlik Tracking Tablosu</h3>
           </div>
           <span className="text-[10px] font-mono text-slate-500">{assetRows.length} aktif kayit</span>
         </div>
@@ -204,7 +204,7 @@ export const SovereignBridgePanel: React.FC = () => {
             <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full" style={{ background: '#f59e0b' }} /> Senkronize</span>
             <span className="flex items-center gap-1"><div className="w-2 h-2 rounded-full" style={{ background: '#ef4444' }} /> Uyari</span>
           </div>
-          <span>Toplam: {assetRows.length} varlik | {assetRows.filter(a => a.status === 'verified').length} dogrulandi</span>
+          <span>Total: {assetRows.length} varlik | {assetRows.filter(a => a.status === 'verified').length} dogrulandi</span>
         </div>
       </div>
 
@@ -223,11 +223,11 @@ export const SovereignBridgePanel: React.FC = () => {
             </div>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
-                <span className="text-slate-500">Konum</span>
+                <span className="text-slate-500">Location</span>
                 <span className="text-slate-300">{selectedAsset.location}</span>
               </div>
               <div className="flex justify-between p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
-                <span className="text-slate-500">Durum</span>
+                <span className="text-slate-500">Status</span>
                 <span style={{ color: statusConfig[selectedAsset.status].color }}>{statusConfig[selectedAsset.status].label}</span>
               </div>
               <div className="flex justify-between p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
@@ -235,16 +235,16 @@ export const SovereignBridgePanel: React.FC = () => {
                 <span className="text-slate-300">{selectedAsset.lastSeen}</span>
               </div>
               <div className="flex justify-between p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
-                <span className="text-slate-500">Kimlik Baglama</span>
+                <span className="text-slate-500">Identity Baglama</span>
                 <span className="font-mono text-slate-300">{selectedAsset.binding}</span>
               </div>
               <div className="flex justify-between p-2 rounded" style={{ background: 'rgba(2,6,23,0.6)' }}>
-                <span className="text-slate-500">Bridge Protokol</span>
+                <span className="text-slate-500">Bridge Protocol</span>
                 <span style={{ color: '#00e5ff' }}>Sovereign v2</span>
               </div>
             </div>
             <button onClick={() => setSelectedAsset(null)} className="mt-4 w-full py-2 rounded-lg text-xs font-semibold transition-all" style={{ background: 'rgba(0,229,255,0.1)', border: '1px solid rgba(0,229,255,0.3)', color: '#00e5ff' }}>
-              Kapat
+              Close
             </button>
           </div>
         </div>

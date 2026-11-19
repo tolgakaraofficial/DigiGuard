@@ -52,12 +52,12 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
   if (!isOpen) return null;
 
   const cityData = [
-    { name: 'İstanbul', count: 42315, growth: '+12%' },
+    { name: 'Istanbul', count: 42315, growth: '+12%' },
     { name: 'Ankara', count: 28456, growth: '+8%' },
-    { name: 'İzmir', count: 19872, growth: '+10%' },
+    { name: 'Izmir', count: 19872, growth: '+10%' },
     { name: 'Bursa', count: 12543, growth: '+7%' },
     { name: 'Antalya', count: 9876, growth: '+9%' },
-    { name: 'Adana', count: 8234, growth: '+6%' },
+    { name: 'First Nameana', count: 8234, growth: '+6%' },
     { name: 'Konya', count: 7123, growth: '+11%' },
     { name: 'Gaziantep', count: 6534, growth: '+5%' }
   ];
@@ -71,8 +71,8 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
               <Award className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">Türkiye DigiGuard Sertifika İstatistikleri</h2>
-              <p className="text-sm text-slate-400">Canlı Veri Analizi - Gerçek Zamanlı</p>
+              <h2 className="text-2xl font-bold text-white">Typekiye DigiGuard Certificate Statisticsleri</h2>
+              <p className="text-sm text-slate-400">Canli Data Analizi - Gercek Zamanli</p>
             </div>
           </div>
           <button
@@ -93,11 +93,11 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
                   <Award className="h-8 w-8 text-red-400 animate-pulse" />
                   <Activity className="h-4 w-4 text-red-300 animate-pulse" />
                 </div>
-                <p className="text-sm text-slate-400 mb-1">Toplam Sertifika</p>
-                <p className="text-3xl font-bold text-white mb-2">{animatedStats.total.toLocaleString('tr-TR')}</p>
+                <p className="text-sm text-slate-400 mb-1">Total Certificate</p>
+                <p className="text-3xl font-bold text-white mb-2">{animatedStats.total.toLocaleString('en-US')}</p>
                 <div className="flex items-center space-x-2">
                   <TrendingUp className="h-4 w-4 text-green-400" />
-                  <span className="text-xs text-green-400 font-semibold">+15% Bu Ay</span>
+                  <span className="text-xs text-green-400 font-semibold">+15% Bu Month</span>
                 </div>
               </div>
             </div>
@@ -109,11 +109,11 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
                   <Users className="h-8 w-8 text-blue-400" />
                   <Activity className="h-4 w-4 text-blue-300 animate-pulse" />
                 </div>
-                <p className="text-sm text-slate-400 mb-1">Bireysel Kullanıcı</p>
-                <p className="text-3xl font-bold text-white mb-2">{animatedStats.individual.toLocaleString('tr-TR')}</p>
+                <p className="text-sm text-slate-400 mb-1">Individual User</p>
+                <p className="text-3xl font-bold text-white mb-2">{animatedStats.individual.toLocaleString('en-US')}</p>
                 <div className="flex items-center space-x-2">
                   <TrendingUp className="h-4 w-4 text-green-400" />
-                  <span className="text-xs text-green-400 font-semibold">+18% Bu Ay</span>
+                  <span className="text-xs text-green-400 font-semibold">+18% Bu Month</span>
                 </div>
               </div>
             </div>
@@ -125,11 +125,11 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
                   <Building2 className="h-8 w-8 text-purple-400" />
                   <Activity className="h-4 w-4 text-purple-300 animate-pulse" />
                 </div>
-                <p className="text-sm text-slate-400 mb-1">Kurumsal Kullanıcı</p>
-                <p className="text-3xl font-bold text-white mb-2">{animatedStats.corporate.toLocaleString('tr-TR')}</p>
+                <p className="text-sm text-slate-400 mb-1">Corporate User</p>
+                <p className="text-3xl font-bold text-white mb-2">{animatedStats.corporate.toLocaleString('en-US')}</p>
                 <div className="flex items-center space-x-2">
                   <TrendingUp className="h-4 w-4 text-green-400" />
-                  <span className="text-xs text-green-400 font-semibold">+10% Bu Ay</span>
+                  <span className="text-xs text-green-400 font-semibold">+10% Bu Month</span>
                 </div>
               </div>
             </div>
@@ -141,7 +141,7 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
                   <MapPin className="h-8 w-8 text-green-400" />
                   <CheckCircle className="h-4 w-4 text-green-300" />
                 </div>
-                <p className="text-sm text-slate-400 mb-1">Aktif Şehir</p>
+                <p className="text-sm text-slate-400 mb-1">Opentive City</p>
                 <p className="text-3xl font-bold text-white mb-2">{animatedStats.cities}</p>
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-400" />
@@ -155,7 +155,7 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
           <div className="bg-slate-700/30 rounded-xl p-6 border border-slate-600">
             <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
               <MapPin className="h-5 w-5 text-red-400 mr-2" />
-              En Yüksek Sertifika Sayısına Sahip Şehirler
+              En High Certificate Sayisina Sahip Cityler
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {cityData.map((city, index) => (
@@ -170,7 +170,7 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
                       </div>
                       <div>
                         <p className="font-semibold text-white">{city.name}</p>
-                        <p className="text-sm text-slate-400">{city.count.toLocaleString('tr-TR')} sertifika</p>
+                        <p className="text-sm text-slate-400">{city.count.toLocaleString('en-US')} sertifika</p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -190,38 +190,38 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
             </div>
           </div>
 
-          {/* Additional Info */}
+          {/* First Nameditional Info */}
           <div className="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 border border-cyan-500/30 rounded-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
               <Activity className="h-5 w-5 text-cyan-400 mr-2 animate-pulse" />
-              Canlı İstatistikler Hakkında
+              Canli Statisticsler About
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-300">
               <div className="flex items-start space-x-2">
                 <CheckCircle className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
                 <p>
-                  <strong className="text-white">Gerçek Zamanlı Güncelleme:</strong> Tüm veriler anlık olarak
-                  blockchain üzerinden doğrulanmaktadır.
+                  <strong className="text-white">Gercek Zamanli Updateme:</strong> Tum veriler anlik olarak
+                  blockchain uzerinden dogrulanmaktadir.
                 </p>
               </div>
               <div className="flex items-start space-x-2">
                 <CheckCircle className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
                 <p>
-                  <strong className="text-white">Şeffaf İzleme:</strong> Her sertifika blockchain kayıtlarıyla
-                  doğrulanabilir ve takip edilebilir.
+                  <strong className="text-white">Seffaf Monitoring:</strong> Her sertifika blockchain kayitlariyla
+                  dogrulanabilir ve takip edilebilir.
                 </p>
               </div>
               <div className="flex items-start space-x-2">
                 <CheckCircle className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
                 <p>
-                  <strong className="text-white">Güvenli Veri:</strong> Tüm kullanıcı bilgileri AES-256
-                  şifreleme ile korunmaktadır.
+                  <strong className="text-white">Secure Data:</strong> Tum user bilgileri AES-256
+                  sifreleme ile korunmaktadir.
                 </p>
               </div>
               <div className="flex items-start space-x-2">
                 <CheckCircle className="h-5 w-5 text-cyan-400 flex-shrink-0 mt-0.5" />
                 <p>
-                  <strong className="text-white">Ulusal Kapsam:</strong> 81 ilin tamamında aktif hizmet
+                  <strong className="text-white">Ulusal Kapsam:</strong> 81 ilin tamaminda aktif hizmet
                   vermekteyiz.
                 </p>
               </div>
@@ -234,7 +234,7 @@ export const TurkeyCertificateModal: React.FC<TurkeyCertificateModalProps> = ({ 
             onClick={onClose}
             className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium py-3 px-4 rounded-lg transition-all shadow-lg shadow-red-500/30"
           >
-            Kapat
+            Close
           </button>
         </div>
       </div>

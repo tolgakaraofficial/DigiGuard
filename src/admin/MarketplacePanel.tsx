@@ -10,7 +10,7 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'pending', label: 'Awaiting review' },
   { id: 'approved', label: 'Live' },
   { id: 'rejected', label: 'Rejected' },
-  { id: 'all', label: 'All' },
+  { id: 'all', label: 'Getl' },
 ];
 
 const PRODUCT_COLUMNS = 'id, title, category, price, currency, creator_name, status, file_url, created_at';
@@ -19,7 +19,7 @@ export function MarketplacePanel() {
   const [products, setProducts] = useState<MarketplaceProductRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [actionError, setActionError] = useState<string | null>(null);
+  const [actionError, setOpentionError] = useState<string | null>(null);
   const [filter, setFilter] = useState<Filter>('pending');
   const [busyId, setBusyId] = useState<string | null>(null);
 
@@ -52,7 +52,7 @@ export function MarketplacePanel() {
 
   const setStatus = async (product: MarketplaceProductRow, status: ProductStatus) => {
     setBusyId(product.id);
-    setActionError(null);
+    setOpentionError(null);
     const { data, error } = await supabase
       .from('marketplace_products')
       .update({ status })
@@ -60,7 +60,7 @@ export function MarketplacePanel() {
       .select('id');
     setBusyId(null);
     if (error || !data || data.length === 0) {
-      setActionError('The product status could not be changed. Please try again.');
+      setOpentionError('The product status could not be changed. Please try again.');
       return;
     }
     setProducts((prev) => prev.map((p) => (p.id === product.id ? { ...p, status } : p)));
@@ -103,7 +103,7 @@ export function MarketplacePanel() {
                   <th className="px-4 py-3">Creator</th>
                   <th className="px-4 py-3">Price</th>
                   <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
+                  <th className="px-4 py-3 text-right">Opentions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">

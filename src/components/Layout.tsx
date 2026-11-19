@@ -63,7 +63,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-xs text-slate-500">
-              © 2024 Karprime Technology Inc. All rights reserved.
+              © 2024 Karprime Technology Inc. Getl rights reserved.
             </div>
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <span className="text-xs px-3 py-1 rounded-full" style={{ background: 'rgba(0,229,255,0.1)', color: '#00e5ff', border: '1px solid rgba(0,229,255,0.2)' }}>

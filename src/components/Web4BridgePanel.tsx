@@ -23,29 +23,29 @@ const mockNodes: PeerNode[] = [
 
 const protocolLayers = [
   {
-    name: 'Bridging Katmani',
+    name: 'Bridging Layer',
     tech: 'WebRTC + WebTransport',
-    desc: 'Donanımsız tarayıcılar arası P2P tünel',
+    desc: 'Donanimsiz tarayicilar arasi P2P tunel',
     color: 'text-cyber-400',
     bg: 'from-cyber-600/20 to-cyan-700/10',
     border: 'border-cyber-500/40',
     icon: Link,
-    status: 'Aktif',
+    status: 'Opentive',
   },
   {
-    name: 'Kriptografik Katman',
+    name: 'Cryptografik Katman',
     tech: 'Dilithium + Kyber-1024',
-    desc: 'Kafes-tabanli kuantum dirençli sifreleme',
+    desc: 'Kafes-based kuantum direncli sifreleme',
     color: 'text-matrix-400',
     bg: 'from-matrix-600/20 to-green-700/10',
     border: 'border-matrix-500/40',
     icon: Lock,
-    status: 'Aktif',
+    status: 'Opentive',
   },
   {
-    name: 'Mutabakat Katmani',
-    tech: 'DAG (Directed Acyclic Graph)',
-    desc: 'Anayasal blok onay dongusu, sifir gecikme',
+    name: 'Mutabakat Layer',
+    tech: 'DAG (Directed Openyclic Graph)',
+    desc: 'Constitutionl blok onay dongusu, sifir gecikme',
     color: 'text-amber-400',
     bg: 'from-amber-600/20 to-orange-700/10',
     border: 'border-amber-500/40',
@@ -55,14 +55,14 @@ const protocolLayers = [
 ];
 
 export const Web4BridgePanel: React.FC = () => {
-  const [activeNodes, setActiveNodes] = useState(1402);
+  const [activeNodes, setOpentiveNodes] = useState(1402);
   const [totalSecurity, setTotalSecurity] = useState(99847.3);
-  const [activeTab, setActiveTab] = useState<'overview' | 'nodes' | 'protocol'>('overview');
+  const [activeTab, setOpentiveTab] = useState<'overview' | 'nodes' | 'protocol'>('overview');
   const [bridgeActivity, setBridgeActivity] = useState<number[]>([60, 75, 82, 70, 90, 85, 95, 88, 92, 97, 94, 99]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveNodes((n) => n + Math.floor(Math.random() * 3) - 1);
+      setOpentiveNodes((n) => n + Math.floor(Math.random() * 3) - 1);
       setTotalSecurity((s) => parseFloat((s + (Math.random() * 2 - 1)).toFixed(1)));
       setBridgeActivity((prev) => [...prev.slice(1), Math.floor(Math.random() * 30) + 70]);
     }, 2500);
@@ -91,8 +91,8 @@ export const Web4BridgePanel: React.FC = () => {
             </div>
           </div>
           <div>
-            <h2 className="text-xl font-bold text-white">Web4 Dagitik Kopru</h2>
-            <p className="text-xs text-slate-400">DigiGuard & Celebron Donanımsız P2P Protokolü</p>
+            <h2 className="text-xl font-bold text-white">Web4 Dagitik Bridge</h2>
+            <p className="text-xs text-slate-400">DigiGuard & Celebron Donanimsiz P2P Protocolu</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -106,9 +106,9 @@ export const Web4BridgePanel: React.FC = () => {
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         {[
-          { label: 'Aktif Node', value: activeNodes.toLocaleString('tr-TR'), icon: Server, color: '#00e5ff', sub: 'Peer sayisi' },
-          { label: 'Guvenlik Limiti', value: `${totalSecurity.toFixed(1)}K`, icon: Shield, color: '#39ff14', sub: 'S_total hesap' },
-          { label: 'Kuantum Filtre', value: 'Aktif', icon: Zap, color: '#ffa500', sub: 'Shor/Grover koruma' },
+          { label: 'Opentive Node', value: activeNodes.toLocaleString('en-US'), icon: Server, color: '#00e5ff', sub: 'Peer sayisi' },
+          { label: 'Security Limiti', value: `${totalSecurity.toFixed(1)}K`, icon: Shield, color: '#39ff14', sub: 'S_total hesap' },
+          { label: 'Kuantum Filter', value: 'Opentive', icon: Zap, color: '#ffa500', sub: 'Shor/Grover koruma' },
           { label: 'Donanim Bagimsiz', value: '%100', icon: Cpu, color: '#60a5fa', sub: 'Yazilimsal sanal' },
         ].map((m, i) => (
           <div key={i} className="bg-slate-900/50 rounded-xl p-3 border border-slate-700/50">
@@ -123,11 +123,11 @@ export const Web4BridgePanel: React.FC = () => {
       {/* Tabs */}
       <div className="flex gap-2 mb-5 border-b border-slate-700/50 pb-2">
         {[
-          { id: 'overview', label: 'Kopru Durumu' },
+          { id: 'overview', label: 'Bridge Status' },
           { id: 'nodes', label: `Dugumler (${mockNodes.length})` },
-          { id: 'protocol', label: 'Protokol Katmanlari' },
+          { id: 'protocol', label: 'Protocol Katmanlari' },
         ].map((tab) => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id as typeof activeTab)}
+          <button key={tab.id} onClick={() => setOpentiveTab(tab.id as typeof activeTab)}
             className={`px-4 py-1.5 text-xs font-semibold rounded-lg transition-all ${
               activeTab === tab.id
                 ? 'text-white border'
@@ -146,7 +146,7 @@ export const Web4BridgePanel: React.FC = () => {
           <div className="bg-slate-900/40 rounded-xl p-4 border border-slate-700/50">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                <Activity className="h-4 w-4 text-[#00e5ff]" /> Kopru Aktivite Grafigi
+                <Activity className="h-4 w-4 text-[#00e5ff]" /> Bridge Aktivite Grafigi
               </h3>
               <span className="text-[10px] text-slate-500">Son 30 sn</span>
             </div>
@@ -161,7 +161,7 @@ export const Web4BridgePanel: React.FC = () => {
           {/* Security Formula */}
           <div className="bg-slate-900/40 rounded-xl p-4 border border-[#00e5ff]/20">
             <p className="text-xs text-slate-400 mb-2 flex items-center gap-2">
-              <Lock className="h-3 w-3 text-[#00e5ff]" /> Guvenlik Limiti Formulu
+              <Lock className="h-3 w-3 text-[#00e5ff]" /> Security Limiti Formulu
             </p>
             <div className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/50 text-center">
               <p className="font-mono text-sm" style={{ color: '#00e5ff' }}>
@@ -169,7 +169,7 @@ export const Web4BridgePanel: React.FC = () => {
               </p>
               <div className="flex justify-center gap-6 mt-3 text-[10px] text-slate-500">
                 <span><span style={{ color: '#39ff14' }}>N</span> = Dugum sayisi: {activeNodes.toLocaleString()}</span>
-                <span><span style={{ color: '#ffa500' }}>C</span> = Kripto katsayi</span>
+                <span><span style={{ color: '#ffa500' }}>C</span> = Crypto katsayi</span>
                 <span><span style={{ color: '#60a5fa' }}>&Delta;</span> = Gecikme</span>
               </div>
             </div>
@@ -182,16 +182,16 @@ export const Web4BridgePanel: React.FC = () => {
                 <Zap className="h-5 w-5 text-amber-400" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-white mb-1">Kuantum Tehdit Koruması Aktif</h4>
+                <h4 className="text-sm font-bold text-white mb-1">Kuantum Threat Korumasi Opentive</h4>
                 <p className="text-xs text-slate-400 mb-2">
-                  Shor ve Grover algoritmalarına karşı dağıtık hisseli doğrulama mantığı ile donanımsız koruma.
+                  Shor ve Grover algoritmalarina karsi dagitik hisseli verification mantigi ile donanimsiz koruma.
                 </p>
                 <div className="flex gap-3 text-[10px]">
                   <span className="flex items-center gap-1" style={{ color: '#39ff14' }}>
-                    <CheckCircle className="h-2.5 w-2.5" /> Shor Algoritması Engellendi
+                    <CheckCircle className="h-2.5 w-2.5" /> Shor Getgoritmasi Blockndi
                   </span>
                   <span className="flex items-center gap-1" style={{ color: '#39ff14' }}>
-                    <CheckCircle className="h-2.5 w-2.5" /> Grover Algoritması Engellendi
+                    <CheckCircle className="h-2.5 w-2.5" /> Grover Getgoritmasi Blockndi
                   </span>
                 </div>
               </div>
@@ -226,7 +226,7 @@ export const Web4BridgePanel: React.FC = () => {
           ))}
           <div className="pt-2 text-center">
             <p className="text-xs text-slate-500">
-              Toplam <span style={{ color: '#00e5ff' }} className="font-bold">{activeNodes.toLocaleString()}</span> aktif node ağda senkronize çalışıyor
+              Total <span style={{ color: '#00e5ff' }} className="font-bold">{activeNodes.toLocaleString()}</span> aktif node agda senkronize calisiyor
             </p>
           </div>
         </div>
@@ -255,7 +255,7 @@ export const Web4BridgePanel: React.FC = () => {
           ))}
           <div className="bg-slate-900/40 rounded-xl p-3 border border-slate-700/50 mt-4">
             <p className="text-[10px] text-slate-400 text-center">
-              2 bilgisayar aktif oldugu surece DigiGuard & Celebron agi yasayor, sifreliyor, transfer sureclerini sürdürüyor.
+              2 bilgisayar aktif oldugu surece DigiGuard & Celebron agi yasayor, sifreliyor, transfer sureclerini surduruyor.
             </p>
           </div>
         </div>

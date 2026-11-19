@@ -27,33 +27,33 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
     const newErrors: string[] = [];
     const fileArray = Array.from(files);
     
-    // Dosya boyutu ve türü kontrolü
+    // Dosya boyutu ve turu kontrolu
     fileArray.forEach((file, index) => {
       if (type === 'photos') {
         if (!file.type.startsWith('image/')) {
-          newErrors.push(`${file.name} geçerli bir resim dosyası değil`);
+          newErrors.push(`${file.name} gecerli bir resim dosyasi degil`);
           return;
         }
         if (file.size > 5 * 1024 * 1024) { // 5MB
-          newErrors.push(`${file.name} çok büyük (maksimum 5MB)`);
+          newErrors.push(`${file.name} cok buyuk (maksimum 5MB)`);
           return;
         }
       } else if (type === 'videos') {
         if (!file.type.startsWith('video/')) {
-          newErrors.push(`${file.name} geçerli bir video dosyası değil`);
+          newErrors.push(`${file.name} gecerli bir video dosyasi degil`);
           return;
         }
         if (file.size > 50 * 1024 * 1024) { // 50MB
-          newErrors.push(`${file.name} çok büyük (maksimum 50MB)`);
+          newErrors.push(`${file.name} cok buyuk (maksimum 50MB)`);
           return;
         }
       } else if (type === 'audioRecordings') {
         if (!file.type.startsWith('audio/')) {
-          newErrors.push(`${file.name} geçerli bir ses dosyası değil`);
+          newErrors.push(`${file.name} gecerli bir ses dosyasi degil`);
           return;
         }
         if (file.size > 10 * 1024 * 1024) { // 10MB
-          newErrors.push(`${file.name} çok büyük (maksimum 10MB)`);
+          newErrors.push(`${file.name} cok buyuk (maksimum 10MB)`);
           return;
         }
       }
@@ -66,7 +66,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
     
     setErrors([]);
     
-    // Yükleme simülasyonu
+    // Uploadme simulasyonu
     fileArray.forEach((file) => {
       // Upload simulation handled by progress tracking
     });
@@ -112,13 +112,13 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           <Fingerprint className="h-6 w-6 text-cyber-400 animate-fingerprint-pulse" />
         </div>
         <h2 className="text-2xl font-bold bg-gradient-to-r from-cyber-400 to-matrix-400 bg-clip-text text-transparent">
-          Biyometrik Veri Yükleme
+          Biyometrik Data Uploadme
         </h2>
       </div>
 
       <p className="text-slate-300 mb-6 relative z-10 flex items-center gap-2">
         <Scan className="h-4 w-4 text-cyber-400" />
-        KYC kimlik doğrulama için biyometrik verilerinizi yükleyin. Tüm dosyalar AES-256 ile şifrelenerek blockchain üzerinde saklanacaktır.
+        KYC kimlik verification icin biyometrik verilerinizi yukleyin. Tum dosyalar AES-256 ile sifrelenerek blockchain uzerinde saklanacaktir.
       </p>
 
       {errors.length > 0 && (
@@ -126,7 +126,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           <div className="flex items-start space-x-3">
             <AlertCircle className="h-5 w-5 text-red-400 mt-0.5" />
             <div>
-              <p className="text-red-300 font-medium mb-2">Dosya yükleme hataları:</p>
+              <p className="text-red-300 font-medium mb-2">Dosya yukleme hatalari:</p>
               <ul className="text-red-200 text-sm space-y-1">
                 {errors.map((error, index) => (
                   <li key={index}>• {error}</li>
@@ -141,15 +141,15 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
         <div className="flex items-start space-x-3">
           <AlertCircle className="h-5 w-5 text-cyber-400 mt-0.5" />
           <div>
-            <p className="text-cyber-300 font-medium mb-2">Biyometrik Veri Gereksinimleri:</p>
+            <p className="text-cyber-300 font-medium mb-2">Biyometrik Data Gereksinimleri:</p>
             <ul className="text-cyber-200 text-sm space-y-2">
-              <li>• <strong>Yüz Fotoğrafları:</strong> Net, iyi ışıklandırılmış, farklı açılardan (JPG/PNG, max 5MB)</li>
-              <li>• <strong>Canlılık Videoları:</strong> Yüz hareketleri içeren 5-10 saniyelik kayıt (MP4, max 50MB)</li>
-              <li>• <strong>Ses Kayıtları:</strong> Belirli metinleri okuyarak kayıt (MP3/WAV, max 10MB)</li>
+              <li>• <strong>Face Photolari:</strong> Net, iyi isiklandirilmis, farkli acilardan (JPG/PNG, max 5MB)</li>
+              <li>• <strong>Canlilik Videolari:</strong> Face hareketleri iceren 5-10 saniyelik kayit (MP4, max 50MB)</li>
+              <li>• <strong>Ses Registrationlari:</strong> Belirli metinleri okuyarak kayit (MP3/WAV, max 10MB)</li>
             </ul>
             <div className="mt-3 flex items-center gap-2 text-xs text-matrix-400">
               <CheckCircle className="h-3 w-3" />
-              AI analizi ile otomatik kalite kontrolü yapılacaktır
+              AI analizi ile otomatik kalite kontrolu yapilacaktir
             </div>
           </div>
         </div>
@@ -160,7 +160,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
               <Camera className="h-5 w-5 text-matrix-400" />
-              <h3 className="text-lg font-semibold text-white">Yüz Fotoğrafları</h3>
+              <h3 className="text-lg font-semibold text-white">Face Photolari</h3>
               <span className="text-sm text-slate-400">({data.photos.length}/5)</span>
               {data.photos.length > 0 && (
                 <CheckCircle className="h-4 w-4 text-matrix-400" />
@@ -176,7 +176,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
               }`}
             >
               <Image className="h-4 w-4" />
-              <span>{data.photos.length >= 5 ? 'Limit Doldu' : 'Fotoğraf Ekle'}</span>
+              <span>{data.photos.length >= 5 ? 'Limit Doldu' : 'Photo First Named'}</span>
             </button>
           </div>
           
@@ -213,7 +213,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-2">
               <Video className="h-5 w-5 text-cyber-400" />
-              <h3 className="text-lg font-semibold text-white">Canlılık Videoları</h3>
+              <h3 className="text-lg font-semibold text-white">Canlilik Videolari</h3>
               <span className="text-sm text-slate-400">({data.videos.length}/3)</span>
               {data.videos.length > 0 && (
                 <CheckCircle className="h-4 w-4 text-cyber-400" />
@@ -229,7 +229,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
               }`}
             >
               <Video className="h-4 w-4" />
-              <span>{data.videos.length >= 3 ? 'Limit Doldu' : 'Video Ekle'}</span>
+              <span>{data.videos.length >= 3 ? 'Limit Doldu' : 'Video First Named'}</span>
             </button>
           </div>
           
@@ -284,7 +284,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
               }`}
             >
               <Mic className="h-4 w-4" />
-              <span>{data.audioRecordings.length >= 3 ? 'Limit Doldu' : 'Ses Ekle'}</span>
+              <span>{data.audioRecordings.length >= 3 ? 'Limit Doldu' : 'Ses First Named'}</span>
             </button>
           </div>
           
@@ -325,7 +325,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           className="bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-lg transition-all flex items-center space-x-2 shadow-lg"
         >
           <ArrowLeft className="h-5 w-5" />
-          <span>Geri</span>
+          <span>Back</span>
         </button>
 
         <button
@@ -343,7 +343,7 @@ export const MediaUploadStep: React.FC<MediaUploadStepProps> = ({
           <div className="flex items-center space-x-3">
             <AlertCircle className="h-5 w-5 text-amber-400" />
             <p className="text-amber-300 text-sm">
-              Devam etmek için en az bir yüz fotoğrafı, bir canlılık videosu ve bir ses kaydı yüklemelisiniz.
+              Continue etmek icin en az bir yuz fotografi, bir canlilik videosu ve bir ses kaydi yuklemelisiniz.
             </p>
           </div>
         </div>

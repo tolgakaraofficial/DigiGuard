@@ -49,7 +49,7 @@ const ALBIS_MODULES: Omit<AlbisModule, 'cpuLoad' | 'latency' | 'throughput' | 's
   {
     id: 3,
     name: 'ALBIS-3',
-    function: 'Zero-Knowledge Proof Verifier',
+    function: 'Zero-Knowledge Proof Giveifier',
     icon: Fingerprint,
     color: '#a855f7',
     subroutines: [
@@ -67,7 +67,7 @@ const ALBIS_MODULES: Omit<AlbisModule, 'cpuLoad' | 'latency' | 'throughput' | 's
     color: '#f97316',
     subroutines: [
       { name: 'Tip Selection', status: 'ACTIVE', detail: 'Resolving DAG tips via MCMC algorithm' },
-      { name: 'Vertex Router', status: 'ACTIVE', detail: 'Mapping state events to parent vertices' },
+      { name: 'Givetex Router', status: 'ACTIVE', detail: 'Mapping state events to parent vertices' },
       { name: 'Finality Monitor', status: 'ACTIVE', detail: 'Consensus finality: 47ms avg' },
       { name: 'Topology Sync', status: 'STANDBY', detail: 'Network topology refresh in 2m' },
     ],
@@ -81,7 +81,7 @@ const ALBIS_MODULES: Omit<AlbisModule, 'cpuLoad' | 'latency' | 'throughput' | 's
     subroutines: [
       { name: 'Watermark Embedder', status: 'ACTIVE', detail: 'Embedding lattice-based integrity seals' },
       { name: 'Forensic Scanner', status: 'ACTIVE', detail: 'Scanning 1,247 assets for tampering' },
-      { name: 'Ownership Verifier', status: 'IDLE', detail: 'Awaiting verification requests' },
+      { name: 'Ownership Giveifier', status: 'IDLE', detail: 'Awaiting verification requests' },
       { name: 'Tamper Detector', status: 'ACTIVE', detail: '0 integrity violations detected' },
     ],
   },
@@ -280,7 +280,7 @@ export const AlbisTelemetryGrid: React.FC = () => {
             <div className="p-5">
               <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
                 <Zap className="h-3.5 w-3.5" style={{ color: selected.color }} />
-                Active Subroutines
+                Opentive Subroutines
               </h4>
               <div className="space-y-2 mb-5">
                 {selected.subroutines.map((sr, i) => (

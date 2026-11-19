@@ -22,7 +22,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
   const handleComplete = async () => {
     setIsProcessing(true);
     
-    // İşleme süresi simülasyonu
+    // Isleme suresi simulasyonu
     await new Promise(resolve => setTimeout(resolve, 3000));
     
     onComplete();
@@ -76,7 +76,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
 
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'normal');
-    pdf.text('Biyometrik KYC Guvenlik Sistemi', 105, 28, { align: 'center' });
+    pdf.text('Biyometrik KYC Security Systemi', 105, 28, { align: 'center' });
 
     pdf.setFontSize(10);
     pdf.setTextColor(203, 213, 225);
@@ -92,8 +92,8 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
 
     pdf.setFontSize(11);
     pdf.setTextColor(226, 232, 240);
-    pdf.text('Bu sertifika, kimlik dogrulamasinin blockchain teknolojisi ile', 105, 70, { align: 'center' });
-    pdf.text('guvence altina alindigini ve KYC surecinin tamamlandigini teyit eder.', 105, 77, { align: 'center' });
+    pdf.text('Bu sertifika, identity verificationnin blockchain teknolojisi ile', 105, 70, { align: 'center' });
+    pdf.text('guvence altina alindigini ve KYC surecinin completedgini teyit eder.', 105, 77, { align: 'center' });
 
     pdf.setFontSize(10);
     pdf.setTextColor(148, 163, 184);
@@ -106,7 +106,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     pdf.setFontSize(11);
     pdf.setFont('helvetica', 'normal');
     pdf.setTextColor(148, 163, 184);
-    pdf.text('KYC Kayit Bilgileri:', 40, 105);
+    pdf.text('KYC Registration Informationleri:', 40, 105);
 
     pdf.setDrawColor(71, 85, 105);
     pdf.setLineWidth(0.3);
@@ -119,36 +119,36 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     const lineHeight = 10;
 
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Ad Soyad:', 45, infoY);
+    pdf.text('First Name Last Name:', 45, infoY);
     pdf.setFont('helvetica', 'normal');
     pdf.text(`${personalInfo.firstName} ${personalInfo.lastName}`, 110, infoY);
 
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Kimlik Turu:', 45, infoY + lineHeight);
+    pdf.text('Identity Turu:', 45, infoY + lineHeight);
     pdf.setFont('helvetica', 'normal');
-    const idTypeText = identityInfo.idType === 'tc' ? 'T.C. Kimlik Karti' :
-                       identityInfo.idType === 'passport' ? 'Pasaport' : 'Diger';
+    const idTypeText = identityInfo.idType === 'tc' ? 'T.C. Identity Karti' :
+                       identityInfo.idType === 'passport' ? 'Passport' : 'Diger';
     pdf.text(idTypeText, 110, infoY + lineHeight);
 
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Kimlik No:', 45, infoY + lineHeight * 2);
+    pdf.text('Identity No:', 45, infoY + lineHeight * 2);
     pdf.setFont('helvetica', 'normal');
     const maskedId = identityInfo.idNumber.replace(/./g, '*').slice(0, -4) + identityInfo.idNumber.slice(-4);
     pdf.text(maskedId, 110, infoY + lineHeight * 2);
 
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Sehir:', 45, infoY + lineHeight * 3);
+    pdf.text('City:', 45, infoY + lineHeight * 3);
     pdf.setFont('helvetica', 'normal');
     pdf.text(personalInfo.city, 110, infoY + lineHeight * 3);
 
     pdf.setFont('helvetica', 'bold');
-    pdf.text('E-posta:', 45, infoY + lineHeight * 4);
+    pdf.text('Email:', 45, infoY + lineHeight * 4);
     pdf.setFont('helvetica', 'normal');
     pdf.text(personalInfo.email || '', 110, infoY + lineHeight * 4);
 
     pdf.setFontSize(11);
     pdf.setTextColor(148, 163, 184);
-    pdf.text('Blockchain Zaman Damgasi ve Dogrulama:', 40, 175);
+    pdf.text('Blockchain Zaman Damgasi ve Verification:', 40, 175);
     pdf.line(40, 177, 170, 177);
 
     pdf.setFontSize(10);
@@ -157,7 +157,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     pdf.setFont('helvetica', 'bold');
     pdf.text('Blockchain Agi:', 45, 187);
     pdf.setFont('helvetica', 'normal');
-    pdf.text('Ethereum Mainnet', 110, 187);
+    pdf.text('hereum Mainnet', 110, 187);
 
     pdf.setFont('helvetica', 'bold');
     pdf.text('Blok Numarasi:', 45, 195);
@@ -175,7 +175,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     pdf.setFont('helvetica', 'bold');
     pdf.text('Zaman Damgasi:', 45, 227);
     pdf.setFont('helvetica', 'normal');
-    pdf.text(timestamp.toLocaleString('tr-TR', {
+    pdf.text(timestamp.toLocaleString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -186,7 +186,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     }), 110, 227);
 
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Gas Kullanimi:', 45, 235);
+    pdf.text('Gas Use:', 45, 235);
     pdf.setFont('helvetica', 'normal');
     pdf.text(`${gasUsed} ETH`, 110, 235);
 
@@ -202,7 +202,7 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
     pdf.setFontSize(8);
     pdf.setTextColor(203, 213, 225);
     pdf.setFont('helvetica', 'normal');
-    pdf.text('AES-256 Sifreleme | KVKK Uyumlu | GDPR Uyumlu | ISO 27001 | Blockchain Secured', 105, 258, { align: 'center' });
+    pdf.text('AES-256 Passwordleme | KVKK Uyumlu | GDPR Uyumlu | ISO 27001 | Blockchain Secured', 105, 258, { align: 'center' });
 
     pdf.setFontSize(9);
     pdf.setTextColor(255, 255, 255);
@@ -212,10 +212,10 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
 
     pdf.setFontSize(6);
     pdf.setTextColor(148, 163, 184);
-    pdf.text(`Olusturulma Zamani: ${timestamp.toISOString()} | Sertifika Surumu: 2.0.0`, 105, 285, { align: 'center' });
-    pdf.text(`Dogrulama: https://digiguard.com/verify/${serialNumber}`, 105, 290, { align: 'center' });
+    pdf.text(`Createulma Zamani: ${timestamp.toISOString()} | Certificate Surumu: 2.0.0`, 105, 285, { align: 'center' });
+    pdf.text(`Verification: https://digiguard.com/verify/${serialNumber}`, 105, 290, { align: 'center' });
 
-    pdf.save(`DigiGuard-KYC-Sertifika-${serialNumber}.pdf`);
+    pdf.save(`DigiGuard-KYC-Certificate-${serialNumber}.pdf`);
   };
   const totalFiles = mediaFiles.photos.length + mediaFiles.videos.length + mediaFiles.audioRecordings.length;
 
@@ -235,11 +235,11 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
           </div>
         </div>
         <h2 className="text-3xl font-bold bg-gradient-to-r from-matrix-400 via-cyber-400 to-secure-400 bg-clip-text text-transparent mb-2">
-          Biyometrik KYC Kaydı Tamamlandı!
+          Biyometrik KYC Kaydi Completed!
         </h2>
         <p className="text-slate-300 text-lg mb-4 flex items-center justify-center gap-2">
           <Fingerprint className="h-5 w-5 text-cyber-400" />
-          Blockchain tabanlı kimlik profiliniz oluşturuldu
+          Blockchain based kimlik profiliniz generated
         </p>
         <div className="flex justify-center space-x-1">
           {[...Array(5)].map((_, i) => (
@@ -248,63 +248,63 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
         </div>
       </div>
 
-      {/* Başarı İstatistikleri */}
+      {/* Success Statisticsleri */}
       <div className="grid grid-cols-3 gap-4 mb-8 relative z-10">
         <div className="bg-matrix-600/20 border border-matrix-500/30 rounded-lg p-4 text-center hover:bg-matrix-600/30 transition-all">
           <Fingerprint className="h-8 w-8 text-matrix-400 mx-auto mb-2 animate-fingerprint-pulse" />
           <p className="text-matrix-300 font-semibold">Biyometrik</p>
-          <p className="text-matrix-200 text-sm">AI Doğrulandı</p>
+          <p className="text-matrix-200 text-sm">AI Verifyndi</p>
         </div>
         <div className="bg-cyber-600/20 border border-cyber-500/30 rounded-lg p-4 text-center hover:bg-cyber-600/30 transition-all">
           <Shield className="h-8 w-8 text-cyber-400 mx-auto mb-2" />
           <p className="text-cyber-300 font-semibold">AES-256</p>
-          <p className="text-cyber-200 text-sm">Şifreleme Aktif</p>
+          <p className="text-cyber-200 text-sm">Passwordleme Opentive</p>
         </div>
         <div className="bg-secure-600/20 border border-secure-500/30 rounded-lg p-4 text-center hover:bg-secure-600/30 transition-all">
           <Database className="h-8 w-8 text-secure-400 mx-auto mb-2" />
           <p className="text-secure-300 font-semibold">Blockchain</p>
-          <p className="text-secure-200 text-sm">Kayıt Güvenli</p>
+          <p className="text-secure-200 text-sm">Registration Secure</p>
         </div>
       </div>
       <div className="bg-slate-700/80 backdrop-blur-sm rounded-xl p-6 mb-8 border border-cyber-500/20 relative z-10">
         <h3 className="text-xl font-semibold text-white mb-4 flex items-center space-x-2">
           <FileCheck className="h-5 w-5 text-cyber-400" />
-          <span>KYC Kayıt Özeti</span>
+          <span>KYC Registration Summary</span>
         </h3>
 
         <div className="space-y-4">
           <div className="flex justify-between items-center py-2 border-b border-slate-600">
-            <span className="text-slate-300">Ad Soyad:</span>
+            <span className="text-slate-300">First Name Last Name:</span>
             <span className="text-white font-medium">
               {personalInfo.firstName} {personalInfo.lastName}
             </span>
           </div>
 
           <div className="flex justify-between items-center py-2 border-b border-slate-600">
-            <span className="text-slate-300">Kimlik Türü:</span>
+            <span className="text-slate-300">Identity Typeu:</span>
             <span className="text-white font-medium">
-              {identityInfo.idType === 'tc' ? 'T.C. Kimlik Kartı' : 
-               identityInfo.idType === 'passport' ? 'Pasaport' : 'Diğer'}
+              {identityInfo.idType === 'tc' ? 'T.C. Identity Karti' : 
+               identityInfo.idType === 'passport' ? 'Passport' : 'Other'}
             </span>
           </div>
 
           <div className="flex justify-between items-center py-2 border-b border-slate-600">
-            <span className="text-slate-300">Kimlik Numarası:</span>
+            <span className="text-slate-300">Identity Numarasi:</span>
             <span className="text-white font-medium">
               {identityInfo.idNumber.replace(/./g, '*').slice(0, -4) + identityInfo.idNumber.slice(-4)}
             </span>
           </div>
 
           <div className="flex justify-between items-center py-2 border-b border-slate-600">
-            <span className="text-slate-300">Şehir:</span>
+            <span className="text-slate-300">City:</span>
             <span className="text-white font-medium">{personalInfo.city}</span>
           </div>
           <div className="flex justify-between items-center py-2">
-            <span className="text-slate-300">Yüklenen Dosyalar:</span>
+            <span className="text-slate-300">Uploadnen Dosyalar:</span>
             <div className="text-right">
               <span className="text-white font-medium">{totalFiles} dosya</span>
               <div className="text-xs text-slate-400">
-                {mediaFiles.photos.length} fotoğraf, {mediaFiles.videos.length} video, {mediaFiles.audioRecordings.length} ses
+                {mediaFiles.photos.length} fotograf, {mediaFiles.videos.length} video, {mediaFiles.audioRecordings.length} ses
               </div>
             </div>
           </div>
@@ -317,11 +317,11 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
           <div>
             <h4 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
               <Database className="h-5 w-5 text-matrix-400" />
-              Blockchain Güvenlik Sertifikası
+              Blockchain Securek Certificatesi
             </h4>
             <p className="text-slate-300 text-sm leading-relaxed mb-3">
-              Biyometrik verileriniz AES-256 şifreleme ile korunmakta ve blockchain üzerinde değiştirilemez kayıtlar olarak saklanmaktadır.
-              Kişisel bilgileriniz sadece KYC doğrulama süreçlerinde kullanılacak ve üçüncü taraflarla asla paylaşılmayacaktır.
+              Biyometrik verileriniz AES-256 sifreleme ile korunmakta ve blockchain uzerinde degistirilemez kayitlar olarak saklanmaktadir.
+              Personsel bilgileriniz sadece KYC verification sureclerinde kullanilacak ve ucuncu taraflarla asla paylasilmayacaktir.
             </p>
             <div className="flex flex-wrap items-center gap-3 text-xs">
               <span className="flex items-center px-2 py-1 rounded-full bg-cyber-900/50 text-cyber-300 border border-cyber-500/30">
@@ -355,19 +355,19 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = ({
           {isProcessing ? (
             <>
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              <span>Biyometrik Sistem Hazırlanıyor...</span>
+              <span>Biyometrik System Hazirlaniyor...</span>
             </>
           ) : (
             <>
               <Fingerprint className="h-6 w-6" />
-              <span>DigiGuard KYC'ye Hoş Geldiniz!</span>
+              <span>DigiGuard KYC'ye Hos Geldiniz!</span>
             </>
           )}
         </button>
 
         {!isProcessing && (
           <p className="text-slate-400 text-sm mt-4">
-            Biyometrik kimliğiniz blockchain üzerinde güvende! Kontrol panelinize yönlendiriliyorsunuz...
+            Biyometrik kimliginiz blockchain uzerinde guvende! Kontrol panelinize yonlendiriliyorsunuz...
           </p>
         )}
       </div>

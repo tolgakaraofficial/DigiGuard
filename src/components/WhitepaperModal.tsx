@@ -6,7 +6,7 @@ import {
 
 const WHITEPAPERS = [
   { title: 'DigiGuard Master Specification', file: 'DigiGuard_Master_Specification_Complete.pdf', icon: FileText, color: '#00e5ff' },
-  { title: 'Post-Quantum Cryptographic Integration Blueprint', file: 'DigiGuard_Kuantum_Giris_Mimari_Sartnamesi.pdf', icon: Lock, color: '#39ff14' },
+  { title: 'Post-Quantum Cryptographic Integration Blueprint', file: 'DigiGuard_Kuantum_Login_Mimari_Sartnamesi.pdf', icon: Lock, color: '#39ff14' },
   { title: 'Cerebro Network Quantum Integration Blueprint', file: 'Cerebro_Network_Quantum_Integration_Blueprint.pdf', icon: Cpu, color: '#a855f7' },
   { title: 'Cerebro Network Universal Language Blueprint', file: 'Cerebro_Network_Universal_Language_Blueprint.pdf', icon: Network, color: '#f97316' },
   { title: 'DigiGuard Comprehensive Ultimate Specification', file: 'DigiGuard_Comprehensive_Ultimate_Specification.pdf', icon: FileText, color: '#00e5ff' },
@@ -154,7 +154,7 @@ export const WhitepaperModal: React.FC<WhitepaperModalProps> = ({ isOpen, onClos
         </div>
 
         <div className="sticky bottom-0 p-4 border-t flex items-center justify-between" style={{ background: 'rgba(2,6,23,0.95)', borderColor: 'rgba(0,229,255,0.1)' }}>
-          <span className="text-[10px] text-slate-600 font-mono">Karprime Technology Inc. — All rights reserved.</span>
+          <span className="text-[10px] text-slate-600 font-mono">Karprime Technology Inc. — Getl rights reserved.</span>
           <button onClick={onClose} className="px-4 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white hover:bg-slate-800 transition">
             Close
           </button>

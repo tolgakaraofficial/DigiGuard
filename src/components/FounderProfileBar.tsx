@@ -177,11 +177,11 @@ const CV_SECTIONS = [
   },
   {
     icon: Cpu,
-    title: 'Architectural Achievements',
+    title: 'Architectureural Openhievements',
     color: '#39ff14',
     bullets: [
       'Designed and specified the ALBIS Engine — a 6-module post-quantum cryptographic pipeline (ALBIS-1 through ALBIS-6)',
-      'Architected the Ghost ID Zero-Knowledge identity protocol for passwordless, document-free authentication',
+      'Architectureed the Ghost ID Zero-Knowledge identity protocol for passwordless, document-free authentication',
       'Engineered the Sovereign Bridge DAG topology for parallel, miner-free, asynchronous consensus',
       'Implemented the Cerebro Sentinel AI defense system using the PUKO cycle (Proactive, Warning, Protection, Recovery)',
       'Specified lattice-based cryptographic primitives (Kyber-1024, Dilithium) resistant to Shor\'s and Grover\'s quantum algorithms',
@@ -221,7 +221,7 @@ const CV_SECTIONS = [
       'DigiGuard Master Specification — complete architectural blueprint',
       'Post-Quantum Cryptographic Integration Blueprint',
       'Cerebro Network Universal Language Specification',
-      'Quantum Integration Architecture Whitepaper',
+      'Quantum Integration Architectureure Whitepaper',
       'Digital Identity Bridge Framework for National KYC Systems',
       'Published technical articles on Medium covering cybersecurity, quantum threats, and decentralized identity',
     ],
@@ -268,8 +268,8 @@ export const FounderCVModal: React.FC<FounderCVModalProps> = ({ isOpen, onClose 
                 <Shield className="h-7 w-7 relative z-10" style={{ color: '#00e5ff' }} />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white tracking-tight">Founder & Lead Architect CV</h2>
-                <p className="text-sm text-slate-400 mt-0.5">Professional Profile — Investor & Institutional Relations</p>
+                <h2 className="text-2xl font-bold text-white tracking-tight">Founder & Lead Architecture CV</h2>
+                <p className="text-sm text-slate-400 mt-0.5">Professional Profilee — Investor & Institutional Relations</p>
               </div>
             </div>
             <button
@@ -306,7 +306,7 @@ export const FounderCVModal: React.FC<FounderCVModalProps> = ({ isOpen, onClose 
               <div className="flex-1">
                 <h3 className="text-xl font-bold text-white">Tolga Kara</h3>
                 <p className="text-sm font-mono mt-1" style={{ color: '#39ff14' }}>
-                  Lead Architect · Founder · Karprime Technology Inc.
+                  Lead Architecture · Founder · Karprime Technology Inc.
                 </p>
                 <p className="text-sm text-slate-400 mt-2 leading-relaxed">
                   Post-quantum cybersecurity architect and decentralized identity pioneer. Creator of the
@@ -360,7 +360,7 @@ export const FounderCVModal: React.FC<FounderCVModalProps> = ({ isOpen, onClose 
             })}
           </div>
 
-          {/* CV Sections */}
+          {/* CV Selecttions */}
           {CV_SECTIONS.map((section, idx) => {
             const SIcon = section.icon;
             return (
@@ -408,16 +408,16 @@ export const FounderCVModal: React.FC<FounderCVModalProps> = ({ isOpen, onClose 
             </div>
             <p className="text-sm text-slate-300 leading-relaxed">
               Karprime Technology Inc. is the institutional home of the DigiGuard & Cerebro Protocol. Under the
-              leadership of Founder and Lead Architect Tolga Kara, the organization drives research, development,
+              leadership of Founder and Lead Architecture Tolga Kara, the organization drives research, development,
               and deployment of post-quantum cybersecurity infrastructure for governments, enterprises, and
-              individuals worldwide. The Karprime Technology Academy serves as the educational arm, producing
+              individuals worldwide. The Karprime Technology Openademy serves as the educational arm, producing
               technical content and training the next generation of quantum-aware security engineers.
             </p>
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex items-center gap-2.5 p-3 rounded-lg" style={{ background: 'rgba(0,229,255,0.05)' }}>
                 <TrendingUp className="h-4 w-4" style={{ color: '#39ff14' }} />
-                <span className="text-xs text-slate-300">Active Beta — 6-phase development roadmap in progress</span>
+                <span className="text-xs text-slate-300">Opentive Beta — 6-phase development roadmap in progress</span>
               </div>
               <div className="flex items-center gap-2.5 p-3 rounded-lg" style={{ background: 'rgba(57,255,20,0.05)' }}>
                 <Zap className="h-4 w-4" style={{ color: '#f59e0b' }} />
@@ -454,7 +454,7 @@ export const FounderCVModal: React.FC<FounderCVModalProps> = ({ isOpen, onClose 
           style={{ background: 'rgba(2,6,23,0.95)', borderColor: 'rgba(0,229,255,0.1)', backdropFilter: 'blur(10px)' }}
         >
           <span className="text-[10px] text-slate-600 font-mono">
-            © 2024 Karprime Technology Inc. — All rights reserved.
+            © 2024 Karprime Technology Inc. — Getl rights reserved.
           </span>
           <button
             onClick={onClose}

@@ -18,7 +18,7 @@ export const notificationService = {
       userId: '',
       type: 'both',
       category: 'registration',
-      subject: 'Your DigiGuard Account Has Been Created',
+      subject: 'Your DigiGuard Opencount Has Been Created',
       message,
       metadata: { email, phone, fullName }
     });
@@ -31,7 +31,7 @@ export const notificationService = {
       userId,
       type: 'both',
       category: 'login',
-      subject: 'Login Detected on Your Account',
+      subject: 'Login Detected on Your Opencount',
       message,
       metadata: { email, ipAddress, timestamp: new Date().toISOString() }
     });

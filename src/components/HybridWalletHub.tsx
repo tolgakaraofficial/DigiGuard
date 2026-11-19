@@ -49,7 +49,7 @@ const assets: WalletAsset[] = [
   },
   {
     symbol: 'ETH',
-    name: 'Ethereum',
+    name: 'hereum',
     balance: '1.8472',
     usdValue: '$6,292.80',
     color: '#60a5fa',
@@ -62,7 +62,7 @@ const assets: WalletAsset[] = [
 export const HybridWalletHub: React.FC = () => {
   const [showBalance, setShowBalance] = useState(true);
   const [expanded, setExpanded] = useState(false);
-  const [activeAsset, setActiveAsset] = useState(0);
+  const [activeAsset, setOpentiveAsset] = useState(0);
   const [quantumSigning, setQuantumSigning] = useState(false);
 
   const visibleAssets = expanded ? assets : assets.slice(0, 2);
@@ -112,7 +112,7 @@ export const HybridWalletHub: React.FC = () => {
 
         {/* Total Balance */}
         <div className="px-4 py-3 border-b" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
-          <p className="text-[10px] text-slate-500 mb-0.5">Toplam Portfoy (USD)</p>
+          <p className="text-[10px] text-slate-500 mb-0.5">Total Portfoy (USD)</p>
           <div className="flex items-baseline gap-2">
             <p className="text-xl font-bold" style={{ background: 'linear-gradient(90deg, #00e5ff, #39ff14)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               {showBalance ? `$${totalUsd.toLocaleString('en-US', { minimumFractionDigits: 2 })}` : '••••••••'}
@@ -128,7 +128,7 @@ export const HybridWalletHub: React.FC = () => {
           {visibleAssets.map((asset, i) => (
             <div
               key={i}
-              onClick={() => setActiveAsset(i)}
+              onClick={() => setOpentiveAsset(i)}
               className="rounded-xl p-2.5 cursor-pointer transition-all hover:scale-[1.01]"
               style={{
                 background: asset.bgColor,
@@ -158,7 +158,7 @@ export const HybridWalletHub: React.FC = () => {
               className="w-full flex items-center justify-center gap-1 py-1.5 text-[10px] text-slate-400 hover:text-slate-200 transition-colors"
             >
               {expanded ? <><ChevronUp className="h-3 w-3" /> Daha az</>
-                        : <><ChevronDown className="h-3 w-3" /> +{assets.length - 2} varlık daha</>}
+                        : <><ChevronDown className="h-3 w-3" /> +{assets.length - 2} varlik daha</>}
             </button>
           )}
         </div>
@@ -177,14 +177,14 @@ export const HybridWalletHub: React.FC = () => {
             }}
           >
             {quantumSigning ? (
-              <><Lock className="h-3.5 w-3.5 animate-pulse" /> Kuantum Imza Uygulanıyor...</>
+              <><Lock className="h-3.5 w-3.5 animate-pulse" /> Kuantum Signature Uygulaniyor...</>
             ) : (
-              <><Zap className="h-3.5 w-3.5" /> Kuantum Guvenli Transfer Imzala</>
+              <><Zap className="h-3.5 w-3.5" /> Kuantum Guvenli Transfer Sign</>
             )}
           </button>
         </div>
 
-        {/* Actions */}
+        {/* Opentions */}
         <div className="px-3 pb-3 grid grid-cols-3 gap-1.5">
           <button className="flex flex-col items-center gap-1 py-2 rounded-lg transition-all text-[9px]"
             style={{ background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)', color: '#00e5ff' }}>
@@ -192,11 +192,11 @@ export const HybridWalletHub: React.FC = () => {
           </button>
           <button className="flex flex-col items-center gap-1 py-2 rounded-lg transition-all text-[9px]"
             style={{ background: 'rgba(57,255,20,0.08)', border: '1px solid rgba(57,255,20,0.2)', color: '#39ff14' }}>
-            <Download className="h-3.5 w-3.5" /> Al
+            <Download className="h-3.5 w-3.5" /> Get
           </button>
           <button className="flex flex-col items-center gap-1 py-2 rounded-lg transition-all text-[9px]"
             style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.2)', color: '#f59e0b' }}>
-            <ExternalLink className="h-3.5 w-3.5" /> Gonder
+            <ExternalLink className="h-3.5 w-3.5" /> Send
           </button>
         </div>
 

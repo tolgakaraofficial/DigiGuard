@@ -15,27 +15,27 @@ interface LayerDef {
 const layers: LayerDef[] = [
   {
     id: 1,
-    name: 'Kimlik Katmani',
+    name: 'Identity Layer',
     englishName: 'Identity Layer',
     icon: Users,
     color: '#00e5ff',
-    description: 'Bireysel ve kurumsal kimlik tanimi, KYC dogrulamasi ve biyometrik guvenlik',
-    responsibilities: ['Biyometrik dogrulama (yuz, parmak izi, ses)', 'KYC protokolu (SPON/SOFTON)', 'Ghost ID olusturma', 'dNFT kimlik sertifikasi'],
+    description: 'Individual ve institutionsal kimlik tanimi, KYC verification ve biyometrik security',
+    responsibilities: ['Biyometrik verification (yuz, parmak izi, ses)', 'KYC protokolu (SPON/SOFTON)', 'Ghost ID olusturma', 'dNFT kimlik sertifikasi'],
     status: 'active',
   },
   {
     id: 2,
-    name: 'Guvenlik Katmani',
+    name: 'Security Layer',
     englishName: 'Security Layer',
     icon: Shield,
     color: '#39ff14',
-    description: 'Siber guvenlik, tehdit tespiti, PUKO dongusu ve otonom onarim',
+    description: 'Siber security, tehdit tespiti, PUKO dongusu ve otonom onarim',
     responsibilities: ['PUKO dongusu (Proaktif-Uyari-Koruma-Onarim)', 'Sopon DeAI tehdit tarama', 'AES-256 + Kyber-1024 sifreleme', 'Otonom hata onarim kodlari'],
     status: 'active',
   },
   {
     id: 3,
-    name: 'Ag Katmani',
+    name: 'Ag Layer',
     englishName: 'Network Layer',
     icon: Server,
     color: '#a855f7',
@@ -45,7 +45,7 @@ const layers: LayerDef[] = [
   },
   {
     id: 4,
-    name: 'Veri Katmani',
+    name: 'Data Layer',
     englishName: 'Data Layer',
     icon: Database,
     color: '#f59e0b',
@@ -55,7 +55,7 @@ const layers: LayerDef[] = [
   },
   {
     id: 5,
-    name: 'Web4 Kopru Katmani',
+    name: 'Web4 Bridge Layer',
     englishName: 'Web4 Bridge Layer',
     icon: Cloud,
     color: '#ec4899',
@@ -68,40 +68,40 @@ const layers: LayerDef[] = [
 interface ConstitutionArticle {
   id: string;
   title: string;
-  category: 'Kimlik' | 'Guvenlik' | 'Ag' | 'Veri' | 'Web4';
+  category: 'Identity' | 'Security' | 'Ag' | 'Data' | 'Web4';
   summary: string;
   status: 'approved' | 'review' | 'draft';
 }
 
 const articles: ConstitutionArticle[] = [
-  { id: 'A1', title: 'Kimlik Egemenligi', category: 'Kimlik', summary: 'Her birey ve kurulus kimlik verileri uzerinde tam egemenlige sahiptir. Kimlik verileri acik riza olmadan paylasilamaz.', status: 'approved' },
-  { id: 'A2', title: 'Biyometrik Koruma', category: 'Kimlik', summary: 'Biyometrik veriler AES-256 ile sifrelenir ve sadece kullanicinin cihazinda tutulur. Sunucuya sadece hash gonderilir.', status: 'approved' },
-  { id: 'A3', title: 'Ghost ID Anonimligi', category: 'Kimlik', summary: 'Ghost ID protokolu ile PII verileri ifsa edilmeden anonim dogrulama yapilir.', status: 'approved' },
-  { id: 'A4', title: 'SPON/SOFTON Donusum', category: 'Kimlik', summary: "Sovereign Proof of Identity Number ile dogrulanan kimlik, SOFTON tokenina donusturulerek blockchain'e kaydedilir.", status: 'approved' },
-  { id: 'A5', title: 'PUKO Dongusu', category: 'Guvenlik', summary: 'Proaktif -> Uyari -> Koruma -> Onarim dongusu tum tehditler icin isler. Otonom onarim kodlari aktiftir.', status: 'approved' },
-  { id: 'A6', title: 'Kuantum Direnci', category: 'Guvenlik', summary: 'Dilithium + Kyber-1024 post-kuantum sifreleme standarttir. Kuantum bilgisayarlara karsi direncli.', status: 'approved' },
-  { id: 'A7', title: 'Siber Savunma', category: 'Guvenlik', summary: 'Otonom hata onarim kodlari ve siber savunma protokolleri 7/24 isler durumda tutulur.', status: 'approved' },
+  { id: 'A1', title: 'Identity Egemenligi', category: 'Identity', summary: 'Her birey ve kurulus kimlik verileri uzerinde tam egemenlige owntir. Identity verileri acik riza olmadan paylasilamaz.', status: 'approved' },
+  { id: 'A2', title: 'Biyometrik Koruma', category: 'Identity', summary: 'Biyometrik veriler AES-256 ile sifrelenir ve sadece usernin cihazinda tutulur. Sunucuya sadece hash gonderilir.', status: 'approved' },
+  { id: 'A3', title: 'Ghost ID Anonymousligi', category: 'Identity', summary: 'Ghost ID protokolu ile PII verileri ifsa edilmeden anonim verification yapilir.', status: 'approved' },
+  { id: 'A4', title: 'SPON/SOFTON Donusum', category: 'Identity', summary: "Sovereign Proof of Identity Number ile dogrulanan kimlik, SOFTON tokenina donusturulerek blockchain'e kaydedilir.", status: 'approved' },
+  { id: 'A5', title: 'PUKO Cycle', category: 'Security', summary: 'Proaktif -> Uyari -> Koruma -> Onarim dongusu tum tehditler icin isler. Otonom onarim kodlari aktiftir.', status: 'approved' },
+  { id: 'A6', title: 'Kuantum Direnci', category: 'Security', summary: 'Dilithium + Kyber-1024 post-kuantum sifreleme standarttir. Kuantum bilgisayarlara karsi direncli.', status: 'approved' },
+  { id: 'A7', title: 'Siber Savunma', category: 'Security', summary: 'Otonom hata onarim kodlari ve siber savunma protokolleri 7/24 isler durumda tutulur.', status: 'approved' },
   { id: 'A8', title: 'DAG Mutabakat', category: 'Ag', summary: 'Cerebro Network 1402 node ile DAG mutabakati saglar. Node sayisi dinamik olarak guncellenir.', status: 'approved' },
-  { id: 'A9', title: 'NetMesh Yapisi', category: 'Ag', summary: 'NetMesh dagitik ag yapisi ile tek nokta hatasi (SPOF) onlenir. Yedeklilik %99.99 garantilenir.', status: 'approved' },
-  { id: 'A10', title: 'Sovereign Bridge', category: 'Ag', summary: 'Non-custodial fee bridge protokolu ile varliklar kullanici kontrolunde tutulur. 0.8s ortalama islem suresi.', status: 'approved' },
-  { id: 'A11', title: 'Immutable Kayit', category: 'Veri', summary: "Tum kimlik dogrulama kayitlari blockchain'e immutable olarak yazilir. Geri alinamaz veya degistirilemez.", status: 'approved' },
-  { id: 'A12', title: 'dNFT Sertifika', category: 'Veri', summary: 'Kimlik sertifikalari dNFT olarak mint edilir. Sahiplik kaniti blockchain uzerinde tutulur.', status: 'approved' },
-  { id: 'A13', title: 'IoT Varlik Takibi', category: 'Veri', summary: 'IoT cihazlari, araclar, giyilebilir cihazlar kimlik baglamasi ile takip edilir.', status: 'approved' },
+  { id: 'A9', title: 'NetMesh Doisi', category: 'Ag', summary: 'NetMesh dagitik ag yapisi ile tek nokta hatasi (SPOF) onlenir. Yedeklilik %99.99 garantilenir.', status: 'approved' },
+  { id: 'A10', title: 'Sovereign Bridge', category: 'Ag', summary: 'Non-custodial fee bridge protokolu ile varliklar user kontrolunde tutulur. 0.8s ortalama islem suresi.', status: 'approved' },
+  { id: 'A11', title: 'Immutable Registration', category: 'Data', summary: "Tum kimlik verification kayitlari blockchain'e immutable olarak yazilir. Back alinamaz veya degistirilemez.", status: 'approved' },
+  { id: 'A12', title: 'dNFT Certificate', category: 'Data', summary: 'Identity sertifikalari dNFT olarak mint edilir. Sahiplik kaniti blockchain uzerinde tutulur.', status: 'approved' },
+  { id: 'A13', title: 'IoT Varlik Takibi', category: 'Data', summary: 'IoT cihazlari, araclar, giyilebilir cihazlar kimlik baglamasi ile takip edilir.', status: 'approved' },
   { id: 'A14', title: 'Web4 Otonom Tuzuk', category: 'Web4', summary: 'Web4 otonom tuzuk ile sistem kendini yonetir. Akil sozlesmeler ile otonom karar verilir.', status: 'approved' },
   { id: 'A15', title: 'Kuantum Sonrasi Gecis', category: 'Web4', summary: "Kuantum sonrasi gecis protokolu ile Web3'ten Web4'e guvenli gecis saglanir.", status: 'approved' },
-  { id: 'A16', title: 'Coklu Evrensel Kimlik', category: 'Web4', summary: 'Coklu evrensel kimlik koprueleri ile farkli zincirler arasi kimlik tasinabilir.', status: 'approved' },
+  { id: 'A16', title: 'Coklu Evrensel Identity', category: 'Web4', summary: 'Coklu evrensel kimlik koprueleri ile farkli zincirler arasi kimlik tasinabilir.', status: 'approved' },
 ];
 
 const categoryColors: Record<string, string> = {
-  'Kimlik': '#00e5ff',
-  'Guvenlik': '#39ff14',
+  'Identity': '#00e5ff',
+  'Security': '#39ff14',
   'Ag': '#a855f7',
-  'Veri': '#f59e0b',
+  'Data': '#f59e0b',
   'Web4': '#ec4899',
 };
 
 const statusConfig: Record<string, { color: string; label: string; icon: React.ElementType }> = {
-  approved: { color: '#39ff14', label: 'Onaylandi', icon: CheckCircle },
+  approved: { color: '#39ff14', label: 'Approvallandi', icon: CheckCircle },
   review: { color: '#f59e0b', label: 'Incelemede', icon: Eye },
   draft: { color: '#64748b', label: 'Taslak', icon: FileText },
 };
@@ -121,16 +121,16 @@ export const SystemConstitutionPanel: React.FC = () => {
             <Scale className="h-6 w-6" style={{ color: '#00e5ff' }} />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white">Sistem Anayasasi</h2>
+            <h2 className="text-lg font-bold text-white">System Constitution</h2>
             <p className="text-xs text-slate-400">Cilt 11: DigiGuard Cerebro Network sistem anayasasi ve 5 katmanli mimari</p>
           </div>
         </div>
 
-        {/* 5 Layer Architecture */}
+        {/* 5 Layer Architectureure */}
         <div className="space-y-2">
           <div className="flex items-center gap-2 mb-3">
             <Layers className="h-4 w-4" style={{ color: '#00e5ff' }} />
-            <h3 className="text-sm font-bold text-white">5 Katmanli Mimari</h3>
+            <h3 className="text-sm font-bold text-white">5 Layer Architecture</h3>
           </div>
           {layers.map((layer) => (
             <div key={layer.id} className="rounded-lg border overflow-hidden transition-all" style={{ background: 'rgba(2,6,23,0.8)', borderColor: expandedLayer === layer.id ? `${layer.color}40` : 'rgba(255,255,255,0.05)' }}>
@@ -178,7 +178,7 @@ export const SystemConstitutionPanel: React.FC = () => {
         <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <BookOpen className="h-5 w-5" style={{ color: '#00e5ff' }} />
-            <h3 className="text-sm font-bold text-white">Anayasa Maddeleri</h3>
+            <h3 className="text-sm font-bold text-white">Constitution Articleleri</h3>
           </div>
           <div className="flex items-center gap-1 flex-wrap">
             <button
@@ -186,7 +186,7 @@ export const SystemConstitutionPanel: React.FC = () => {
               className={`px-2.5 py-1 rounded text-[10px] font-semibold transition-all ${filter === 'all' ? 'text-white' : 'text-slate-500 hover:text-slate-300'}`}
               style={filter === 'all' ? { background: 'rgba(0,229,255,0.15)' } : {}}
             >
-              Tumu ({articles.length})
+              Getl ({articles.length})
             </button>
             {Object.keys(categoryColors).map((cat) => (
               <button
@@ -239,11 +239,11 @@ export const SystemConstitutionPanel: React.FC = () => {
         {/* Summary Footer */}
         <div className="mt-4 flex items-center justify-between text-[10px] font-mono text-slate-500 flex-wrap gap-2">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1"><CheckCircle className="h-3 w-3" style={{ color: '#39ff14' }} /> {articles.filter(a => a.status === 'approved').length} Onaylandi</span>
+            <span className="flex items-center gap-1"><CheckCircle className="h-3 w-3" style={{ color: '#39ff14' }} /> {articles.filter(a => a.status === 'approved').length} Approvallandi</span>
             <span className="flex items-center gap-1"><Eye className="h-3 w-3" style={{ color: '#f59e0b' }} /> {articles.filter(a => a.status === 'review').length} Incelemede</span>
             <span className="flex items-center gap-1"><FileText className="h-3 w-3" style={{ color: '#64748b' }} /> {articles.filter(a => a.status === 'draft').length} Taslak</span>
           </div>
-          <span>Toplam {articles.length} madde | {Object.keys(categoryColors).length} kategori</span>
+          <span>Total {articles.length} madde | {Object.keys(categoryColors).length} kategori</span>
         </div>
       </div>
 
@@ -251,13 +251,13 @@ export const SystemConstitutionPanel: React.FC = () => {
       <div className="rounded-xl p-5 border" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(57,255,20,0.15)' }}>
         <div className="flex items-center gap-2 mb-4">
           <Gavel className="h-5 w-5" style={{ color: '#39ff14' }} />
-          <h3 className="text-sm font-bold text-white">Protokol Onaylari</h3>
+          <h3 className="text-sm font-bold text-white">Protocol Approvallari</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {[
             { name: 'Sovereign Bridge v2', version: 'v2.0', date: '2026-07-16', status: 'approved' },
             { name: 'Ghost ID / SPON / SOFTON', version: 'v1.4', date: '2026-07-16', status: 'approved' },
-            { name: 'PUKO Dongusu', version: 'v3.1', date: '2026-07-15', status: 'approved' },
+            { name: 'PUKO Cycle', version: 'v3.1', date: '2026-07-15', status: 'approved' },
             { name: 'DAG Mutabakat (1402 Node)', version: 'v4.0', date: '2026-07-14', status: 'approved' },
             { name: 'Dilithium + Kyber-1024', version: 'v2.2', date: '2026-07-13', status: 'approved' },
             { name: 'Web4 Otonom Tuzuk', version: 'v1.0', date: '2026-07-12', status: 'approved' },

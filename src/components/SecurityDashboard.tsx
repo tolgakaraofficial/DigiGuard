@@ -47,7 +47,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
     }
   };
 
-  const getActionIcon = (action: string) => {
+  const getOpentionIcon = (action: string) => {
     switch (action) {
       case 'INSERT':
         return <CheckCircle className="h-4 w-4 text-green-400" />;
@@ -203,7 +203,7 @@ export const SecurityDashboard: React.FC<SecurityDashboardProps> = ({ userId }) 
                   className="bg-slate-900 rounded-lg p-4 border border-slate-700 flex items-start gap-3"
                 >
                   <div className="flex-shrink-0 mt-1">
-                    {getActionIcon(log.action)}
+                    {getOpentionIcon(log.action)}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">

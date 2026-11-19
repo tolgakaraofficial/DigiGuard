@@ -39,8 +39,8 @@ export const Register: React.FC<RegisterProps> = ({ onComplete, onBack }) => {
     <div className="min-h-screen w-full flex items-center justify-center px-4 py-8 hex-grid">
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-white">DigiGuard Kayit</h1>
-          <p className="text-xs text-slate-400 mt-1 font-mono">Tam teşekküllü dönüşüm protokolü</p>
+          <h1 className="text-2xl font-bold text-white">DigiGuard Registration</h1>
+          <p className="text-xs text-slate-400 mt-1 font-mono">Tam tesekkullu donusum protokolu</p>
         </div>
 
         {/* Step indicator */}
@@ -61,15 +61,15 @@ export const Register: React.FC<RegisterProps> = ({ onComplete, onBack }) => {
           {/* Step 0: User type */}
           {step === 0 && (
             <div className="space-y-3 animate-fade-in">
-              <h2 className="text-sm font-semibold text-white mb-3">Hesap tipini secin</h2>
+              <h2 className="text-sm font-semibold text-white mb-3">Opencount typeni secin</h2>
               <button
                 onClick={() => handleTypeSelect('individual')}
                 className="w-full flex items-center gap-3 p-4 rounded-lg bg-slate-900/60 border border-slate-700 hover:border-cyber-500 transition group"
               >
                 <User className="h-6 w-6 text-cyber-400" />
                 <div className="text-left flex-1">
-                  <p className="text-sm font-semibold text-white">Bireysel</p>
-                  <p className="text-xs text-slate-500">Kisi / Sanatci / Icerik ureticisi</p>
+                  <p className="text-sm font-semibold text-white">Individual</p>
+                  <p className="text-xs text-slate-500">Person / Sanatci / Content ureticisi</p>
                 </div>
                 <ArrowRight className="h-4 w-4 text-slate-500 group-hover:translate-x-1 transition" />
               </button>
@@ -79,8 +79,8 @@ export const Register: React.FC<RegisterProps> = ({ onComplete, onBack }) => {
               >
                 <Building2 className="h-6 w-6 text-ghost-400" />
                 <div className="text-left flex-1">
-                  <p className="text-sm font-semibold text-white">Kurumsal</p>
-                  <p className="text-xs text-slate-500">Sirket / STK / Kamu kurumu</p>
+                  <p className="text-sm font-semibold text-white">Corporate</p>
+                  <p className="text-xs text-slate-500">Company / STK / Public institutionu</p>
                 </div>
                 <ArrowRight className="h-4 w-4 text-slate-500 group-hover:translate-x-1 transition" />
               </button>
@@ -91,41 +91,41 @@ export const Register: React.FC<RegisterProps> = ({ onComplete, onBack }) => {
           {step === 1 && (
             <div className="space-y-4 animate-fade-in">
               <h2 className="text-sm font-semibold text-white">
-                {userType === 'individual' ? 'Kisisel bilgiler' : 'Sirket bilgileri'}
+                {userType === 'individual' ? 'Personsel bilgiler' : 'Company bilgileri'}
               </h2>
 
               {userType === 'individual' ? (
                 <>
-                  <Field label="Ad Soyad" icon={User} value={form.fullName}
-                    onChange={(v) => setForm({ ...form, fullName: v })} placeholder="Ayse Yilmaz" />
-                  <Field label="E-posta" icon={Mail} value={form.email}
+                  <Field label="First Name Last Name" icon={User} value={form.fullName}
+                    onChange={(v) => setForm({ ...form, fullName: v })} placeholder="Monthse Yearmaz" />
+                  <Field label="Email" icon={Mail} value={form.email}
                     onChange={(v) => setForm({ ...form, email: v })} placeholder="ayse@digiwork.tr" type="email" />
-                  <Field label="Telefon" icon={Phone} value={form.phone}
+                  <Field label="Phone" icon={Phone} value={form.phone}
                     onChange={(v) => setForm({ ...form, phone: v })} placeholder="+90 5xx xxx xx xx" />
-                  <Field label="Sifre" icon={Lock} value={form.password}
+                  <Field label="Password" icon={Lock} value={form.password}
                     onChange={(v) => setForm({ ...form, password: v })} placeholder="••••••••" type="password" />
                 </>
               ) : (
                 <>
-                  <Field label="Sirket adi" icon={Building2} value={form.companyName}
+                  <Field label="Company adi" icon={Building2} value={form.companyName}
                     onChange={(v) => setForm({ ...form, companyName: v })} placeholder="Digiwork A.S." />
                   <Field label="VKN / TCKN" icon={FileText} value={form.taxId}
                     onChange={(v) => setForm({ ...form, taxId: v })} placeholder="1234567890" />
-                  <Field label="E-posta" icon={Mail} value={form.email}
+                  <Field label="Email" icon={Mail} value={form.email}
                     onChange={(v) => setForm({ ...form, email: v })} placeholder="info@sirket.tr" type="email" />
-                  <Field label="Telefon" icon={Phone} value={form.phone}
+                  <Field label="Phone" icon={Phone} value={form.phone}
                     onChange={(v) => setForm({ ...form, phone: v })} placeholder="+90 2xx xxx xx xx" />
-                  <Field label="Sehir" icon={User} value={form.city}
+                  <Field label="City" icon={User} value={form.city}
                     onChange={(v) => setForm({ ...form, city: v })} placeholder="Istanbul" />
                 </>
               )}
 
               <div className="flex gap-2">
                 <button onClick={() => setStep(0)} className="px-4 py-2.5 rounded-lg bg-slate-800 text-slate-300 text-sm font-medium flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" /> Geri
+                  <ArrowLeft className="h-4 w-4" /> Back
                 </button>
                 <button onClick={handleComplete} className="flex-1 btn-cyber rounded-lg py-2.5 text-sm font-semibold flex items-center justify-center gap-2">
-                  Devam <ArrowRight className="h-4 w-4" />
+                  Continue <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -134,17 +134,17 @@ export const Register: React.FC<RegisterProps> = ({ onComplete, onBack }) => {
           {/* Step 2 (corporate): Media */}
           {step === 2 && userType === 'corporate' && (
             <div className="space-y-4 animate-fade-in">
-              <h2 className="text-sm font-semibold text-white">Belge yukle</h2>
+              <h2 className="text-sm font-semibold text-white">Document yukle</h2>
               <div className="border-2 border-dashed border-slate-700 rounded-lg p-8 text-center">
                 <Upload className="h-8 w-8 text-slate-500 mx-auto mb-2" />
-                <p className="text-xs text-slate-500">Vergi levhasi, imza sirkusu (PDF/PNG)</p>
+                <p className="text-xs text-slate-500">Givegi levhasi, imza sirkusu (PDF/PNG)</p>
               </div>
               <div className="flex gap-2">
                 <button onClick={() => setStep(1)} className="px-4 py-2.5 rounded-lg bg-slate-800 text-slate-300 text-sm font-medium flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" /> Geri
+                  <ArrowLeft className="h-4 w-4" /> Back
                 </button>
                 <button onClick={finish} className="flex-1 btn-cyber rounded-lg py-2.5 text-sm font-semibold">
-                  Kaydi Tamamla
+                  Kaydi Complete
                 </button>
               </div>
             </div>
@@ -153,17 +153,17 @@ export const Register: React.FC<RegisterProps> = ({ onComplete, onBack }) => {
           {/* Step 3 (individual): Media */}
           {step === 3 && userType === 'individual' && (
             <div className="space-y-4 animate-fade-in">
-              <h2 className="text-sm font-semibold text-white">Medya dosyalari (opsiyonel)</h2>
+              <h2 className="text-sm font-semibold text-white">Media dosyalari (opsiyonel)</h2>
               <div className="border-2 border-dashed border-slate-700 rounded-lg p-8 text-center">
                 <Upload className="h-8 w-8 text-slate-500 mx-auto mb-2" />
                 <p className="text-xs text-slate-500">Portre, sanat eseri, kimlik belgesi</p>
               </div>
               <div className="flex gap-2">
                 <button onClick={() => setStep(1)} className="px-4 py-2.5 rounded-lg bg-slate-800 text-slate-300 text-sm font-medium flex items-center gap-2">
-                  <ArrowLeft className="h-4 w-4" /> Geri
+                  <ArrowLeft className="h-4 w-4" /> Back
                 </button>
                 <button onClick={finish} className="flex-1 btn-cyber rounded-lg py-2.5 text-sm font-semibold">
-                  Kaydi Tamamla
+                  Kaydi Complete
                 </button>
               </div>
             </div>
@@ -191,14 +191,14 @@ export const Register: React.FC<RegisterProps> = ({ onComplete, onBack }) => {
               </div>
             </div>
             <p className="text-[10px] text-slate-500 mt-2">
-              Kimliginiz anonim olarak olusturuldu. PII verileri ifşa edilmez.
+              Kimliginiz anonim olarak generated. PII verileri ifsa edilmez.
             </p>
           </div>
         )}
 
         <div className="mt-4 text-center">
           <button onClick={onBack} className="text-xs text-slate-500 hover:text-slate-300">
-            Giris ekranina don
+            Login ekranina don
           </button>
         </div>
 

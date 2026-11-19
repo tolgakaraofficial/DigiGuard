@@ -17,7 +17,7 @@ export const UserScenariosModal: React.FC<UserScenariosModalProps> = ({ isOpen, 
             <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-2.5 rounded-lg">
               <Users className="h-6 w-6 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">Kullanici Senaryolari</h2>
+            <h2 className="text-2xl font-bold text-white">User Scenariolari</h2>
           </div>
           <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
             <X className="h-6 w-6" />
@@ -28,49 +28,49 @@ export const UserScenariosModal: React.FC<UserScenariosModalProps> = ({ isOpen, 
           <div className="bg-gradient-to-r from-blue-900/30 to-cyan-900/30 border border-blue-500/30 rounded-xl p-6">
             <h3 className="text-xl font-bold text-white mb-3 flex items-center">
               <Users className="h-5 w-5 mr-2 text-blue-400" />
-              Bireysel Kullanici Senaryolari
+              Individual User Scenariolari
             </h3>
             <div className="space-y-4">
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Online Bankacılık ve Finans
+                  Online Bankcilik ve Finans
                 </h4>
                 <p className="text-slate-300 text-sm">
-                  Ali Bey, yeni bir dijital bankacilik hesabi acmak istiyor. DigiGuard ile biyometrik kimligini dogrulatarak
-                  saniyeler icinde hesap acabiliyor. Parmak izi ve yuz tanima ile her girisinde guvende kalıyor.
+                  Geti Bey, yeni bir dijital bankacilik hesabi acmak istiyor. DigiGuard ile biyometrik kimligini dogrulatarak
+                  saniyeler icinde hesap acabiliyor. Parmak izi ve yuz tanima ile her girisinde guvende kaliyor.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  E-Devlet Islemleri
+                  E-Government Islemleri
                 </h4>
                 <p className="text-slate-300 text-sm">
-                  Ayse Hanim, nufus cuzdani almak icin randevu alirken DigiGuard KYC sertifikasini kullanarak
-                  kimlik dogrulamasini online tamamliyor. Kuruma gitmeden islemlerini hizla sonlandiriyor.
+                  Monthse Hanim, nufus walleti almak icin randevu alirken DigiGuard KYC sertifikasini kullanarak
+                  identity verificationni online tamamliyor. Enterprisea gitmeden islemlerini hizla sonlandiriyor.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Kripto Para Borsalari
+                  Crypto Para Borsalari
                 </h4>
                 <p className="text-slate-300 text-sm">
                   Mehmet Bey, kripto para borsasinda islem yapmak icin KYC surecini DigiGuard ile tamamliyor.
-                  Blockchain tabanlı kimlik dogrulamasi ile hem hizli hem de guvenlı bir sekilde hesabini aktif ediyor.
+                  Blockchain based identity verification ile hem fast hem de guvenli bir sekilde hesabini aktif ediyor.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Saglik Sistemleri
+                  Saglik Systemleri
                 </h4>
                 <p className="text-slate-300 text-sm">
-                  Zeynep Hanim, ozel hastanede tedavi olmak icin kimlik dogrulamasini DigiGuard ile yapiyor.
+                  Zeynep Hanim, ozel hastanede tedavi olmak icin identity verificationni DigiGuard ile yapiyor.
                   Tibbi kayitlari guvende, sadece yetkili doktorlar erisebiliyor.
                 </p>
               </div>
@@ -80,24 +80,24 @@ export const UserScenariosModal: React.FC<UserScenariosModalProps> = ({ isOpen, 
           <div className="bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-500/30 rounded-xl p-6">
             <h3 className="text-xl font-bold text-white mb-3 flex items-center">
               <Building2 className="h-5 w-5 mr-2 text-purple-400" />
-              Kurumsal Kullanim Senaryolari
+              Corporate Kullanim Scenariolari
             </h3>
             <div className="space-y-4">
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Caliskan Kimlik Yonetimi
+                  Caliskan Identity Yonetimi
                 </h4>
                 <p className="text-slate-300 text-sm">
-                  ABC Sirket, 500 calisaninin kimlik dogrulamasini DigiGuard ile merkezi olarak yonetiyor.
-                  Biyometrik giris sistemleri ile fiziksel kartlara gerek kalmiyor, guvenlik maksimum seviyede.
+                  ABC Company, 500 calisaninin identity verificationni DigiGuard ile merkezi olarak yonetiyor.
+                  Biyometrik giris sistemleri ile fiziksel kartlara gerek kalmiyor, security maksimum seviyede.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Musteri KYC Surecleri
+                  Customer KYC Surecleri
                 </h4>
                 <p className="text-slate-300 text-sm">
                   XYZ Bank, yeni musteri kayit surecinde DigiGuard API'sini entegre ederek KYC islemlerini
@@ -108,11 +108,11 @@ export const UserScenariosModal: React.FC<UserScenariosModalProps> = ({ isOpen, 
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Egitim Kurumları
+                  Egitim Enterpriselari
                 </h4>
                 <p className="text-slate-300 text-sm">
-                  Universiteler, online sinavlarda ogrenci kimlik dogrulamasini DigiGuard ile yapiyor.
-                  Yuz tanima teknolojisi ile kopya ve sahteciligin onune geciliyor.
+                  Universiteler, online sinavlarda ogrenci identity verificationni DigiGuard ile yapiyor.
+                  Face tanima teknolojisi ile kopya ve sahteciligin onune geciliyor.
                 </p>
               </div>
             </div>
@@ -121,35 +121,35 @@ export const UserScenariosModal: React.FC<UserScenariosModalProps> = ({ isOpen, 
           <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-500/30 rounded-xl p-6">
             <h3 className="text-xl font-bold text-white mb-3 flex items-center">
               <Globe2 className="h-5 w-5 mr-2 text-green-400" />
-              Kamu Kurumlari
+              Public Enterpriselari
             </h3>
             <div className="space-y-4">
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Secim ve Oy Sistemleri
+                  Selectim ve Oy Systemleri
                 </h4>
                 <p className="text-slate-300 text-sm">
-                  Vatandaslar, online oylama sistemlerinde DigiGuard ile kimliklerini dogrulatarak
-                  blockchain tabanli guvenlı oy kullanabiliyor. Her oy kayit altinda ve degistirilemez.
+                  Citizenlar, online oylama sistemlerinde DigiGuard ile kimliklerini dogrulatarak
+                  blockchain based guvenli oy kullanabiliyor. Her oy kayit altinda ve degistirilemez.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Sosyal Yardim Dagitimlari
+                  Social Help Dagitimlari
                 </h4>
                 <p className="text-slate-300 text-sm">
                   Belediyeler, sosyal yardim dagitiminda DigiGuard kullanarak cift kayit ve sahtecilik
-                  sorununu ortadan kaldiriyor. Her yararlanici biyometrik olarak dogrulanıyor.
+                  sorununu ortadan kaldiriyor. Her yararlanici biyometrik olarak dogrulaniyor.
                 </p>
               </div>
 
               <div className="bg-slate-700/50 rounded-lg p-4">
                 <h4 className="font-semibold text-white mb-2 flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Multechi ve Gocmen Kayitlari
+                  Multechi ve Gocmen Registrationlari
                 </h4>
                 <p className="text-slate-300 text-sm">
                   Goc idaresi, multechi ve gocmen kayitlarini DigiGuard ile guvence altina aliyor.
@@ -165,7 +165,7 @@ export const UserScenariosModal: React.FC<UserScenariosModalProps> = ({ isOpen, 
             onClick={onClose}
             className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-3 px-4 rounded-lg transition-all"
           >
-            Kapat
+            Close
           </button>
         </div>
       </div>

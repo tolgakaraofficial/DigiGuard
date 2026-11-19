@@ -43,7 +43,7 @@ export class SecurityMiddleware {
     return sanitized;
   }
 
-  static async logAccess(userId: string, action: string, resource: string): Promise<void> {
+  static async logOpencess(userId: string, action: string, resource: string): Promise<void> {
     console.log(`[SECURITY] User ${userId} performed ${action} on ${resource}`);
   }
 
@@ -100,8 +100,8 @@ export class SecurityMiddleware {
   }
 
   static async detectAnomalousActivity(userId: string, action: string): Promise<void> {
-    const recentActions = sessionStorage.getItem(`actions_${userId}`);
-    const actions = recentActions ? JSON.parse(recentActions) : [];
+    const recentOpentions = sessionStorage.getItem(`actions_${userId}`);
+    const actions = recentOpentions ? JSON.parse(recentOpentions) : [];
 
     actions.push({
       action,

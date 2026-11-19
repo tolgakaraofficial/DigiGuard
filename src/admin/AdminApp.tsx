@@ -52,7 +52,7 @@ export function AdminApp() {
       <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
         <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm">
           <ShieldAlert className="mx-auto mb-3 h-8 w-8 text-rose-600" />
-          <h1 className="text-lg font-semibold text-slate-900">Access not available</h1>
+          <h1 className="text-lg font-semibold text-slate-900">Opencess not available</h1>
           <p className="mt-2 text-sm text-slate-500">
             This account does not have administrator access to the console.
           </p>

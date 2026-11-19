@@ -44,8 +44,8 @@ export const AnalyticsDashboard: React.FC = () => {
         let individualUsers = 0;
         let corporateUsers = 0;
         let personnelUsers = 0;
-        let totalActive = 0;
-        let totalVerified = 0;
+        let totalOpentive = 0;
+        let totalDatafied = 0;
 
         if (typeResult.data) {
           typeResult.data.forEach((type) => {
@@ -53,8 +53,8 @@ export const AnalyticsDashboard: React.FC = () => {
             const active = Number(type.active_users) || 0;
             const verified = Number(type.verified_users) || 0;
 
-            totalActive += active;
-            totalVerified += verified;
+            totalOpentive += active;
+            totalDatafied += verified;
 
             if (type.user_type === 'individual') individualUsers = total;
             else if (type.user_type === 'corporate') corporateUsers = total;
@@ -74,7 +74,7 @@ export const AnalyticsDashboard: React.FC = () => {
           personnelUsers,
           topCities,
           growthRate: 15.3,
-          activeRate: totalUsers > 0 ? (totalActive / totalUsers) * 100 : 0
+          activeRate: totalUsers > 0 ? (totalOpentive / totalUsers) * 100 : 0
         });
       }
     } catch (error) {
@@ -93,8 +93,8 @@ export const AnalyticsDashboard: React.FC = () => {
   }
 
   const userTypeData = [
-    { label: 'Bireysel', value: analytics.individualUsers, color: 'from-blue-500 to-cyan-500', icon: Users },
-    { label: 'Kurumsal', value: analytics.corporateUsers, color: 'from-purple-500 to-pink-500', icon: Building2 },
+    { label: 'Individual', value: analytics.individualUsers, color: 'from-blue-500 to-cyan-500', icon: Users },
+    { label: 'Corporate', value: analytics.corporateUsers, color: 'from-purple-500 to-pink-500', icon: Building2 },
     { label: 'Personel', value: analytics.personnelUsers, color: 'from-orange-500 to-red-500', icon: Award }
   ];
 
@@ -110,8 +110,8 @@ export const AnalyticsDashboard: React.FC = () => {
               </div>
               <TrendingUp className="h-3 w-3 text-green-400" />
             </div>
-            <p className="text-xs text-slate-400">Toplam</p>
-            <p className="text-xl font-bold text-white">{analytics.totalUsers.toLocaleString('tr-TR')}</p>
+            <p className="text-xs text-slate-400">Total</p>
+            <p className="text-xl font-bold text-white">{analytics.totalUsers.toLocaleString('en-US')}</p>
             <p className="text-[10px] text-green-400 mt-0.5">+{analytics.growthRate}%</p>
           </div>
         </div>
@@ -125,8 +125,8 @@ export const AnalyticsDashboard: React.FC = () => {
               </div>
               <Activity className="h-3 w-3 text-blue-300" />
             </div>
-            <p className="text-xs text-slate-400">Bireysel</p>
-            <p className="text-xl font-bold text-white">{analytics.individualUsers.toLocaleString('tr-TR')}</p>
+            <p className="text-xs text-slate-400">Individual</p>
+            <p className="text-xl font-bold text-white">{analytics.individualUsers.toLocaleString('en-US')}</p>
             <p className="text-[10px] text-blue-300 mt-0.5">{((analytics.individualUsers / analytics.totalUsers) * 100).toFixed(1)}%</p>
           </div>
         </div>
@@ -140,8 +140,8 @@ export const AnalyticsDashboard: React.FC = () => {
               </div>
               <Activity className="h-3 w-3 text-purple-300" />
             </div>
-            <p className="text-xs text-slate-400">Kurumsal</p>
-            <p className="text-xl font-bold text-white">{analytics.corporateUsers.toLocaleString('tr-TR')}</p>
+            <p className="text-xs text-slate-400">Corporate</p>
+            <p className="text-xl font-bold text-white">{analytics.corporateUsers.toLocaleString('en-US')}</p>
             <p className="text-[10px] text-purple-300 mt-0.5">{((analytics.corporateUsers / analytics.totalUsers) * 100).toFixed(1)}%</p>
           </div>
         </div>
@@ -156,7 +156,7 @@ export const AnalyticsDashboard: React.FC = () => {
               <Activity className="h-3 w-3 text-orange-300" />
             </div>
             <p className="text-xs text-slate-400">Personel</p>
-            <p className="text-xl font-bold text-white">{analytics.personnelUsers.toLocaleString('tr-TR')}</p>
+            <p className="text-xl font-bold text-white">{analytics.personnelUsers.toLocaleString('en-US')}</p>
             <p className="text-[10px] text-orange-300 mt-0.5">{((analytics.personnelUsers / analytics.totalUsers) * 100).toFixed(1)}%</p>
           </div>
         </div>
@@ -167,10 +167,10 @@ export const AnalyticsDashboard: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-white flex items-center gap-2">
               <PieChart className="h-4 w-4 text-cyan-400" />
-              Kullanıcı Dağılımı
+              User Dagilimi
             </h3>
             <span className="text-[10px] text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">
-              Canlı
+              Canli
             </span>
           </div>
 
@@ -187,7 +187,7 @@ export const AnalyticsDashboard: React.FC = () => {
                       <span className="text-white text-sm">{item.label}</span>
                     </div>
                     <div className="text-right">
-                      <p className="text-white font-bold text-sm">{item.value.toLocaleString('tr-TR')}</p>
+                      <p className="text-white font-bold text-sm">{item.value.toLocaleString('en-US')}</p>
                       <p className="text-[10px] text-slate-400">{percentage.toFixed(1)}%</p>
                     </div>
                   </div>
@@ -207,7 +207,7 @@ export const AnalyticsDashboard: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-white flex items-center gap-2">
               <BarChart3 className="h-4 w-4 text-green-400" />
-              Aktif Şehirler
+              Opentive Cityler
             </h3>
             <span className="text-[10px] text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">
               Top 5
@@ -227,7 +227,7 @@ export const AnalyticsDashboard: React.FC = () => {
                       </div>
                       <span className="text-white text-sm">{city.city}</span>
                     </div>
-                    <span className="text-green-400 font-bold text-sm">{city.count.toLocaleString('tr-TR')}</span>
+                    <span className="text-green-400 font-bold text-sm">{city.count.toLocaleString('en-US')}</span>
                   </div>
                   <div className="w-full bg-slate-600/30 rounded-full h-1.5 overflow-hidden">
                     <div
@@ -247,7 +247,7 @@ export const AnalyticsDashboard: React.FC = () => {
           <div>
             <h3 className="text-sm font-semibold text-white mb-1 flex items-center gap-2">
               <Activity className="h-4 w-4 text-green-400" />
-              Sistem Performansı
+              System Performansi
             </h3>
             <p className="text-slate-400 text-xs">Optimal performans</p>
           </div>
@@ -280,7 +280,7 @@ export const AnalyticsDashboard: React.FC = () => {
                 <span className="text-lg font-bold text-white">{analytics.activeRate.toFixed(0)}%</span>
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 mt-1">Aktiflik</p>
+            <p className="text-[10px] text-slate-400 mt-1">Opentivelik</p>
           </div>
         </div>
       </div>

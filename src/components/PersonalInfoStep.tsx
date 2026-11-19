@@ -23,51 +23,51 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Form doğrulama
+    // Form verification
     const newErrors: Partial<PersonalInfo> = {};
     
     if (!data.firstName.trim()) {
-      newErrors.firstName = 'Ad gereklidir';
+      newErrors.firstName = 'First Name gereklidir';
     } else if (data.firstName.trim().length < 2) {
-      newErrors.firstName = 'Ad en az 2 karakter olmalıdır';
+      newErrors.firstName = 'First Name en az 2 karakter olmalidir';
     }
     
     if (!data.lastName.trim()) {
-      newErrors.lastName = 'Soyad gereklidir';
+      newErrors.lastName = 'Last Name gereklidir';
     } else if (data.lastName.trim().length < 2) {
-      newErrors.lastName = 'Soyad en az 2 karakter olmalıdır';
+      newErrors.lastName = 'Last Name en az 2 karakter olmalidir';
     }
     
     if (!data.birthDate) {
-      newErrors.birthDate = 'Doğum tarihi gereklidir';
+      newErrors.birthDate = 'Dogum tarihi gereklidir';
     } else {
       const birthYear = new Date(data.birthDate).getFullYear();
       const currentYear = new Date().getFullYear();
       if (currentYear - birthYear < 18) {
-        newErrors.birthDate = '18 yaşından küçük olamazsınız';
+        newErrors.birthDate = '18 yasindan kucuk olamazsiniz';
       } else if (currentYear - birthYear > 100) {
-        newErrors.birthDate = 'Geçerli bir doğum tarihi girin';
+        newErrors.birthDate = 'Valid bir dogum tarihi girin';
       }
     }
     
     if (!data.nationality) {
-      newErrors.nationality = 'Uyruk seçimi gereklidir';
+      newErrors.nationality = 'Nationality secimi gereklidir';
     }
     
     if (!data.address.trim()) {
-      newErrors.address = 'Adres gereklidir';
+      newErrors.address = 'First Nameres gereklidir';
     } else if (data.address.trim().length < 10) {
-      newErrors.address = 'Adres en az 10 karakter olmalıdır';
+      newErrors.address = 'First Nameres en az 10 karakter olmalidir';
     }
     
     if (!data.city.trim()) {
-      newErrors.city = 'Şehir gereklidir';
+      newErrors.city = 'City gereklidir';
     }
     
     if (!data.postalCode.trim()) {
       newErrors.postalCode = 'Posta kodu gereklidir';
     } else if (!/^\d{5}$/.test(data.postalCode)) {
-      newErrors.postalCode = 'Posta kodu 5 haneli olmalıdır';
+      newErrors.postalCode = 'Postal code must be 5 digits';
     }
     
     if (Object.keys(newErrors).length > 0) {
@@ -81,34 +81,34 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
 
   const handleChange = (field: keyof PersonalInfo, value: string) => {
     onChange({ ...data, [field]: value });
-    // Hata mesajını temizle
+    // Error mesajini temizle
     if (errors[field]) {
       setErrors((prev: Partial<PersonalInfo>) => ({ ...prev, [field]: undefined }));
     }
   };
 
   const turkishCities = [
-    'Adana', 'Adıyaman', 'Afyonkarahisar', 'Ağrı', 'Amasya', 'Ankara', 'Antalya', 'Artvin',
-    'Aydın', 'Balıkesir', 'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa',
-    'Çanakkale', 'Çankırı', 'Çorum', 'Denizli', 'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan',
-    'Erzurum', 'Eskişehir', 'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkâri', 'Hatay', 'Isparta',
-    'İçel', 'İstanbul', 'İzmir', 'Kars', 'Kastamonu', 'Kayseri', 'Kırklareli', 'Kırşehir',
-    'Kocaeli', 'Konya', 'Kütahya', 'Malatya', 'Manisa', 'Kahramanmaraş', 'Mardin', 'Muğla',
-    'Muş', 'Nevşehir', 'Niğde', 'Ordu', 'Rize', 'Sakarya', 'Samsun', 'Siirt', 'Sinop',
-    'Sivas', 'Tekirdağ', 'Tokat', 'Trabzon', 'Tunceli', 'Şanlıurfa', 'Uşak', 'Van',
-    'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 'Karaman', 'Kırıkkale', 'Batman', 'Şırnak',
-    'Bartın', 'Ardahan', 'Iğdır', 'Yalova', 'Karabük', 'Kilis', 'Osmaniye', 'Düzce'
+    'First Nameana', 'First Nameiyaman', 'Afyonkarahisar', 'Networkri', 'Amasya', 'Ankara', 'Antalya', 'Artvin',
+    'Monthdin', 'Balikesir', 'Bilecik', 'Bingol', 'Bitlis', 'Bolu', 'Burdur', 'Bursa',
+    'Canakkale', 'Cankiri', 'Corum', 'Denizli', 'Diyarbakir', 'Edirne', 'Elazig', 'Erzincan',
+    'Erzurum', 'Eskisehir', 'Gaziantep', 'Giresun', 'Gumushane', 'Hakkâri', 'Errory', 'Isparta',
+    'Icel', 'Istanbul', 'Izmir', 'Kars', 'Kastamonu', 'Kayseri', 'Kirklareli', 'Kirsehir',
+    'Kocaeli', 'Konya', 'Kutahya', 'Malatya', 'Manisa', 'Kahramanmaras', 'Mardin', 'Mugla',
+    'Mus', 'Nevsehir', 'Nigde', 'Ordu', 'Rize', 'Sakarya', 'Samsun', 'Siirt', 'Sinop',
+    'Sivas', 'Tekirdag', 'Tokat', 'Trabzon', 'Tunceli', 'Sanliurfa', 'Usak', 'Van',
+    'Yozgat', 'Zonguldak', 'Aksaray', 'Bayburt', 'Karaman', 'Kirikkale', 'Batman', 'Sirnak',
+    'Bartin', 'Ardahan', 'Igdir', 'Yalova', 'Karabuk', 'Kilis', 'Osmaniye', 'Duzce'
   ];
   return (
     <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
       <div className="flex items-center space-x-3 mb-6">
         <User className="h-6 w-6 text-blue-400" />
-        <h2 className="text-2xl font-bold text-white">Kişisel Bilgiler</h2>
+        <h2 className="text-2xl font-bold text-white">Personal Information</h2>
       </div>
 
       <div className="mb-6">
         <label className="block text-sm font-medium text-slate-300 mb-3">
-          Kullanıcı Tipi
+          User Type
         </label>
         <div className="grid grid-cols-2 gap-3">
           <button
@@ -121,7 +121,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             }`}
           >
             <User className="h-5 w-5" />
-            <span className="font-semibold">Bireysel</span>
+            <span className="font-semibold">Individual</span>
           </button>
           <button
             type="button"
@@ -133,20 +133,20 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             }`}
           >
             <Building2 className="h-5 w-5" />
-            <span className="font-semibold">Kurumsal</span>
+            <span className="font-semibold">Corporate</span>
           </button>
         </div>
       </div>
 
       <p className="text-slate-300 mb-6">
-        Kimlik doğrulama için kişisel bilgilerinizi eksiksiz ve doğru bir şekilde doldurun.
+        Please fill in your personal information completely and accurately for identity verification.
       </p>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <User className="inline h-4 w-4 mr-1" />
-              Ad
+              First Name
             </label>
             <input
               type="text"
@@ -156,7 +156,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
               className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white ${
                 errors.firstName ? 'border-red-500' : 'border-slate-600'
               }`}
-              placeholder="Adınız"
+              placeholder="First Nameiniz"
             />
             {errors.firstName && <p className="text-red-400 text-sm mt-1">{errors.firstName}</p>}
           </div>
@@ -164,7 +164,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <User className="inline h-4 w-4 mr-1" />
-              Soyad
+              Last Name
             </label>
             <input
               type="text"
@@ -174,7 +174,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
               className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white ${
                 errors.lastName ? 'border-red-500' : 'border-slate-600'
               }`}
-              placeholder="Soyadınız"
+              placeholder="Last Nameiniz"
             />
             {errors.lastName && <p className="text-red-400 text-sm mt-1">{errors.lastName}</p>}
           </div>
@@ -182,7 +182,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Calendar className="inline h-4 w-4 mr-1" />
-              Doğum Tarihi
+              Dogum Datei
             </label>
             <input
               type="date"
@@ -200,7 +200,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Globe className="inline h-4 w-4 mr-1" />
-              Uyruk
+              Nationality
             </label>
             <select
               required
@@ -210,17 +210,17 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                 errors.nationality ? 'border-red-500' : 'border-slate-600'
               }`}
             >
-              <option value="">Seçiniz</option>
-              <option value="TR">Türkiye Cumhuriyeti</option>
-              <option value="US">Amerika Birleşik Devletleri</option>
-              <option value="DE">Almanya</option>
+              <option value="">Select</option>
+              <option value="TR">Typekiye Cumhuriyeti</option>
+              <option value="US">Amerika Birlesik Governmentleri</option>
+              <option value="DE">Getmanya</option>
               <option value="FR">Fransa</option>
-              <option value="UK">Birleşik Krallık</option>
+              <option value="UK">Birlesik Krallik</option>
               <option value="NL">Hollanda</option>
-              <option value="BE">Belçika</option>
+              <option value="BE">Belcika</option>
               <option value="AT">Avusturya</option>
-              <option value="CH">İsviçre</option>
-              <option value="other">Diğer</option>
+              <option value="CH">Isvicre</option>
+              <option value="other">Other</option>
             </select>
             {errors.nationality && <p className="text-red-400 text-sm mt-1">{errors.nationality}</p>}
           </div>
@@ -229,7 +229,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             <MapPin className="inline h-4 w-4 mr-1" />
-            Adres
+            First Nameres
           </label>
           <textarea
             required
@@ -247,7 +247,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Şehir
+              City
             </label>
             <select
               required
@@ -257,7 +257,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
                 errors.city ? 'border-red-500' : 'border-slate-600'
               }`}
             >
-              <option value="">Şehir seçiniz</option>
+              <option value="">City seciniz</option>
               {turkishCities.map(city => (
                 <option key={city} value={city}>{city}</option>
               ))}
@@ -267,7 +267,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Posta Kodu
+              Postal Code
             </label>
             <input
               type="number"
@@ -290,7 +290,7 @@ export const PersonalInfoStep: React.FC<PersonalInfoStepProps> = ({
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2"
           >
-            <span>Devam Et</span>
+            <span>Continue</span>
             <ArrowRight className="h-5 w-5" />
           </button>
         </div>

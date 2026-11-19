@@ -12,31 +12,31 @@ interface ThreatDetection {
   source: string;
   timestamp: string;
   status: 'blocked' | 'monitoring' | 'investigating';
-  aiAction: string;
+  aiOpention: string;
 }
 
 const threatDetections: ThreatDetection[] = [
-  { id: 'T-001', type: 'Sahte Profil Tespiti', severity: 'high', source: 'Facebook', timestamp: '2 saat önce', status: 'blocked', aiAction: 'Otomatik engellendi' },
-  { id: 'T-002', type: 'Deepfake Içerik', severity: 'critical', source: 'TikTok', timestamp: '5 saat önce', status: 'blocked', aiAction: 'Içerik kaldirildi' },
-  { id: 'T-003', type: 'Kimlik Hirsizligi Girisimi', severity: 'high', source: 'Dark Web', timestamp: '1 gün önce', status: 'investigating', aiAction: 'Sopon incelemesinde' },
-  { id: 'T-004', type: 'Yetkisiz Görsel', severity: 'medium', source: 'Google', timestamp: '2 gün önce', status: 'monitoring', aiAction: 'Izleme aktif' },
+  { id: 'T-001', type: 'Fake Profilee Detectioni', severity: 'high', source: 'Facebook', timestamp: '2 hours ago', status: 'blocked', aiOpention: 'Otomatik engellendi' },
+  { id: 'T-002', type: 'Deepfake Icerik', severity: 'critical', source: 'TikTok', timestamp: '5 hours ago', status: 'blocked', aiOpention: 'Icerik kaldirildi' },
+  { id: 'T-003', type: 'Identity Hirsizligi Loginimi', severity: 'high', source: 'Dark Web', timestamp: '1 days ago', status: 'investigating', aiOpention: 'Sopon incelemesinde' },
+  { id: 'T-004', type: 'Yetkisiz Image', severity: 'medium', source: 'Google', timestamp: '2 days ago', status: 'monitoring', aiOpention: 'Monitoring aktif' },
 ];
 
 export const SoponDeAIPanel: React.FC = () => {
-  const [activeView, setActiveView] = useState<'overview' | 'threats' | 'autonomy'>('overview');
+  const [activeView, setOpentiveView] = useState<'overview' | 'threats' | 'autonomy'>('overview');
 
   const aiMetrics = [
     { label: 'AI Model', value: 'Sopon v4.2', icon: Brain, color: 'text-amber-400', bgColor: 'from-amber-600/20 to-orange-700/10' },
     { label: 'Islem Hizi', value: '2.4ms', icon: Zap, color: 'text-cyber-400', bgColor: 'from-cyber-600/20 to-cyber-700/10' },
-    { label: 'Tehdit Tarama', value: '7/24', icon: Radar, color: 'text-matrix-400', bgColor: 'from-matrix-600/20 to-matrix-700/10' },
+    { label: 'Threat Scan', value: '7/24', icon: Radar, color: 'text-matrix-400', bgColor: 'from-matrix-600/20 to-matrix-700/10' },
     { label: 'Otonomi Seviyesi', value: 'Seviye 4', icon: Cpu, color: 'text-blue-400', bgColor: 'from-blue-600/20 to-indigo-700/10' },
   ];
 
   const autonomyLevels = [
-    { level: 1, name: 'Reaktif', desc: 'Tehdit sonrasi müdahale', active: false },
-    { level: 2, name: 'Proaktif', desc: 'Öngörülu tarama', active: false },
+    { level: 1, name: 'Reaktif', desc: 'Threat sonrasi mudahale', active: false },
+    { level: 2, name: 'Proaktif', desc: 'Ongorulu tarama', active: false },
     { level: 3, name: 'Otonom', desc: 'Otomatik engelleme', active: false },
-    { level: 4, name: 'DeAI', desc: 'Merkeziyetsiz AI karari', active: true },
+    { level: 4, name: 'DeAI', desc: 'Decentralized AI karari', active: true },
   ];
 
   const getSeverityColor = (severity: string) => {
@@ -69,7 +69,7 @@ export const SoponDeAIPanel: React.FC = () => {
           </div>
           <div>
             <h2 className="text-xl font-bold text-white">Sopon / DeAI Motoru</h2>
-            <p className="text-xs text-slate-400">Merkeziyetsiz Yapay Zeka Tehdit Tespit Sistemi</p>
+            <p className="text-xs text-slate-400">Decentralized AI Zeka Threat Detection Systemi</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -82,13 +82,13 @@ export const SoponDeAIPanel: React.FC = () => {
       {/* Tabs */}
       <div className="flex space-x-2 mb-5 border-b border-slate-700/50 pb-2">
         {[
-          { id: 'overview', label: 'Genel Bakis' },
-          { id: 'threats', label: `Tehditler (${threatDetections.length})` },
+          { id: 'overview', label: 'Overview' },
+          { id: 'threats', label: `Threatler (${threatDetections.length})` },
           { id: 'autonomy', label: 'Otonomi Seviyesi' },
         ].map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveView(tab.id as typeof activeView)}
+            onClick={() => setOpentiveView(tab.id as typeof activeView)}
             className={`px-4 py-1.5 text-sm font-medium rounded-lg transition-all ${
               activeView === tab.id
                 ? 'bg-amber-600/20 text-amber-300 border border-amber-500/40'
@@ -114,13 +114,13 @@ export const SoponDeAIPanel: React.FC = () => {
 
           <div className="bg-slate-900/40 rounded-xl p-4 border border-slate-700/50">
             <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-              <Gauge className="h-4 w-4 text-amber-400" /> AI Performans Göstergeleri
+              <Gauge className="h-4 w-4 text-amber-400" /> AI Performans Showgeleri
             </h3>
             <div className="space-y-3">
               {[
-                { label: 'Tehdit Tarama Hizi', value: 94, color: 'bg-amber-500' },
+                { label: 'Threat Scan Hizi', value: 94, color: 'bg-amber-500' },
                 { label: 'Dogruluk Orani', value: 98, color: 'bg-matrix-500' },
-                { label: 'Otomatik Müdahale', value: 89, color: 'bg-cyber-500' },
+                { label: 'Otomatik Mudahale', value: 89, color: 'bg-cyber-500' },
                 { label: 'False Positive Rate', value: 4, color: 'bg-red-500', inverse: true },
               ].map((g, i) => (
                 <div key={i}>
@@ -155,7 +155,7 @@ export const SoponDeAIPanel: React.FC = () => {
                   <span>{threat.timestamp}</span>
                 </div>
                 <p className="text-[10px] text-amber-400 mt-1 flex items-center gap-1">
-                  <Shield className="h-2.5 w-2.5" /> AI Aksiyon: {threat.aiAction}
+                  <Shield className="h-2.5 w-2.5" /> AI Aksiyon: {threat.aiOpention}
                 </p>
               </div>
             </div>

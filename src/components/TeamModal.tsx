@@ -22,80 +22,80 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
   const teamMembers: TeamMember[] = [
     {
       name: 'Tolga Kara',
-      title: 'Kurucu & CEO',
-      role: 'Siber Güvenlik & Teknoloji Mimarı',
-      expertise: ['Siber Güvenlik', 'Kriptografi', 'Blockchain', 'Yazılım Geliştirme'],
+      title: 'Founder & CEO',
+      role: 'Siber Securek & Teknoloji Mimari',
+      expertise: ['Siber Securek', 'Cryptografi', 'Blockchain', 'Yazilim Gelistirme'],
       linkedin: 'https://www.linkedin.com/in/tolgakara-088742296',
       image: '/tolg_kara.png',
       achievements: [
-        '8+ yıl yazılım geliştirme deneyimi',
-        'Kocaeli Üniversitesi Bilgisayar Mühendisliği',
-        'Karprime Technology Kurucusu',
+        '8+ yil yazilim gelistirme deneyimi',
+        'Kocaeli Universitesi Informationsayar Engineerligi',
+        'Karprime Technology Foundersu',
       ],
     },
     {
-      name: 'Ekip Üyesi',
+      name: 'Team Membersi',
       title: 'CTO',
       role: 'Teknoloji Lideri',
-      expertise: ['Yazılım Mimarisi', 'Web3/Web4/Web5', 'Cloud', 'DevOps'],
+      expertise: ['Yazilim Architecturesi', 'Web3/Web4/Web5', 'Cloud', 'DevOps'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
-        'Yazılım geliştirme uzmanı',
-        'Cloud Architecture sertifikası',
+        'Yazilim gelistirme uzmani',
+        'Cloud Architectureure sertifikasi',
         'Web3 deneyimi',
       ],
     },
     {
-      name: 'Ekip Üyesi',
-      title: 'Güvenlik Müdürü',
-      role: 'Siber Güvenlik Uzmanı',
-      expertise: ['Penetration Testing', 'Kriptografi', 'Güvenlik Denetimi', 'ISO 27001'],
+      name: 'Team Membersi',
+      title: 'Securek Muduru',
+      role: 'Siber Securek Uzmani',
+      expertise: ['Penetration Testing', 'Cryptografi', 'Securek Denetimi', 'ISO 27001'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
-        'Güvenlik sertifikaları',
-        'Güvenlik denetimleri',
-        'Siber güvenlik danışmanlığı',
+        'Securek sertifikalari',
+        'Securek denetimleri',
+        'Siber security danismanligi',
       ],
     },
     {
-      name: 'Ekip Üyesi',
-      title: 'Ürün Müdürü',
-      role: 'UX/UI Uzmanı',
-      expertise: ['Ürün Tasarımı', 'Kullanıcı Araştırması', 'Agile', 'Veri Analizi'],
+      name: 'Team Membersi',
+      title: 'Urun Muduru',
+      role: 'UX/UI Uzmani',
+      expertise: ['Urun Tasarimi', 'User Searchstirmasi', 'Agile', 'Data Analizi'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
-        'Ürün yönetimi deneyimi',
+        'Urun yonetimi deneyimi',
         'Design Thinking',
-        'Kullanıcı deneyimi',
+        'User deneyimi',
       ],
     },
     {
-      name: 'Ekip Üyesi',
-      title: 'Blockchain Geliştirici',
-      role: 'Smart Contract Uzmanı',
-      expertise: ['Solidity', 'Ethereum', 'IPFS', 'Web3.js'],
+      name: 'Team Membersi',
+      title: 'Blockchain Developer',
+      role: 'Smart Contract Uzmani',
+      expertise: ['Solidity', 'hereum', 'IPFS', 'Web3.js'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3778966/pexels-photo-3778966.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
-        'Blockchain geliştirme',
+        'Blockchain gelistirme',
         'Smart contract denetimi',
-        'Dapp geliştirme',
+        'Dapp gelistirme',
       ],
     },
     {
-      name: 'Ekip Üyesi',
-      title: 'Veri Bilimci',
-      role: 'AI & ML Uzmanı',
-      expertise: ['Machine Learning', 'Biyometrik Sistemler', 'Veri Bilimi', 'Python'],
+      name: 'Team Membersi',
+      title: 'Data Bilimci',
+      role: 'AI & ML Uzmani',
+      expertise: ['Machine Learning', 'Biyometrik Systemler', 'Data Bilimi', 'Python'],
       linkedin: 'https://www.linkedin.com/company/digiguard-official',
       image: 'https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400',
       achievements: [
-        'AI ve makine öğrenmesi',
-        'Veri bilimi projeleri',
-        'Araştırma çalışmaları',
+        'AI ve makine ogrenmesi',
+        'Data bilimi projeleri',
+        'Searchstirma calismalari',
       ],
     },
   ];
@@ -110,7 +110,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h2 className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">DigiGuard Ekibi</h2>
-              <p className="text-slate-300 text-sm">Güvenliğiniz için çalışan uzmanlar</p>
+              <p className="text-slate-300 text-sm">Secureginiz icin calisan uzmanlar</p>
             </div>
           </div>
           <button
@@ -124,13 +124,13 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <div className="p-6">
           <div className="bg-gradient-to-r from-blue-900/30 to-cyan-900/30 border border-blue-500/30 rounded-xl p-6 mb-6">
             <h3 className="text-xl font-bold text-white mb-2">
-              Dünya Standartlarında Ekip
+              Dunya Standartlarinda Team
             </h3>
             <p className="text-slate-200 text-sm leading-relaxed">
-              DigiGuard ekibi, siber güvenlik, blockchain teknolojisi, yapay zeka ve
-              yazılım geliştirme alanlarında uzmanlaşmış, sektörde kanıtlanmış profesyonellerden
-              oluşmaktadır. Toplamda 80+ yıllık deneyim ve uluslararası sertifikalarla
-              dijital kimliğinizi koruyoruz.
+              DigiGuard ekibi, siber security, blockchain teknolojisi, yapay zeka ve
+              yazilim gelistirme alanlarinda uzmanlasmis, sektorde kanitlanmis profesyonellerden
+              olusmaktadir. Totalda 80+ yillik deneyim ve uluslararasi sertifikalarla
+              dijital kimliginizi koruyoruz.
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                       <div className="flex items-start space-x-2">
                         <Code className="h-4 w-4 text-cyan-400 mt-0.5 flex-shrink-0" />
                         <div className="flex-1">
-                          <p className="text-xs text-slate-400 mb-1">Uzmanlık Alanları:</p>
+                          <p className="text-xs text-slate-400 mb-1">Uzmanlik Getanlari:</p>
                           <div className="flex flex-wrap gap-1">
                             {member.expertise.map((skill, idx) => (
                               <span
@@ -181,7 +181,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                       <div className="flex items-start space-x-2">
                         <Award className="h-4 w-4 text-yellow-400 mt-0.5 flex-shrink-0" />
                         <div className="flex-1">
-                          <p className="text-xs text-slate-400 mb-1">Başarılar:</p>
+                          <p className="text-xs text-slate-400 mb-1">Successlar:</p>
                           <ul className="space-y-1">
                             {member.achievements.map((achievement, idx) => (
                               <li key={idx} className="text-xs text-slate-300 flex items-start">
@@ -202,7 +202,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                     className="flex items-center justify-center space-x-2 w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-medium py-2.5 px-4 rounded-lg transition-all shadow-lg shadow-blue-500/30 text-sm"
                   >
                     <Linkedin className="h-4 w-4" />
-                    <span>LinkedIn Profilini Gör</span>
+                    <span>LinkedIn Profileeini Gor</span>
                   </a>
                 </div>
               </div>
@@ -212,20 +212,20 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <div className="mt-6 bg-gradient-to-r from-purple-900/30 to-pink-900/30 border border-purple-500/30 rounded-xl p-6">
             <h3 className="text-lg font-semibold text-white mb-3 flex items-center space-x-2">
               <Award className="h-5 w-5 text-purple-400" />
-              <span>Ekip Başarıları</span>
+              <span>Team Successlari</span>
             </h3>
             <div className="grid sm:grid-cols-3 gap-4">
               <div className="text-center">
                 <div className="text-3xl font-bold text-cyan-400 mb-1">80+</div>
-                <div className="text-slate-300 text-sm">Yıl Toplam Deneyim</div>
+                <div className="text-slate-300 text-sm">Year Total Deneyim</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-blue-400 mb-1">200+</div>
-                <div className="text-slate-300 text-sm">Tamamlanan Proje</div>
+                <div className="text-slate-300 text-sm">Completenan Proje</div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-purple-400 mb-1">50+</div>
-                <div className="text-slate-300 text-sm">Uluslararası Sertifika</div>
+                <div className="text-slate-300 text-sm">Uluslararasi Certificate</div>
               </div>
             </div>
           </div>
@@ -236,7 +236,7 @@ export const TeamModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             onClick={onClose}
             className="w-full bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-white font-medium py-3 px-4 rounded-lg transition-all shadow-lg shadow-orange-500/30"
           >
-            Kapat
+            Close
           </button>
         </div>
       </div>

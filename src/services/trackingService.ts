@@ -41,7 +41,7 @@ export const trackingService = {
     identity_number: string;
   }) {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('Kullanıcı bulunamadı');
+    if (!user) throw new Error('User bulunamadi');
 
     const { data: result, error } = await supabase
       .from('certified_persons_tracking')
@@ -66,7 +66,7 @@ export const trackingService = {
     metadata?: any;
   }) {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('Kullanıcı bulunamadı');
+    if (!user) throw new Error('User bulunamadi');
 
     const { data: result, error } = await supabase
       .from('chip_certified_items')
@@ -99,7 +99,7 @@ export const trackingService = {
 
   async getMyTracking() {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('Kullanıcı bulunamadı');
+    if (!user) throw new Error('User bulunamadi');
 
     const { data, error } = await supabase
       .from('certified_persons_tracking')
@@ -112,7 +112,7 @@ export const trackingService = {
 
   async getMyChipItems() {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) throw new Error('Kullanıcı bulunamadı');
+    if (!user) throw new Error('User bulunamadi');
 
     const { data, error } = await supabase
       .from('chip_certified_items')
@@ -161,7 +161,7 @@ export const trackingService = {
   async getCurrentLocation(): Promise<LocationData> {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error('Tarayıcınız konum servislerini desteklemiyor'));
+        reject(new Error('Tarayiciniz konum servislerini desteklemiyor'));
         return;
       }
 

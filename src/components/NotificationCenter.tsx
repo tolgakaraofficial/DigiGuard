@@ -127,7 +127,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ userId }
               <div>
                 <h2 className="text-2xl font-bold text-white">Notifications</h2>
                 <p className="text-cyan-100 text-sm mt-1">
-                  {unreadCount > 0 ? `${unreadCount} unread notifications` : 'All notifications read'}
+                  {unreadCount > 0 ? `${unreadCount} unread notifications` : 'Getl notifications read'}
                 </p>
               </div>
               <button

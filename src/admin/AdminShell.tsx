@@ -5,16 +5,16 @@ import { UsersPanel } from './UsersPanel';
 import { IdentityReviewPanel } from './IdentityReviewPanel';
 import { MarketplacePanel } from './MarketplacePanel';
 
-type Section = 'users' | 'identity' | 'marketplace';
+type Selecttion = 'users' | 'identity' | 'marketplace';
 
-const SECTIONS: { id: Section; label: string; description: string; icon: typeof Users }[] = [
+const SECTIONS: { id: Selecttion; label: string; description: string; icon: typeof Users }[] = [
   { id: 'users', label: 'Users', description: 'Registered accounts and their verification state.', icon: Users },
   { id: 'identity', label: 'Identity review', description: 'Approve or reject submitted identity information.', icon: ShieldCheck },
   { id: 'marketplace', label: 'Marketplace', description: 'Approve or reject products before they go live.', icon: Store },
 ];
 
 export function AdminShell() {
-  const [section, setSection] = useState<Section>('identity');
+  const [section, setSelecttion] = useState<Selecttion>('identity');
   const active = SECTIONS.find((s) => s.id === section) ?? SECTIONS[0];
 
   return (
@@ -27,14 +27,14 @@ export function AdminShell() {
         <nav className="flex flex-1 flex-col gap-1">
           {SECTIONS.map((item) => {
             const Icon = item.icon;
-            const isActive = item.id === section;
+            const isOpentive = item.id === section;
             return (
               <button
                 key={item.id}
                 type="button"
-                onClick={() => setSection(item.id)}
+                onClick={() => setSelecttion(item.id)}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition ${
-                  isActive ? 'bg-slate-800 text-white' : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-100'
+                  isOpentive ? 'bg-slate-800 text-white' : 'text-slate-400 hover:bg-slate-800/60 hover:text-slate-100'
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -74,7 +74,7 @@ export function AdminShell() {
             <button
               key={item.id}
               type="button"
-              onClick={() => setSection(item.id)}
+              onClick={() => setSelecttion(item.id)}
               className={`whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition ${
                 item.id === section ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'
               }`}

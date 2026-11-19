@@ -12,19 +12,19 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
     {
       type: 'bot',
       text: language === 'tr'
-        ? 'Merhaba! Ben ALBIS, DigiGuard merkezi yapay zeka asistanınızım. Tüm sistemleri yönetiyorum ve size yardımcı olmak için buradayım. Takip sistemi, sertifikalar, güvenlik panelleri hakkında sorularınızı yanıtlayabilirim.'
+        ? 'Hello! Ben ALBIS, DigiGuard merkezi yapay zeka asistaninizim. Tum sistemleri yonetiyorum ve size help olmak icin buradayim. Tracking sistemi, sertifikalar, security panelleri hakkinda sorularinizi yanitlayabilirim.'
         : 'Hello! I am ALBIS, your DigiGuard central AI assistant. I manage all systems and I am here to help you. I can answer questions about tracking, certificates, and security panels.',
-      time: new Date().toLocaleTimeString(language === 'tr' ? 'tr-TR' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
+      time: new Date().toLocaleTimeString(language === 'tr' ? 'en-US' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
   const [inputMessage, setInputMessage] = useState('');
 
   const quickReplies = language === 'tr' ? [
-    'Nasıl başlayabilirim?',
-    'Bireysel kullanım',
-    'Kurumsal çözümler',
-    'Güvenlik ve gizlilik',
-    'Fiyatlandırma',
+    'Nasil baslayabilirim?',
+    'Individual kullanim',
+    'Corporate cozumler',
+    'Securek ve gizlilik',
+    'Pricelandirma',
     'Teknik destek',
   ] : [
     'How to get started?',
@@ -36,7 +36,7 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
   ];
 
   const containsProfanity = (text: string): boolean => {
-    const profanityWords = ['aptal', 'salak', 'gerizekalı', 'ahmak', 'mal', 'sersem', 'budala'];
+    const profanityWords = ['aptal', 'salak', 'gerizekali', 'ahmak', 'mal', 'sersem', 'budala'];
     return profanityWords.some(word => text.toLowerCase().includes(word));
   };
 
@@ -45,43 +45,43 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
 
     if (containsProfanity(msgLower)) {
       return language === 'tr'
-        ? '⚠️ Lütfen saygılı bir dil kullanın. Size profesyonel bir şekilde yardımcı olmak için buradayım.'
+        ? '⚠️ Please saygili bir dil kullanin. Size profesyonel bir sekilde help olmak icin buradayim.'
         : '⚠️ Please use respectful language. I am here to help you professionally.';
     }
 
     if (language === 'tr') {
       if (msgLower.includes('takip') || msgLower.includes('konum') || msgLower.includes('yer tespiti')) {
-        return '📍 Takip Sistemleri:\n\n• Kişi Takibi: GSM ve baz istasyonu ile\n• Çipli Varlık Takibi: Hayvan, eşya, araç\n• Gerçek zamanlı konum güncellemesi\n• Blockchain doğrulamalı kayıtlar\n• Geçmiş konum verileri\n\nTakip paneline Dashboard menüsünden ulaşabilirsiniz.';
-      } else if (msgLower.includes('çip') || msgLower.includes('hayvan') || msgLower.includes('eşya')) {
-        return '🔖 Çipli Varlık Sistemi:\n\n• Her varlık için benzersiz çip kodu\n• Sertifika ile entegre kayıt\n• Konum takip sistemi\n• Kayıp/çalıntı bildirimi\n• Sahiplik doğrulama\n\nYeni çipli varlık eklemek için Takip Panelini kullanın.';
+        return '📍 Tracking Systemleri:\n\n• Person Takibi: GSM ve baz istasyonu ile\n• Cipli Varlik Takibi: Hayvan, esya, arac\n• Gercek zamanli konum guncellemesi\n• Blockchain verificationli kayitlar\n• Gecmis konum verileri\n\nTracking paneline Dashboard menusunden ulasabilirsiniz.';
+      } else if (msgLower.includes('cip') || msgLower.includes('hayvan') || msgLower.includes('esya')) {
+        return '🔖 Cipli Varlik Systemi:\n\n• Her varlik icin benzersiz cip kodu\n• Certificate ile entegre kayit\n• Location takip sistemi\n• Kayip/calinti bildirimi\n• Sahiplik verification\n\nNew cipli varlik eklemek icin Tracking Panelini kullanin.';
       } else if (msgLower.includes('sertifika') || msgLower.includes('blockchain')) {
-        return '📜 Blockchain Sertifikası:\n\n• Kişisel bilgilerinizle otomatik oluşturulur\n• Altın çerçeveli profesyonel tasarım\n• Blockchain zaman damgası\n• A4 boyutunda baskıya hazır\n• Anında PDF indirme\n\nDashboard üst panelindeki butona tıklayarak indirebilirsiniz.';
-      } else if (msgLower.includes('nasılsın') || msgLower.includes('nasıl gidiyor') || msgLower.includes('ne haber')) {
-        return '😊 Tüm sistemleri izliyorum ve her şey mükemmel çalışıyor! Size yardımcı olmak için buradayım. Takip sistemleri, sertifikalar veya güvenlik hakkında bilgi ister misiniz?';
-      } else if (msgLower.includes('adın ne') || msgLower.includes('kimsin')) {
-        return '🤖 Ben ALBIS, DigiGuard merkezi yapay zeka asistanıyım. Tüm sistemleri yönetiyorum: kimlik doğrulama, takip sistemleri, sertifikalar, güvenlik panelleri. Dijital kimlik güvenliği ve KYC doğrulama konularında size yardımcı oluyorum.';
-      } else if (msgLower.includes('teşekkür') || msgLower.includes('sağol')) {
-        return '🙏 Rica ederim! Başka bir konuda yardıma ihtiyacınız olursa buradayım. Sistemlerinizi 7/24 izliyorum.';
-      } else if (msgLower.includes('başla') || msgLower.includes('kayıt')) {
-        return '🚀 DigiGuard ile başlamak çok kolay!\n\n1. Kayıt formunu doldurun\n2. Kimlik belgelerinizi yükleyin\n3. Biyometrik doğrulama yapın\n4. KYC sertifikanızı alın\n\nHemen şimdi başlamak ister misiniz?';
-      } else if (msgLower.includes('birey') || msgLower.includes('kişisel')) {
-        return '👤 Bireysel Kullanım Özellikleri:\n\n• Biyometrik kimlik doğrulama\n• Blockchain KYC sertifikası\n• 5 cihaz desteği\n• Mobil uygulama erişimi\n• 7/24 teknik destek\n• Temel AI güvenlik analizi\n\nAyda sadece ₺99! İlk 14 gün ücretsiz deneyin.';
-      } else if (msgLower.includes('kurum') || msgLower.includes('işletme') || msgLower.includes('şirket')) {
-        return '🏢 Kurumsal Çözümler:\n\n• Sınırsız kullanıcı ve cihaz\n• Özel AI modelleri\n• API entegrasyonu\n• Dedicated sunucu\n• SLA garantisi %99.99\n• 24/7 özel destek ekibi\n• On-premise kurulum\n• White-label seçenekleri\n\nÖzel fiyatlandırma için satış ekibimizle görüşün.';
-      } else if (msgLower.includes('güvenlik') || msgLower.includes('gizlilik') || msgLower.includes('koruma')) {
-        return '🔒 Güvenlik ve Gizlilik:\n\n• AES-256 bit şifreleme\n• Blockchain tabanlı doğrulama\n• Zero-knowledge proof teknolojisi\n• GDPR ve KVKK uyumlu\n• ISO 27001 sertifikalı\n• Çok faktörlü kimlik doğrulama\n• Biyometrik veri şifreleme\n\nVerileriniz hiçbir zaman üçüncü taraflarla paylaşılmaz.';
-      } else if (msgLower.includes('fiyat') || msgLower.includes('ücret') || msgLower.includes('paket')) {
-        return '💰 Fiyatlandırma:\n\n📦 Bireysel: ₺99/ay\n• 5 cihaz, temel özellikler\n\n⚡ Profesyonel: ₺299/ay\n• 20 cihaz, API erişimi, gelişmiş AI\n\n🚀 Kurumsal: Özel fiyat\n• Sınırsız kaynak, özel çözümler\n\nTüm paketlerde 14 gün ücretsiz deneme!';
-      } else if (msgLower.includes('destek') || msgLower.includes('yardım') || msgLower.includes('sorun')) {
-        return '🆘 Teknik Destek:\n\n• 7/24 canlı destek hattı\n• Ortalama yanıt süresi: 2-5 dk\n• E-posta: support@digiguard.com\n• Telefon: +90 850 XXX XX XX\n• Uzaktan bağlantı desteği\n• Video eğitim kütüphanesi\n\nSize nasıl yardımcı olabilirim?';
+        return '📜 Blockchain Certificatesi:\n\n• Personsel bilgilerinizle otomatik olusturulur\n• Gettin cerceveli profesyonel tasarim\n• Blockchain zaman damgasi\n• A4 boyutunda baskiya hazir\n• Aninda PDF indirme\n\nDashboard ust panelindeki butona tiklayarak indirebilirsiniz.';
+      } else if (msgLower.includes('howsin') || msgLower.includes('how gidiyor') || msgLower.includes('ne haber')) {
+        return '😊 Tum sistemleri izliyorum ve her sey mukemmel calisiyor! Size help olmak icin buradayim. Tracking sistemleri, sertifikalar veya security hakkinda bilgi ister misiniz?';
+      } else if (msgLower.includes('adin ne') || msgLower.includes('kimsin')) {
+        return '🤖 Ben ALBIS, DigiGuard merkezi yapay zeka asistaniyim. Tum sistemleri yonetiyorum: kimlik verification, takip sistemleri, sertifikalar, security panelleri. Dijital kimlik guvenligi ve KYC verification konularinda size help oluyorum.';
+      } else if (msgLower.includes('tesekkur') || msgLower.includes('sagol')) {
+        return '🙏 Rica ederim! Baska bir konuda yardima ihtiyaciniz olursa buradayim. Systemlerinizi 7/24 izliyorum.';
+      } else if (msgLower.includes('basla') || msgLower.includes('kayit')) {
+        return '🚀 DigiGuard ile baslamak cok kolay!\n\n1. Registration formunu doldurun\n2. Identity belgelerinizi yukleyin\n3. Biyometrik verification yapin\n4. KYC sertifikanizi alin\n\nHemen simdi baslamak ister misiniz?';
+      } else if (msgLower.includes('birey') || msgLower.includes('kisisel')) {
+        return '👤 Individual Usage Featureleri:\n\n• Biyometrik kimlik verification\n• Blockchain KYC sertifikasi\n• 5 cihaz destegi\n• Mobil uygulama erisimi\n• 7/24 teknik destek\n• Temel AI security analizi\n\nMonthda sadece ₺99! Ilk 14 gun ucretsiz deneyin.';
+      } else if (msgLower.includes('institution') || msgLower.includes('isletme') || msgLower.includes('sirket')) {
+        return '🏢 Corporate Cozumler:\n\n• Sinirsiz user ve cihaz\n• Private AI modelleri\n• API entegrasyonu\n• Dedicated sunucu\n• SLA garantisi %99.99\n• 24/7 ozel destek ekibi\n• On-premise kurulum\n• White-label secenekleri\n\nPrivate fiyatlandirma icin satis ekibimizle gorusun.';
+      } else if (msgLower.includes('security') || msgLower.includes('gizlilik') || msgLower.includes('koruma')) {
+        return '🔒 Securek ve Privacy:\n\n• AES-256 bit sifreleme\n• Blockchain based verification\n• Zero-knowledge proof teknolojisi\n• GDPR ve KVKK uyumlu\n• ISO 27001 sertifikali\n• Cok faktorlu kimlik verification\n• Biyometrik veri sifreleme\n\nDataleriniz hicbir zaman ucuncu taraflarla paylasilmaz.';
+      } else if (msgLower.includes('fiyat') || msgLower.includes('ucret') || msgLower.includes('paket')) {
+        return '💰 Pricelandirma:\n\n📦 Individual: ₺99/ay\n• 5 cihaz, temel ozellikler\n\n⚡ Professional: ₺299/ay\n• 20 cihaz, API erisimi, gelismis AI\n\n🚀 Corporate: Private fiyat\n• Sinirsiz kaynak, ozel cozumler\n\nTum paketlerde 14 gun ucretsiz deneme!';
+      } else if (msgLower.includes('destek') || msgLower.includes('yardim') || msgLower.includes('sorun')) {
+        return '🆘 Teknik Support:\n\n• 7/24 canli destek hatti\n• Average yanit suresi: 2-5 dk\n• Email: support@digiguard.com\n• Phone: +90 850 XXX XX XX\n• Uzaktan baglanti destegi\n• Video egitim kutuphanesi\n\nHow can I help you?';
       } else if (msgLower.includes('kyc') || msgLower.includes('kimlik')) {
-        return '🎫 KYC Nedir?\n\nKYC (Know Your Customer), finansal kuruluşların müşterilerinin kimliğini doğrulama sürecidir.\n\n✅ DigiGuard Farkı:\n• Blockchain üzerinde güvenli saklama\n• Tek seferlik doğrulama\n• Tüm platformlarda geçerli\n• Anında onay süreci\n• GDPR/KVKK uyumlu\n\nDaha fazla bilgi ister misiniz?';
+        return '🎫 KYC Nedir?\n\nKYC (Know Your Customer), finansal kuruluslarin musterilerinin kimligini verification surecidir.\n\n✅ DigiGuard Farki:\n• Blockchain uzerinde guvenli saklama\n• Tek seferlik verification\n• Tum platformlarda gecerli\n• Aninda onay sureci\n• GDPR/KVKK uyumlu\n\nDaha fazla bilgi ister misiniz?';
       } else if (msgLower.includes('entegrasyon') || msgLower.includes('api')) {
-        return '🔌 Entegrasyonlar:\n\n• RESTful API\n• GraphQL desteği\n• Webhook bildirimleri\n• SDK: JavaScript, Python, Go\n• OAuth 2.0 kimlik doğrulama\n• Dokümantasyon ve örnekler\n\nGeliştirici dokümanlarını görmek ister misiniz?';
+        return '🔌 Integrationlar:\n\n• RESTful API\n• GraphQL destegi\n• Webhook bildirimleri\n• SDK: JavaScript, Python, Go\n• OAuth 2.0 kimlik verification\n• Dokumantasyon ve ornekler\n\nDeveloper dokumanlarini gormek ister misiniz?';
       } else if (msgLower.includes('merhaba') || msgLower.includes('selam')) {
-        return '👋 Merhaba! Ben ALBIS, DigiGuard yapay zeka asistanınızım.\n\nSize yardımcı olabileceğim konular:\n\n• Platform kullanımı\n• Özellikler ve fiyatlandırma\n• Güvenlik bilgileri\n• Kurumsal çözümler\n• Teknik destek\n\nNe öğrenmek istersiniz?';
+        return '👋 Hello! Ben ALBIS, DigiGuard yapay zeka asistaninizim.\n\nSize help olabilecegim konular:\n\n• Platform kullanimi\n• Featureler ve fiyatlandirma\n• Securek bilgileri\n• Corporate cozumler\n• Teknik destek\n\nNe ogrenmek istersiniz?';
       } else {
-        return '🤖 Size yardımcı olabilmem için daha spesifik bir soru sorabilir misiniz?\n\nPopüler konular:\n• Nasıl başlarım?\n• Fiyatlandırma\n• Güvenlik\n• Kurumsal çözümler\n\nYa da aşağıdaki hızlı yanıt butonlarını kullanabilirsiniz.';
+        return '🤖 Size help olabilmem icin daha spesifik bir soru sorabilir misiniz?\n\nPopuler konular:\n• Nasil baslarim?\n• Pricelandirma\n• Securek\n• Corporate cozumler\n\nYa da asagidaki fast yanit butonlarini kullanabilirsiniz.';
       }
     } else {
       if (msgLower.includes('how are you') || msgLower.includes('how is it going')) {
@@ -95,11 +95,11 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
       } else if (msgLower.includes('security') || msgLower.includes('privacy') || msgLower.includes('protection')) {
         return '🔒 Security & Privacy:\n\n• AES-256 bit encryption\n• Blockchain-based verification\n• Zero-knowledge proof technology\n• GDPR compliant\n• ISO 27001 certified\n• Multi-factor authentication\n• Biometric data encryption\n\nYour data is never shared with third parties.';
       } else if (msgLower.includes('price') || msgLower.includes('pricing') || msgLower.includes('cost')) {
-        return '💰 Pricing:\n\n📦 Individual: ₺99/mo\n• 5 devices, basic features\n\n⚡ Professional: ₺299/mo\n• 20 devices, API access, advanced AI\n\n🚀 Enterprise: Custom\n• Unlimited resources, custom solutions\n\nAll plans include 14-day free trial!';
+        return '💰 Pricing:\n\n📦 Individual: ₺99/mo\n• 5 devices, basic features\n\n⚡ Professional: ₺299/mo\n• 20 devices, API access, advanced AI\n\n🚀 Enterprise: Custom\n• Unlimited resources, custom solutions\n\nGetl plans include 14-day free trial!';
       } else if (msgLower.includes('support') || msgLower.includes('help') || msgLower.includes('issue')) {
         return '🆘 Technical Support:\n\n• 24/7 live support\n• Average response time: 2-5 min\n• Email: support@digiguard.com\n• Phone: +90 850 XXX XX XX\n• Remote connection support\n• Video training library\n\nHow can I help you?';
       } else if (msgLower.includes('kyc') || msgLower.includes('identity')) {
-        return '🎫 What is KYC?\n\nKYC (Know Your Customer) is the process of verifying customer identity by financial institutions.\n\n✅ DigiGuard Advantage:\n• Secure blockchain storage\n• One-time verification\n• Valid across all platforms\n• Instant approval process\n• GDPR compliant\n\nWould you like more information?';
+        return '🎫 What is KYC?\n\nKYC (Know Your Customer) is the process of verifying customer identity by financial institutions.\n\n✅ DigiGuard First Namevantage:\n• Secure blockchain storage\n• One-time verification\n• Valid across all platforms\n• Instant approval process\n• GDPR compliant\n\nWould you like more information?';
       } else if (msgLower.includes('integration') || msgLower.includes('api')) {
         return '🔌 Integrations:\n\n• RESTful API\n• GraphQL support\n• Webhook notifications\n• SDK: JavaScript, Python, Go\n• OAuth 2.0 authentication\n• Documentation and examples\n\nWould you like to see developer docs?';
       } else if (msgLower.includes('hello') || msgLower.includes('hi')) {
@@ -118,7 +118,7 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
     const userMessage = {
       type: 'user',
       text: inputMessage,
-      time: new Date().toLocaleTimeString(language === 'tr' ? 'tr-TR' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
+      time: new Date().toLocaleTimeString(language === 'tr' ? 'en-US' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
     };
 
     setMessages([...messages, userMessage]);
@@ -129,7 +129,7 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
       const botResponse = {
         type: 'bot',
         text: getAIResponse(currentInput),
-        time: new Date().toLocaleTimeString(language === 'tr' ? 'tr-TR' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
+        time: new Date().toLocaleTimeString(language === 'tr' ? 'en-US' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, botResponse]);
     }, 800);
@@ -139,7 +139,7 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
     const userMessage = {
       type: 'user',
       text: reply,
-      time: new Date().toLocaleTimeString(language === 'tr' ? 'tr-TR' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
+      time: new Date().toLocaleTimeString(language === 'tr' ? 'en-US' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
     };
 
     setMessages([...messages, userMessage]);
@@ -148,7 +148,7 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
       const botResponse = {
         type: 'bot',
         text: getAIResponse(reply),
-        time: new Date().toLocaleTimeString(language === 'tr' ? 'tr-TR' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
+        time: new Date().toLocaleTimeString(language === 'tr' ? 'en-US' : 'en-US', { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, botResponse]);
     }, 800);
@@ -169,7 +169,7 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
         <div className="absolute bottom-full right-0 mb-3 bg-slate-900 text-white text-sm px-4 py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-cyan-500/50 shadow-2xl backdrop-blur-sm">
           <div className="font-bold text-cyan-300 mb-1">ALBIS Asistan</div>
           <div className="text-xs text-slate-300">
-            {language === 'tr' ? 'Size nasıl yardımcı olabilirim?' : 'How can I help you?'}
+            {language === 'tr' ? 'How can I help you?' : 'How can I help you?'}
           </div>
           <div className="absolute bottom-0 right-4 transform translate-y-1/2 rotate-45 w-2 h-2 bg-slate-900 border-r border-b border-cyan-500/50"></div>
         </div>
@@ -240,7 +240,7 @@ export const AlbisChatBot: React.FC<AlbisChatBotProps> = ({ language = 'tr' }) =
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder={language === 'tr' ? 'Mesajınızı yazın...' : 'Type your message...'}
+                placeholder={language === 'tr' ? 'Messageinizi yazin...' : 'Type your message...'}
                 className="flex-1 bg-slate-700/50 border border-slate-600 rounded-xl px-4 py-2.5 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-sm"
               />
               <button

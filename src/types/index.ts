@@ -2,7 +2,7 @@ export type AppPage = 'splash' | 'login' | 'register' | 'verify' | 'dashboard';
 
 export type UserType = 'individual' | 'corporate';
 
-export interface UserProfile {
+export interface UserProfilee {
   id: string;
   email: string;
   phone: string;
@@ -10,7 +10,7 @@ export interface UserProfile {
   ghostId: string;
   sponHash: string;
   softonToken: string;
-  kycVerified: boolean;
+  kycGiveified: boolean;
   createdAt: string;
 }
 

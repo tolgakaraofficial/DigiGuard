@@ -11,51 +11,51 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
 
   const plans = [
     {
-      name: 'Bireysel',
+      name: 'Individual',
       icon: Shield,
       price: '99',
       period: '/ay',
-      description: 'Kisisel kullanim icin ideal',
+      description: 'Personsel kullanim icin ideal',
       color: 'from-blue-600 to-cyan-600',
       features: [
-        'Biyometrik kimlik dogrulama',
+        'Biyometrik kimlik verification',
         'Blockchain KYC sertifikasi',
         '5 cihaz destegi',
         '7/24 teknik destek',
-        'Temel AI guvenlik analizi',
+        'Temel AI security analizi',
         'Mobil uygulama erisimi',
       ],
       popular: false,
     },
     {
-      name: 'Profesyonel',
+      name: 'Professional',
       icon: Zap,
       price: '299',
       period: '/ay',
       description: 'Kucuk isletmeler ve freelancerlar icin',
       color: 'from-purple-600 to-pink-600',
       features: [
-        'Bireysel plandaki tum ozellikler',
+        'Individual plandaki tum ozellikler',
         'Gelismis AI risk skorlamasi',
         '20 cihaz destegi',
         'API erisimi (10,000 istek/ay)',
         'Web3/Web4/Web5 entegrasyonu',
         'Oncelikli teknik destek',
         'Ozel dashboard raporlari',
-        'Coklu kullanici yonetimi (5 kullanici)',
+        'Coklu user yonetimi (5 user)',
       ],
       popular: true,
     },
     {
-      name: 'Kurumsal',
+      name: 'Corporate',
       icon: Rocket,
       price: 'Ozel',
       period: '',
       description: 'Buyuk olcekli organizasyonlar icin',
       color: 'from-orange-600 to-red-600',
       features: [
-        'Profesyonel plandaki tum ozellikler',
-        'Sinirsiz cihaz ve kullanici',
+        'Professional plandaki tum ozellikler',
+        'Sinirsiz cihaz ve user',
         'Sinirsiz API istekleri',
         'Ozel AI modelleri',
         'Dedicated sunucu secenegi',
@@ -70,9 +70,9 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
   ];
 
   const paymentMethods = [
-    { name: 'Kredi/Banka Karti', icon: CreditCard, supported: ['Visa', 'Mastercard', 'Amex'] },
-    { name: 'Kripto Para', icon: Globe, supported: ['Bitcoin', 'Ethereum', 'USDT'] },
-    { name: 'Banka Havalesi', icon: Building2, supported: ['SWIFT', 'SEPA', 'EFT'] },
+    { name: 'Kredi/Bank Karti', icon: CreditCard, supported: ['Visa', 'Mastercard', 'Amex'] },
+    { name: 'Crypto Para', icon: Globe, supported: ['Bitcoin', 'hereum', 'USDT'] },
+    { name: 'Bank Havalesi', icon: Building2, supported: ['SWIFT', 'SEPA', 'EFT'] },
   ];
 
   return (
@@ -83,7 +83,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
             <div className="bg-gradient-to-r from-green-500 to-emerald-500 p-2.5 rounded-lg">
               <CreditCard className="h-6 w-6 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white">Hizmetler ve Fiyatlandirma</h2>
+            <h2 className="text-2xl font-bold text-white">Serviceler ve Pricelandirma</h2>
           </div>
           <button onClick={onClose} className="text-slate-400 hover:text-white transition-colors">
             <X className="h-6 w-6" />
@@ -93,11 +93,11 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
         <div className="p-6 space-y-8">
           <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-500/30 rounded-xl p-6">
             <h3 className="text-2xl font-bold text-white mb-3">
-              Guveniniz Icin En Uygun Plani Secin
+              Guveniniz Icin En Uygun Plani Selectin
             </h3>
             <p className="text-slate-200 leading-relaxed">
-              DigiGuard ile kimlik guvenliginizi profesyonel seviyeye tasıyin. Tum planlar 14 gun ucretsiz deneme ile baslar.
-              Istediginiz zaman iptal edebilir, plan degistirebilirsiniz.
+              DigiGuard ile kimlik guvenliginizi profesyonel seviyeye tasiyin. Tum planlar 14 gun ucretsiz deneme ile baslar.
+              Istediginiz zaman cancelled edebilir, plan degistirebilirsiniz.
             </p>
           </div>
 
@@ -113,7 +113,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
               >
                 {plan.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-4 py-1 rounded-full">
-                    EN POPÜLER
+                    EN POPULER
                   </div>
                 )}
 
@@ -132,7 +132,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
                     {plan.period && <span className="text-slate-400 ml-2 mb-1">{plan.period}</span>}
                   </div>
                   {plan.price !== 'Ozel' && (
-                    <p className="text-xs text-slate-500 mt-1">KDV dahil, yillik odemede %20 indirim</p>
+                    <p className="text-xs text-slate-500 mt-1">KDV dahil, yillik paymentde %20 indirim</p>
                   )}
                 </div>
 
@@ -152,7 +152,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
                       : 'bg-slate-600 hover:bg-slate-500 text-white'
                   }`}
                 >
-                  {plan.price === 'Ozel' ? 'Iletisime Gecin' : '14 Gun Ucretsiz Deneyin'}
+                  {plan.price === 'Ozel' ? 'Iletisime Gecin' : '14 Gun Free Deneyin'}
                 </button>
               </div>
             ))}
@@ -161,7 +161,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
           <div className="bg-slate-700/30 rounded-xl p-6 border border-slate-600">
             <h3 className="text-xl font-bold text-white mb-4 flex items-center">
               <CreditCard className="h-5 w-5 text-green-400 mr-2" />
-              Odeme Yontemleri
+              Payment Yontemleri
             </h3>
 
             <div className="grid md:grid-cols-3 gap-4">
@@ -190,37 +190,37 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
             <div className="mt-6 bg-gradient-to-r from-blue-900/30 to-cyan-900/30 border border-blue-500/30 rounded-lg p-4">
               <h4 className="font-semibold text-white mb-2 flex items-center">
                 <Shield className="h-4 w-4 text-blue-400 mr-2" />
-                Guvenli Odeme Garantisi
+                Guvenli Payment Garantisi
               </h4>
               <p className="text-slate-300 text-sm">
-                Tum odemeleriniz 256-bit SSL sifreleme ile korunur. PCI DSS Level 1 uyumlu odeme altyapisi.
+                Tum paymentleriniz 256-bit SSL sifreleme ile korunur. PCI DSS Level 1 uyumlu payment altyapisi.
                 Kredi karti bilgileriniz asla saklanmaz veya paylasilmaz.
               </p>
             </div>
           </div>
 
           <div className="bg-gradient-to-r from-amber-900/30 to-orange-900/30 border border-amber-500/30 rounded-xl p-6">
-            <h3 className="text-xl font-bold text-white mb-4">Sik Sorulan Sorular</h3>
+            <h3 className="text-xl font-bold text-white mb-4">Sik Questionlan Questionlar</h3>
             <div className="space-y-4">
               <div>
-                <h4 className="font-semibold text-white mb-1">Ucretsiz deneme suresi nasil calisir?</h4>
+                <h4 className="font-semibold text-white mb-1">Free deneme suresi how calisir?</h4>
                 <p className="text-slate-300 text-sm">
                   14 gun boyunca sectiginiz planin tum ozelliklerini ucretsiz kullanabilirsiniz. Kredi karti bilgisi
-                  gereklidir ancak deneme suresi bitmeden iptal ederseniz ucret tahsil edilmez.
+                  gereklidir ancak deneme suresi bitmeden cancelled ederseniz ucret tahsil edilmez.
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-white mb-1">Plan degisikligi nasil yapilir?</h4>
+                <h4 className="font-semibold text-white mb-1">Plan degisikligi how yapilir?</h4>
                 <p className="text-slate-300 text-sm">
-                  Istediginiz zaman dashboard uzerinden planınızı yukseltilebilir veya dusurebirsiniz. Fark tutarlar
+                  Istediginiz zaman dashboard uzerinden planinizi yukseltilebilir veya dusurebirsiniz. Fark tutarlar
                   oransal olarak hesaplanir.
                 </p>
               </div>
               <div>
-                <h4 className="font-semibold text-white mb-1">Kurumsal plan icin iletisim?</h4>
+                <h4 className="font-semibold text-white mb-1">Corporate plan icin iletisim?</h4>
                 <p className="text-slate-300 text-sm">
-                  Kurumsal cozumler icin sales@digiguard.com adresinden veya +90 850 XXX XX XX numarasından
-                  uzman ekibimize ulaşabilirsiniz.
+                  Corporate cozumler icin sales@digiguard.com adresinden veya +90 850 XXX XX XX numarasindan
+                  uzman ekibimize ulasabilirsiniz.
                 </p>
               </div>
             </div>
@@ -232,7 +232,7 @@ export const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) =
             onClick={onClose}
             className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-all"
           >
-            Kapat
+            Close
           </button>
         </div>
       </div>

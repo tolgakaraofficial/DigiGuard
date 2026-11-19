@@ -48,18 +48,18 @@ export const BetaBanner: React.FC = () => {
                   Beta Demo
                 </span>
                 <span className="text-white font-bold text-lg">
-                  DigiGuard Önizleme Sürümü
+                  DigiGuard Onizleme Surumu
                 </span>
               </div>
               <p className="text-blue-100 text-sm">
-                Şu anda beta demo sürecindeyiz. Verileriniz test amaçlıdır ve gerçek doğrulama yapılmamaktadır.
+                Su anda beta demo surecindeyiz. Dataleriniz test amaclidir ve gercek verification yapilmamaktadir.
               </p>
             </div>
 
             <button
               onClick={handleClose}
               className="flex-shrink-0 text-white hover:text-blue-200 transition-colors p-1 rounded-lg hover:bg-white/10"
-              aria-label="Kapat"
+              aria-label="Close"
             >
               <X className="h-5 w-5" />
             </button>

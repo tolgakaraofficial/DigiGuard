@@ -10,7 +10,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
   const [personTracking, setPersonTracking] = useState<PersonTracking[]>([]);
   const [chipItems, setChipItems] = useState<ChipItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [expandedSection, setExpandedSection] = useState<'person' | 'chip' | null>('person');
+  const [expandedSelecttion, setExpandedSelecttion] = useState<'person' | 'chip' | null>('person');
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
       setPersonTracking(persons || []);
       setChipItems(chips || []);
     } catch (error) {
-      console.error('Takip verileri yüklenirken hata:', error);
+      console.error('Tracking verileri yuklenirken hata:', error);
     } finally {
       setLoading(false);
     }
@@ -37,10 +37,10 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
       const location = await trackingService.getCurrentLocation();
       await trackingService.updateLocation(id, type, location);
       await loadTrackingData();
-      alert('Konum güncellendi!');
+      alert('Location guncellendi!');
     } catch (error) {
-      console.error('Konum güncellenirken hata:', error);
-      alert('Konum alınamadı. Lütfen konum izinlerini kontrol edin.');
+      console.error('Location guncellenirken hata:', error);
+      alert('Location alinamadi. Please konum izinlerini kontrol edin.');
     }
   };
 
@@ -49,7 +49,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
       await trackingService.toggleTracking(id, type, !currentStatus);
       await loadTrackingData();
     } catch (error) {
-      console.error('Takip durumu değiştirilirken hata:', error);
+      console.error('Tracking durumu degistirilirken hata:', error);
     }
   };
 
@@ -58,7 +58,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-slate-400">Yükleniyor...</p>
+          <p className="mt-4 text-slate-400">Loading...</p>
         </div>
       </div>
     );
@@ -68,7 +68,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
     <div className="space-y-3">
       <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg p-3 border border-slate-700/50">
         <button
-          onClick={() => setExpandedSection(expandedSection === 'person' ? null : 'person')}
+          onClick={() => setExpandedSelecttion(expandedSelecttion === 'person' ? null : 'person')}
           className="w-full flex items-center justify-between mb-3"
         >
           <div className="flex items-center gap-2">
@@ -76,23 +76,23 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
               <MapPin className="w-4 h-4 text-blue-400" />
             </div>
             <div className="text-left">
-              <h3 className="text-sm font-bold text-white">Kişi Takibi</h3>
-              <p className="text-xs text-slate-400">{personTracking.length} kayıt</p>
+              <h3 className="text-sm font-bold text-white">Person Takibi</h3>
+              <p className="text-xs text-slate-400">{personTracking.length} kayit</p>
             </div>
           </div>
-          {expandedSection === 'person' ? (
+          {expandedSelecttion === 'person' ? (
             <ChevronUp className="w-4 h-4 text-slate-400" />
           ) : (
             <ChevronDown className="w-4 h-4 text-slate-400" />
           )}
         </button>
 
-        {expandedSection === 'person' && (
+        {expandedSelecttion === 'person' && (
           <div className="space-y-2">
             {personTracking.length === 0 ? (
               <div className="text-center py-4 text-slate-400">
                 <Radio className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                <p className="text-xs">Henüz kayıt yok</p>
+                <p className="text-xs">No kayit yok</p>
               </div>
             ) : (
               personTracking.map((person) => (
@@ -121,7 +121,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
                       <button
                         onClick={() => updateCurrentLocation(person.id, 'person')}
                         className="p-1 bg-blue-500/10 hover:bg-blue-500/20 rounded transition-all"
-                        title="Konum Güncelle"
+                        title="Location Update"
                       >
                         <Navigation className="w-3 h-3 text-blue-400" />
                       </button>
@@ -132,7 +132,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
                             ? 'bg-green-500/10 hover:bg-green-500/20'
                             : 'bg-red-500/10 hover:bg-red-500/20'
                         }`}
-                        title={person.tracking_enabled ? 'Durdur' : 'Başlat'}
+                        title={person.tracking_enabled ? 'Stop' : 'Start'}
                       >
                         {person.tracking_enabled ? (
                           <CheckCircle className="w-3 h-3 text-green-400" />
@@ -151,7 +151,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
 
       <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg p-3 border border-slate-700/50">
         <button
-          onClick={() => setExpandedSection(expandedSection === 'chip' ? null : 'chip')}
+          onClick={() => setExpandedSelecttion(expandedSelecttion === 'chip' ? null : 'chip')}
           className="w-full flex items-center justify-between mb-3"
         >
           <div className="flex items-center gap-2">
@@ -159,23 +159,23 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
               <Radio className="w-4 h-4 text-purple-400" />
             </div>
             <div className="text-left">
-              <h3 className="text-sm font-bold text-white">Çipli Varlık</h3>
-              <p className="text-xs text-slate-400">{chipItems.length} varlık</p>
+              <h3 className="text-sm font-bold text-white">Cipli Varlik</h3>
+              <p className="text-xs text-slate-400">{chipItems.length} varlik</p>
             </div>
           </div>
-          {expandedSection === 'chip' ? (
+          {expandedSelecttion === 'chip' ? (
             <ChevronUp className="w-5 h-5 text-slate-400" />
           ) : (
             <ChevronDown className="w-5 h-5 text-slate-400" />
           )}
         </button>
 
-        {expandedSection === 'chip' && (
+        {expandedSelecttion === 'chip' && (
           <div className="space-y-3">
             {chipItems.length === 0 ? (
               <div className="text-center py-8 text-slate-400">
                 <Search className="w-12 h-12 mx-auto mb-3 opacity-50" />
-                <p>Henüz kayıtlı çipli varlık yok</p>
+                <p>No kayitli cipli varlik yok</p>
               </div>
             ) : (
               chipItems.map((item) => (
@@ -207,7 +207,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
                       <button
                         onClick={() => updateCurrentLocation(item.id, 'chip')}
                         className="p-1 bg-purple-500/10 hover:bg-purple-500/20 rounded transition-all"
-                        title="Konum Güncelle"
+                        title="Location Update"
                       >
                         <Navigation className="w-3 h-3 text-purple-400" />
                       </button>
@@ -218,7 +218,7 @@ export const TrackingPanel: React.FC<TrackingPanelProps> = ({ language = 'tr' })
                             ? 'bg-green-500/10 hover:bg-green-500/20'
                             : 'bg-red-500/10 hover:bg-red-500/20'
                         }`}
-                        title={item.tracking_enabled ? 'Durdur' : 'Başlat'}
+                        title={item.tracking_enabled ? 'Stop' : 'Start'}
                       >
                         {item.tracking_enabled ? (
                           <CheckCircle className="w-3 h-3 text-green-400" />

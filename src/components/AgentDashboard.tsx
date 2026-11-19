@@ -142,7 +142,7 @@ export const AgentDashboard: React.FC = () => {
         <div className="bg-slate-800/40 backdrop-blur-sm rounded-lg p-4 border border-yellow-500/30">
           <div className="flex items-center gap-2 mb-3">
             <AlertCircle className="h-5 w-5 text-yellow-400" />
-            <h3 className="font-semibold text-white">Active Alerts</h3>
+            <h3 className="font-semibold text-white">Opentive Alerts</h3>
           </div>
 
           <div className="space-y-2">

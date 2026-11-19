@@ -73,7 +73,7 @@ const riskLabels: Record<string, string> = {
 };
 
 export const MonitoringPanel: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'platforms' | 'scans' | 'violations' | 'tracking'>('dashboard');
+  const [activeTab, setOpentiveTab] = useState<'dashboard' | 'platforms' | 'scans' | 'violations' | 'tracking'>('dashboard');
   const [scanning, setScanning] = useState(false);
   const [violations, setViolations] = useState<Violation[]>([]);
   const [recentScans, setRecentScans] = useState<Scan[]>([]);
@@ -225,12 +225,12 @@ export const MonitoringPanel: React.FC = () => {
 
   const getViolationTypeLabel = (type: string) => {
     const labels: { [key: string]: string } = {
-      unauthorized_image: 'Yetkisiz Gorsel Kullanimi',
-      fake_profile: 'Sahte Profil',
-      identity_theft: 'Kimlik Hirsizligi',
-      certificate_fraud: 'Sertifika Sahteciligi',
-      deepfake: 'Deepfake/Yapay Icerik',
-      data_breach: 'Veri Ihlali',
+      unauthorized_image: 'Unauthorized Image Use',
+      fake_profile: 'Fake Profilee',
+      identity_theft: 'Identity Theft',
+      certificate_fraud: 'Certificate Fraud',
+      deepfake: 'Deepfake/AI Content',
+      data_breach: 'Data Breach',
     };
     return labels[type] || type;
   };
@@ -246,12 +246,12 @@ export const MonitoringPanel: React.FC = () => {
         <div>
           <h2 className="text-2xl font-bold text-white flex items-center">
             <Radar className="h-7 w-7 text-cyber-400 mr-3" />
-            Kimlik Izleme ve Ihlal Tespit Merkezi
+            Identity Monitoring and Violation Detection Center
           </h2>
           <p className="text-slate-400 mt-1 flex items-center gap-2">
             Tum arama motorlari, sosyal medya ve web sitelerinden canli kimlik taramasi
             <span className="px-2 py-0.5 bg-yellow-600/30 text-yellow-300 text-xs rounded-full border border-yellow-500/50 font-semibold">
-              Tarama/Raporlama Ucretlidir
+              Scanning/Reporting is Paid
             </span>
           </p>
         </div>
@@ -263,27 +263,27 @@ export const MonitoringPanel: React.FC = () => {
           {scanning ? (
             <><RefreshCw className="h-5 w-5 animate-spin" /><span>Taraniyor...</span></>
           ) : (
-            <><Search className="h-5 w-5" /><span>Tam Tarama Baslat</span></>
+            <><Search className="h-5 w-5" /><span>Tam Scan Start</span></>
           )}
         </button>
       </div>
 
       {/* Tabs */}
       <div className="flex space-x-2 border-b border-slate-700 overflow-x-auto">
-        <button onClick={() => setActiveTab('dashboard')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'dashboard' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
-          Genel Bakis
+        <button onClick={() => setOpentiveTab('dashboard')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'dashboard' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
+          Overview
         </button>
-        <button onClick={() => setActiveTab('platforms')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'platforms' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
-          Taranan Platformlar
+        <button onClick={() => setOpentiveTab('platforms')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'platforms' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
+          Scanned Platforms
         </button>
-        <button onClick={() => setActiveTab('scans')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'scans' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
-          Tarama Gecmisi
+        <button onClick={() => setOpentiveTab('scans')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'scans' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
+          Scan History
         </button>
-        <button onClick={() => setActiveTab('violations')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'violations' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
-          Ihlaller ({stats.totalViolations})
+        <button onClick={() => setOpentiveTab('violations')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'violations' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
+          Violationler ({stats.totalViolations})
         </button>
-        <button onClick={() => setActiveTab('tracking')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'tracking' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
-          Konum Izleme
+        <button onClick={() => setOpentiveTab('tracking')} className={`px-4 py-2 font-medium transition-colors whitespace-nowrap ${activeTab === 'tracking' ? 'text-cyber-400 border-b-2 border-cyber-400' : 'text-slate-400 hover:text-white'}`}>
+          Location Tracking
         </button>
       </div>
 
@@ -295,7 +295,7 @@ export const MonitoringPanel: React.FC = () => {
             <div className="bg-slate-800/80 rounded-lg p-6 border border-cyber-500/20">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">Toplam Tarama</p>
+                  <p className="text-slate-400 text-sm">Toplam Scan</p>
                   <p className="text-3xl font-bold text-cyber-400">{stats.totalScans}</p>
                 </div>
                 <Search className="h-10 w-10 text-cyber-400/50" />
@@ -304,7 +304,7 @@ export const MonitoringPanel: React.FC = () => {
             <div className="bg-slate-800/80 rounded-lg p-6 border border-red-500/20">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">Kritik Ihlaller</p>
+                  <p className="text-slate-400 text-sm">Kritik Violationler</p>
                   <p className="text-3xl font-bold text-red-400">{stats.criticalViolations}</p>
                 </div>
                 <AlertTriangle className="h-10 w-10 text-red-400/50" />
@@ -447,15 +447,15 @@ export const MonitoringPanel: React.FC = () => {
             <div className="flex items-start space-x-3">
               <Eye className="h-6 w-6 text-amber-400 mt-1" />
               <div>
-                <h3 className="text-lg font-semibold text-white mb-2">7/24 Surekli Izleme Aktif</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">7/24 Surekli Monitoring Aktif</h3>
                 <p className="text-slate-300 text-sm mb-3">
                   Kimliginiz ve icerikleriniz tum internet uzerinde surekli olarak izleniyor.
                   Herhangi bir yetkisiz kullanim aninda tespit edilip size bildirilecektir.
                 </p>
                 <div className="flex items-center flex-wrap gap-3 text-xs">
-                  <span className="text-cyber-400 flex items-center"><Image className="h-3 w-3 mr-1" /> Gorsel Tarama</span>
+                  <span className="text-cyber-400 flex items-center"><Image className="h-3 w-3 mr-1" /> Image Scan</span>
                   <span className="text-matrix-400 flex items-center"><Video className="h-3 w-3 mr-1" /> Video Analizi</span>
-                  <span className="text-purple-400 flex items-center"><Mic className="h-3 w-3 mr-1" /> Ses Tanimasi</span>
+                  <span className="text-purple-400 flex items-center"><Mic className="h-3 w-3 mr-1" /> Ses Recognitionsi</span>
                   <span className="text-amber-400 flex items-center"><Award className="h-3 w-3 mr-1" /> Sertifika Kontrolu</span>
                 </div>
               </div>
@@ -464,12 +464,12 @@ export const MonitoringPanel: React.FC = () => {
         </div>
       )}
 
-      {/* Platforms Tab - Vertical list with live telemetry */}
+      {/* Platforms Tab - Givetical list with live telemetry */}
       {activeTab === 'platforms' && (
         <div className="space-y-3">
           <div className="flex items-center gap-2 mb-2">
             <Globe className="h-5 w-5 text-cyber-400" />
-            <h3 className="text-lg font-semibold text-white">Taranan Platformlar ({platforms.length})</h3>
+            <h3 className="text-lg font-semibold text-white">Scanned Platforms ({platforms.length})</h3>
             <span className="ml-auto flex items-center gap-1 text-[10px] text-matrix-400 font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-matrix-400 animate-pulse" /> CANLI TELEMETRI
             </span>
@@ -559,7 +559,7 @@ export const MonitoringPanel: React.FC = () => {
             <div className="bg-slate-800/80 rounded-lg p-12 border border-slate-700 text-center">
               <Search className="h-16 w-16 text-slate-600 mx-auto mb-4" />
               <p className="text-slate-400">Henuz tarama yapilmadi</p>
-              <p className="text-slate-500 text-sm mt-2">Kimlik korumasi icin ilk taramayi baslatin</p>
+              <p className="text-slate-500 text-sm mt-2">Identity korumasi icin ilk taramayi baslatin</p>
             </div>
           ) : (
             recentScans.map((scan) => (
@@ -578,7 +578,7 @@ export const MonitoringPanel: React.FC = () => {
                     </div>
                     <div>
                       <h4 className="text-white font-medium">
-                        {scan.scan_type === 'full' ? 'Tam Tarama' : scan.scan_type.toUpperCase()}
+                        {scan.scan_type === 'full' ? 'Tam Scan' : scan.scan_type.toUpperCase()}
                       </h4>
                       <p className="text-slate-400 text-sm">{scan.scanned_sources} / {scan.total_sources} platform tarandi</p>
                       <p className="text-slate-500 text-xs mt-1">{new Date(scan.started_at).toLocaleString('tr-TR')}</p>
@@ -591,9 +591,9 @@ export const MonitoringPanel: React.FC = () => {
                       scan.scan_status === 'failed' ? 'bg-red-900/30 text-red-400 border border-red-500/50' :
                       'bg-slate-700/30 text-slate-400 border border-slate-500/50'
                     }`}>
-                      {scan.scan_status === 'completed' ? 'Tamamlandi' :
+                      {scan.scan_status === 'completed' ? 'Completed' :
                        scan.scan_status === 'scanning' ? 'Taraniyor' :
-                       scan.scan_status === 'failed' ? 'Basarisiz' : 'Bekliyor'}
+                       scan.scan_status === 'failed' ? 'Failed' : 'Pending'}
                     </span>
                   </div>
                 </div>
@@ -609,7 +609,7 @@ export const MonitoringPanel: React.FC = () => {
           {violations.length === 0 ? (
             <div className="bg-slate-800/80 rounded-lg p-12 border border-slate-700 text-center">
               <CheckCircle className="h-16 w-16 text-green-600 mx-auto mb-4" />
-              <p className="text-green-400 font-medium">Ihlal Tespit Edilmedi</p>
+              <p className="text-green-400 font-medium">Violation Detection Edilmedi</p>
               <p className="text-slate-400 text-sm mt-2">Kimliginiz guvende, herhangi bir yetkisiz kullanim bulunamadi</p>
             </div>
           ) : (
@@ -626,13 +626,13 @@ export const MonitoringPanel: React.FC = () => {
                     </div>
                     <h4 className="text-white font-medium mb-2">{getViolationTypeLabel(violation.violation_type)}</h4>
                     <div className="flex items-center space-x-4 text-sm">
-                      <span className="text-slate-400">Icerik Tipi: <span className="text-white">{violation.content_type}</span></span>
+                      <span className="text-slate-400">Icerik Type: <span className="text-white">{violation.content_type}</span></span>
                       <span className="text-slate-400">Guven: <span className="text-cyber-400">{violation.detection_confidence}%</span></span>
-                      <span className="text-slate-400">Durum: <span className="text-amber-400">{violation.status === 'detected' ? 'Tespit Edildi' : violation.status}</span></span>
+                      <span className="text-slate-400">Durum: <span className="text-amber-400">{violation.status === 'detected' ? 'Detection Edildi' : violation.status}</span></span>
                     </div>
                     {violation.source_url && (
                       <a href={violation.source_url} target="_blank" rel="noopener noreferrer" className="text-cyber-400 hover:text-cyber-300 text-sm mt-2 inline-flex items-center">
-                        Kaynagi Goruntule<ExternalLink className="h-3 w-3 ml-1" />
+                        Kaynagi View<ExternalLink className="h-3 w-3 ml-1" />
                       </a>
                     )}
                   </div>
@@ -702,18 +702,18 @@ const TrackingTabContent: React.FC = () => {
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-2">
         <Satellite className="h-5 w-5 text-cyber-400" />
-        <h3 className="text-lg font-semibold text-white">Canli Konum Izleme ve Radar Gecisleri</h3>
+        <h3 className="text-lg font-semibold text-white">Canli Location Tracking ve Radar Gecisleri</h3>
       </div>
 
       {/* Tracking type switcher */}
       <div className="flex gap-2">
         <button onClick={() => setTrackingType('person')}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${trackingType === 'person' ? 'bg-cyber-600 text-white' : 'bg-slate-900/60 text-slate-400 border border-slate-700 hover:text-white'}`}>
-          <User className="h-4 w-4" /> Kisi Izleme
+          <User className="h-4 w-4" /> Person Monitoring
         </button>
         <button onClick={() => setTrackingType('chip')}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${trackingType === 'chip' ? 'bg-cyber-600 text-white' : 'bg-slate-900/60 text-slate-400 border border-slate-700 hover:text-white'}`}>
-          <Package className="h-4 w-4" /> Chip/Esy Izleme
+          <Package className="h-4 w-4" /> Chip/Esy Monitoring
         </button>
       </div>
 
@@ -723,7 +723,7 @@ const TrackingTabContent: React.FC = () => {
         <div className="bg-slate-800/80 rounded-xl p-6 border border-cyber-500/20">
           <div className="flex items-center gap-2 mb-4">
             <Radar className="h-5 w-5 text-cyber-400" />
-            <h4 className="text-sm font-semibold text-white">Konum Radar</h4>
+            <h4 className="text-sm font-semibold text-white">Location Radar</h4>
             <span className="ml-auto flex items-center gap-1 text-[10px] text-matrix-400 font-mono">
               <span className="w-1.5 h-1.5 rounded-full bg-matrix-400 animate-pulse" /> TARAMA
             </span>
@@ -757,7 +757,7 @@ const TrackingTabContent: React.FC = () => {
             <div className="mt-4 p-3 rounded-lg bg-slate-900/60 border border-slate-700">
               <div className="flex items-center gap-2 mb-1">
                 <Navigation className="h-3.5 w-3.5 text-cyber-400" />
-                <span className="text-xs font-semibold text-white">Mevcut Konum</span>
+                <span className="text-xs font-semibold text-white">Mevcut Location</span>
               </div>
               <p className="text-[10px] font-mono text-slate-400">
                 Enlem: {currentLocation.lat.toFixed(6)} | Boylam: {currentLocation.lng.toFixed(6)}
@@ -773,12 +773,12 @@ const TrackingTabContent: React.FC = () => {
         <div className="bg-slate-800/80 rounded-xl p-6 border border-cyber-500/20">
           <h4 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
             {trackingType === 'person' ? <User className="h-4 w-4 text-cyber-400" /> : <Package className="h-4 w-4 text-cyber-400" />}
-            {trackingType === 'person' ? 'Kisi Takip Listesi' : 'Chip/Esya Takip Listesi'}
+            {trackingType === 'person' ? 'Person Tracking List' : 'Chip/Asset Tracking List'}
           </h4>
           {loading ? (
             <div className="text-center py-8">
               <RefreshCw className="h-6 w-6 text-slate-500 animate-spin mx-auto" />
-              <p className="text-xs text-slate-500 mt-2">Yukleniyor...</p>
+              <p className="text-xs text-slate-500 mt-2">Uploadniyor...</p>
             </div>
           ) : trackingList.length === 0 ? (
             <div className="text-center py-8">

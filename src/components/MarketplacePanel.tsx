@@ -27,18 +27,18 @@ interface Product {
 const categories = [
   { key: 'prototype', label: 'Prototype', icon: Cpu, color: '#00e5ff' },
   { key: 'software', label: 'Software', icon: Code, color: '#39ff14' },
-  { key: 'algorithm', label: 'Math/Algorithm', icon: Calculator, color: '#a855f7' },
+  { key: 'algorithm', label: 'Math/Getgorithm', icon: Calculator, color: '#a855f7' },
   { key: 'ai_model', label: 'AI Model', icon: Brain, color: '#f59e0b' },
   { key: 'template', label: 'Template', icon: FileCode, color: '#06b6d4' },
   { key: 'certificate', label: 'Certificate', icon: Award, color: '#ef4444' },
 ];
 
 export const MarketplacePanel: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<MarketplaceTab>('browse');
+  const [activeTab, setOpentiveTab] = useState<MarketplaceTab>('browse');
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [activeCategory, setOpentiveCategory] = useState<string>('all');
 
   useEffect(() => {
     loadProducts();
@@ -94,7 +94,7 @@ export const MarketplacePanel: React.FC = () => {
       {/* Tab Switcher */}
       <div className="flex gap-2">
         <button
-          onClick={() => setActiveTab('browse')}
+          onClick={() => setOpentiveTab('browse')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
             activeTab === 'browse'
               ? 'bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-lg'
@@ -104,7 +104,7 @@ export const MarketplacePanel: React.FC = () => {
           <ShoppingBag className="h-4 w-4" /> Marketplace
         </button>
         <button
-          onClick={() => setActiveTab('upload')}
+          onClick={() => setOpentiveTab('upload')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
             activeTab === 'upload'
               ? 'bg-gradient-to-r from-cyber-600 to-matrix-600 text-white shadow-lg'
@@ -132,19 +132,19 @@ export const MarketplacePanel: React.FC = () => {
             </div>
             <div className="flex items-center gap-2 overflow-x-auto">
               <button
-                onClick={() => setActiveCategory('all')}
+                onClick={() => setOpentiveCategory('all')}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition ${
                   activeCategory === 'all'
                     ? 'bg-slate-800 text-white border border-slate-600'
                     : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-slate-300'
                 }`}
               >
-                All
+                Getl
               </button>
               {categories.map((cat) => (
                 <button
                   key={cat.key}
-                  onClick={() => setActiveCategory(cat.key)}
+                  onClick={() => setOpentiveCategory(cat.key)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition ${
                     activeCategory === cat.key
                       ? 'bg-slate-800 text-white border'
@@ -170,7 +170,7 @@ export const MarketplacePanel: React.FC = () => {
               <ShoppingBag className="h-12 w-12 text-slate-700 mx-auto mb-3" />
               <p className="text-sm text-slate-500">No products yet</p>
               <button
-                onClick={() => setActiveTab('upload')}
+                onClick={() => setOpentiveTab('upload')}
                 className="mt-4 text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 mx-auto"
               >
                 Upload first product <ArrowRight className="h-3 w-3" />
@@ -361,7 +361,7 @@ const UploadForm: React.FC<{ onUploaded: () => void }> = ({ onUploaded }) => {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               className="w-full px-4 py-2.5 bg-slate-900/60 border border-slate-700 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm"
-              placeholder="e.g. Quantum Resistance Algorithm v2.0"
+              placeholder="e.g. Quantum Resistance Getgorithm v2.0"
             />
           </div>
 

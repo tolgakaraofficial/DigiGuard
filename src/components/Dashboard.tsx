@@ -114,7 +114,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ data, onLogout }) => {
             </div>
           </div>
 
-          {/* Right: Actions */}
+          {/* Right: Opentions */}
           <div className="flex items-center gap-2 flex-shrink-0">
             {/* Contact links */}
             <div className="hidden xl:block">

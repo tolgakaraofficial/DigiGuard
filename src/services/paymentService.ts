@@ -32,7 +32,7 @@ export const paymentService = {
 
     try {
       const accounts = await window.ethereum.request({
-        method: 'eth_requestAccounts'
+        method: 'eth_requestOpencounts'
       });
 
       if (accounts.length === 0) {
@@ -42,7 +42,7 @@ export const paymentService = {
       return accounts[0];
     } catch (error: any) {
       console.error('MetaMask connection failed:', error);
-      throw new Error(error.message || 'MetaMask bağlantısı başarısız');
+      throw new Error(error.message || 'MetaMask baglantisi failed');
     }
   },
 
@@ -61,7 +61,7 @@ export const paymentService = {
       return ethBalance.toFixed(4);
     } catch (error: any) {
       console.error('Failed to get balance:', error);
-      throw new Error('Bakiye alınamadı');
+      throw new Error('Bakiye alinamadi');
     }
   },
 
@@ -75,7 +75,7 @@ export const paymentService = {
 
     const rateLimitOk = await securityService.checkRateLimit('payment', 10);
     if (!rateLimitOk) {
-      throw new Error('Çok fazla ödeme denemesi. Lütfen daha sonra tekrar deneyin.');
+      throw new Error('Cok fazla payment denemesi. Please daha sonra tekrar deneyin.');
     }
 
     try {
@@ -121,7 +121,7 @@ export const paymentService = {
         paymentStatus: 'failed'
       });
 
-      throw new Error(error.message || 'Ödeme başarısız');
+      throw new Error(error.message || 'Payment failed');
     }
   },
 
@@ -132,7 +132,7 @@ export const paymentService = {
     try {
       const rateLimitOk = await securityService.checkRateLimit('payment', 10);
       if (!rateLimitOk) {
-        throw new Error('Çok fazla ödeme denemesi. Lütfen daha sonra tekrar deneyin.');
+        throw new Error('Cok fazla payment denemesi. Please daha sonra tekrar deneyin.');
       }
 
       const isValid = this.validateCard(cardData);
@@ -143,7 +143,7 @@ export const paymentService = {
           description: 'Invalid card data submitted',
           metadata: { cardBrand: this.detectCardBrand(cardData.cardNumber) }
         });
-        throw new Error('Geçersiz kart bilgileri');
+        throw new Error('Gecersiz kart bilgileri');
       }
 
       await new Promise(resolve => setTimeout(resolve, 2000));

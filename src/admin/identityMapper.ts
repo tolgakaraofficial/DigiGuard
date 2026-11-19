@@ -68,7 +68,7 @@ function mapCorporate(row: Row): IdentityRegistration {
     { label: 'Tax number', value: maskId(row.tax_number) },
     { label: 'Trade registry', value: text(row.trade_registry_number) },
     { label: 'MERSIS number', value: maskId(row.mersis_number) },
-    { label: 'Sector', value: text(row.sector) },
+    { label: 'Selecttor', value: text(row.sector) },
     { label: 'Employees', value: text(row.employee_count) },
     { label: 'Address', value: text(row.company_address) },
     { label: 'Postal code', value: text(row.company_postal_code) },

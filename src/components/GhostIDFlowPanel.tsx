@@ -12,10 +12,10 @@ interface FlowState {
 }
 
 const stepConfig: Record<FlowStep, { label: string; icon: React.ElementType; color: string; desc: string }> = {
-  ghost_id: { label: 'Ghost ID Olustur', icon: Ghost, color: '#a855f7', desc: 'Anonim kimlik tanimi olusturuluyor' },
-  spon_kyc: { label: 'SPON KYC', icon: Fingerprint, color: '#00e5ff', desc: 'Sovereign Proof of Identity Number dogrulamasi' },
+  ghost_id: { label: 'Ghost ID Create', icon: Ghost, color: '#a855f7', desc: 'Anonymous kimlik tanimi olusturuluyor' },
+  spon_kyc: { label: 'SPON KYC', icon: Fingerprint, color: '#00e5ff', desc: 'Sovereign Proof of Identity Number verification' },
   softon_convert: { label: 'SOFTON Donusum', icon: RefreshCw, color: '#f59e0b', desc: 'Ghost ID -> SOFTON token donusumu' },
-  verified: { label: 'Tamamlandi', icon: CheckCircle, color: '#39ff14', desc: 'Kimlik basariyla dogrulandi ve korumaya alindi' },
+  verified: { label: 'Completed', icon: CheckCircle, color: '#39ff14', desc: 'Identity basariyla dogrulandi ve korumaya alindi' },
 };
 
 const stepOrder: FlowStep[] = ['ghost_id', 'spon_kyc', 'softon_convert', 'verified'];
@@ -67,7 +67,7 @@ export const GhostIDFlowPanel: React.FC = () => {
             </div>
             <div>
               <h2 className="text-lg font-bold text-white">Ghost ID - SPON/SOFTON Akisi</h2>
-              <p className="text-xs text-slate-400">Cilt 10: Anonim kimlik donusum protokolu</p>
+              <p className="text-xs text-slate-400">Cilt 10: Anonymous kimlik donusum protokolu</p>
             </div>
           </div>
           <button
@@ -99,22 +99,22 @@ export const GhostIDFlowPanel: React.FC = () => {
         <div className="flex items-center justify-between gap-2 flex-wrap">
           {stepOrder.map((step, i) => {
             const cfg = stepConfig[step];
-            const isActive = i === currentIndex;
+            const isOpentive = i === currentIndex;
             const isDone = i < currentIndex;
             return (
               <div key={step} className="flex items-center gap-2 flex-1 min-w-[140px]">
                 <div
                   className="flex flex-col items-center gap-1 flex-1 p-3 rounded-lg border transition-all"
                   style={{
-                    background: isActive ? `${cfg.color}15` : isDone ? 'rgba(57,255,20,0.05)' : 'rgba(2,6,23,0.4)',
-                    borderColor: isActive ? `${cfg.color}40` : isDone ? 'rgba(57,255,20,0.2)' : 'rgba(255,255,255,0.05)',
+                    background: isOpentive ? `${cfg.color}15` : isDone ? 'rgba(57,255,20,0.05)' : 'rgba(2,6,23,0.4)',
+                    borderColor: isOpentive ? `${cfg.color}40` : isDone ? 'rgba(57,255,20,0.2)' : 'rgba(255,255,255,0.05)',
                   }}
                 >
                   <cfg.icon
-                    className={`h-5 w-5 ${isActive ? 'animate-pulse' : ''}`}
+                    className={`h-5 w-5 ${isOpentive ? 'animate-pulse' : ''}`}
                     style={{ color: isDone ? '#39ff14' : cfg.color }}
                   />
-                  <span className="text-[10px] font-semibold text-center" style={{ color: isDone ? '#39ff14' : isActive ? cfg.color : '#64748b' }}>
+                  <span className="text-[10px] font-semibold text-center" style={{ color: isDone ? '#39ff14' : isOpentive ? cfg.color : '#64748b' }}>
                     {cfg.label}
                   </span>
                 </div>
@@ -142,7 +142,7 @@ export const GhostIDFlowPanel: React.FC = () => {
               <span className="text-xs font-bold text-white">Ghost ID</span>
               {flow.ghostId && <CheckCircle className="h-3.5 w-3.5" style={{ color: '#39ff14' }} />}
             </div>
-            <p className="text-[10px] text-slate-500 mb-2">Anonim kimlik tanimi (non-PII)</p>
+            <p className="text-[10px] text-slate-500 mb-2">Anonymous kimlik tanimi (non-PII)</p>
             {flow.ghostId ? (
               <p className="text-[10px] font-mono break-all" style={{ color: '#a855f7' }}>{flow.ghostId}</p>
             ) : (
@@ -180,18 +180,18 @@ export const GhostIDFlowPanel: React.FC = () => {
             )}
           </div>
 
-          {/* Verification Status Card */}
+          {/* Datafication Status Card */}
           <div className="rounded-lg p-4 border" style={{ background: flow.step === 'verified' ? 'rgba(57,255,20,0.05)' : 'rgba(2,6,23,0.4)', borderColor: flow.step === 'verified' ? 'rgba(57,255,20,0.3)' : 'rgba(255,255,255,0.05)' }}>
             <div className="flex items-center gap-2 mb-2">
               <ShieldCheck className="h-4 w-4" style={{ color: flow.step === 'verified' ? '#39ff14' : '#64748b' }} />
-              <span className="text-xs font-bold text-white">Dogrulama Durumu</span>
+              <span className="text-xs font-bold text-white">Verification Status</span>
             </div>
             <p className="text-[10px] text-slate-500 mb-2">Cerebro Network kayit durumu</p>
             <div className="flex items-center gap-2">
               {flow.step === 'verified' ? (
                 <>
                   <CheckCircle className="h-4 w-4" style={{ color: '#39ff14' }} />
-                  <span className="text-xs font-bold" style={{ color: '#39ff14' }}>Dogrulandi & Kaydedildi</span>
+                  <span className="text-xs font-bold" style={{ color: '#39ff14' }}>Dogrulandi & Saved</span>
                 </>
               ) : (
                 <>
@@ -209,8 +209,8 @@ export const GhostIDFlowPanel: React.FC = () => {
             <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: '#f59e0b' }} />
             <div>
               <p className="text-[10px] text-slate-400">
-                <strong className="text-slate-300">Protokol:</strong> Ghost ID, kullanicinin PII verilerini ifsa etmeden anonim kimlik dogrulamasi saglar.
-                SPON (Sovereign Proof of Identity Number) ile biyometrik dogrulama yapilir, sonuc SOFTON tokenina donusturulerek
+                <strong className="text-slate-300">Protocol:</strong> Ghost ID, usernin PII verilerini ifsa etmeden anonim identity verification saglar.
+                SPON (Sovereign Proof of Identity Number) ile biyometrik verification yapilir, sonuc SOFTON tokenina donusturulerek
                 Cerebro Network'e kaydedilir. Tum islem non-custodial ve AES-256 + Kyber-1024 ile sifrelenmistir.
               </p>
             </div>
@@ -221,9 +221,9 @@ export const GhostIDFlowPanel: React.FC = () => {
       {/* Privacy Guarantees */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {[
-          { icon: UserX, label: 'PII Koruma', desc: 'Kisisel veriler ifsa edilmez', color: '#a855f7' },
-          { icon: Lock, label: 'AES-256 Sifreleme', desc: 'Uçtan uca sifreli kanal', color: '#00e5ff' },
-          { icon: Database, label: 'Immutable Kayit', desc: 'Cerebro Network blockchain', color: '#39ff14' },
+          { icon: UserX, label: 'PII Koruma', desc: 'Personsel veriler ifsa edilmez', color: '#a855f7' },
+          { icon: Lock, label: 'AES-256 Passwordleme', desc: 'Uctan uca sifreli kanal', color: '#00e5ff' },
+          { icon: Database, label: 'Immutable Registration', desc: 'Cerebro Network blockchain', color: '#39ff14' },
         ].map((item, i) => (
           <div key={i} className="rounded-lg p-4 border" style={{ background: 'rgba(2,6,23,0.6)', borderColor: 'rgba(255,255,255,0.05)' }}>
             <item.icon className="h-5 w-5 mb-2" style={{ color: item.color }} />
