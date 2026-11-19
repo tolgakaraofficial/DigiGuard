@@ -99,11 +99,11 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ userId }
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
 
-    if (minutes < 1) return 'Şimdi';
-    if (minutes < 60) return `${minutes} dakika önce`;
-    if (hours < 24) return `${hours} saat önce`;
-    if (days < 7) return `${days} gün önce`;
-    return date.toLocaleDateString('tr-TR');
+    if (minutes < 1) return 'Just now';
+    if (minutes < 60) return `${minutes} minutes ago`;
+    if (hours < 24) return `${hours} hours ago`;
+    if (days < 7) return `${days} days ago`;
+    return date.toLocaleDateString('en-US');
   };
 
   return (
@@ -125,9 +125,9 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ userId }
           <div className="bg-slate-900 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden border border-cyan-500/30 shadow-2xl">
             <div className="bg-gradient-to-r from-cyan-600 to-blue-600 p-6 flex justify-between items-center">
               <div>
-                <h2 className="text-2xl font-bold text-white">Bildirimler</h2>
+                <h2 className="text-2xl font-bold text-white">Notifications</h2>
                 <p className="text-cyan-100 text-sm mt-1">
-                  {unreadCount > 0 ? `${unreadCount} okunmamış bildirim` : 'Tüm bildirimler okundu'}
+                  {unreadCount > 0 ? `${unreadCount} unread notifications` : 'All notifications read'}
                 </p>
               </div>
               <button
@@ -142,12 +142,12 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ userId }
               {loading ? (
                 <div className="p-12 text-center">
                   <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-cyan-500 border-t-transparent"></div>
-                  <p className="text-slate-400 mt-4">Yükleniyor...</p>
+                  <p className="text-slate-400 mt-4">Loading...</p>
                 </div>
               ) : notifications.length === 0 ? (
                 <div className="p-12 text-center">
                   <Bell className="h-16 w-16 text-slate-600 mx-auto mb-4" />
-                  <p className="text-slate-400">Henüz bildiriminiz yok</p>
+                  <p className="text-slate-400">No notifications yet</p>
                 </div>
               ) : (
                 <div className="divide-y divide-slate-800">
@@ -172,7 +172,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ userId }
                                 className="flex-shrink-0 text-cyan-400 hover:text-cyan-300 text-xs flex items-center gap-1"
                               >
                                 <Check className="h-3 w-3" />
-                                Okundu
+                                Mark as read
                               </button>
                             )}
                           </div>
@@ -187,7 +187,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ userId }
                               {notification.email_sent && (
                                 <span className="flex items-center gap-1">
                                   <Mail className="h-3 w-3" />
-                                  E-posta
+                                  Email
                                 </span>
                               )}
                               {notification.sms_sent && (

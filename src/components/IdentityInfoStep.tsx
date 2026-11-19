@@ -24,23 +24,23 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
     const newErrors: Partial<IdentityInfo> = {};
 
     if (!data.idNumber.trim()) {
-      newErrors.idNumber = 'Kimlik numarası gereklidir';
+      newErrors.idNumber = 'ID number is required';
     } else if (data.idType === 'tc' && !/^\d{11}$/.test(data.idNumber)) {
-      newErrors.idNumber = 'T.C. Kimlik numarası 11 haneli olmalıdır';
+      newErrors.idNumber = 'National ID number must be 11 digits';
     }
 
     if (!data.issueDate) {
-      newErrors.issueDate = 'Veriliş tarihi gereklidir';
+      newErrors.issueDate = 'Issue date is required';
     }
 
     if (!data.expiryDate) {
-      newErrors.expiryDate = 'Son geçerlilik tarihi gereklidir';
+      newErrors.expiryDate = 'Expiry date is required';
     } else if (new Date(data.expiryDate) < new Date()) {
-      newErrors.expiryDate = 'Kimlik belgesi geçerlilik süresi dolmuş';
+      newErrors.expiryDate = 'Identity document has expired';
     }
 
     if (!data.issuingAuthority.trim()) {
-      newErrors.issuingAuthority = 'Veren makam gereklidir';
+      newErrors.issuingAuthority = 'Issuing authority is required';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -63,17 +63,17 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
     <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
       <div className="flex items-center space-x-3 mb-6">
         <CreditCard className="h-6 w-6 text-blue-400" />
-        <h2 className="text-2xl font-bold text-white">Kimlik Bilgileri</h2>
+        <h2 className="text-2xl font-bold text-white">Identity Information</h2>
       </div>
 
       <p className="text-slate-300 mb-6">
-        Kimlik belgenizin bilgilerini eksiksiz ve doğru bir şekilde doldurun.
+        Please fill in your identity document information completely and accurately.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
-            Kimlik Türü
+            Identity Type
           </label>
           <select
             required
@@ -81,15 +81,15 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
             onChange={(e) => handleChange('idType', e.target.value as IdentityInfo['idType'])}
             className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
           >
-            <option value="tc">T.C. Kimlik Kartı</option>
-            <option value="passport">Pasaport</option>
-            <option value="other">Diğer</option>
+            <option value="tc">National ID Card</option>
+            <option value="passport">Passport</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
-            {data.idType === 'tc' ? 'T.C. Kimlik Numarası' : 'Kimlik/Pasaport Numarası'}
+            {data.idType === 'tc' ? 'National ID Number' : 'ID/Passport Number'}
           </label>
           <input
             type={data.idType === 'tc' ? 'text' : 'text'}
@@ -99,7 +99,7 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
             className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white ${
               errors.idNumber ? 'border-red-500' : 'border-slate-600'
             }`}
-            placeholder={data.idType === 'tc' ? '12345678901' : 'Kimlik numarası'}
+            placeholder={data.idType === 'tc' ? '12345678901' : 'ID number'}
             maxLength={data.idType === 'tc' ? 11 : undefined}
           />
           {errors.idNumber && <p className="text-red-400 text-sm mt-1">{errors.idNumber}</p>}
@@ -109,7 +109,7 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Calendar className="inline h-4 w-4 mr-1" />
-              Veriliş Tarihi
+              Issue Date
             </label>
             <input
               type="date"
@@ -127,7 +127,7 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Calendar className="inline h-4 w-4 mr-1" />
-              Son Geçerlilik Tarihi
+              Expiry Date
             </label>
             <input
               type="date"
@@ -146,7 +146,7 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             <Building className="inline h-4 w-4 mr-1" />
-            Veren Makam
+            Issuing Authority
           </label>
           <input
             type="text"
@@ -156,7 +156,7 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
             className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white ${
               errors.issuingAuthority ? 'border-red-500' : 'border-slate-600'
             }`}
-            placeholder="Örn: İstanbul Valiliği"
+            placeholder="E.g.: Istanbul Governor's Office"
           />
           {errors.issuingAuthority && <p className="text-red-400 text-sm mt-1">{errors.issuingAuthority}</p>}
         </div>
@@ -168,14 +168,14 @@ export const IdentityInfoStep: React.FC<IdentityInfoStepProps> = ({
             className="bg-slate-600 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2"
           >
             <ArrowLeft className="h-5 w-5" />
-            <span>Geri</span>
+            <span>Back</span>
           </button>
 
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors flex items-center space-x-2"
           >
-            <span>Devam Et</span>
+            <span>Continue</span>
             <ArrowRight className="h-5 w-5" />
           </button>
         </div>

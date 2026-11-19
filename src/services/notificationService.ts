@@ -12,26 +12,26 @@ export interface NotificationData {
 
 export const notificationService = {
   async sendRegistrationNotification(email: string, phone: string, fullName: string) {
-    const message = `Merhaba ${fullName},\n\nDigiGuard'a hoş geldiniz! Hesabınız başarıyla oluşturuldu.\n\nE-posta: ${email}\nTelefon: ${phone}\n\nGüvenli dijital kimlik yolculuğunuz başladı.`;
+    const message = `Hello ${fullName},\n\nWelcome to DigiGuard! Your account has been successfully created.\n\nEmail: ${email}\nPhone: ${phone}\n\nYour secure digital identity journey has begun.`;
 
     return this.createNotification({
       userId: '',
       type: 'both',
       category: 'registration',
-      subject: 'DigiGuard Hesabınız Oluşturuldu',
+      subject: 'Your DigiGuard Account Has Been Created',
       message,
       metadata: { email, phone, fullName }
     });
   },
 
   async sendLoginNotification(userId: string, email: string, ipAddress?: string) {
-    const message = `Merhaba,\n\nHesabınıza ${new Date().toLocaleString('tr-TR')} tarihinde giriş yapıldı.\n\nIP Adresi: ${ipAddress || 'Bilinmiyor'}\n\nBu siz değilseniz, lütfen hemen şifrenizi değiştirin.`;
+    const message = `Hello,\n\nA login to your account occurred on ${new Date().toLocaleString('en-US')}.\n\nIP Address: ${ipAddress || 'Unknown'}\n\nIf this was not you, please change your password immediately.`;
 
     return this.createNotification({
       userId,
       type: 'both',
       category: 'login',
-      subject: 'Hesabınıza Giriş Yapıldı',
+      subject: 'Login Detected on Your Account',
       message,
       metadata: { email, ipAddress, timestamp: new Date().toISOString() }
     });
@@ -44,13 +44,13 @@ export const notificationService = {
     paymentMethod: string,
     receiptUrl?: string
   ) {
-    const message = `Ödeme Onayı\n\nÖdemeniz başarıyla alındı.\n\nTutar: ${amount} ${currency}\nÖdeme Yöntemi: ${paymentMethod}\nTarih: ${new Date().toLocaleString('tr-TR')}\n\n${receiptUrl ? `Fatura: ${receiptUrl}` : ''}`;
+    const message = `Payment Confirmation\n\nYour payment has been successfully received.\n\nAmount: ${amount} ${currency}\nPayment Method: ${paymentMethod}\nDate: ${new Date().toLocaleString('en-US')}\n\n${receiptUrl ? `Receipt: ${receiptUrl}` : ''}`;
 
     return this.createNotification({
       userId,
       type: 'both',
       category: 'payment',
-      subject: 'Ödemeniz Alındı',
+      subject: 'Payment Received',
       message,
       metadata: { amount, currency, paymentMethod, receiptUrl }
     });
@@ -64,26 +64,26 @@ export const notificationService = {
     dueDate: Date,
     pdfUrl?: string
   ) {
-    const message = `Fatura Bildirimi\n\nFatura No: ${invoiceNumber}\nTutar: ${amount} ${currency}\nSon Ödeme Tarihi: ${dueDate.toLocaleDateString('tr-TR')}\n\n${pdfUrl ? `Fatura PDF: ${pdfUrl}` : 'Faturanızı kontrol panelinizden indirebilirsiniz.'}`;
+    const message = `Invoice Notification\n\nInvoice No: ${invoiceNumber}\nAmount: ${amount} ${currency}\nDue Date: ${dueDate.toLocaleDateString('en-US')}\n\n${pdfUrl ? `Invoice PDF: ${pdfUrl}` : 'You can download your invoice from your dashboard.'}`;
 
     return this.createNotification({
       userId,
       type: 'both',
       category: 'invoice',
-      subject: `Fatura - ${invoiceNumber}`,
+      subject: `Invoice - ${invoiceNumber}`,
       message,
       metadata: { invoiceNumber, amount, currency, dueDate, pdfUrl }
     });
   },
 
   async sendSecurityAlert(userId: string, alertType: string, details: string) {
-    const message = `Güvenlik Uyarısı\n\nTür: ${alertType}\n\n${details}\n\nBu işlemi siz yapmadıysanız, lütfen hesabınızı güvence altına alın.`;
+    const message = `Security Alert\n\nType: ${alertType}\n\n${details}\n\nIf you did not initiate this action, please secure your account immediately.`;
 
     return this.createNotification({
       userId,
       type: 'both',
       category: 'security',
-      subject: 'Güvenlik Uyarısı',
+      subject: 'Security Alert',
       message,
       metadata: { alertType, details, timestamp: new Date().toISOString() }
     });

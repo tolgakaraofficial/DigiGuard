@@ -21,55 +21,55 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
     const newErrors: Partial<PersonalInfo> = {};
 
     if (!data.firstName.trim()) {
-      newErrors.firstName = 'Ad gereklidir';
+      newErrors.firstName = 'First name is required';
     } else if (data.firstName.trim().length < 2) {
-      newErrors.firstName = 'Ad en az 2 karakter olmalıdır';
+      newErrors.firstName = 'First name must be at least 2 characters';
     }
 
     if (!data.lastName.trim()) {
-      newErrors.lastName = 'Soyad gereklidir';
+      newErrors.lastName = 'Last name is required';
     } else if (data.lastName.trim().length < 2) {
-      newErrors.lastName = 'Soyad en az 2 karakter olmalıdır';
+      newErrors.lastName = 'Last name must be at least 2 characters';
     }
 
     if (!data.birthDate) {
-      newErrors.birthDate = 'Doğum tarihi gereklidir';
+      newErrors.birthDate = 'Date of birth is required';
     } else {
       const birthYear = new Date(data.birthDate).getFullYear();
       const currentYear = new Date().getFullYear();
       if (currentYear - birthYear < 18) {
-        newErrors.birthDate = '18 yaşından küçük olamazsınız';
+        newErrors.birthDate = 'You must be at least 18 years old';
       } else if (currentYear - birthYear > 100) {
-        newErrors.birthDate = 'Geçerli bir doğum tarihi girin';
+        newErrors.birthDate = 'Please enter a valid date of birth';
       }
     }
 
     if (!data.nationality) {
-      newErrors.nationality = 'Uyruk seçimi gereklidir';
+      newErrors.nationality = 'Nationality selection is required';
     }
 
     if (!data.address.trim()) {
-      newErrors.address = 'Adres gereklidir';
+      newErrors.address = 'Address is required';
     } else if (data.address.trim().length < 10) {
-      newErrors.address = 'Adres en az 10 karakter olmalıdır';
+      newErrors.address = 'Address must be at least 10 characters';
     }
 
     if (!data.city.trim()) {
-      newErrors.city = 'Şehir gereklidir';
+      newErrors.city = 'City is required';
     }
 
     if (!data.postalCode.trim()) {
-      newErrors.postalCode = 'Posta kodu gereklidir';
+      newErrors.postalCode = 'Postal code is required';
     } else if (!/^\d{5}$/.test(data.postalCode)) {
-      newErrors.postalCode = 'Posta kodu 5 haneli olmalıdır';
+      newErrors.postalCode = 'Postal code must be 5 digits';
     }
 
     if (data.phone && !/^[0-9]{10,11}$/.test(data.phone.replace(/\s/g, ''))) {
-      newErrors.phone = 'Geçerli bir telefon numarası girin';
+      newErrors.phone = 'Please enter a valid phone number';
     }
 
     if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      newErrors.email = 'Geçerli bir e-posta adresi girin';
+      newErrors.email = 'Please enter a valid email address';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -109,11 +109,11 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
     <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
       <div className="flex items-center space-x-3 mb-6">
         <User className="h-6 w-6 text-cyber-400" />
-        <h2 className="text-2xl font-bold text-white">Bireysel Kayıt - Kişisel Bilgiler</h2>
+        <h2 className="text-2xl font-bold text-white">Individual Registration - Personal Information</h2>
       </div>
 
       <p className="text-slate-300 mb-6">
-        Kimlik doğrulama için kişisel bilgilerinizi eksiksiz ve doğru bir şekilde doldurun.
+        Please fill in your personal information completely and accurately for identity verification.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -121,7 +121,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <User className="inline h-4 w-4 mr-1" />
-              Ad *
+              First Name *
             </label>
             <input
               type="text"
@@ -131,7 +131,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
               className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white ${
                 errors.firstName ? 'border-red-500' : 'border-slate-600'
               }`}
-              placeholder="Adınız"
+              placeholder="Your first name"
             />
             {errors.firstName && <p className="text-red-400 text-sm mt-1">{errors.firstName}</p>}
           </div>
@@ -139,7 +139,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <User className="inline h-4 w-4 mr-1" />
-              Soyad *
+              Last Name *
             </label>
             <input
               type="text"
@@ -149,7 +149,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
               className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white ${
                 errors.lastName ? 'border-red-500' : 'border-slate-600'
               }`}
-              placeholder="Soyadınız"
+              placeholder="Your last name"
             />
             {errors.lastName && <p className="text-red-400 text-sm mt-1">{errors.lastName}</p>}
           </div>
@@ -157,7 +157,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Calendar className="inline h-4 w-4 mr-1" />
-              Doğum Tarihi *
+              Date of Birth *
             </label>
             <input
               type="date"
@@ -175,7 +175,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Globe className="inline h-4 w-4 mr-1" />
-              Uyruk *
+              Nationality *
             </label>
             <select
               required
@@ -185,17 +185,17 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 errors.nationality ? 'border-red-500' : 'border-slate-600'
               }`}
             >
-              <option value="">Seçiniz</option>
-              <option value="TR">Türkiye Cumhuriyeti</option>
-              <option value="US">Amerika Birleşik Devletleri</option>
-              <option value="DE">Almanya</option>
-              <option value="FR">Fransa</option>
-              <option value="UK">Birleşik Krallık</option>
-              <option value="NL">Hollanda</option>
-              <option value="BE">Belçika</option>
-              <option value="AT">Avusturya</option>
-              <option value="CH">İsviçre</option>
-              <option value="other">Diğer</option>
+              <option value="">Select</option>
+              <option value="TR">Republic of Turkey</option>
+              <option value="US">United States</option>
+              <option value="DE">Germany</option>
+              <option value="FR">France</option>
+              <option value="UK">United Kingdom</option>
+              <option value="NL">Netherlands</option>
+              <option value="BE">Belgium</option>
+              <option value="AT">Austria</option>
+              <option value="CH">Switzerland</option>
+              <option value="other">Other</option>
             </select>
             {errors.nationality && <p className="text-red-400 text-sm mt-1">{errors.nationality}</p>}
           </div>
@@ -203,7 +203,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Phone className="inline h-4 w-4 mr-1" />
-              Telefon
+              Phone
             </label>
             <input
               type="tel"
@@ -220,7 +220,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
               <Mail className="inline h-4 w-4 mr-1" />
-              E-posta
+              Email
             </label>
             <input
               type="email"
@@ -229,7 +229,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
               className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white ${
                 errors.email ? 'border-red-500' : 'border-slate-600'
               }`}
-              placeholder="ornek@email.com"
+              placeholder="example@email.com"
             />
             {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
           </div>
@@ -238,7 +238,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             <MapPin className="inline h-4 w-4 mr-1" />
-            Adres *
+            Address *
           </label>
           <textarea
             required
@@ -248,7 +248,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
             className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white resize-none ${
               errors.address ? 'border-red-500' : 'border-slate-600'
             }`}
-            placeholder="Tam adresinizi girin"
+            placeholder="Enter your full address"
           />
           {errors.address && <p className="text-red-400 text-sm mt-1">{errors.address}</p>}
         </div>
@@ -256,7 +256,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Şehir *
+              City *
             </label>
             <select
               required
@@ -266,7 +266,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 errors.city ? 'border-red-500' : 'border-slate-600'
               }`}
             >
-              <option value="">Şehir seçiniz</option>
+              <option value="">Select city</option>
               {turkishCities.map(city => (
                 <option key={city} value={city}>{city}</option>
               ))}
@@ -276,7 +276,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
 
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-2">
-              Posta Kodu *
+              Postal Code *
             </label>
             <input
               type="text"
@@ -297,7 +297,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
         <div className="border-t border-slate-700 pt-6">
           <label className="block text-sm font-medium text-slate-300 mb-4 flex items-center">
             <Share2 className="inline h-4 w-4 mr-1 text-cyber-400" />
-            Sosyal Medya Linkleri (Opsiyonel)
+            Social Media Links (Optional)
           </label>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div>
@@ -309,7 +309,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 value={data.socialLinks?.twitter || ''}
                 onChange={(e) => handleSocialChange('twitter', e.target.value)}
                 className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
-                placeholder='@kullanici'
+                placeholder='@username'
               />
             </div>
             <div>
@@ -321,7 +321,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 value={data.socialLinks?.linkedin || ''}
                 onChange={(e) => handleSocialChange('linkedin', e.target.value)}
                 className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
-                placeholder='linkedin.com/in/kullanici'
+                placeholder='linkedin.com/in/username'
               />
             </div>
             <div>
@@ -333,7 +333,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 value={data.socialLinks?.instagram || ''}
                 onChange={(e) => handleSocialChange('instagram', e.target.value)}
                 className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
-                placeholder='@kullanici'
+                placeholder='@username'
               />
             </div>
             <div>
@@ -345,7 +345,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 value={data.socialLinks?.facebook || ''}
                 onChange={(e) => handleSocialChange('facebook', e.target.value)}
                 className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
-                placeholder='facebook.com/kullanici'
+                placeholder='facebook.com/username'
               />
             </div>
             <div>
@@ -357,7 +357,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 value={data.socialLinks?.youtube || ''}
                 onChange={(e) => handleSocialChange('youtube', e.target.value)}
                 className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
-                placeholder='youtube.com/@kanal'
+                placeholder='youtube.com/@channel'
               />
             </div>
             <div>
@@ -369,19 +369,19 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
                 value={data.socialLinks?.telegram || ''}
                 onChange={(e) => handleSocialChange('telegram', e.target.value)}
                 className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
-                placeholder='@kullanici'
+                placeholder='@username'
               />
             </div>
             <div className='md:col-span-2'>
               <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
-                <Link className='h-3 w-3' /> Web Sitesi
+                <Link className='h-3 w-3' /> Website
               </label>
               <input
                 type='text'
                 value={data.socialLinks?.website || ''}
                 onChange={(e) => handleSocialChange('website', e.target.value)}
                 className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyber-500 focus:border-transparent text-white text-sm'
-                placeholder='https://www.siteadi.com'
+                placeholder='https://www.yoursite.com'
               />
             </div>
           </div>
@@ -392,7 +392,7 @@ export const IndividualPersonalInfoStep: React.FC<IndividualPersonalInfoStepProp
             type="submit"
             className="bg-gradient-to-r from-cyber-600 to-matrix-600 hover:from-cyber-700 hover:to-matrix-700 text-white font-medium py-3 px-8 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-cyber-500/30"
           >
-            <span>Devam Et</span>
+            <span>Continue</span>
             <ArrowRight className="h-5 w-5" />
           </button>
         </div>

@@ -76,16 +76,16 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
     if (!userType) return [];
     if (userType === 'individual') {
       return [
-        { number: 1, title: 'Kişisel Bilgiler', completed: currentStep > 1 },
-        { number: 2, title: 'Kimlik Bilgileri', completed: currentStep > 2 },
-        { number: 3, title: 'Medya Dosyaları', completed: currentStep > 3 },
-        { number: 4, title: 'Ghost ID / Tamamlandı', completed: currentStep > 4 },
+        { number: 1, title: 'Personal Information', completed: currentStep > 1 },
+        { number: 2, title: 'Identity Information', completed: currentStep > 2 },
+        { number: 3, title: 'Media Files', completed: currentStep > 3 },
+        { number: 4, title: 'Ghost ID / Complete', completed: currentStep > 4 },
       ];
     } else {
       return [
-        { number: 1, title: 'Şirket Bilgileri', completed: currentStep > 1 },
-        { number: 2, title: 'Medya Dosyaları', completed: currentStep > 2 },
-        { number: 3, title: 'Ghost ID / Tamamlandı', completed: currentStep > 3 },
+        { number: 1, title: 'Company Information', completed: currentStep > 1 },
+        { number: 2, title: 'Media Files', completed: currentStep > 2 },
+        { number: 3, title: 'Ghost ID / Complete', completed: currentStep > 3 },
       ];
     }
   };
@@ -96,9 +96,9 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
     if (currentStep === 0) {
       return (
         <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
-          <h2 className="text-2xl font-bold text-white mb-4 text-center">Kayıt Türü Seçin</h2>
+          <h2 className="text-2xl font-bold text-white mb-4 text-center">Select Registration Type</h2>
           <p className="text-slate-300 mb-8 text-center">
-            Bireysel veya kurumsal kayıt yapmak istediğinizi seçin
+            Choose whether you want to register as an individual or corporation
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -113,12 +113,12 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
                 <div className="p-4 bg-gradient-to-br from-cyber-600 to-matrix-600 rounded-full">
                   <User className="h-12 w-12 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white">Bireysel Kayıt</h3>
+                <h3 className="text-xl font-bold text-white">Individual Registration</h3>
                 <p className="text-slate-300 text-sm text-center">
-                  Şahsi kimlik bilgileriniz ile kayıt oluşturun
+                  Create an account with your personal identity information
                 </p>
                 <div className="mt-4 text-cyber-400 font-medium flex items-center space-x-2">
-                  <span>Devam Et</span>
+                  <span>Continue</span>
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
@@ -135,12 +135,12 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
                 <div className="p-4 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full">
                   <Building2 className="h-12 w-12 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white">Kurumsal Kayıt</h3>
+                <h3 className="text-xl font-bold text-white">Corporate Registration</h3>
                 <p className="text-slate-300 text-sm text-center">
-                  Şirket bilgileriniz ile kayıt oluşturun
+                  Create an account with your company information
                 </p>
                 <div className="mt-4 text-purple-400 font-medium flex items-center space-x-2">
-                  <span>Devam Et</span>
+                  <span>Continue</span>
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
@@ -185,7 +185,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
               <div className="mb-6 p-4 rounded-xl border" style={{ background: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.3)' }}>
                 <div className="flex items-center gap-2 mb-3">
                   <Ghost className="h-5 w-5" style={{ color: '#a855f7' }} />
-                  <h3 className="text-sm font-bold text-white">Ghost ID / SPON Ataması</h3>
+                  <h3 className="text-sm font-bold text-white">Ghost ID / SPON Assignment</h3>
                   <CheckCircle className="h-4 w-4" style={{ color: '#39ff14' }} />
                 </div>
                 <div className="space-y-2">
@@ -200,7 +200,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
                     <span className="text-[10px] font-mono" style={{ color: '#00e5ff' }}>{sponHash}</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-2">Ghost ID kimliğiniz anonim olarak oluşturuldu. PII verileri ifşa edilmez.</p>
+                <p className="text-[10px] text-slate-500 mt-2">Your Ghost ID has been anonymously generated. PII data is never exposed.</p>
               </div>
 
               <RegistrationComplete
@@ -240,7 +240,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
               <div className="mb-6 p-4 rounded-xl border" style={{ background: 'rgba(168,85,247,0.08)', borderColor: 'rgba(168,85,247,0.3)' }}>
                 <div className="flex items-center gap-2 mb-3">
                   <Ghost className="h-5 w-5" style={{ color: '#a855f7' }} />
-                  <h3 className="text-sm font-bold text-white">Kurumsal Ghost ID / SPON Ataması</h3>
+                  <h3 className="text-sm font-bold text-white">Corporate Ghost ID / SPON Assignment</h3>
                   <CheckCircle className="h-4 w-4" style={{ color: '#39ff14' }} />
                 </div>
                 <div className="space-y-2">
@@ -255,7 +255,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({ onComplete }
                     <span className="text-[10px] font-mono" style={{ color: '#00e5ff' }}>{sponHash}</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-2">Kurumsal Ghost ID oluşturuldu. Şirket kimliği anonim olarak doğrulanacaktır.</p>
+                <p className="text-[10px] text-slate-500 mt-2">Corporate Ghost ID generated. Company identity will be verified anonymously.</p>
               </div>
 
               <RegistrationComplete

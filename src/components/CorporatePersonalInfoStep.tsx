@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Building2, Calendar, MapPin, User, Phone, Mail, Globe, Award, Users, Briefcase } from 'lucide-react';
+import { ArrowRight, Building2, Calendar, MapPin, User, Phone, Mail, Globe, Award, Users, Briefcase, Link, Share2, Twitter, Linkedin, Instagram, Facebook, Youtube, Send } from 'lucide-react';
 import { CorporateInfo } from '../types';
 
 interface CorporatePersonalInfoStepProps {
@@ -14,6 +14,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
   onNext,
 }) => {
   const [errors, setErrors] = useState<Partial<CorporateInfo>>({});
+  const [socialLinks, setSocialLinks] = useState(data.socialLinks || {});
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,59 +22,59 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
     const newErrors: Partial<CorporateInfo> = {};
 
     if (!data.companyName.trim() || data.companyName.trim().length < 2) {
-      newErrors.companyName = 'Şirket adı en az 2 karakter olmalıdır';
+      newErrors.companyName = 'Company name must be at least 2 characters';
     }
 
     if (!data.companyType) {
-      newErrors.companyType = 'Şirket türü seçimi gereklidir';
+      newErrors.companyType = 'Company type selection is required';
     }
 
     if (!data.taxNumber.trim() || !/^\d{10}$/.test(data.taxNumber)) {
-      newErrors.taxNumber = 'Vergi numarası 10 haneli olmalıdır';
+      newErrors.taxNumber = 'Tax number must be 10 digits';
     }
 
     if (!data.companyAddress.trim() || data.companyAddress.trim().length < 10) {
-      newErrors.companyAddress = 'Şirket adresi en az 10 karakter olmalıdır';
+      newErrors.companyAddress = 'Company address must be at least 10 characters';
     }
 
     if (!data.companyCity.trim()) {
-      newErrors.companyCity = 'Şehir gereklidir';
+      newErrors.companyCity = 'City is required';
     }
 
     if (!data.companyPostalCode.trim() || !/^\d{5}$/.test(data.companyPostalCode)) {
-      newErrors.companyPostalCode = 'Posta kodu 5 haneli olmalıdır';
+      newErrors.companyPostalCode = 'Postal code must be 5 digits';
     }
 
     if (!data.authorizedPersonFirstName.trim() || data.authorizedPersonFirstName.trim().length < 2) {
-      newErrors.authorizedPersonFirstName = 'Yetkili kişi adı en az 2 karakter olmalıdır';
+      newErrors.authorizedPersonFirstName = 'Authorized person first name must be at least 2 characters';
     }
 
     if (!data.authorizedPersonLastName.trim() || data.authorizedPersonLastName.trim().length < 2) {
-      newErrors.authorizedPersonLastName = 'Yetkili kişi soyadı en az 2 karakter olmalıdır';
+      newErrors.authorizedPersonLastName = 'Authorized person last name must be at least 2 characters';
     }
 
     if (!data.authorizedPersonTitle.trim()) {
-      newErrors.authorizedPersonTitle = 'Yetkili kişi ünvanı gereklidir';
+      newErrors.authorizedPersonTitle = 'Authorized person title is required';
     }
 
     if (!data.authorizedPersonIdNumber.trim() || !/^\d{11}$/.test(data.authorizedPersonIdNumber)) {
-      newErrors.authorizedPersonIdNumber = 'T.C. Kimlik numarası 11 haneli olmalıdır';
+      newErrors.authorizedPersonIdNumber = 'ID number must be 11 digits';
     }
 
     if (!data.authorizedPersonPhone.trim() || !/^[0-9]{10,11}$/.test(data.authorizedPersonPhone.replace(/\s/g, ''))) {
-      newErrors.authorizedPersonPhone = 'Geçerli bir telefon numarası girin';
+      newErrors.authorizedPersonPhone = 'Please enter a valid phone number';
     }
 
     if (!data.authorizedPersonEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.authorizedPersonEmail)) {
-      newErrors.authorizedPersonEmail = 'Geçerli bir e-posta adresi girin';
+      newErrors.authorizedPersonEmail = 'Please enter a valid email address';
     }
 
     if (data.companyPhone && !/^[0-9]{10,11}$/.test(data.companyPhone.replace(/\s/g, ''))) {
-      newErrors.companyPhone = 'Geçerli bir telefon numarası girin';
+      newErrors.companyPhone = 'Please enter a valid phone number';
     }
 
     if (data.companyEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.companyEmail)) {
-      newErrors.companyEmail = 'Geçerli bir e-posta adresi girin';
+      newErrors.companyEmail = 'Please enter a valid email address';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -90,6 +91,12 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
     if (errors[field]) {
       setErrors((prev: Partial<CorporateInfo>) => ({ ...prev, [field]: undefined }));
     }
+  };
+
+  const handleSocialChange = (field: string, value: string) => {
+    const updatedLinks = { ...socialLinks, [field]: value };
+    setSocialLinks(updatedLinks);
+    onChange({ ...data, socialLinks: updatedLinks });
   };
 
   const turkishCities = [
@@ -109,18 +116,18 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
     <div className="bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
       <div className="flex items-center space-x-3 mb-6">
         <Building2 className="h-6 w-6 text-purple-400" />
-        <h2 className="text-2xl font-bold text-white">Kurumsal Kayıt - Şirket Bilgileri</h2>
+        <h2 className="text-2xl font-bold text-white">Corporate Registration - Company Information</h2>
       </div>
 
       <p className="text-slate-300 mb-6">
-        Şirket ve yetkili kişi bilgilerini eksiksiz ve doğru bir şekilde doldurun.
+        Please fill in company and authorized person information completely and accurately.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         <div className="bg-slate-700/30 rounded-lg p-6 border border-purple-500/20">
           <h3 className="text-lg font-semibold text-purple-400 mb-4 flex items-center">
             <Building2 className="h-5 w-5 mr-2" />
-            Şirket Bilgileri
+            Company Information
           </h3>
 
           <div className="space-y-6">
@@ -128,7 +135,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Building2 className="inline h-4 w-4 mr-1" />
-                  Şirket Ünvanı *
+                  Company Name *
                 </label>
                 <input
                   type="text"
@@ -138,14 +145,14 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white ${
                     errors.companyName ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="Örn: ABC Teknoloji A.Ş."
+                  placeholder="e.g. ABC Technology Inc."
                 />
                 {errors.companyName && <p className="text-red-400 text-sm mt-1">{errors.companyName}</p>}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Şirket Türü *
+                  Company Type *
                 </label>
                 <select
                   required
@@ -155,14 +162,14 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                     errors.companyType ? 'border-red-500' : 'border-slate-600'
                   }`}
                 >
-                  <option value="">Seçiniz</option>
-                  <option value="limited">Limited Şirket (Ltd. Şti.)</option>
-                  <option value="anonim">Anonim Şirket (A.Ş.)</option>
-                  <option value="sahis">Şahıs Şirketi</option>
-                  <option value="komandit">Komandit Şirket</option>
-                  <option value="kolektif">Kolektif Şirket</option>
-                  <option value="cooperative">Kooperatif</option>
-                  <option value="other">Diğer</option>
+                  <option value="">Select</option>
+                  <option value="limited">Limited Liability Company (LLC)</option>
+                  <option value="anonim">Joint Stock Company (JSC)</option>
+                  <option value="sahis">Sole Proprietorship</option>
+                  <option value="komandit">Limited Partnership</option>
+                  <option value="kolektif">General Partnership</option>
+                  <option value="cooperative">Cooperative</option>
+                  <option value="other">Other</option>
                 </select>
                 {errors.companyType && <p className="text-red-400 text-sm mt-1">{errors.companyType}</p>}
               </div>
@@ -170,7 +177,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Award className="inline h-4 w-4 mr-1" />
-                  Vergi Numarası *
+                  Tax Number *
                 </label>
                 <input
                   type="text"
@@ -180,7 +187,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white ${
                     errors.taxNumber ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="10 haneli vergi numarası"
+                  placeholder="10-digit tax number"
                   maxLength={10}
                 />
                 {errors.taxNumber && <p className="text-red-400 text-sm mt-1">{errors.taxNumber}</p>}
@@ -188,27 +195,27 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Ticaret Sicil Numarası
+                  Trade Registry Number
                 </label>
                 <input
                   type="text"
                   value={data.tradeRegistryNumber}
                   onChange={(e) => handleChange('tradeRegistryNumber', e.target.value)}
                   className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
-                  placeholder="Ticaret sicil numarası"
+                  placeholder="Trade registry number"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
-                  MERSİS Numarası
+                  MERSIS Number
                 </label>
                 <input
                   type="text"
                   value={data.mersisNumber}
                   onChange={(e) => handleChange('mersisNumber', e.target.value)}
                   className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
-                  placeholder="16 haneli MERSİS numarası"
+                  placeholder="16-digit MERSIS number"
                   maxLength={16}
                 />
               </div>
@@ -216,7 +223,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Calendar className="inline h-4 w-4 mr-1" />
-                  Kuruluş Tarihi
+                  Foundation Date
                 </label>
                 <input
                   type="date"
@@ -230,7 +237,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Users className="inline h-4 w-4 mr-1" />
-                  Çalışan Sayısı
+                  Employee Count
                 </label>
                 <select
                   value={data.employeeCount}
@@ -249,35 +256,35 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Briefcase className="inline h-4 w-4 mr-1" />
-                  Sektör
+                  Sector
                 </label>
                 <input
                   type="text"
                   value={data.sector}
                   onChange={(e) => handleChange('sector', e.target.value)}
                   className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
-                  placeholder="Örn: Teknoloji, Finans, Sağlık"
+                  placeholder="e.g. Technology, Finance, Healthcare"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Globe className="inline h-4 w-4 mr-1" />
-                  Web Sitesi
+                  Website
                 </label>
                 <input
                   type="url"
                   value={data.website}
                   onChange={(e) => handleChange('website', e.target.value)}
                   className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white"
-                  placeholder="https://www.sirketadi.com"
+                  placeholder="https://www.company.com"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Phone className="inline h-4 w-4 mr-1" />
-                  Şirket Telefonu
+                  Company Phone
                 </label>
                 <input
                   type="tel"
@@ -294,7 +301,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Mail className="inline h-4 w-4 mr-1" />
-                  Şirket E-postası
+                  Company Email
                 </label>
                 <input
                   type="email"
@@ -303,7 +310,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white ${
                     errors.companyEmail ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="info@sirket.com"
+                  placeholder="info@company.com"
                 />
                 {errors.companyEmail && <p className="text-red-400 text-sm mt-1">{errors.companyEmail}</p>}
               </div>
@@ -312,7 +319,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">
                 <MapPin className="inline h-4 w-4 mr-1" />
-                Şirket Adresi *
+                Company Address *
               </label>
               <textarea
                 required
@@ -322,7 +329,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                 className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white resize-none ${
                   errors.companyAddress ? 'border-red-500' : 'border-slate-600'
                 }`}
-                placeholder="Şirket adresini girin"
+                placeholder="Enter company address"
               />
               {errors.companyAddress && <p className="text-red-400 text-sm mt-1">{errors.companyAddress}</p>}
             </div>
@@ -330,7 +337,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Şehir *
+                  City *
                 </label>
                 <select
                   required
@@ -340,7 +347,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                     errors.companyCity ? 'border-red-500' : 'border-slate-600'
                   }`}
                 >
-                  <option value="">Şehir seçiniz</option>
+                  <option value="">Select city</option>
                   {turkishCities.map(city => (
                     <option key={city} value={city}>{city}</option>
                   ))}
@@ -350,7 +357,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Posta Kodu *
+                  Postal Code *
                 </label>
                 <input
                   type="text"
@@ -372,7 +379,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
         <div className="bg-slate-700/30 rounded-lg p-6 border border-cyan-500/20">
           <h3 className="text-lg font-semibold text-cyan-400 mb-4 flex items-center">
             <User className="h-5 w-5 mr-2" />
-            Yetkili Kişi Bilgileri
+            Authorized Person Information
           </h3>
 
           <div className="space-y-6">
@@ -380,7 +387,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <User className="inline h-4 w-4 mr-1" />
-                  Ad *
+                  First Name *
                 </label>
                 <input
                   type="text"
@@ -390,7 +397,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white ${
                     errors.authorizedPersonFirstName ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="Yetkili kişi adı"
+                  placeholder="Authorized person first name"
                 />
                 {errors.authorizedPersonFirstName && <p className="text-red-400 text-sm mt-1">{errors.authorizedPersonFirstName}</p>}
               </div>
@@ -398,7 +405,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <User className="inline h-4 w-4 mr-1" />
-                  Soyad *
+                  Last Name *
                 </label>
                 <input
                   type="text"
@@ -408,14 +415,14 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white ${
                     errors.authorizedPersonLastName ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="Yetkili kişi soyadı"
+                  placeholder="Authorized person last name"
                 />
                 {errors.authorizedPersonLastName && <p className="text-red-400 text-sm mt-1">{errors.authorizedPersonLastName}</p>}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Ünvan *
+                  Title *
                 </label>
                 <input
                   type="text"
@@ -425,14 +432,14 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white ${
                     errors.authorizedPersonTitle ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="Örn: Genel Müdür, Yönetim Kurulu Başkanı"
+                  placeholder="e.g. CEO, Board Chairman"
                 />
                 {errors.authorizedPersonTitle && <p className="text-red-400 text-sm mt-1">{errors.authorizedPersonTitle}</p>}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
-                  T.C. Kimlik No *
+                  ID Number *
                 </label>
                 <input
                   type="text"
@@ -442,7 +449,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white ${
                     errors.authorizedPersonIdNumber ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="11 haneli T.C. kimlik no"
+                  placeholder="11-digit ID number"
                   maxLength={11}
                 />
                 {errors.authorizedPersonIdNumber && <p className="text-red-400 text-sm mt-1">{errors.authorizedPersonIdNumber}</p>}
@@ -451,7 +458,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Phone className="inline h-4 w-4 mr-1" />
-                  Telefon *
+                  Phone *
                 </label>
                 <input
                   type="tel"
@@ -469,7 +476,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">
                   <Mail className="inline h-4 w-4 mr-1" />
-                  E-posta *
+                  Email *
                 </label>
                 <input
                   type="email"
@@ -479,7 +486,7 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
                   className={`w-full px-4 py-3 bg-slate-700 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent text-white ${
                     errors.authorizedPersonEmail ? 'border-red-500' : 'border-slate-600'
                   }`}
-                  placeholder="yetkili@sirket.com"
+                  placeholder="authorized@company.com"
                 />
                 {errors.authorizedPersonEmail && <p className="text-red-400 text-sm mt-1">{errors.authorizedPersonEmail}</p>}
               </div>
@@ -487,12 +494,113 @@ export const CorporatePersonalInfoStep: React.FC<CorporatePersonalInfoStepProps>
           </div>
         </div>
 
+        {/* Social Media Links */}
+        <div className="bg-slate-700/30 rounded-lg p-6 border border-pink-500/20">
+          <h3 className="text-lg font-semibold text-pink-400 mb-4 flex items-center">
+            <Share2 className="h-5 w-5 mr-2" />
+            Social Media Links (Optional)
+          </h3>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Twitter className='h-3 w-3' /> Twitter/X
+              </label>
+              <input
+                type='text'
+                value={socialLinks.twitter || ''}
+                onChange={(e) => handleSocialChange('twitter', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white text-sm'
+                placeholder='@username'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Linkedin className='h-3 w-3' /> LinkedIn
+              </label>
+              <input
+                type='text'
+                value={socialLinks.linkedin || ''}
+                onChange={(e) => handleSocialChange('linkedin', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white text-sm'
+                placeholder='linkedin.com/in/username'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Instagram className='h-3 w-3' /> Instagram
+              </label>
+              <input
+                type='text'
+                value={socialLinks.instagram || ''}
+                onChange={(e) => handleSocialChange('instagram', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white text-sm'
+                placeholder='@username'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Facebook className='h-3 w-3' /> Facebook
+              </label>
+              <input
+                type='text'
+                value={socialLinks.facebook || ''}
+                onChange={(e) => handleSocialChange('facebook', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white text-sm'
+                placeholder='facebook.com/username'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Youtube className='h-3 w-3' /> YouTube
+              </label>
+              <input
+                type='text'
+                value={socialLinks.youtube || ''}
+                onChange={(e) => handleSocialChange('youtube', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white text-sm'
+                placeholder='youtube.com/@channel'
+              />
+            </div>
+            <div>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Send className='h-3 w-3' /> Telegram
+              </label>
+              <input
+                type='text'
+                value={socialLinks.telegram || ''}
+                onChange={(e) => handleSocialChange('telegram', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white text-sm'
+                placeholder='@username'
+              />
+            </div>
+            <div className='md:col-span-2'>
+              <label className='block text-xs text-slate-400 mb-1.5 flex items-center gap-1'>
+                <Link className='h-3 w-3' /> Website
+              </label>
+              <input
+                type='text'
+                value={socialLinks.website || ''}
+                onChange={(e) => handleSocialChange('website', e.target.value)}
+                className='w-full px-4 py-2.5 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white text-sm'
+                placeholder='https://www.company.com'
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            className="mt-4 text-sm text-pink-400 hover:text-pink-300 flex items-center gap-1"
+          >
+            <Share2 className="h-4 w-4" />
+            Add More
+          </button>
+        </div>
+
         <div className="flex justify-end pt-4">
           <button
             type="submit"
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-3 px-8 rounded-lg transition-all flex items-center space-x-2 shadow-lg shadow-purple-500/30"
           >
-            <span>Devam Et</span>
+            <span>Continue</span>
             <ArrowRight className="h-5 w-5" />
           </button>
         </div>

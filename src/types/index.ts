@@ -96,6 +96,7 @@ export interface CorporateInfo {
   employeeCount: string;
   sector: string;
   website: string;
+  socialLinks?: SocialLinks;
 }
 
 export interface IdentityInfo {
